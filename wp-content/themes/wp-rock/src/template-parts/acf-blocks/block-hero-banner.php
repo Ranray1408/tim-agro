@@ -32,7 +32,7 @@ $link = get_field_value($fields, 'link');
             }
 
             if (!empty($link['url']) && !empty($link['title'])) {
-                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies">
+                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies green-transparent">
                             ' . esc_html($link['title']) . '
                         </a>';
             }

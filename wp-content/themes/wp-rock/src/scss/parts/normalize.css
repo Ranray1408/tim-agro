@@ -76,7 +76,6 @@ a {
     color: inherit;
     /* blue colors for links too */
     all: unset;
-    text-decoration: underline;
     cursor: pointer;
 }
 

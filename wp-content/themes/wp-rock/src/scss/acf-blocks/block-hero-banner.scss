@@ -6,20 +6,52 @@
 
     &__img-bg {
         width: 100%;
+        height: 100%;
         position: absolute;
         top: 0;
         left: 0;
+
         &.mob {
             display: none;
         }
     }
 
     &__content {
+        max-width: 724px;
         position: relative;
         padding-top: 288px;
+        padding-bottom: 209px;
+
+        @media screen and (max-width: 670px) {
+            padding-top: 214px;
+            padding-bottom: 577px;
+        }
     }
 
     &__title {
+        margin-bottom: 27px;
 
+        @media screen and (max-width: 768px) {
+            margin-bottom: 19px;
+        }
+    }
+
+    &__subtitle {
+        margin-bottom: 58px;
+        color: #FFF;
+        font-size: 26px;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 18px;
+            margin-bottom: 47px;
+        }
+
+        @media screen and (max-width: 670px) {
+            font-size: 16px;
+        }
     }
 }

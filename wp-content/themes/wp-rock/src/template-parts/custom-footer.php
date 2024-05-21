@@ -20,9 +20,7 @@ $logo = get_field_value($global_options, 'logo');
                     <img src="<?php echo $logo; ?>" alt="foter logo">
                 <?php endif; ?>
             </a>
-
         </div>
-
         <?php
         wp_nav_menu([
             'menu'  => 'Footer menu',
@@ -32,6 +30,6 @@ $logo = get_field_value($global_options, 'logo');
         ])
         ?>
     </div>
-
-
 </footer>
+
+

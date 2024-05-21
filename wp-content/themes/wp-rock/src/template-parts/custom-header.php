@@ -13,11 +13,11 @@ $logo = get_field_value($global_options, 'logo');
 
 <header id="site-header" class="site-header js-site-header">
     <div class="container site-header__container">
-        <a class="site-header__logo" href="<?php echo get_site_url(); ?>">
-            <?php if ($logo) : ?>
+        <?php if ($logo) : ?>
+            <a class="site-header__logo" href="<?php echo get_site_url(); ?>">
                 <img src="<?php echo $logo; ?>" alt="header logo">
-            <?php endif; ?>
-        </a>
+            </a>
+        <?php endif; ?>
 
         <nav class="site-header__menu-wrapper">
             <?php
@@ -26,7 +26,7 @@ $logo = get_field_value($global_options, 'logo');
                 'echo' => true,
                 'container' => false,
                 'menu_class' => 'site-header__menu',
-            ])
+            ]);
             ?>
         </nav>
 
@@ -44,9 +44,11 @@ $logo = get_field_value($global_options, 'logo');
             <span>Вхід</span>
         </button>
 
-        <button class="site-header__hamburger js-open-mobile-menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6H21M3 12H21M3 18H21" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <button data-role="mobile-menu" data class="site-header__hamburger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                <path d="M26.045 3.95454H3.9541V6.40909H26.045V3.95454Z" fill="#25292C" />
+                <path d="M26.045 23.5909H3.9541V26.0455H26.045V23.5909Z" fill="#25292C" />
+                <path d="M26.045 13.7727H3.9541V16.2273H26.045V13.7727Z" fill="#25292C" />
             </svg>
         </button>
     </div>

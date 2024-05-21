@@ -1102,9 +1102,12 @@ function ready() {
     }
     if (!role) return;
     switch (role) {
-      case 'load-more-browse-topic':
+      case 'mobile-menu':
         {
           e.preventDefault();
+          var siteHeader = document.querySelector('.js-site-header');
+          siteHeader && siteHeader.classList.toggle('menu-opened');
+          document.body.classList.toggle('popup-opened');
           break;
         }
       default:
