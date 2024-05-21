@@ -1,0 +1,120 @@
+.section-404 {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    &__content {
+        height: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        max-width: 817px;
+        width: 100%;
+        margin: 0 auto;
+
+    }
+
+    &__big-title {
+        color: #17181A;
+        font-size: 128px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 40px;
+
+        @media screen and (max-width: 1200px) {
+            font-size: 80px;
+        }
+
+        @media screen and (max-width: 991px) {
+            font-size: 50px;
+            margin-bottom: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 40px;
+        }
+    }
+
+    &__title {
+        color: #17181A;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 40px;
+
+        @media screen and (max-width: 1200px) {
+            font-size: 38px;
+        }
+
+        @media screen and (max-width: 991px) {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 24px;
+        }
+    }
+
+    &__description {
+        color: #17181A;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 40px;
+
+        @media screen and (max-width: 1200px) {
+            font-size: 28px;
+        }
+
+        @media screen and (max-width: 991px) {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 20px;
+        }
+
+        @media screen and (max-width: 670px) {
+            font-size: 16px;
+        }
+
+        @media screen and (max-width: 470px) {
+            font-size: 12px;
+        }
+    }
+
+    &__link {
+        margin: 0 auto;
+        text-decoration: none;
+        background-color: #CC7510;
+        border: 1px solid #CC7510;
+        padding: 4px 8px;
+        color: #F3F0EC;
+        font-family: Turbine, sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.2;
+        transition: background-color 0.3s;
+
+        @media screen and (max-width: 670px) {
+            font-size: 13px;
+        }
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+}

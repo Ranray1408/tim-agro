@@ -1,0 +1,25 @@
+.hero-banner {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+
+    &__img-bg {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        &.mob {
+            display: none;
+        }
+    }
+
+    &__content {
+        position: relative;
+        padding-top: 288px;
+    }
+
+    &__title {
+
+    }
+}

@@ -1,0 +1,58 @@
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s;
+    background-color: transparent;
+    padding-top: 43px;
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 160px;
+        width: 100%;
+    }
+
+    &__menu-wrapper {}
+
+    &__menu {
+        padding-left: 0;
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        gap: 55px;
+
+        .menu-item {
+            color: #FFF;
+            font-family: 'Mulish', sans-serif;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.2;
+
+            &:hover,
+            &.current-menu-item {
+                color: #53F07F;
+            }
+        }
+    }
+
+    &__hamburger {
+        display: none;
+    }
+
+    &__login-btn {
+        display: flex;
+        gap: 14px;
+        padding: 13px 24px 13px 20px;
+    }
+}

@@ -1,0 +1,181 @@
+body {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-family: 'Mulish', sans-serif;
+
+    &.popup-opened {
+        overflow: hidden;
+
+        #wrapper {
+            filter: blur(10px);
+        }
+    }
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+svg {
+    pointer-events: none;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#main-wrapper {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.cover-bg {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.responsive-image {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.list-reset {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    transition: color 0.3s, backgroun-color 0.3s, border-color 0.3s;
+}
+
+a {
+    text-decoration: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    transition: color 0.3s, backgroun-color 0.3s, border-color 0.3s;
+}
+
+p {
+    color: #151A1D;
+    font-family: 'Mulish', sans-serif;
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 670px) {
+        font-size: 12px;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+img {
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+iframe {
+    max-width: 100%;
+}
+
+h1 ,
+h2 {
+    color: #FFF;
+    font-family: 'Intro Regular Alt', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 54px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 46px;
+    }
+
+    @media screen and (max-width: 670px) {
+        font-size: 25px;
+    }
+}
+
+h3 {
+    color: #FFF;
+    font-family: 'Intro Regular Alt', sans-serif;
+}
+
+h4 {
+    color: #FFF;
+    font-family: 'Intro Regular Alt', sans-serif;
+}
+
+h5 {
+    color: #FFF;
+    font-family: 'Intro Regular Alt', sans-serif;
+}
+
+textarea,
+.wpcf7-select,
+input[type="text"],
+input[type="tel"],
+input[type="email"] {
+
+    &:focus {
+        outline-color: #151836
+    }
+}
+
+.green-transparent {
+    transition: background-color 0.3s, color 0.3s;
+    padding: 14px 41px;
+    border: 2px solid #53F07F;
+    color: #FFF;
+    font-family: 'Mulish', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    background-color: transparent;
+
+    &:hover {
+        background-color: #53F07F;
+        color: #151A1D;
+
+        svg path{
+            fill: #151A1D;
+        }
+    }
+
+    svg path{
+        transition: fill 0.3s;
+    }
+
+}
