@@ -393,3 +393,8 @@ button {
 input {
     appearance: none;
 }
+
+ul {
+    margin: 0;
+    padding: 0;
+}

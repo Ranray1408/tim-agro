@@ -96,34 +96,9 @@
             "endpoint": 0
         },
         {
-            "key": "field_65e9b4f409a16",
-            "label": "Footer logo",
-            "name": "footer_logo",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "aria-label": "",
-            "return_format": "url",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "preview_size": "medium"
-        },
-        {
             "key": "field_65e9b50309a17",
-            "label": "Social link",
-            "name": "social_link",
+            "label": "Social links",
+            "name": "social_links",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -133,14 +108,11 @@
                 "class": "",
                 "id": ""
             },
-            "aria-label": "",
-            "layout": "table",
-            "pagination": 0,
+            "collapsed": "",
             "min": 0,
             "max": 0,
-            "collapsed": "",
+            "layout": "table",
             "button_label": "Add Row",
-            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_65e9b51509a18",
@@ -369,5 +341,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716215347
+    "modified": 1716302939
 }

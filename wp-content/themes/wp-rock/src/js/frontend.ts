@@ -3,6 +3,7 @@
  */
 import '../scss/frontend.scss';
 import initAccordion from './components/accordion';
+import { hoverClickEvent } from './components/menuActions';
 /**
  * JavaScript
  */
@@ -10,11 +11,26 @@ import Sliders from './components/swiper-init';
 import Popup from './parts/popup-window';
 
 function ready() {
+    const siteHeader = document.querySelector('.js-site-header');
     const popupInstance = new Popup();
     popupInstance.init();
 
+    hoverClickEvent();
+
+    if (window.scrollY > 100) {
+        siteHeader && siteHeader.classList.add('scrolled');
+    } else {
+        siteHeader && siteHeader.classList.remove('scrolled');
+    }
+
     window.document.addEventListener('scroll', () => {
         //Scroll actions
+
+        if (window.scrollY > 100) {
+            siteHeader && siteHeader.classList.add('scrolled');
+        } else {
+            siteHeader && siteHeader.classList.remove('scrolled');
+        }
     });
 
     document.body.addEventListener('click', (e) => {
@@ -32,7 +48,6 @@ function ready() {
         switch (role) {
             case 'mobile-menu': {
                 e.preventDefault();
-                const siteHeader = document.querySelector('.js-site-header');
                 siteHeader && siteHeader.classList.toggle('menu-opened');
                 document.body.classList.toggle('popup-opened');
                 break;

@@ -1,0 +1,83 @@
+.who-benefits {
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    padding: 90px 0 133px;
+    background-color: #F2F3EB;
+
+    @media screen and (max-width: 991px) {
+        padding: 67px 0 212px;
+        background-position: center bottom;
+        background-size: 60%;
+    }
+
+    &__title {
+        color: #151A1D;
+        margin-bottom: 20px;
+    }
+
+    &__content {
+        max-width: 1094px;
+        width: 100%;
+        margin-left: auto;
+    }
+
+    &__subtitle {
+        color: #151A1D;
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 50px;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 18px;
+            margin-bottom: 23px;
+        }
+
+        @media screen and (max-width: 670px) {
+            font-size: 16px;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        gap: 27px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        @media screen and (max-width: 768px) {
+            align-items: flex-start;
+        }
+
+        @media screen and (max-width: 670px) {
+            gap: 10px;
+        }
+
+        svg {
+            flex-shrink: 0;
+
+            @media screen and (max-width: 670px) {
+                width: 42px;
+                height: 42px;
+            }
+        }
+
+        p {
+            @media screen and (max-width: 768px) {
+                font-size: 16px;
+            }
+
+            @media screen and (max-width: 670px) {
+                font-size: 15px;
+            }
+        }
+    }
+}

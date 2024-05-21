@@ -20,6 +20,9 @@ class WP_Rock_Blocks {
         'block-hero-banner' => array(
             'title'      => 'Block - Hero banner',
         ),
+        'block-who-benefits' => array(
+            'title'      => 'Block - Who benefits',
+        ),
     );
 
     /**
