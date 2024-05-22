@@ -38,8 +38,6 @@
 
     &__subtitle {
         margin-bottom: 58px;
-        color: var(--color-type-primary-white);
-        font-size: 26px;
 
         p {
             color: inherit;
@@ -51,19 +49,6 @@
             &:last-child {
                 margin-bottom: 0;
             }
-        }
-
-        @media screen and (max-width: 1024px) {
-            font-size: 20px;
-        }
-
-        @media screen and (max-width: 768px) {
-            font-size: 18px;
-            margin-bottom: 47px;
-        }
-
-        @media screen and (max-width: 670px) {
-            font-size: 16px;
         }
     }
 }
