@@ -125,6 +125,21 @@
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
+                },
+                {
+                    "key": "field_664e181c1c686",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
                 }
             ]
         },
@@ -265,5 +280,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716390682
+    "modified": 1716394039
 }

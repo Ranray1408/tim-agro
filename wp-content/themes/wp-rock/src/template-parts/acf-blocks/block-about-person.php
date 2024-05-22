@@ -50,10 +50,20 @@ $logo = get_field_value($global_options, 'logo');
                     <?php foreach ($repeater as $item) : ?>
                         <?php
                         if (!empty($item['icon']) && !empty($item['text'])) {
+
                             echo '<div class="about-person__repeater-item">
                                     <img class="about-person__repeater-item-icon" src="' . $item['icon'] . '" alt="icon">
-                                    <p class="about-person__repeater-item-text body-type-4 weight400">' . $item['text'] . '</p>
-                                </div>';
+                                    <p class="about-person__repeater-item-text body-type-4 weight400">
+                                        ' . $item['text'] .
+                                '</p>';
+
+                            if (!empty($item['link']['url']) && !empty($item['link']['title'])) {
+                                echo '<a href="' . $item['link']['url'] . '"
+                                        class="about-person__repeater-item-link">
+                                                    ' . $item['link']['title'] . '
+                                                </a>';
+                            }
+                            echo '</div>';
                         }
                         ?>
                     <?php endforeach; ?>
