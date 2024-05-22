@@ -49,7 +49,7 @@
             "key": "field_664c98c77d438",
             "label": "Subtitle",
             "name": "subtitle",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -123,5 +123,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716297304
+    "modified": 1716358089
 }

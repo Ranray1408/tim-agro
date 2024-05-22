@@ -15,15 +15,16 @@ $subtitle = get_field_value($fields, 'subtitle');
 $benefits_repeater = get_field_value($fields, 'benefits_repeater');
 ?>
 
-<div class="who-benefits <?php echo esc_html($class_name); ?>" style="background-image: url(<?php echo $background_image; ?>);">
+<div class="who-benefits <?php echo esc_html($class_name); ?>"
+     style="background-image: url(<?php echo $background_image; ?>);">
     <div class="container who-benefits__container">
         <div class="who-benefits__content">
             <?php
             if (!empty($title)) {
-                echo '<h2 class="who-benefits__title">' . esc_html($title) . '</h2>';
+                echo '<h2 class="who-benefits__title">' . do_shortcode($title) . '</h2>';
             }
             if (!empty($subtitle)) {
-                echo '<p class="who-benefits__subtitle">' . esc_html($subtitle) . '</p>';
+                echo '<div class="who-benefits__subtitle">' . do_shortcode($subtitle) . '</div>';
             }
             ?>
 

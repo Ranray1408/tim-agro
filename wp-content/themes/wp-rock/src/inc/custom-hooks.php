@@ -13,7 +13,8 @@
  *
  * @return array|string|string[]
  */
-function remove_lsep($html) {
+function remove_lsep($html): array|string
+{
     $pattern = '/\x{2028}/u';
 
     return preg_replace($pattern, '', $html);
@@ -26,7 +27,8 @@ function remove_lsep($html) {
  * @param {string} $content - Text content.
  * @return string|string[]
  */
-function remove_windows_lsep_from_content($content) {
+function remove_windows_lsep_from_content($content): array|string
+{
     return str_replace("\r\n", '', $content);
 }
 add_filter('the_content', 'remove_windows_lsep_from_content');
@@ -62,26 +64,18 @@ function wp_rock_color_panel(): void
 {
     global $global_options;
 
-    // Get main tag colors from theme options
-    $main_tags_colours = get_field_value($global_options, 'main_tags_colours');
+    // Get main colours set from theme options
+    $colours_set = get_field_value($global_options, 'colours_set');
 
     // Initialize an empty array to store CSS variable declarations
     $colours_variable = array();
 
-    // Extract term IDs from main tag colors array
-    $term_ids = array_map( function ($single_data) {
-        return $single_data['title'];
-    }, $main_tags_colours);
-
-    // Get slugs for terms associated with the given term IDs
-    $terms_data = get_resource_tag_slugs($term_ids);
-
     // Generate CSS variable declarations for each main tag color
-    if ( !empty($main_tags_colours) ) {
-        foreach ($main_tags_colours as $main_tags_colour) {
-            $term_id    = $main_tags_colour['title'];
-            $term_color = $main_tags_colour['tag_term_color'];
-            $colours_variable[] = '--color-term-'.$terms_data[$term_id].':'.$term_color.';';
+    if ( !empty($colours_set) ) {
+        foreach ($colours_set as $single_color) {
+            $color_type = $single_color['name_of_color_type'];
+            $color_code = $single_color['color_code'];
+            $colours_variable[] = '--color-type-'.$color_type.':'.$color_code.';';
         }
     }
 
@@ -94,25 +88,4 @@ function wp_rock_color_panel(): void
     </style>
     <?php
 }
-//add_action('wp_head', 'wp_rock_color_panel');
-
-
-// This block will be rendered before site footer on "Single resources pages"
-function add_basic_footer_block(){
-
-    if ( is_singular('resources') ) {
-        global $global_options;
-        $external_data = array(
-            'image' => get_field_value($global_options, 'image'),
-            'title' => get_field_value($global_options, 'title'),
-            'link'  => get_field_value($global_options, 'link'),
-            'block_id' => 'block-id',
-        );
-
-        echo esc_html( get_template_part( 'src/template-parts/acf-blocks/block', 'lets-talk', array(
-                'external_data' => $external_data
-        ) ) );
-    }
-
-}
-add_action('wp_rock_after_page_content', 'add_basic_footer_block', 10);
+add_action('wp_head', 'wp_rock_color_panel');
