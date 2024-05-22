@@ -12,7 +12,7 @@
     }
 
     &__title {
-        color: #151A1D;
+        color: var(--color-type-dark-1);
         margin-bottom: 20px;
     }
 
@@ -23,7 +23,7 @@
     }
 
     &__subtitle {
-        color: #151A1D;
+        color: var(--color-type-dark-1);
         font-size: 26px;
         font-weight: 500;
         margin-bottom: 50px;

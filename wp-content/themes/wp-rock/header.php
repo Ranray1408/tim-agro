@@ -22,7 +22,7 @@
     ?>
     <!-- connect to domain of font files -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- optionally increase loading priority -->
 
     <link rel="preload" as="style" href=<?php /*echo $fonts_google; */?> />

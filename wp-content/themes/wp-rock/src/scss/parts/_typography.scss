@@ -1,10 +1,3 @@
-body {
-    @extend %paragraph;
-    @include custom-scrollbar;
-
-    @include media-breakpoint-down(lg) {}
-}
-
 h1,
 h2 {
     position: relative;
@@ -53,8 +46,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-type-primary-white);
 }
 
-@include make-responsive-headers();
-
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
     margin: 0;
@@ -89,7 +80,7 @@ a {
 
 .body-type-0 {
     color: var(--color-type-primary-white);
-    font-family: Mulish, sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 28px;
     font-style: normal;
     font-weight: 600;
@@ -97,7 +88,7 @@ a {
 }
 .body-type-1 {
     color: var(--color-type-primary-white);
-    font-family: Mulish, sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
@@ -105,7 +96,7 @@ a {
 }
 .body-type-2 {
     color: var(--color-type-primary-white);
-    font-family: Mulish, sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -113,7 +104,7 @@ a {
 }
 .body-type-3 {
     color: var(--color-type-primary-white);
-    font-family: Mulish, sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
