@@ -18,17 +18,17 @@
 
     <?php
     // TODO: Change for fonts that you need. Please uncomment bottom code line if you want you use Google Fonts
-    // $fonts_google = 'https://fonts.googleapis.com/css2?family=Neuton:wght@300&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap';
+    $fonts_google = 'https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap';
     ?>
     <!-- connect to domain of font files -->
-    <!--<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
     <!-- optionally increase loading priority -->
-    <!--
+
     <link rel="preload" as="style" href=<?php /*echo $fonts_google; */?> />
     <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');"
-          href="<?php //echo $fonts_google; ?>" />
-    -->
+          href="<?php echo $fonts_google; ?>" />
+
     <?php if ( is_404() ) { ?>
         <meta name="robots" content="noindex, nofollow" />
     <?php } ?>

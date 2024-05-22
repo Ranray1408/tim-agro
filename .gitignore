@@ -29,8 +29,5 @@
 .idea/
 vendor/
 /wp-content/litespeed/
-/wp-content/backups-dup-pro/.htaccess
-/wp-content/backups-dup-pro/index.php
-/wp-content/backups-dup-pro/robots.txt
+/wp-content/backups-dup-pro/
 /.htaccess.bk
-/wp-content/backups-dup-pro
