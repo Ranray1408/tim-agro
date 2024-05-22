@@ -26,7 +26,6 @@ if ( function_exists( 'get_fields' ) ) {
 $wp_rock = new WP_Rock();
 add_action( 'after_setup_theme', array( $wp_rock, 'px_site_setup' ) );
 
-
 /**
  * Sanitize uploaded file name
  */

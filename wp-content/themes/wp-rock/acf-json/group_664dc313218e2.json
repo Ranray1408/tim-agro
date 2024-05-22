@@ -1,0 +1,89 @@
+{
+    "key": "group_664dc313218e2",
+    "title": "Colours Settings",
+    "fields": [
+        {
+            "key": "field_664dc3132a469",
+            "label": "Кольорові налаштування",
+            "name": "colours_set",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_664dc3472a46a",
+                    "label": "Name of color type",
+                    "name": "name_of_color_type",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Використовуйте це поле для завдання назви типу кольору елементів сайту. Використовуйте лише літеру у нижньому регістрі та без пробілів",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_664dc3132a469"
+                },
+                {
+                    "key": "field_664dc3d52a46b",
+                    "label": "Color code",
+                    "name": "color_code",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "Виберіть потрібний колір для потрібного типу кольору елементу",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "parent_repeater": "field_664dc3132a469"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-general-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1716372471
+}
