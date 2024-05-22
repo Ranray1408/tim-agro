@@ -94,13 +94,16 @@ a {
     font-weight: 500;
     line-height: normal;
 
+    &.weight400 {
+        font-weight: 400;
+    }
+
     @media screen and (max-width: 1024px) {
         font-size: 20px;
     }
 
     @media screen and (max-width: 768px) {
         font-size: 18px;
-        margin-bottom: 47px;
     }
 
     @media screen and (max-width: 670px) {

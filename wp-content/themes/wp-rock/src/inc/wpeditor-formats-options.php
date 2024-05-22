@@ -21,7 +21,7 @@ function my_wpeditor_formats_options( $settings ) {
         array(
             'title' => 'body 1 (regular)',
             'block' => 'p',
-            'classes' => 'body-type-1-regular',
+            'classes' => 'body-type-1 weight400',
         ),
         array(
             'title' => 'body 1 (not regular)',
