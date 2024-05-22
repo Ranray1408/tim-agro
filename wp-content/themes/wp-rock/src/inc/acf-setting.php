@@ -54,7 +54,7 @@ if( function_exists('acf_add_local_field_group') ):
                         'name' => 'name_of_color_type',
                         'aria-label' => '',
                         'type' => 'text',
-                        'instructions' => 'Використовуйте це поле для завдання назви типу кольору елементів сайту',
+                        'instructions' => 'Використовуйте це поле для завдання назви типу кольору елементів сайту. Використовуйте лише літеру у нижньому регістрі та без пробілів',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array(

@@ -8,8 +8,6 @@ body {
 h1,
 h2 {
     position: relative;
-    color: #FFF;
-    font-family: 'Intro Regular Alt', sans-serif;
     font-size: 60px;
     font-style: normal;
     font-weight: 400;
@@ -50,19 +48,9 @@ h2 {
     }
 }
 
-h3 {
-    color: #FFF;
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Intro Regular Alt', sans-serif;
-}
-
-h4 {
-    color: #FFF;
-    font-family: 'Intro Regular Alt', sans-serif;
-}
-
-h5 {
-    color: #FFF;
-    font-family: 'Intro Regular Alt', sans-serif;
+    color: var(--color-type-primary-white);
 }
 
 @include make-responsive-headers();
@@ -96,12 +84,67 @@ a {
     transition: color 0.3s, backgroun-color 0.3s, border-color 0.3s;
 }
 
-p {
-    color: #151A1D;
-    font-family: 'Mulish', sans-serif;
-    margin-top: 0;
-    font-size: 20px;
+
+
+
+.body-type-0 {
+    color: var(--color-type-primary-white);
+    font-family: Mulish, sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.body-type-1 {
+    color: var(--color-type-primary-white);
+    font-family: Mulish, sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.body-type-2 {
+    color: var(--color-type-primary-white);
+    font-family: Mulish, sans-serif;
+    font-size: 22px;
+    font-style: normal;
     font-weight: 400;
+    line-height: normal;
+}
+.body-type-3 {
+    color: var(--color-type-primary-white);
+    font-family: Mulish, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 670px) {
+        font-size: 12px;
+    }
+}
+.body-type-4 {
+    color: var(--color-type-primary-white);
+    font-family: Mulish, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+p {
+    @extend .body-type-3;
+    color: var(--color-type-dark-1);
+    margin-top: 0;
     line-height: 1.4;
 
     @media screen and (max-width: 1024px) {

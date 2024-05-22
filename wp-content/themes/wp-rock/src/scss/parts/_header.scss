@@ -12,7 +12,7 @@
     }
 
     &.scrolled {
-        background-color: #25292cab;
+        background-color: rgba(var(--color-type-dark-2), 0.7);
         padding-top: 15px;
         padding-bottom: 15px;
 
@@ -87,7 +87,7 @@
             top: 300%;
             width: 100%;
             height: 100%;
-            background-color: #25292C;
+            background-color: var(--color-type-dark-3);
             display: flex;
             flex-direction: column;
             padding-top: 134px;
@@ -114,7 +114,7 @@
         }
 
         .menu-item {
-            color: #FFF;
+            color: var(--color-type-primary-white);
             font-family: 'Mulish', sans-serif;
             font-size: 18px;
             font-style: normal;
@@ -126,13 +126,13 @@
             }
 
             @media screen and (max-width: 991px) {
-                border-top: 1px solid #fff;
+                border-top: 1px solid var(--color-type-primary-white);
                 padding: 23px 0;
             }
 
             &:last-child {
                 @media screen and (max-width: 991px) {
-                    border-bottom: 1px solid #fff;
+                    border-bottom: 1px solid var(--color-type-primary-white);
                     padding: 23px 0;
                 }
             }
@@ -167,7 +167,7 @@
 
                     .menu-item {
                         list-style-type: none;
-                        color: #151A1D;
+                        color: var(--color-type-dark-1);
                         font-family: 'Mulish', sans-serif;
                         font-size: 18px;
                         font-style: normal;
@@ -177,8 +177,8 @@
                         padding: 10px;
 
                         &:hover {
-                            background-color: #25292C;
-                            color: #fff;
+                            background-color: var(--color-type-dark-3);
+                            color: var(--color-type-primary-white);
                         }
                     }
                 }
@@ -193,7 +193,7 @@
         height: 54px;
         align-items: center;
         justify-content: center;
-        background-color: #53F07F;
+        background-color: var(--color-type-primary-1);
 
         @media screen and (max-width: 991px) {
             display: flex;

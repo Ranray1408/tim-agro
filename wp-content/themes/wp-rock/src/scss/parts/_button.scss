@@ -4,8 +4,8 @@
     justify-content: center;
     transition: background-color 0.3s, color 0.3s;
     padding: 14px 41px;
-    border: 2px solid #53F07F;
-    color: #FFF;
+    border: 2px solid var(--color-type-primary-1);
+    color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
     font-size: 18px;
     font-style: normal;
@@ -18,11 +18,11 @@
     }
 
     &:hover {
-        background-color: #53F07F;
-        color: #151A1D;
+        background-color: var(--color-type-primary-1);
+        color: var(--color-type-dark-1);
 
         svg path {
-            fill: #151A1D;
+            fill: var(--color-type-dark-1);
         }
     }
 

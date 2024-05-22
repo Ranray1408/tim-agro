@@ -89,3 +89,11 @@ function wp_rock_color_panel(): void
     <?php
 }
 add_action('wp_head', 'wp_rock_color_panel');
+
+
+
+/*
+primary-white : #fff
+primary-1 : #53F07F
+dark-1 : #151A1D
+ */

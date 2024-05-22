@@ -1,5 +1,5 @@
 .site-footer {
-    background-color: #242A2E;
+    background-color: var(--color-type-dark-2);
     padding: 61px 0;
 
     @media screen and (max-width: 991px) {
@@ -42,7 +42,7 @@
         }
 
         .menu-item {
-            color: #FFF;
+            color: var(--color-type-primary-white);
             font-size: 16px;
             font-weight: 300;
 
@@ -52,13 +52,13 @@
 
             &.hovered,
             &.current-menu-item {
-                color: #53F07F;
+                color: var(--color-type-primary-1);
             }
         }
     }
 
     &__ps {
-        color: #FFF;
+        color: var(--color-type-primary-white);
         font-size: 14px;
         font-weight: 300;
 
@@ -111,7 +111,7 @@
         align-content: center;
         gap: 80px;
         list-style-type: none;
-        color: #FFF;
+        color: var(--color-type-primary-white);
         font-family: 'Mulish', sans-serif;
         font-size: 14px;
         font-weight: 300;
