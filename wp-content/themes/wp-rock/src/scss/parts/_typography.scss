@@ -140,11 +140,19 @@ a {
 }
 .body-type-4 {
     color: var(--color-type-primary-white);
-    font-family: Mulish, sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 16px;
+    }
+
+    &.weight400 {
+        font-weight: 400;
+    }
 }
 
 

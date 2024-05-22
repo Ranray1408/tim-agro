@@ -23,6 +23,9 @@ class WP_Rock_Blocks {
         'block-who-benefits' => array(
             'title'      => 'Block - Who benefits',
         ),
+        'block-about-person' => array(
+            'title'      => 'Block - About person',
+        ),
     );
 
     /**

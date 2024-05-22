@@ -3,7 +3,7 @@
     background-position: left bottom;
     background-size: contain;
     padding: 90px 0 133px;
-    background-color: #F2F3EB;
+    background-color: var(--color-type-primary-white-2);
 
     @media screen and (max-width: 991px) {
         padding: 67px 0 212px;

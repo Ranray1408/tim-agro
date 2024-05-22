@@ -268,3 +268,47 @@ input[type="email"] {
 .align-content-stretch {
     align-content: stretch;
 }
+
+.container-big-title {
+    padding-right: 120px;
+    position: relative;
+
+    @media screen and (max-width: 1200px) {
+        padding-right: 0;
+    }
+
+    .big-title {
+        position: absolute;
+        top: 0;
+        white-space: nowrap;
+        width: 120px;
+        height: 120px;
+        right: 0;
+        transform: rotate(90deg);
+        color: var(--color-type-primary-white);
+        opacity: 0.05;
+        font-family: "Intro Regular Alt";
+        font-size: 120px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-transform: uppercase;
+
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+
+    }
+
+    &.reverse {
+        padding-left: 120px;
+
+        @media screen and (max-width: 1200px) {
+            padding-left: 0;
+        }
+        .big-title {
+            top: 0;
+            left: 0;
+        }
+    }
+}

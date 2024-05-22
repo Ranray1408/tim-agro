@@ -1,0 +1,132 @@
+.about-person {
+    background-color: var(--color-type-dark-2);
+    padding: 80px 0 94px;
+
+    @media screen and (max-width: 991px) {
+        padding: 86px 0 67px;
+    }
+
+    &__container {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 160px;
+
+        @media screen and (max-width: 1200px) {
+            gap: 100px;
+        }
+
+        @media screen and (max-width: 991px) {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+
+    &__photo {
+        position: relative;
+        max-width: 510px;
+        width: 100%;
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 35px;
+        }
+
+        @media screen and (max-width: 670px) {
+            max-width: 263px;
+        }
+
+        .logo {
+            position: absolute;
+            right: 60px;
+            bottom: -40px;
+            width: 240px;
+            height: 240px;
+            transform: translate(50%);
+
+            @media screen and (max-width: 991px) {
+                width: 113px;
+                height: 113px;
+                right: 15px;
+                bottom: -15px;
+            }
+        }
+    }
+
+    &__title {
+        margin-bottom: 57px;
+
+        @media screen and (max-width: 991px) {
+            display: none;
+        }
+
+        &.mob {
+            display: none;
+
+            @media screen and (max-width: 991px) {
+                display: block;
+                margin-bottom: 18px;
+            }
+        }
+    }
+
+    &__repeater {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 54px;
+        margin-bottom: 60px;
+
+        @media screen and (max-width: 470px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__repeater-item-icon {
+        margin-bottom: 10px;
+    }
+
+    &__bottom-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 54px;
+
+        @media screen and (max-width: 991px) {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 40px;
+        }
+    }
+
+    &__socials-title {
+        margin-bottom: 15px;
+
+        @media screen and (max-width: 670px) {
+            font-size: 18px;
+        }
+    }
+
+    &__socials-inner {
+        display: flex;
+        gap: 18px;
+    }
+
+    &__pupils-wrtapper {
+        @media screen and (max-width: 991px) {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+    }
+
+    &__pupils-count {
+        color: var(--color-type-primary-1);
+        font-family: 'Mulish', sans-serif;
+        font-size: 70px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1.2;
+
+        @media screen and (max-width: 991px) {
+            font-size: 50px;
+        }
+    }
+}

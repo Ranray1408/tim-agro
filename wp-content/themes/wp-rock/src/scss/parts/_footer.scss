@@ -67,6 +67,8 @@
         }
 
         &.mob {
+            display: none;
+
             @media screen and (max-width: 1370px) {
                 display: block;
                 text-align: center;
