@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Block - Top page.
  *
@@ -18,17 +17,17 @@ $link = get_field_value($fields, 'link');
 ?>
 
 <div class="hero-banner <?php echo esc_html($class_name); ?>">
-    <img class="hero-banner__img-bg" src="<?php echo $background_image; ?>" alt="bg">
-    <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg">
+    <img class="hero-banner__img-bg" src="<?php echo $background_image; ?>" alt="bg" />
+    <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg" />
     <div class="container">
         <div class="hero-banner__content">
             <?php
             if (!empty($title)) {
-                echo '<h1 class="hero-banner__title">' . esc_html($title) . '</h1>';
+                echo '<h1 class="hero-banner__title">' . do_shortcode($title) . '</h1>';
             }
 
             if (!empty($subtitle)) {
-                echo '<p class="hero-banner__subtitle">' . esc_html($subtitle) . '</p>';
+                echo '<div class="hero-banner__subtitle">' . do_shortcode($subtitle) . '</div>';
             }
 
             if (!empty($link['url']) && !empty($link['title'])) {

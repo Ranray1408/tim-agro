@@ -10,7 +10,6 @@ global $global_options;
 
 $copyright = get_field_value($global_options, 'copyright');
 $logo = get_field_value($global_options, 'logo');
-$copyright = get_field_value($global_options, 'copyright');
 $social_links = get_field_value($global_options, 'social_links');
 ?>
 
@@ -18,21 +17,21 @@ $social_links = get_field_value($global_options, 'social_links');
     <div class="container site-footer__container">
         <?php if ($logo) : ?>
             <a class="site-footer__logo" href="<?php echo get_site_url(); ?>">
-                <img src="<?php echo $logo; ?>" alt="foter logo">
+                <img src="<?php echo $logo; ?>" alt="foter logo" />
             </a>
         <?php endif; ?>
 
         <div class="site-footer__menu-wrapper">
             <?php
             wp_nav_menu([
-                'menu'  => 'Main menu',
-                'echo'            => true,
-                'container'       => false,
+                'menu'       => 'Footer Main menu',
+                'echo'       => true,
+                'container'  => false,
                 'menu_class' => 'site-footer__menu',
             ]);
 
             if (!empty($copyright)) {
-                echo '<p class="site-footer__ps">' . esc_html($copyright) . '</p>';
+                echo '<p class="site-footer__ps">' . do_shortcode($copyright) . '</p>';
             }
             ?>
         </div>
@@ -44,7 +43,7 @@ $social_links = get_field_value($global_options, 'social_links');
                 foreach ($social_links as $item) {
                     if (!empty($item['icon']) && !empty($item['link'])) {
                         echo '<a href="' . esc_url($item['link']) . '" class="site-footer__socials-item">
-                                <img src="' . $item['icon'] . '" alt="icon">
+                                <img src="' . $item['icon'] . '" alt="icon" />
                             </a>';
                     }
                 }
@@ -54,16 +53,16 @@ $social_links = get_field_value($global_options, 'social_links');
 
             <?php
             wp_nav_menu([
-                'menu'  => 'Footer menu',
-                'echo'            => true,
-                'container'       => false,
+                'menu'       => 'Footer menu',
+                'echo'       => true,
+                'container'  => false,
                 'menu_class' => 'site-footer__policy-menu',
             ])
             ?>
 
             <?php
             if (!empty($copyright)) {
-                echo '<p class="site-footer__ps mob">' . esc_html($copyright) . '</p>';
+                echo '<p class="site-footer__ps mob">' . do_shortcode($copyright) . '</p>';
             }
             ?>
         </div>

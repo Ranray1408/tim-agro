@@ -73,7 +73,7 @@
             "key": "field_664b683c124e7",
             "label": "Subtitle",
             "name": "subtitle",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
