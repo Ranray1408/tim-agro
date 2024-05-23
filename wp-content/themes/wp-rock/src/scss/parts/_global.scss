@@ -274,7 +274,8 @@ input[type="email"] {
     position: relative;
 
     @media screen and (max-width: 1200px) {
-        padding-right: 0;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .big-title {
@@ -304,7 +305,8 @@ input[type="email"] {
         padding-left: 120px;
 
         @media screen and (max-width: 1200px) {
-            padding-left: 0;
+            padding-left: 16px;
+            padding-right: 16px;
         }
         .big-title {
             top: 0;
