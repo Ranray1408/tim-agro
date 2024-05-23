@@ -31,3 +31,39 @@
     }
 
 }
+
+.btn-with-arrow {
+    color: var(--color-type-primary-white);
+    font-family: 'Mulish', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: relative;
+    padding: 15px 56px 15px 3px;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        transition: background-color 0.3s;
+        border-radius: 50%;
+        border: 2px solid var(--color-type-primary-1);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDI0IDEzIiBmaWxsPSJub25lIj4KICA8cGF0aCBkPSJNMTcuMSAwTDE1Ljk4IDEuMTJMMjAuNDYgNS42SDBWNy4ySDIwLjQ2TDE1Ljk4IDExLjY4TDE3LjEgMTIuOEwyMy41IDYuNEwxNy4xIDBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=);
+    }
+
+    &:hover {
+        color: var(--color-type-primary-1);
+
+        &::after {
+            background-color: var(--color-type-primary-1);
+        }
+    }
+}

@@ -26,6 +26,9 @@ class WP_Rock_Blocks {
         'block-about-person' => array(
             'title'      => 'Block - About person',
         ),
+        'block-courses' => array(
+            'title'      => 'Block - Courses',
+        ),
     );
 
     /**

@@ -6,9 +6,9 @@
  * @since   4.4.0
  */
 
-$cpt_title      = 'Careers';
-$cpt_category   = 'careers_cat';
-$cpt_slug       = 'careers';
+$cpt_title      = 'Courses';
+$cpt_category   = 'courses_cat';
+$cpt_slug       = 'courses';
 
 // TODO: Don't forget to change {CPT_CATEGORY} and {cpt_title} and {CPT_SLUG}.
 $labels = array(
