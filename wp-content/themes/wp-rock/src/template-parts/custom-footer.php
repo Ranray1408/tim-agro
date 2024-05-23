@@ -62,7 +62,7 @@ $social_links = get_field_value($global_options, 'social_links');
 
             <?php
             if (!empty($copyright)) {
-                echo '<p class="site-footer__ps mob">' . do_shortcode($copyright) . '</p>';
+                echo '<p class="site-footer__ps body-type-6 mob">' . do_shortcode($copyright) . '</p>';
             }
             ?>
         </div>
