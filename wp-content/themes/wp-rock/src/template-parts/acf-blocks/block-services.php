@@ -19,7 +19,11 @@ $title = get_field_value($fields, 'title');
 $services = get_field_value($fields, 'services');
 ?>
 <div class="services">
-    <img class="services__bg-image" src="<?php echo $background_image; ?>" alt="bg">
+    <?php
+    if (!empty($background_image)) {
+        echo '<img class="services__bg-image" src="' . esc_url($background_image) . '" alt="bg">';
+    }
+    ?>
     <div class="container services__container container-big-title reverse">
         <?php
         if (!empty($big_title)) {
