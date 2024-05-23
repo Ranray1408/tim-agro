@@ -1,0 +1,45 @@
+.services {
+    overflow: hidden;
+    position: relative;
+    background-color: var(--color-type-dark-2);
+    padding: 106px 0 250px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: contain;
+
+    &__bg-image {
+        position: absolute;
+        right: 0;
+        bottom: -110px;
+    }
+
+    &__title {
+        margin-bottom: 52px;
+        margin-left: 80px;
+    }
+
+    &__inner {
+        margin-left: 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 47px;
+    }
+
+    &__item {
+        padding: 41px 0 54px;
+        border-top: 2px solid var(--color-type-primary-white);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.50);
+    }
+
+    &__icon {
+        margin-bottom: 18px;
+    }
+
+    &__item-title {
+        margin-bottom: 14px;
+    }
+
+    &__excerpt {
+        margin-bottom: 60px;
+    }
+}
