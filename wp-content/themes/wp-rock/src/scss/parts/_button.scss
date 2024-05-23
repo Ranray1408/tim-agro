@@ -50,6 +50,14 @@
         padding: 12px 60px 12px 3px;
     }
 
+    &.dark {
+        color: var(--color-type-dark-1);
+
+        &::after {
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDI0IDEzIiBmaWxsPSJub25lIj4KICA8cGF0aCBkPSJNMTcuMSAwTDE1Ljk4IDEuMTJMMjAuNDYgNS42SDBWNy4ySDIwLjQ2TDE1Ljk4IDExLjY4TDE3LjEgMTIuOEwyMy41IDYuNEwxNy4xIDBaIiBmaWxsPSIjMTUxQTFEIi8+Cjwvc3ZnPg==);
+        }
+    }
+
     &::after {
         content: '';
         display: block;

@@ -29,6 +29,9 @@ class WP_Rock_Blocks {
         'block-courses' => array(
             'title'      => 'Block - Courses',
         ),
+        'block-lectures' => array(
+            'title'      => 'Block - Lectures',
+        ),
     );
 
     /**

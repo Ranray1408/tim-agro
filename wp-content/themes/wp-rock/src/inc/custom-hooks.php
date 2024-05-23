@@ -95,6 +95,7 @@ add_action('wp_head', 'wp_rock_color_panel');
 /*
 primary-white : #fff
 primary-white-2 : #F2F3EB
+primary-white-3 : #E9EBE0
 primary-1 : #53F07F
 dark-1 : #151A1D
 dark-2 : #292F34
