@@ -44,7 +44,7 @@ $services = get_field_value($fields, 'services');
                     $link = get_the_permalink($service_id);
                     $icon = get_field_value($servies_fields, 'icon');
                 ?>
-                    <div class="services__item">
+                    <div class="services__item d-flex flex-column align-items-start">
                         <?php
                         if (!empty($icon)) {
                             echo '<figure class="services__icon">
@@ -61,7 +61,7 @@ $services = get_field_value($fields, 'services');
                         <?php
                         if (!empty($btn_details_text)) {
                             echo '<a href="' . $link . '"
-                            class="courses__courses-detaild-btn btn-with-arrow">
+                            class="services__services-detaild-btn btn-with-arrow">
                                 ' . esc_html($btn_details_text) . '
                             </a>';
                         }
