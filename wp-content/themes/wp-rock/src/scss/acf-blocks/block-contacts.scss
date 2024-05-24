@@ -57,6 +57,11 @@
 
             .wpcf7-form-control-wrap {
                 display: flex;
+                flex-direction: column;
+
+                .wpcf7-not-valid-tip {
+                    margin-top: 10px;
+                }
 
                 .wpcf7-acceptance {
                     margin-bottom: 30px;
