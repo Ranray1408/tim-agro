@@ -1,0 +1,133 @@
+.contacts {
+    background-color: var(--color-type-primary-white-2);
+    padding: 102px 0 108px;
+
+    @media screen and (max-width: 991px) {
+        padding: 67px 0 90px;
+    }
+
+    .big-title {
+        color: var(--color-type-dark-2);
+        opacity: 0.1;
+    }
+
+    &__container {
+        gap: 100px;
+
+        @media screen and (max-width: 991px) {
+            gap: 50px;
+        }
+    }
+
+    &__form-wrapper {
+        max-width: 720px;
+        width: 100%;
+    }
+
+    .contacts__form {
+        .wpcf7-form {
+            .inner-wrapper {
+                display: flex;
+                gap: 50px;
+                margin-bottom: 20px;
+
+                @media screen and (max-width: 991px) {
+                    gap: 38px;
+                }
+
+                @media screen and (max-width: 470px) {
+                    flex-direction: column;
+                }
+            }
+
+            .inputs-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                @media screen and (max-width: 991px) {
+                    gap: 38px;
+                }
+            }
+
+            textarea {
+                height: 130px;
+                resize: none;
+            }
+
+            .wpcf7-form-control-wrap {
+                display: flex;
+
+                .wpcf7-acceptance {
+                    margin-bottom: 30px;
+
+                    @media screen and (max-width: 991px) {
+                        margin-bottom: 23px;
+                    }
+                }
+            }
+
+            .wpcf7-submit {
+                margin-right: auto;
+                display: inline-flex;
+                color: var(--color-type-dark-1);
+            }
+        }
+    }
+
+    &__title {
+        margin-bottom: 10px;
+        color: var(--color-type-dark-1);
+    }
+
+    &__subtitle-wrapper {
+        gap: 10px;
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 37px;
+        }
+    }
+
+    &__subtitle {
+        margin-bottom: 30px;
+        color: var(--color-type-dark-1);
+    }
+
+    &__socials {
+        gap: 15px;
+        margin-bottom: 65px;
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 50px;
+        }
+    }
+
+    &__socials-item {
+        width: 45px;
+        height: 45px;
+
+        @media screen and (max-width: 991px) {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    &__photo {
+        flex-shrink: 0;
+        max-width: 400px;
+        width: 100%;
+
+        @media screen and (max-width: 991px) {
+            display: none;
+        }
+
+        &.mob {
+            display: none;
+
+            @media screen and (max-width: 991px) {
+                display: block;
+                max-width: 150px;
+            }
+        }
+    }
+}

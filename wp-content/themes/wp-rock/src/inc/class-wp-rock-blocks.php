@@ -35,6 +35,9 @@ class WP_Rock_Blocks {
         'block-services' => array(
             'title'      => 'Block - Services',
         ),
+        'block-contacts' => array(
+            'title'      => 'Block - Contacts',
+        ),
     );
 
     /**
