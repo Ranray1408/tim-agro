@@ -1,0 +1,81 @@
+.course-materials {
+    padding: 90px 0 110px;
+    background-color: var(--color-type-primary-white-2);
+
+    @media screen and (max-width: 991px) {
+        padding: 67px 0 61px;
+    }
+
+    &__title {
+        margin-bottom: 50px;
+        color: var(--color-type-dark-1);
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 24px;
+        }
+    }
+
+    &__list {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(4, 1fr);
+
+        @media screen and (max-width: 1470px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (max-width: 1200px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    &__list-item {
+        padding: 47px 20px 16px;
+        background-color: var(--color-type-primary-white);
+
+        @media screen and (max-width: 768px) {
+            padding: 37px 17px 30px;
+        }
+    }
+
+    &__item-icon {
+        width: 100%;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--color-type-primary-1);
+
+        @media screen and (max-width: 1024px) {
+            padding-bottom: 25px;
+        }
+
+        img {
+            @media screen and (max-width: 768px) {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+
+    &__item-text {
+        text-align: center;
+        padding: 26px 30px 0;
+        font-size: 24px;
+        font-weight: 500;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 22px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 20px;
+            padding: 26px 23px 0;
+        }
+
+        @media screen and (max-width: 670px) {
+            font-size: 18px;
+        }
+    }
+}

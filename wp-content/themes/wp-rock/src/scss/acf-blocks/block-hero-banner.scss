@@ -36,6 +36,13 @@
         }
     }
 
+    &__filled-subtitle {
+        background-color: var(--color-type-primary-1);
+        color: var(--color-type-dark-1);
+        padding: 4px 30px;
+        margin-bottom: 53px;
+    }
+
     &__subtitle {
         margin-bottom: 58px;
 
@@ -48,6 +55,29 @@
 
             &:last-child {
                 margin-bottom: 0;
+            }
+        }
+    }
+
+    &__list {
+        gap: 24px;
+    }
+
+    &__list-item {
+        gap: 30px;
+
+        @media screen and (max-width: 670px) {
+            gap: 10px;
+        }
+
+        p {
+            color: var(--color-type-primary-white);
+        }
+
+        svg {
+            @media screen and (max-width: 670px) {
+                width: 42px;
+                height: 42px;
             }
         }
     }

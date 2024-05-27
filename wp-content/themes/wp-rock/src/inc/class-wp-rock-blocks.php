@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Custom ACF Gutenberg blocks.
  *
@@ -38,6 +39,9 @@ class WP_Rock_Blocks {
         'block-contacts' => array(
             'title'      => 'Block - Contacts',
         ),
+        'block-course-materials' => array(
+            'title'      => 'Block - Course materials',
+        ),
     );
 
     /**
@@ -46,15 +50,15 @@ class WP_Rock_Blocks {
      *
      * @var string[]
      */
-    protected array $allowed = array( 'core/freeform' );
+    protected array $allowed = array('core/freeform');
 
 
     /**
      *  Construct of the class
      */
     public function __construct() {
-        add_action( 'init', array( $this, 'add_custom_blocks' ) );
-        add_filter( 'allowed_block_types_all', array( $this, 'filter_allowed_blocks' ), 10, 2 );
+        add_action('init', array($this, 'add_custom_blocks'));
+        add_filter('allowed_block_types_all', array($this, 'filter_allowed_blocks'), 10, 2);
     }
 
     /**
@@ -65,13 +69,13 @@ class WP_Rock_Blocks {
      *
      * @return bool|string[]
      */
-    public function filter_allowed_blocks( $allowed_block_types, $editor_context ) {
+    public function filter_allowed_blocks($allowed_block_types, $editor_context) {
 
-        if ( ! empty( $editor_context->post ) ) {
-            $allowed = array_map( array( $this, 'add_prefix' ), array_keys( $this->blocks ) );
+        if (!empty($editor_context->post)) {
+            $allowed = array_map(array($this, 'add_prefix'), array_keys($this->blocks));
 
-            if ( ! empty( $this->allowed ) ) {
-                foreach ( $this->allowed as $block ) {
+            if (!empty($this->allowed)) {
+                foreach ($this->allowed as $block) {
                     $allowed[] = $block;
                 }
             }
@@ -87,7 +91,7 @@ class WP_Rock_Blocks {
      * @param string $value  - name of block.
      * @return string
      */
-    public function add_prefix( $value ) {
+    public function add_prefix($value) {
         return 'acf/' . $value;
     }
 
@@ -97,10 +101,10 @@ class WP_Rock_Blocks {
      * @return void
      */
     public function add_custom_blocks() {
-        if ( function_exists( 'acf_register_block_type' ) ) {
+        if (function_exists('acf_register_block_type')) {
 
 
-            function wp_rock_category( $categories, $post ) {
+            function wp_rock_category($categories, $post) {
                 return array_merge(
                     $categories,
                     array(
@@ -112,12 +116,27 @@ class WP_Rock_Blocks {
                     )
                 );
             }
-            add_filter( 'block_categories_all', 'wp_rock_category', 10, 2);
+            add_filter('block_categories_all', 'wp_rock_category', 10, 2);
 
-            foreach ( $this->blocks as $id => $block ) {
+            foreach ($this->blocks as $id => $block) {
 
                 $title = $block['title'];
-                $description = (isset($block['description']))? $block['description'] : '';
+                $description = (isset($block['description'])) ? $block['description'] : '';
+
+                $args = array(
+                    'public'   => true,
+                    '_builtin' => false,
+                );
+
+                $output = 'names'; // names or objects, note names is the default
+                $operator = 'and'; // 'and' or 'or'
+
+                $post_types = get_post_types($args, $output, $operator);
+
+                $post_types = array_keys($post_types);
+
+                $post_types[] = 'page';
+                $post_types[] = 'post';
 
                 $args = array(
                     'name' => $id,
@@ -126,14 +145,14 @@ class WP_Rock_Blocks {
                     'render_template' => 'src/template-parts/acf-blocks/' . $id . '.php',
                     'render_callback' => 'block_render',
                     'category' => 'wp-rock',
-                    'post_types' => array_key_exists( 'post_types', $block ) ? $block['post_types'] : array('page'),
-                    'mode' => array_key_exists( 'mode', $block ) ? $block['mode'] : 'preview',
-                    'multiple' => array_key_exists( 'multiple', $block ) ? $block['multiple'] : true,
+                    'post_types' => $post_types,
+                    'mode' => array_key_exists('mode', $block) ? $block['mode'] : 'preview',
+                    'multiple' => array_key_exists('multiple', $block) ? $block['multiple'] : true,
                     'supports' => array(
                         'align' => false,
                         'full_height' => false,
                         'anchor' => true,
-                        'color'=> array (
+                        'color' => array(
                             'gradients' => true,
                             'background' => true,
                         )
@@ -157,18 +176,17 @@ class WP_Rock_Blocks {
 
                 $script_file = THEME_DIR . '/assets/public/js/js-' . $id . '.js';
                 if (file_exists($script_file) && file_get_contents($script_file)) {
-                    $args['enqueue_script'] = ASSETS_JS .'js-'. $id . '.js';
+                    $args['enqueue_script'] = ASSETS_JS . 'js-' . $id . '.js';
                 }
 
-                acf_register_block_type( $args );
+                acf_register_block_type($args);
             }
 
             /**
              * Callback block render,
              * return preview image
              */
-            function block_render($block)
-            {
+            function block_render($block) {
                 if (isset($block['data']['preview_image'])) {
                     echo '<img src="' . $block['data']['preview_image'] . '" style="width: 468px;">';
                     return;

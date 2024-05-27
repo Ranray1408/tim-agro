@@ -14,6 +14,8 @@ define( 'ASSETS_CSS', THEME_URI . '/assets/public/css/' );
 define( 'ASSETS_JS', THEME_URI . '/assets/public/js/' );
 
 // required files.
+require THEME_DIR . '/src/inc/custom-posts-type.php';
+require THEME_DIR . '/src/inc/custom-taxonomies.php';
 require THEME_DIR . '/src/inc/class-wp-rock.php';
 require THEME_DIR . '/src/inc/class-wp-rock-blocks.php';
 require THEME_DIR . '/src/inc/initial-setup.php';
@@ -21,8 +23,6 @@ require THEME_DIR . '/src/inc/enqueue-scripts.php';
 require THEME_DIR . '/src/inc/wpeditor-formats-options.php';
 require THEME_DIR . '/src/inc/analytics-settings.php';
 require THEME_DIR . '/src/inc/acf-setting.php';
-require THEME_DIR . '/src/inc/custom-posts-type.php';
-require THEME_DIR . '/src/inc/custom-taxonomies.php';
 require THEME_DIR . '/src/inc/woocommerce-customization.php';
 require THEME_DIR . '/src/inc/ajax-requests.php';
 require THEME_DIR . '/src/inc/custom-accept-cookies.php';

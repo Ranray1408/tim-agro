@@ -106,10 +106,6 @@ a {
     font-weight: 500;
     line-height: normal;
 
-    &.weight400 {
-        font-weight: 400;
-    }
-
     @media screen and (max-width: 1024px) {
         font-size: 20px;
     }
@@ -214,6 +210,9 @@ a {
     font-weight: 300;
 }
 
+.weight400 {
+    font-weight: 400;
+}
 
 p {
     @extend .body-type-3;
