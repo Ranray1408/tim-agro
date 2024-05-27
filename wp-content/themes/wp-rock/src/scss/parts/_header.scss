@@ -113,7 +113,7 @@
             max-width: 670px;
         }
 
-        .menu-item {
+        > .menu-item {
             color: var(--color-type-primary-white);
             font-family: 'Mulish', sans-serif;
             font-size: 18px;
@@ -142,10 +142,47 @@
                 color: #53F07F;
             }
 
+            &.menu-item-has-children {
+                position: relative;
+                padding-right: 24px;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    transition: transform 0.3s;
+                    width: 14px;
+                    height: 14px;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgMTYgOSIgZmlsbD0ibm9uZSI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNCAwLjMzMzMyOEw4LjAwMzM0IDUuNzMxMzNMMi4wMDUzNCAwLjMzMzMyOEwwLjY2NjY3MiAxLjgxOTk5TDguMDAzMzQgOC40MjE5OUwxNS4zMzg3IDEuODE5OTlMMTQgMC4zMzMzMjhaIiBmaWxsPSIjNTNGMDdGIi8+Cjwvc3ZnPg==);
+
+                    @media screen and (max-width: 991px) {
+                        top: 32px;
+                    }
+                }
+            }
+
             &.hovered {
                 &.menu-item-has-children {
+                    &:after {
+                        transform: translateY(-50%) rotate(180deg);
+                    }
+
                     .sub-menu {
                         display: grid;
+
+                        @media screen and (max-width: 991px) {
+                            display: flex;
+                        }
+                    }
+
+                    > a {
+                        pointer-events: none;
                     }
                 }
             }
@@ -158,12 +195,23 @@
                     top: 100%;
                     transform: translateX(-50%);
                     position: absolute;
-                    background-color: #F2F3EB;
+                    background-color: var(--color-type-primary-white-2);
                     width: 815px;
                     padding: 20px 18px;
                     display: none;
                     grid-template-columns: 1fr 1fr;
                     gap: 20px;
+
+                    @media screen and (max-width: 991px) {
+                        flex-direction: column;
+                        position: relative;
+                        left: 0 !important;
+                        top: 0;
+                        width: auto;
+                        background-color: transparent;
+                        padding: 45px 0 22px;
+                        transform: none;
+                    }
 
                     .menu-item {
                         list-style-type: none;
@@ -176,9 +224,38 @@
                         transition: background-color 0.3s, color 0.3s;
                         padding: 10px;
 
+                        @media screen and (max-width: 991px) {
+                            background-color: var(--color-type-dark-2);
+                            color: var(--color-type-primary-white);
+                        }
+
+                        @media screen and (max-width: 470px) {
+                            font-size: 15px;
+                        }
+
+                        a {
+                            display: flex;
+                            align-items: center;
+
+                            img {
+                                width: 114px;
+                                height: 114px;
+
+                                @media screen and (max-width: 991px) {
+                                    width: 92px;
+                                    height: 92px;
+                                }
+                            }
+                        }
+
                         &:hover {
                             background-color: var(--color-type-dark-2);
                             color: var(--color-type-primary-white);
+
+                            @media screen and (max-width: 991px) {
+                                background-color: var(--color-type-primary-white-2);
+                                color: var(--color-type-dark-2);
+                            }
                         }
                     }
                 }

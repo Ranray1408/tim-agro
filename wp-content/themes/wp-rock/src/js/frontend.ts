@@ -37,11 +37,11 @@ function ready() {
         const target = e.target as HTMLElement;
         const { role } = target.dataset;
 
-        const hoverQuery = window.matchMedia('(hover: hover)');
+        //const hoverQuery = window.matchMedia('(hover: hover)');
 
-        if (target.classList.contains('menu-item-has-children') && !hoverQuery.matches) {
-            target.classList.toggle('opened');
-        }
+        // if (target.classList.contains('menu-item-has-children') && !hoverQuery.matches) {
+        //     target.classList.toggle('opened');
+        // }
 
         if (!role) return;
 

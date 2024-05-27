@@ -13,10 +13,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   hoverClickEvent: function() { return /* binding */ hoverClickEvent; }
 /* harmony export */ });
 var hoverClickEvent = function hoverClickEvent() {
-  var menuItems = document.querySelectorAll('.menu-item');
+  var menuItems = document.querySelectorAll('.site-header__menu > .menu-item');
   var canHover = window.matchMedia('(hover: hover)').matches;
   if (canHover) {
     menuItems.forEach(function (item) {
+      var subMenu = item.querySelector('.sub-menu');
+      if (subMenu) {
+        var bounding = subMenu.getBoundingClientRect();
+        var offset = 10;
+        if (bounding.right > window.innerWidth) {
+          var overflow = bounding.right - window.innerWidth;
+          subMenu.style.left = "-".concat(overflow + offset, "px");
+        } else {
+          subMenu.style.left = '0px';
+        }
+      }
       item.addEventListener('mouseenter', function () {
         item.classList.add('hovered');
       });
@@ -26,11 +37,25 @@ var hoverClickEvent = function hoverClickEvent() {
     });
   } else {
     menuItems.forEach(function (item) {
-      item.addEventListener('click', function () {
+      item.addEventListener('click', function (e) {
+        e.stopImmediatePropagation();
+        var subMenu = item.querySelector('.sub-menu');
         if (item.classList.contains('hovered')) {
           item.classList.remove('hovered');
         } else {
           item.classList.add('hovered');
+        }
+        if (subMenu) {
+          var bounding = subMenu.getBoundingClientRect();
+          var offset = 20;
+          subMenu.style.left = '50%';
+          if (bounding.right > window.innerWidth) {
+            var overflow = bounding.right - window.innerWidth;
+            subMenu.style.left = "-".concat(overflow + offset, "px");
+          }
+          subMenu.addEventListener('click', function (e) {
+            e.stopPropagation();
+          });
         }
       });
     });
@@ -1150,10 +1175,6 @@ function ready() {
   document.body.addEventListener('click', function (e) {
     var target = e.target;
     var role = target.dataset.role;
-    var hoverQuery = window.matchMedia('(hover: hover)');
-    if (target.classList.contains('menu-item-has-children') && !hoverQuery.matches) {
-      target.classList.toggle('opened');
-    }
     if (!role) return;
     switch (role) {
       case 'mobile-menu':
