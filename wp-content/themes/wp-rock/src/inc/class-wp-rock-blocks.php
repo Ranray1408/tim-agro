@@ -45,6 +45,9 @@ class WP_Rock_Blocks {
         'block-course-programm' => array(
             'title'      => 'Block - Course programm',
         ),
+        'block-price-cta' => array(
+            'title'      => 'Block - Price CTA',
+        ),
     );
 
     /**

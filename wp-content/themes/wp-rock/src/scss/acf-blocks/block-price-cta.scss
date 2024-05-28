@@ -1,0 +1,74 @@
+.price-cta {
+    background-color: var(--color-type-dark-3);
+    padding: 75px 0 63px;
+
+    @media screen and (max-width: 991px) {
+        padding: 57px 0;
+    }
+
+    &__title {
+        text-transform: uppercase;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 23px;
+        }
+    }
+
+    &__wrapper {
+        gap: 27px;
+
+        @media screen and (max-width: 768px) {
+            gap: 11px;
+        }
+
+        &.green-svg {
+            svg path {
+                fill: var(--color-type-primary-1);
+            }
+        }
+    }
+
+    &__mid-text {
+        color: var(--color-type-primary-white);
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 0;
+        flex-shrink: 0;
+
+        @media screen and (max-width: 768px) {
+            font-size: 30px;
+        }
+    }
+
+    &__phone {
+        color: var(--color-type-primary-1);
+        text-align: center;
+        font-family: 'Mulish', sans-serif;
+        font-size: 40px;
+        font-weight: 700;
+        text-transform: lowercase;
+
+        @media screen and (max-width: 768px) {
+            font-size: 24px;
+        }
+    }
+
+    &__cta-button {
+        margin: 32px auto 0;
+
+        @media screen and (max-width: 768px) {
+            margin: 25px auto 0;
+        }
+    }
+
+    &__socials {
+        margin: 20px auto 0;
+        gap: 20px;
+
+        @media screen and (max-width: 768px) {
+            margin: 33px auto 0;
+        }
+    }
+}

@@ -41,7 +41,32 @@ h2 {
     }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h3 {
+    color: var(--color-type-primary-white);
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+
+
+    @media screen and (max-width: 1024px) {
+        font-size: 26px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media screen and (max-width: 670px) {
+        font-size: 20px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Intro Regular Alt', sans-serif;
     color: var(--color-type-primary-white);
 }
@@ -98,6 +123,7 @@ a {
         font-size: 20px;
     }
 }
+
 .body-type-1 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -118,6 +144,7 @@ a {
         font-size: 16px;
     }
 }
+
 .body-type-2 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -138,6 +165,7 @@ a {
         font-size: 16px;
     }
 }
+
 .body-type-3 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -158,6 +186,7 @@ a {
         font-size: 12px;
     }
 }
+
 .body-type-4 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -174,6 +203,7 @@ a {
         font-weight: 400;
     }
 }
+
 .body-type-5 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -190,6 +220,7 @@ a {
         font-weight: 400;
     }
 }
+
 .body-type-6 {
     color: var(--color-type-primary-white);
     font-family: 'Mulish', sans-serif;
@@ -201,6 +232,7 @@ a {
     @media screen and (max-width: 1024px) {
         font-size: 14px;
     }
+
     @media screen and (max-width: 670px) {
         font-size: 13px;
     }
