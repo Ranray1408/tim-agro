@@ -16,6 +16,7 @@ function ready() {
     popupInstance.init();
 
     hoverClickEvent();
+    initAccordion();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

@@ -42,11 +42,14 @@ class WP_Rock_Blocks {
         'block-course-materials' => array(
             'title'      => 'Block - Course materials',
         ),
-        'block-course-programm' => array(
-            'title'      => 'Block - Course programm',
+        'block-programm' => array(
+            'title'      => 'Block - Programm',
         ),
         'block-price-cta' => array(
             'title'      => 'Block - Price CTA',
+        ),
+        'block-faq' => array(
+            'title'      => 'Block - FAQ',
         ),
     );
 

@@ -1,0 +1,110 @@
+.block-faq {
+    background-color: var(--color-type-primary-white-2);
+    padding: 104px 0 92px;
+
+    @media screen and (max-width: 991px) {
+        padding: 84px 0 75px;
+    }
+
+    .big-title {
+        color: var(--color-type-dark-2);
+        opacity: 0.1;
+    }
+
+    &__title {
+        color: var(--color-type-dark-1);
+        margin-bottom: 44px;
+        margin-right: 84px;
+
+        @media screen and (max-width: 991px) {
+            margin-right: 0;
+            margin-bottom: 30px;
+        }
+    }
+
+    &__accordion {
+        margin-right: 84px;
+
+        @media screen and (max-width: 991px) {
+            margin-right: 0;
+        }
+    }
+
+    &__accordion-item {
+        border-bottom: 1px solid var(--color-type-dark-4);
+        padding: 16px 16px 16px 26px;
+
+        @media screen and (max-width: 768px) {
+            padding: 13px 7px 13px 0;
+        }
+
+        &:first-child {
+            border-top: 1px solid var(--color-type-dark-4);
+        }
+
+        &.open {
+            .block-faq__accordion-item {
+                padding: 16px 16px 16px 38px;
+            }
+
+            .block-faq__accordion-btn {
+                svg {
+                    transition: transform 0.3s;
+                    transform: rotate(90deg);
+
+                    circle {
+                        stroke: var(--color-type-dark-1);
+                    }
+                }
+            }
+
+            .block-faq__accordion-content {
+                max-height: 5000px;
+                margin-top: 18px;
+
+                @media screen and (max-width: 768px) {
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+
+    &__accordion-btn {
+        padding: 0;
+        width: 100%;
+        color: var(--color-type-dark-1);
+        font-family: 'Mulish', sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        @media screen and (max-width: 768px) {
+            font-size: 18px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        svg {
+            @media screen and (max-width: 768px) {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
+
+    &__accordion-content {
+        overflow: hidden;
+        max-height: 0;
+        height: auto;
+        padding: 0;
+
+        p {
+            @media screen and (max-width: 670px) {
+                font-size: 15px;
+            }
+        }
+    }
+}
