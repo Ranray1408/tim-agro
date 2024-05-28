@@ -154,11 +154,11 @@
                     right: 0;
                     transform: translateY(-50%);
                     transition: transform 0.3s;
-                    width: 14px;
-                    height: 14px;
+                    width: 16px;
+                    height: 16px;
                     background-repeat: no-repeat;
                     background-position: center center;
-                    background-size: cover;
+                    background-size: contain;
                     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgMTYgOSIgZmlsbD0ibm9uZSI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNCAwLjMzMzMyOEw4LjAwMzM0IDUuNzMxMzNMMi4wMDUzNCAwLjMzMzMyOEwwLjY2NjY3MiAxLjgxOTk5TDguMDAzMzQgOC40MjE5OUwxNS4zMzg3IDEuODE5OTlMMTQgMC4zMzMzMjhaIiBmaWxsPSIjNTNGMDdGIi8+Cjwvc3ZnPg==);
 
                     @media screen and (max-width: 991px) {

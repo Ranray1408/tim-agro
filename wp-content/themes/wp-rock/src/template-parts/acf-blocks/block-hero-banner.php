@@ -22,15 +22,15 @@ $link = get_field_value($fields, 'link');
 <div class="hero-banner <?php echo esc_html($class_name); ?>">
     <img class="hero-banner__img-bg" src="<?php echo $background_image; ?>" alt="bg" />
     <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg" />
-    <?php if (is_front_page() && is_home()) : ?>
-        <div class="breadcrumbs">
-            <?php if (function_exists('bcn_display')) {
-                bcn_display();
-            } ?>
-        </div>
-    <?php endif; ?>
     <div class="container">
         <div class="hero-banner__content">
+            <?php if (!is_front_page()) : ?>
+                <div class="breadcrumbs d-flex">
+                    <?php if (function_exists('bcn_display')) {
+                        bcn_display();
+                    } ?>
+                </div>
+            <?php endif; ?>
             <?php
             if (!empty($title)) {
                 echo '<h1 class="hero-banner__title">' . do_shortcode($title) . '</h1>';
@@ -47,7 +47,7 @@ $link = get_field_value($fields, 'link');
             if (!empty($list)) {
                 echo '<div class="hero-banner__list d-flex flex-column">';
                 foreach ($list as $list_item) {
-                    if(!empty($list_item['text'])) {
+                    if (!empty($list_item['text'])) {
                         echo '<div class="hero-banner__list-item d-flex align-items-center body-type-1 font-weight-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
                                     <circle cx="28" cy="28" r="27.5" stroke="#53F07F"/>

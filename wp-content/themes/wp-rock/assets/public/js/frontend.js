@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   hoverClickEvent: function() { return /* binding */ hoverClickEvent; }
 /* harmony export */ });
 var hoverClickEvent = function hoverClickEvent() {
-  var menuItems = document.querySelectorAll('.site-header__menu > .menu-item');
+  var menuItems = document.querySelectorAll('ul > .menu-item');
   var canHover = window.matchMedia('(hover: hover)').matches;
   if (canHover) {
     menuItems.forEach(function (item) {

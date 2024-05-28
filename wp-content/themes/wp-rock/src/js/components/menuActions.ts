@@ -1,5 +1,5 @@
 export const hoverClickEvent = (): void => {
-    const menuItems = document.querySelectorAll('.site-header__menu > .menu-item');
+    const menuItems = document.querySelectorAll('ul > .menu-item');
 
     const canHover = window.matchMedia('(hover: hover)').matches;
 
