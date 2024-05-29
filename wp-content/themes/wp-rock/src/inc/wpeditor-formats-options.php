@@ -24,9 +24,24 @@ function my_wpeditor_formats_options( $settings ) {
             'classes' => 'body-type-1 weight400',
         ),
         array(
+            'title' => 'body 1 (bold)',
+            'block' => 'p',
+            'classes' => 'body-type-1 weight700',
+        ),
+        array(
             'title' => 'body 1 (not regular)',
             'block' => 'p',
             'classes' => 'body-type-1',
+        ),
+        array(
+            'title' => 'intro-regular-20',
+            'block' => 'p',
+            'classes' => 'intro-regular-20',
+        ),
+        array(
+            'title' => 'body 4 (regular)',
+            'block' => 'p',
+            'classes' => 'body-type-4 weight400',
         ),
     );
 

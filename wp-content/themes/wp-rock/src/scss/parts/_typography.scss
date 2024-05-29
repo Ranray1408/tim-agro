@@ -197,10 +197,6 @@ a {
     @media screen and (max-width: 1024px) {
         font-size: 16px;
     }
-
-    &.weight400 {
-        font-weight: 400;
-    }
 }
 
 .body-type-5 {
@@ -213,10 +209,6 @@ a {
 
     @media screen and (max-width: 1024px) {
         font-size: 16px;
-    }
-
-    &.weight400 {
-        font-weight: 400;
     }
 }
 
@@ -237,12 +229,34 @@ a {
     }
 }
 
+.intro-regular-20 {
+    color: var(--color-type-primary-white);
+    font-family: "Intro Regular Alt", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 670px) {
+        font-size: 16px;
+    }
+}
+
 .weight300 {
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 
 .weight400 {
-    font-weight: 400;
+    font-weight: 400 !important;
+}
+
+.weight700 {
+    font-weight: 700 !important;
 }
 
 p {
