@@ -32,6 +32,31 @@
 
 }
 
+.white-transparent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 12px 20px;
+    border: 2px solid var(--color-type-primary-white);
+    color: var(--color-type-primary-white);
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    background-color: transparent;
+    font-weight: 400;
+
+    @media screen and (max-width: 768px) {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+
+    &:hover {
+        background-color: var(--color-type-primary-1);
+        color: var(--color-type-dark-1);
+    }
+}
+
 .btn-with-arrow {
     display: inline-flex;
     align-items: center;
