@@ -37,7 +37,7 @@ $link = get_field_value($fields, 'link');
             }
 
             if (!empty($filled_subtitle)) {
-                echo '<div class="hero-banner__filled-subtitle body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
+                echo '<div class="hero-banner__filled-subtitle d-inline-flex body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
             }
 
             if (!empty($subtitle)) {
