@@ -54,6 +54,9 @@ class WP_Rock_Blocks {
         'block-reviews' => array(
             'title'      => 'Block - Reviews',
         ),
+        'block-image-text' => array(
+            'title'      => 'Block - Image text',
+        ),
     );
 
     /**

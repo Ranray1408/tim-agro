@@ -1,0 +1,103 @@
+.image-text {
+    padding: 86px 0 100px;
+    background-color: var(--color-type-dark-2);
+
+    @media screen and (max-width: 991px) {
+        padding: 91px 0 56px;
+    }
+
+    &__inner-wrapper {
+        gap: 94px;
+
+        @media screen and (max-width: 1200px) {
+            flex-direction: column-reverse;
+        }
+
+        @media screen and (max-width: 991px) {
+            gap: 46px;
+        }
+    }
+
+    &__image {
+        max-width: 567px;
+        width: 100%;
+    }
+
+    &__title {
+        margin-bottom: 47px;
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 40px;
+        }
+    }
+
+    &__content {
+        ul {
+            li {
+                list-style-type: none;
+                position: relative;
+                padding-left: 32px;
+                padding-bottom: 45px;
+                font-size: 22px;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 18px;
+                    padding-bottom: 32px;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    top: 5px;
+                    left: 0;
+                    width: 20px;
+                    height: 20px;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAxOSAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iOS41IiBjeT0iOS41IiByPSI5LjUiIGZpbGw9IiMyNDJBMkUiLz4KPGNpcmNsZSBjeD0iOS41IiBjeT0iOS41IiByPSI5IiBzdHJva2U9IiM1M0YwN0YiIHN0cm9rZS1vcGFjaXR5PSIwLjMiLz4KPGcgZmlsdGVyPSJ1cmwoI2ZpbHRlcjBfZF8yMDg3XzM2NzY0KSI+CjxlbGxpcHNlIGN4PSI5LjQ5NzcyIiBjeT0iOS41MDAxNiIgcng9IjMuMTY2NjciIHJ5PSIzLjE2NjY3IiBmaWxsPSIjNTNGMDdGIi8+CjwvZz4KPGRlZnM+CjxmaWx0ZXIgaWQ9ImZpbHRlcjBfZF8yMDg3XzM2NzY0IiB4PSIyLjMzMTA1IiB5PSIyLjMzMzUiIHdpZHRoPSIxNC4zMzMiIGhlaWdodD0iMTQuMzMzMyIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgo8ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPgo8ZmVDb2xvck1hdHJpeCBpbj0iU291cmNlQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIgcmVzdWx0PSJoYXJkQWxwaGEiLz4KPGZlT2Zmc2V0Lz4KPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIvPgo8ZmVDb21wb3NpdGUgaW4yPSJoYXJkQWxwaGEiIG9wZXJhdG9yPSJvdXQiLz4KPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMC4zMjU0OSAwIDAgMCAwIDAuOTQxMTc2IDAgMCAwIDAgMC40OTgwMzkgMCAwIDAgMSAwIi8+CjxmZUJsZW5kIG1vZGU9Im5vcm1hbCIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0iZWZmZWN0MV9kcm9wU2hhZG93XzIwODdfMzY3NjQiLz4KPGZlQmxlbmQgbW9kZT0ibm9ybWFsIiBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJlZmZlY3QxX2Ryb3BTaGFkb3dfMjA4N18zNjc2NCIgcmVzdWx0PSJzaGFwZSIvPgo8L2ZpbHRlcj4KPC9kZWZzPgo8L3N2Zz4K);
+                }
+
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    border: 1px dashed rgba(83, 240, 127, 0.30);
+                    height: 100%;
+                    top: 20px;
+                    left: 8px;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+
+                    &:before {
+                        display: none;
+                    }
+                }
+
+                ul {
+                    li {
+                        padding-left: 12px;
+                        margin: 6px 0;
+
+                        &:after {
+                            top: 9px;
+                            left: 2px;
+                            width: 3px;
+                            height: 3px;
+                            border-radius: 50%;
+                            background-color: var(--color-type-primary-white);
+                            background-image: none;
+                        }
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
