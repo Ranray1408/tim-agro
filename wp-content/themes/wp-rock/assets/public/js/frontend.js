@@ -91,6 +91,82 @@ hoverClickEvent();
 
 /***/ }),
 
+/***/ "./src/js/components/profileFunctionality.ts":
+/*!***************************************************!*\
+  !*** ./src/js/components/profileFunctionality.ts ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProfileFunctionality: function() { return /* binding */ ProfileFunctionality; }
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var ProfileFunctionality = /*#__PURE__*/function () {
+  function ProfileFunctionality() {
+    _classCallCheck(this, ProfileFunctionality);
+  }
+  _createClass(ProfileFunctionality, [{
+    key: "init",
+    value: function init() {
+      this.playVideoByClickInit();
+    }
+  }, {
+    key: "playVideo",
+    value: function playVideo(videoContainer, videoUrl) {
+      if (!videoContainer || !videoUrl) return;
+      var videoTags = document.querySelectorAll('video');
+      var video = videoContainer.querySelector('video');
+      videoTags && videoTags.forEach(function (el) {
+        var video = el;
+        video.pause();
+      });
+      if (video) {
+        video.src = videoUrl;
+        video.play();
+      }
+    }
+  }, {
+    key: "playVideoByClickInit",
+    value: function playVideoByClickInit() {
+      var _this = this;
+      var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
+      if (!playVideoBtns) return;
+      var removeAllActiveBtns = function removeAllActiveBtns() {
+        playVideoBtns.forEach(function (el) {
+          return el.classList.remove('playing-video');
+        });
+      };
+      playVideoBtns.forEach(function (el) {
+        var button = el;
+        button.addEventListener('click', function (e) {
+          var _a, _b, _c;
+          removeAllActiveBtns();
+          button.classList.add('playing-video');
+          var containerId = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
+          var videoUrl = (_b = button.dataset) === null || _b === void 0 ? void 0 : _b.video_url;
+          var videoTitle = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_title;
+          var videoContainer = document.querySelector("#".concat(containerId));
+          var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
+          if (videoTitleContainer) {
+            videoTitleContainer.innerHTML = "".concat(videoTitle);
+          }
+          _this.playVideo(videoContainer, videoUrl);
+        });
+      });
+    }
+  }]);
+  return ProfileFunctionality;
+}();
+
+/***/ }),
+
 /***/ "./src/scss/frontend.scss":
 /*!********************************!*\
   !*** ./src/scss/frontend.scss ***!
@@ -1178,15 +1254,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_frontend_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/frontend.scss */ "./src/scss/frontend.scss");
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/accordion */ "./src/js/components/accordion.ts");
 /* harmony import */ var _components_menuActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/menuActions */ "./src/js/components/menuActions.ts");
-/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+/* harmony import */ var _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/profileFunctionality */ "./src/js/components/profileFunctionality.ts");
+/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+
 
 
 
 
 function ready() {
   var siteHeader = document.querySelector('.js-site-header');
-  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
   popupInstance.init();
+  profileFunctionality.init();
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   if (window.scrollY > 100) {

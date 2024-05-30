@@ -1,6 +1,6 @@
 {
     "key": "group_664f01fe640a9",
-    "title": "Courses fields",
+    "title": "Courses and Lectures fields",
     "fields": [
         {
             "key": "field_664f0211f162d",
@@ -96,7 +96,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "url",
+                            "return_format": "array",
                             "library": "all",
                             "min_size": "",
                             "max_size": "",
@@ -144,5 +144,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716998541
+    "modified": 1717068873
 }

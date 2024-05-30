@@ -4,6 +4,7 @@
 import '../scss/frontend.scss';
 import initAccordion from './components/accordion';
 import { hoverClickEvent } from './components/menuActions';
+import { ProfileFunctionality } from './components/profileFunctionality';
 /**
  * JavaScript
  */
@@ -13,10 +14,13 @@ import Popup from './parts/popup-window';
 function ready() {
     const siteHeader = document.querySelector('.js-site-header');
     const popupInstance = new Popup();
+    const profileFunctionality = new ProfileFunctionality();
     popupInstance.init();
+    profileFunctionality.init();
 
     hoverClickEvent();
     initAccordion();
+
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

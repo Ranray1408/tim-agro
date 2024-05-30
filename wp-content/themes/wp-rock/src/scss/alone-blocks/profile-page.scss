@@ -2,7 +2,7 @@
 
     &__menu {
         grid-area: nav;
-        height: 100vh;
+        height: 100%;
         background-color: var(--color-type-dark-2);
 
         &-logo {
@@ -64,7 +64,23 @@
 
         // Main accordion
         &-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        &-accordion-item {
             background-color: rgb(48, 56, 63, 0.8);
+            &.open {
+                .profile__panel-programm-content {
+                    max-height: 10000px;
+                    padding: 0 18px 20px;
+                }
+
+                .arrow-icon {
+                    transform: rotate(180deg);
+                }
+            }
         }
 
         &-accordion-btn {
@@ -110,7 +126,7 @@
                 margin-right: 30px;
             }
 
-            .expire {
+            .access-block {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -122,12 +138,36 @@
                 font-weight: 400;
                 line-height: normal;
 
-                span {
-                    color: var(--color-type-primary-2);
+                span:last-child {
+                    color: var(--color-type-primary-1);
+                }
+
+                &.access-expires {
+                    color: var(--color-type-primary-white);
+
+                    span:last-child {
+                        color: var(--color-type-primary-2);
+                    }
+                }
+
+                &.access-expired {
+                    span {
+                        color: var(--color-type-primary-3);
+                    }
+
+                    svg path {
+                        fill: var(--color-type-primary-3);
+                    }
                 }
             }
 
+            .continue-access-btn {
+                margin-top: auto;
+                margin-left: 17px;
+            }
+
             .arrow-icon {
+                transition: transform 0.3s;
                 margin-left: auto;
             }
 
@@ -135,9 +175,8 @@
 
         &-accordion-logo {
             display: block;
-            background-color: lightblue;
-            width: 132px;
-            height: 132px;
+            width: 100px;
+            height: 100px;
             margin-right: 17px;
         }
 
@@ -145,6 +184,10 @@
         &-content {
             display: flex;
             flex-direction: column;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            padding: 0 18px;
         }
 
         &-block {
@@ -160,19 +203,52 @@
             text-align: left;
             padding: 20px 18px;
             width: 100%;
+
+            .block-status {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+
+                &.not-passed {
+                    color: var(--color-type-primary-white);
+
+                    svg circle {
+                        fill: var(--type-primary-white);
+                    }
+                }
+
+                &.in-progress {
+                    color: var(--color-type-primary-2);
+
+                    svg circle {
+                        fill: var(--color-type-primary-2);
+                    }
+                }
+
+                &.done {
+                    color: var(--color-type-primary-1);
+
+                    svg circle {
+                        fill: var(--color-type-primary-1);
+                    }
+                }
+            }
         }
 
         &-block-content {
             padding: 0 18px 40px;
         }
 
+        // Video
         &-block-video {
             max-width: 875px;
             margin-bottom: 40px;
 
             video {
                 height: 443px;
-                background-color: lightcoral;
+                background-color: var(--color-type-dark-5);
             }
 
             .video-name {
@@ -191,6 +267,10 @@
                 background-color: transparent;
                 padding: 0;
                 margin-left: 38px;
+
+                &:hover {
+                    color: var(--color-type-primary-2);
+                }
             }
         }
 
@@ -210,7 +290,16 @@
             padding: 13px 17px 13px 28px;
             background-color: transparent;
             background-color: var(--color-type-dark-5);
-            border-left: 6px solid var(--color-type-primary-2);
+            border-left: 6px solid var(--color-type-primary-1);
+
+            * {
+                pointer-events: none;
+            }
+
+            &:hover,
+            &.playing-video {
+                border-left: 6px solid var(--color-type-primary-2);
+            }
         }
     }
 }
