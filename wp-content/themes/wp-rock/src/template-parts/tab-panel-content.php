@@ -82,7 +82,7 @@ $learning_material = get_field_value($user_fields, 'courses');
                                     </div>
                                     <?php
                                     // Progress bar line
-                                    progress_bar(2, 6);
+                                    progress_bar(2, $blocks_count);
 
                                     // Expire date block
                                     access_date_block($access_status, $expire_access_date, $text_access_date);
@@ -105,13 +105,26 @@ $learning_material = get_field_value($user_fields, 'courses');
                         <?php if (!empty($programm) && $access_status !== 'access-expired') : ?>
                             <div class="profile__panel-programm-content js-wrock-accordion__content">
                                 <?php foreach ($programm as $key => $block) :
+                                    $block_index = $key + 1;
                                     $block_title = $block['block_title'];
                                     $videos = $block['videos'];
-                                    $video_container_id = 'block-video-' . $key + 1;
-                                    $first_video_url = '#';
 
-                                    if (!empty($videos[0]['video']['url'])) {
+                                    $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
+
+                                    $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
+
+                                    $first_video_url = '#';
+                                    $first_video_id = '#';
+                                    $first_video_title = '...';
+
+                                    if (
+                                        !empty($videos[0]['video']['url']) &&
+                                        !empty($videos[0]['video']['ID']) &&
+                                        !empty($videos[0]['video_title'])
+                                    ) {
                                         $first_video_url = $videos[0]['video']['url'];
+                                        $first_video_id = $full_video_id . $videos[0]['video']['ID'];
+                                        $first_video_title = $videos[0]['video_title'];
                                     }
                                 ?>
                                     <div class="profile__panel-programm-block">
@@ -124,21 +137,22 @@ $learning_material = get_field_value($user_fields, 'courses');
                                             }
 
                                             // Block status
-                                            block_status_mark('in-progress', $text_block_status);
+                                            block_status_mark('not-passed', $text_block_status);
                                             ?>
                                         </button>
                                         <div class="profile__panel-programm-block-content">
                                             <div id="<?php echo $video_container_id; ?>" class="profile__panel-programm-block-video">
-                                                <video controls src="<?php echo $first_video_url; ?>"></video>
+                                                <video data-video_id="<?php echo $first_video_id; ?>" controls src="<?php echo $first_video_url; ?>"></video>
+
                                                 <div class="video-name js-video-title body-type-2 weight600">
-                                                    ...
+                                                    <?php echo $first_video_title; ?>
                                                 </div>
                                                 <button class="next-video-btn">
                                                     <?php echo $text_next_video; ?>
                                                 </button>
                                             </div>
                                             <!-- ************ Video list ************ -->
-                                            <?php video_list_html_sctructure($videos, $video_container_id); ?>
+                                            <?php video_list_html_sctructure($videos, $video_container_id, $post_id, $block_index); ?>
                                             <!-- ************ END Video list ************ -->
                                         </div>
                                     </div>
@@ -156,18 +170,22 @@ $learning_material = get_field_value($user_fields, 'courses');
 
 <?php
 
-function video_list_html_sctructure($videos, $video_container_id) {
+function video_list_html_sctructure($videos, $video_container_id, $post_id, $block_index) {
     if (!empty($videos)) :
         echo '<div class="profile__panel-programm-block-videos-list">';
         foreach ($videos as $key => $video) :
             $video_title = !empty($video['video_title']) ? $video['video_title'] : '';
             $video_url = !empty($video['video']['url']) ? $video['video']['url'] : '#';
+            $video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
 
             $active_class = $key === 0 ? 'playing-video' : '';
+
+            $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
 
             echo '<button
                     data-video_container_id="' . $video_container_id . '"
                     data-video_url="' . $video_url . '"
+                    data-video_id="' . $full_video_id . '"
                     data-video_title="' . $video_title . '"
                     class="profile__panel-programm-block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
 
@@ -204,9 +222,9 @@ function block_status_mark($status, $text_block_status) {
             $text = $text_block_status[1];
             $class = 'in-progress';
             break;
-        case 'done':
+        case 'passed':
             $text = $text_block_status[2];
-            $class = 'done';
+            $class = 'passed';
             break;
     }
     echo '<span class="block-status ' . $class . ' body-type-4 weight600">
@@ -219,8 +237,13 @@ function block_status_mark($status, $text_block_status) {
 
 
 function progress_bar($blocks_passed, $blocks_count) {
+
     $total_width = 161;
-    $block_width = $total_width / $blocks_count;
+    $block_width = 0;
+
+    if ($blocks_count != 0) {
+        $block_width = $total_width / $blocks_count;
+    }
 
     $svg = '<svg class="progress-bar" xmlns="http://www.w3.org/2000/svg" width="161" height="5" viewBox="0 0 161 5" fill="none">
         <rect width="161" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';

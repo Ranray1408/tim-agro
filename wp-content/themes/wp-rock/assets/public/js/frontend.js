@@ -110,32 +110,55 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var ProfileFunctionality = /*#__PURE__*/function () {
   function ProfileFunctionality() {
+    var _this = this;
     _classCallCheck(this, ProfileFunctionality);
+    this.profileData = {};
+    this.addPauseListenerToAllVideos = function () {
+      var videos = document.querySelectorAll('video');
+      videos && videos.forEach(function (el) {
+        var video = el;
+        video.addEventListener('pause', function () {
+          _this.saveVideoTimeData(video);
+        });
+      });
+    };
   }
   _createClass(ProfileFunctionality, [{
     key: "init",
     value: function init() {
       this.playVideoByClickInit();
+      this.addPauseListenerToAllVideos();
+      this.createProfileVideoData();
     }
   }, {
-    key: "playVideo",
-    value: function playVideo(videoContainer, videoUrl) {
-      if (!videoContainer || !videoUrl) return;
-      var videoTags = document.querySelectorAll('video');
+    key: "loadDataAndPlayVideo",
+    value: function loadDataAndPlayVideo(playBtnData) {
+      var _a, _b, _c, _d, _e;
+      if (!playBtnData) return;
+      var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
+      var videoUrl = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_url;
+      var videoTitle = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_title;
+      var videoId = (_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_id;
+      var videoPlayingByBtn = (_e = playBtnData.dataset) === null || _e === void 0 ? void 0 : _e.play_btn_id;
+      var videoContainer = document.querySelector("#".concat(containerId));
+      var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
+      if (videoTitleContainer) {
+        videoTitleContainer.innerHTML = "".concat(videoTitle);
+      }
+      if (!videoContainer) return;
       var video = videoContainer.querySelector('video');
-      videoTags && videoTags.forEach(function (el) {
-        var video = el;
-        video.pause();
-      });
+      this.pauseAllVideos();
       if (video) {
         video.src = videoUrl;
+        video.dataset.video_id = videoId;
+        video.dataset.video_playing_by_btn = videoPlayingByBtn;
         video.play();
       }
     }
   }, {
     key: "playVideoByClickInit",
     value: function playVideoByClickInit() {
-      var _this = this;
+      var _this2 = this;
       var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
       if (!playVideoBtns) return;
       var removeAllActiveBtns = function removeAllActiveBtns() {
@@ -146,20 +169,113 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       playVideoBtns.forEach(function (el) {
         var button = el;
         button.addEventListener('click', function (e) {
-          var _a, _b, _c;
           removeAllActiveBtns();
+          _this2.pauseAllVideos();
           button.classList.add('playing-video');
-          var containerId = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
-          var videoUrl = (_b = button.dataset) === null || _b === void 0 ? void 0 : _b.video_url;
-          var videoTitle = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_title;
-          var videoContainer = document.querySelector("#".concat(containerId));
-          var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
-          if (videoTitleContainer) {
-            videoTitleContainer.innerHTML = "".concat(videoTitle);
-          }
-          _this.playVideo(videoContainer, videoUrl);
+          _this2.loadDataAndPlayVideo(button);
         });
       });
+    }
+  }, {
+    key: "saveVideoTimeData",
+    value: function saveVideoTimeData(video) {
+      var _a, _b, _c, _d;
+      if (!((_a = video.dataset) === null || _a === void 0 ? void 0 : _a.video_id)) return;
+      var videoDuration = video.duration;
+      var videoPuseTime = video.currentTime;
+      var viewed = false;
+      var programmId = (_b = video.dataset.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
+      var blockId = (_c = video.dataset.video_id) === null || _c === void 0 ? void 0 : _c.split('_')[1];
+      var videoId = (_d = video.dataset.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[2];
+      if (videoPuseTime && videoDuration) {
+        viewed = +videoPuseTime / +videoDuration >= 0.9;
+      }
+      var Programm = this.profileData[programmId];
+      var programmBlock = this.profileData[programmId].blocks[blockId];
+      programmBlock.videos[videoId] = Object.assign(Object.assign({}, this.profileData[programmId].blocks[blockId].videos[videoId]), {
+        videoDuration: videoDuration,
+        videoPauseTime: videoPuseTime,
+        isVideoViewed: viewed
+      });
+      this.changeBlockStatus(programmBlock);
+      this.changeprogrammBlocksPassedStatus(Programm);
+      console.log('reated profileData', this.profileData);
+    }
+  }, {
+    key: "createProfileVideoData",
+    value: function createProfileVideoData() {
+      var _this3 = this;
+      var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
+      playVideoBtns && playVideoBtns.forEach(function (el) {
+        var _a, _b, _c, _d, _e, _f, _g;
+        var button = el;
+        var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
+        var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
+        var videoId = (_e = button.dataset.video_id) === null || _e === void 0 ? void 0 : _e.split('_')[2];
+        var videoTitle = button.dataset.video_title;
+        if (!programmId || !blockId || !videoId) return;
+        if (!_this3.profileData[programmId]) {
+          _this3.profileData[programmId] = {
+            blocksPassed: 0,
+            blocks: {}
+          };
+        }
+        if (!_this3.profileData[programmId].blocks[blockId]) {
+          _this3.profileData[programmId].blocks[blockId] = {
+            blockStatus: 'not-passed',
+            videos: {}
+          };
+        }
+        if (!((_g = (_f = _this3.profileData[programmId].blocks) === null || _f === void 0 ? void 0 : _f[blockId]) === null || _g === void 0 ? void 0 : _g.videos)) return;
+        var programmBlock = _this3.profileData[programmId].blocks[blockId];
+        programmBlock.videos[videoId] = {
+          videoTitle: videoTitle || null,
+          videoId: videoId || null,
+          videoDuration: null,
+          videoPauseTime: null,
+          isVideoViewed: false
+        };
+      });
+      console.log('reated profileData', this.profileData);
+    }
+  }, {
+    key: "pauseAllVideos",
+    value: function pauseAllVideos() {
+      var videos = document.querySelectorAll('video');
+      videos && videos.forEach(function (el) {
+        var video = el;
+        video.pause();
+      });
+    }
+  }, {
+    key: "changeBlockStatus",
+    value: function changeBlockStatus(currentBlockObject) {
+      if (!currentBlockObject) return;
+      console.log(currentBlockObject);
+      var videosArray = Object.values(currentBlockObject.videos);
+      var isBlockPassed = videosArray.every(function (video) {
+        return video.isVideoViewed;
+      });
+      var isBlockNotPassed = videosArray.every(function (video) {
+        return !video.isVideoViewed;
+      });
+      if (isBlockPassed) {
+        currentBlockObject.blockStatus = 'passed';
+      } else if (isBlockNotPassed) {
+        currentBlockObject.blockStatus = 'not-passed';
+      } else {
+        currentBlockObject.blockStatus = 'in-progress';
+      }
+    }
+  }, {
+    key: "changeprogrammBlocksPassedStatus",
+    value: function changeprogrammBlocksPassedStatus(currentProgrammObject) {
+      if (!currentProgrammObject) return;
+      var blocksPassedArray = Object.values(currentProgrammObject.blocks);
+      var countOfPassedBlocks = blocksPassedArray.filter(function (block) {
+        return block.blockStatus === 'passed';
+      });
+      currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
     }
   }]);
   return ProfileFunctionality;
