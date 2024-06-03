@@ -2,13 +2,14 @@
  * SASS
  */
 import '../scss/frontend.scss';
-import initAccordion from './components/accordion';
+import initAccordion, { initInnerAccordion } from './components/accordion';
 import { hoverClickEvent } from './components/menuActions';
 import { ProfileFunctionality } from './components/profileFunctionality';
 /**
  * JavaScript
  */
 import Sliders from './components/swiper-init';
+import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
 function ready() {
@@ -20,7 +21,8 @@ function ready() {
 
     hoverClickEvent();
     initAccordion();
-
+    initInnerAccordion();
+    tabsNavigation('.js-tab-link', '.js-tab-panel');
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

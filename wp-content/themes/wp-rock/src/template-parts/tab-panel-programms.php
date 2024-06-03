@@ -4,8 +4,11 @@ global $global_options;
 
 $fields = get_fields();
 
+$programm_title = !empty($args['programm_title']) ? $args['programm_title'] : '';
+$programm_type = !empty($args['programm_type']) ? $args['programm_type'] : '';
+
 //Texts
-$main_title = __('Мої курси', 'wp-rock');
+$main_title = __($programm_title, 'wp-rock');
 
 $text_done = __('Виконано', 'wp-rock');
 $text_from = __('з', 'wp-rock');
@@ -29,10 +32,10 @@ $text_block_status = array(
 $current_user = wp_get_current_user();
 
 $user_fields = get_fields('user_' . $current_user->ID);
-$learning_material = get_field_value($user_fields, 'courses');
+$learning_material = get_field_value($user_fields, $programm_type);
 ?>
 
-<div class="profile__panel-programm">
+<div id="<?php echo $programm_type; ?>" class="profile__panel-programm js-panel-programm js-tab-panel" data-programm_type="<?php echo $programm_type; ?>" data-user_id="<?php echo $current_user->ID; ?>">
     <div class="container">
         <h2 class="profile__panel-programm-title"><?php echo $main_title; ?></h2>
         <!-- ***************** Main accrodiont ***************** -->
@@ -52,6 +55,19 @@ $learning_material = get_field_value($user_fields, 'courses');
                     $blocks_count = is_array($programm) ? count($programm) : 0;
 
                     $access_status = access_status($expire_access_date);
+
+                    $programm_data = json_decode($item['programm_data']);
+
+                    $passed_blocks_count = 0;
+                    $programm_blocks = null;
+
+                    if (!empty($programm_data->blocksPassed)) {
+                        $passed_blocks_count = (int)$programm_data->blocksPassed;
+                    }
+
+                    if (!empty($programm_data->blocks)) {
+                        $programm_blocks = $programm_data->blocks;
+                    }
                 ?>
                     <div class="profile__panel-programm-accordion-item js-wrock-accordion__item">
                         <button class="profile__panel-programm-accordion-btn js-wrock-accordion__btn">
@@ -73,7 +89,7 @@ $learning_material = get_field_value($user_fields, 'courses');
                                         </svg>
                                         <?php
                                         echo $text_done .
-                                            '<span class="current">0</span>
+                                            '<span class="current">' . $passed_blocks_count . '</span>
                                         ' . $text_from . '
                                         <span class="all-programm-blocks">
                                             ' . $blocks_count . '
@@ -82,9 +98,9 @@ $learning_material = get_field_value($user_fields, 'courses');
                                     </div>
                                     <?php
                                     // Progress bar line
-                                    progress_bar(2, $blocks_count);
+                                    progress_bar($passed_blocks_count, $blocks_count);
 
-                                    // Expire date block
+                                    // Access date block
                                     access_date_block($access_status, $expire_access_date, $text_access_date);
                                     ?>
                                 </div>
@@ -101,21 +117,32 @@ $learning_material = get_field_value($user_fields, 'courses');
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M43.9998 35.3334L38.0032 40.7314L32.0052 35.3334L30.6665 36.82L38.0032 43.422L45.3385 36.82L43.9998 35.3334Z" fill="white" />
                             </svg>
                         </button>
-                        <!-- ***************** Inner accrodiont BLOCKS ***************** -->
+                        <!-- ***************** Blocks accrodiont ***************** -->
                         <?php if (!empty($programm) && $access_status !== 'access-expired') : ?>
-                            <div class="profile__panel-programm-content js-wrock-accordion__content">
-                                <?php foreach ($programm as $key => $block) :
+                            <div class="profile__panel-programm-content js-wrock-accordion__content js-inner-accordion">
+                                <?php
+                                foreach ($programm as $key => $block) :
                                     $block_index = $key + 1;
                                     $block_title = $block['block_title'];
                                     $videos = $block['videos'];
 
-                                    $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
+                                    $block_status = 'not-passed';
 
+                                    // Get current block from user fields info
+                                    if (!empty($programm_data->blocks->{'block-' . $block_index})) {
+                                        $block = $programm_data->blocks->{'block-' . $block_index};
+                                        $block_status = $block->blockStatus;
+                                    }
+
+                                    // Forming ids
+                                    $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
                                     $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
 
+                                    // Default value
                                     $first_video_url = '#';
                                     $first_video_id = '#';
                                     $first_video_title = '...';
+                                    $start_video_from = '0';
 
                                     if (
                                         !empty($videos[0]['video']['url']) &&
@@ -126,9 +153,13 @@ $learning_material = get_field_value($user_fields, 'courses');
                                         $first_video_id = $full_video_id . $videos[0]['video']['ID'];
                                         $first_video_title = $videos[0]['video_title'];
                                     }
+
+                                    // Retunr text depend on block status
+                                    $block_status_text = block_status_text($block_status, $text_block_status);
                                 ?>
-                                    <div class="profile__panel-programm-block">
-                                        <button class="profile__panel-programm-block-btn">
+                                    <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="profile__panel-programm-block js-programm-block js-inner-accordion__content">
+
+                                        <button class="profile__panel-programm-block-btn js-inner-accordion__btn">
                                             <?php
                                             if (!empty($block_title)) {
                                                 echo '<span class="body-type-0">
@@ -137,17 +168,22 @@ $learning_material = get_field_value($user_fields, 'courses');
                                             }
 
                                             // Block status
-                                            block_status_mark('not-passed', $text_block_status);
+                                            echo '<span class="block-status ' . $block_status . ' body-type-4 weight600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
+                                                <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
+                                            </svg>
+                                            ' . $block_status_text . '
+                                        </span>';
                                             ?>
                                         </button>
-                                        <div class="profile__panel-programm-block-content">
+                                        <div class="profile__panel-programm-block-content js-inner-accordion__content">
                                             <div id="<?php echo $video_container_id; ?>" class="profile__panel-programm-block-video">
-                                                <video data-video_id="<?php echo $first_video_id; ?>" controls src="<?php echo $first_video_url; ?>"></video>
+                                                <video start="<?php echo $start_video_from; ?>" data-video_id="<?php echo $first_video_id; ?>" controls src="<?php echo $first_video_url; ?>"></video>
 
                                                 <div class="video-name js-video-title body-type-2 weight600">
                                                     <?php echo $first_video_title; ?>
                                                 </div>
-                                                <button class="next-video-btn">
+                                                <button class="next-video-btn js-next-video-btn">
                                                     <?php echo $text_next_video; ?>
                                                 </button>
                                             </div>
@@ -159,7 +195,7 @@ $learning_material = get_field_value($user_fields, 'courses');
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
-                        <!-- ***************** END Inner accrodiont ***************** -->
+                        <!-- ***************** END Blocks accrodiont ***************** -->
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -187,6 +223,8 @@ function video_list_html_sctructure($videos, $video_container_id, $post_id, $blo
                     data-video_url="' . $video_url . '"
                     data-video_id="' . $full_video_id . '"
                     data-video_title="' . $video_title . '"
+                    data-video_duration="0"
+                    data-video_stop_time="0"
                     class="profile__panel-programm-block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
 
             if (!empty($video_title)) {
@@ -209,30 +247,25 @@ function video_list_html_sctructure($videos, $video_container_id, $post_id, $blo
     endif;
 }
 
-function block_status_mark($status, $text_block_status) {
+function block_status_text($status, $text_block_status) {
     $text = '';
-    $class = '';
 
     switch ($status) {
         case 'not-passed':
             $text = $text_block_status[0];
-            $class = 'not-passed';
             break;
         case 'in-progress':
             $text = $text_block_status[1];
-            $class = 'in-progress';
             break;
         case 'passed':
             $text = $text_block_status[2];
-            $class = 'passed';
             break;
+        default:
+            $text = $text_block_status[0];
+            $status = 'not-passed';
     }
-    echo '<span class="block-status ' . $class . ' body-type-4 weight600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
-                    <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
-                </svg>
-                ' . $text . '
-            </span>';
+
+    return $text;
 }
 
 

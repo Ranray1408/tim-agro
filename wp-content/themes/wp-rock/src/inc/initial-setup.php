@@ -50,3 +50,6 @@ add_filter('post_max_size', 'increase_upload_size_limit');
 function get_field_value( $data_arr, $key ) {
     return ( isset( $data_arr[ $key ] ) ) ? $data_arr[ $key ] : null;
 }
+
+$profiel_functionality = new profiel_functionality();
+$profiel_functionality->init();

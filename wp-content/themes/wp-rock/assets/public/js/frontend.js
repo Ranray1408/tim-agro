@@ -9,6 +9,9 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initInnerAccordion: function() { return /* binding */ initInnerAccordion; }
+/* harmony export */ });
 var initAccordion = function initAccordion() {
   var accordions = document.querySelectorAll('.js-wrock-accordion');
   accordions && accordions.forEach(function (item) {
@@ -19,6 +22,20 @@ var initAccordion = function initAccordion() {
       var element = btn.parentElement;
       var content = element.querySelector('.js-wrock-accordion__content');
       var openItem = item.querySelector('.js-wrock-accordion__item.open');
+      element.classList.toggle('open');
+    });
+  });
+};
+var initInnerAccordion = function initInnerAccordion() {
+  var innerAccordions = document.querySelectorAll('.js-inner-accordion');
+  innerAccordions && innerAccordions.forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var target = event.target;
+      var btn = target.closest('.js-inner-accordion__btn');
+      if (!btn) return;
+      var element = btn.parentElement;
+      var content = element.querySelector('.js-inner-accordion__content');
+      var openItem = item.querySelector('.js-inner-accordion__item.open');
       element.classList.toggle('open');
     });
   });
@@ -112,7 +129,11 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   function ProfileFunctionality() {
     var _this = this;
     _classCallCheck(this, ProfileFunctionality);
-    this.profileData = {};
+    this.profileData = {
+      programmType: '',
+      userId: 0,
+      programms: {}
+    };
     this.addPauseListenerToAllVideos = function () {
       var videos = document.querySelectorAll('video');
       videos && videos.forEach(function (el) {
@@ -129,6 +150,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       this.playVideoByClickInit();
       this.addPauseListenerToAllVideos();
       this.createProfileVideoData();
+      this.playNextVideo();
     }
   }, {
     key: "loadDataAndPlayVideo",
@@ -190,45 +212,55 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       if (videoPuseTime && videoDuration) {
         viewed = +videoPuseTime / +videoDuration >= 0.9;
       }
-      var Programm = this.profileData[programmId];
-      var programmBlock = this.profileData[programmId].blocks[blockId];
-      programmBlock.videos[videoId] = Object.assign(Object.assign({}, this.profileData[programmId].blocks[blockId].videos[videoId]), {
+      var currentProgrammPath = this.profileData.programms[programmId];
+      var currentBlockPath = currentProgrammPath.blocks[blockId];
+      currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
         videoDuration: videoDuration,
         videoPauseTime: videoPuseTime,
         isVideoViewed: viewed
       });
-      this.changeBlockStatus(programmBlock);
-      this.changeprogrammBlocksPassedStatus(Programm);
+      this.changeBlockStatus(currentBlockPath);
+      this.changeprogrammBlocksPassedStatus(currentProgrammPath);
       console.log('reated profileData', this.profileData);
+      this.fetchDataToBackend(this.profileData);
     }
   }, {
     key: "createProfileVideoData",
     value: function createProfileVideoData() {
       var _this3 = this;
       var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
+      var panelPragromm = document.querySelector('.js-panel-programm');
+      if (panelPragromm && panelPragromm.dataset.user_id) {
+        this.profileData.userId = +panelPragromm.dataset.user_id;
+      }
+      if (panelPragromm && panelPragromm.dataset.programm_type) {
+        this.profileData.programmType = panelPragromm.dataset.programm_type;
+      }
       playVideoBtns && playVideoBtns.forEach(function (el) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         var button = el;
         var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
         var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
         var videoId = (_e = button.dataset.video_id) === null || _e === void 0 ? void 0 : _e.split('_')[2];
         var videoTitle = button.dataset.video_title;
         if (!programmId || !blockId || !videoId) return;
-        if (!_this3.profileData[programmId]) {
-          _this3.profileData[programmId] = {
+        if (!_this3.profileData.programms[programmId]) {
+          _this3.profileData.programms[programmId] = {
+            programmId: +programmId.split('-')[1] || null,
             blocksPassed: 0,
             blocks: {}
           };
         }
-        if (!_this3.profileData[programmId].blocks[blockId]) {
-          _this3.profileData[programmId].blocks[blockId] = {
-            blockStatus: 'not-passed',
+        if (!_this3.profileData.programms[programmId].blocks[blockId]) {
+          var currentBlock = _this3.getCurrentBlock(programmId, blockId);
+          _this3.profileData.programms[programmId].blocks[blockId] = {
+            blockStatus: ((_f = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _f === void 0 ? void 0 : _f.block_status) || null,
             videos: {}
           };
         }
-        if (!((_g = (_f = _this3.profileData[programmId].blocks) === null || _f === void 0 ? void 0 : _f[blockId]) === null || _g === void 0 ? void 0 : _g.videos)) return;
-        var programmBlock = _this3.profileData[programmId].blocks[blockId];
-        programmBlock.videos[videoId] = {
+        var currentProgrammPath = _this3.profileData.programms[programmId];
+        var currentBlockPath = currentProgrammPath.blocks[blockId];
+        currentBlockPath.videos[videoId] = {
           videoTitle: videoTitle || null,
           videoId: videoId || null,
           videoDuration: null,
@@ -251,7 +283,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     key: "changeBlockStatus",
     value: function changeBlockStatus(currentBlockObject) {
       if (!currentBlockObject) return;
-      console.log(currentBlockObject);
       var videosArray = Object.values(currentBlockObject.videos);
       var isBlockPassed = videosArray.every(function (video) {
         return video.isVideoViewed;
@@ -272,10 +303,65 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function changeprogrammBlocksPassedStatus(currentProgrammObject) {
       if (!currentProgrammObject) return;
       var blocksPassedArray = Object.values(currentProgrammObject.blocks);
+      console.log('blocksPassedArray', blocksPassedArray);
       var countOfPassedBlocks = blocksPassedArray.filter(function (block) {
         return block.blockStatus === 'passed';
       });
       currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
+    }
+  }, {
+    key: "playNextVideo",
+    value: function playNextVideo() {
+      var _this4 = this;
+      var playNextBtns = document.querySelectorAll('.js-next-video-btn');
+      playNextBtns && playNextBtns.forEach(function (el) {
+        var btn = el;
+        btn.addEventListener('click', function () {
+          var videoBlock = btn.closest('.js-programm-block');
+          var playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
+          var playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
+          var nextPLayBtn = playVideoBtn === null || playVideoBtn === void 0 ? void 0 : playVideoBtn.nextSibling;
+          if (nextPLayBtn) {
+            playVideoBtns && playVideoBtns.forEach(function (el) {
+              var btn = el;
+              btn.classList.remove('playing-video');
+            });
+            _this4.loadDataAndPlayVideo(nextPLayBtn);
+            nextPLayBtn.classList.add('playing-video');
+          }
+        });
+      });
+    }
+  }, {
+    key: "fetchDataToBackend",
+    value: function fetchDataToBackend(profileData) {
+      if (!profileData) return;
+      fetch("".concat(var_from_php.ajax_url, "?action=save_video_data"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(profileData)
+      });
+    }
+  }, {
+    key: "getCurrentBlock",
+    value: function getCurrentBlock(programmId, blockId) {
+      var blockIdstring = "".concat(programmId, "_").concat(blockId, "-container");
+      var currentBlock = document.querySelector("[data-block_id=\"".concat(blockIdstring, "\"]"));
+      return currentBlock || null;
+    }
+  }, {
+    key: "fetchUserDataForm",
+    value: function fetchUserDataForm() {
+      var form = document.querySelector('.js-user-info-form');
+      form && form.addEventListener('submit', function () {
+        var formData = new FormData(form);
+        fetch("".concat(var_from_php.ajax_url, "?action=update_user_data"), {
+          method: 'POST',
+          body: formData
+        });
+      });
     }
   }]);
   return ProfileFunctionality;
@@ -1147,6 +1233,77 @@ const setHeightEqualToWidth = (elementSelector) => {
 
 /***/ }),
 
+/***/ "./src/js/parts/navi-tabs.js":
+/*!***********************************!*\
+  !*** ./src/js/parts/navi-tabs.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Tabs Navigation functionality
+ *
+ * @param {string} tabSwitchSelectors  -  css selectors
+ * @param {string} tabPanelSelectors   -  css selectors
+ * @param {boolean} closeToClick       -  close child tab by click (default false)
+ */
+const tabsNavigation = (
+    tabSwitchSelectors,
+    tabPanelSelectors,
+    closeToClick = false
+) => {
+    tabSwitchSelectors &&
+        [...document.querySelectorAll(tabSwitchSelectors)].forEach((item) => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const TAB_ID =
+                    event.target.nodeName === 'A'
+                        ? event.target.getAttribute('href')
+                        : event.target.dataset.href;
+
+                if (closeToClick && event.target.classList.contains('active')) {
+                    // Remove active state from all switch elements
+                    [...document.querySelectorAll(tabSwitchSelectors)].forEach(
+                        (el) => el.classList.remove('active')
+                    );
+
+                    // Remove active state from all tabs panels
+                    [...document.querySelectorAll(tabPanelSelectors)].forEach(
+                        (el) => el.classList.remove('active')
+                    );
+                    return;
+                }
+                // Remove active state from all switch elements
+                [...document.querySelectorAll(tabSwitchSelectors)].forEach(
+                    (el) => el.classList.remove('active')
+                );
+
+                // Remove active state from all tabs panels
+                [...document.querySelectorAll(tabPanelSelectors)].forEach(
+                    (el) => el.classList.remove('active')
+                );
+
+                // Set active state to current
+                event.target.classList.add('active');
+                document.querySelector(TAB_ID).classList.add('active');
+
+                // force trigger resize event for the document
+                if (document.createEvent) {
+                    window.dispatchEvent(new Event('resize'));
+                } else {
+                    document.body.fireEvent('onresize');
+                }
+            });
+        });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tabsNavigation);
+
+
+/***/ }),
+
 /***/ "./src/js/parts/popup-window.js":
 /*!**************************************!*\
   !*** ./src/js/parts/popup-window.js ***!
@@ -1371,7 +1528,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/accordion */ "./src/js/components/accordion.ts");
 /* harmony import */ var _components_menuActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/menuActions */ "./src/js/components/menuActions.ts");
 /* harmony import */ var _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/profileFunctionality */ "./src/js/components/profileFunctionality.ts");
-/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
+/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+
 
 
 
@@ -1379,12 +1538,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function ready() {
   var siteHeader = document.querySelector('.js-site-header');
-  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_5__["default"]();
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
   popupInstance.init();
   profileFunctionality.init();
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
+  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])('.js-tab-link', '.js-tab-panel');
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {

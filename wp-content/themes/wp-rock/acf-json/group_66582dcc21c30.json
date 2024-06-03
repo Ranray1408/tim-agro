@@ -3,6 +3,25 @@
     "title": "User fields",
     "fields": [
         {
+            "key": "field_665de1bbccb2b",
+            "label": "User phone",
+            "name": "user_phone",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_66582dd26e3bc",
             "label": "Courses",
             "name": "courses",
@@ -79,9 +98,9 @@
                 },
                 {
                     "key": "field_6658511ff60ca",
-                    "label": "Blocks status",
-                    "name": "blocks_status",
-                    "type": "text",
+                    "label": "Programm data",
+                    "name": "programm_data",
+                    "type": "textarea",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -92,9 +111,9 @@
                     },
                     "default_value": "",
                     "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": ""
                 }
             ]
         }
@@ -124,5 +143,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717154096
+    "modified": 1717428677
 }

@@ -16,6 +16,7 @@ define( 'ASSETS_JS', THEME_URI . '/assets/public/js/' );
 // required files.
 require THEME_DIR . '/src/inc/custom-posts-type.php';
 require THEME_DIR . '/src/inc/custom-taxonomies.php';
+require THEME_DIR . '/src/inc/class-profile-fucntionalitu.php';
 require THEME_DIR . '/src/inc/class-wp-rock.php';
 require THEME_DIR . '/src/inc/class-wp-rock-blocks.php';
 require THEME_DIR . '/src/inc/initial-setup.php';

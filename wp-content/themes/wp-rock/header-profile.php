@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- optionally increase loading priority -->
 
-    <link rel="preload" as="style" href=<?php /*echo $fonts_google; */ ?> />
+    <!-- <link rel="preload" as="style" href="<?php /*echo $fonts_google; */ ?>" /> -->
     <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="<?php echo $fonts_google; ?>" />
 
     <?php if (is_404()) { ?>

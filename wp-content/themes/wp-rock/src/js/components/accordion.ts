@@ -21,4 +21,24 @@ const initAccordion = () => {
         });
 };
 
+export const initInnerAccordion = () => {
+    const innerAccordions = document.querySelectorAll('.js-inner-accordion');
+
+    innerAccordions &&
+        innerAccordions.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                const target = event.target as HTMLElement;
+                const btn = target.closest('.js-inner-accordion__btn');
+                if (!btn) return;
+
+                const element = btn.parentElement as HTMLElement;
+                const content = element.querySelector('.js-inner-accordion__content') as HTMLElement;
+                const openItem = item.querySelector('.js-inner-accordion__item.open') as HTMLElement;
+
+                element.classList.toggle('open');
+            });
+        });
+};
+
+
 export default initAccordion;

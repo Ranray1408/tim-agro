@@ -1,5 +1,9 @@
 export class ProfileFunctionality {
-    profileData: profileData = {};
+    profileData: profileData = {
+        programmType: '',
+        userId: 0,
+        programms : {}
+    };
 
     constructor() { }
 
@@ -8,6 +12,7 @@ export class ProfileFunctionality {
         this.playVideoByClickInit();
         this.addPauseListenerToAllVideos();
         this.createProfileVideoData();
+        this.playNextVideo();
     }
 
     loadDataAndPlayVideo(playBtnData) {
@@ -88,24 +93,35 @@ export class ProfileFunctionality {
             viewed = +videoPuseTime / +videoDuration >= 0.9;
         }
 
-        const Programm = this.profileData[programmId];
-        const programmBlock = this.profileData[programmId].blocks[blockId];
+        // Paths to current programm and block
+        const currentProgrammPath = this.profileData.programms[programmId];
+        const currentBlockPath = currentProgrammPath.blocks[blockId];
 
-        programmBlock.videos[videoId] = {
-            ...this.profileData[programmId].blocks[blockId].videos[videoId],
+        currentBlockPath.videos[videoId] = {
+            ...currentBlockPath.videos[videoId],
             videoDuration: videoDuration,
             videoPauseTime: videoPuseTime,
             isVideoViewed: viewed,
         };
 
-        this.changeBlockStatus(programmBlock);
-        this.changeprogrammBlocksPassedStatus(Programm);
+        this.changeBlockStatus(currentBlockPath);
+        this.changeprogrammBlocksPassedStatus(currentProgrammPath);
 
         console.log('reated profileData', this.profileData);
+        this.fetchDataToBackend(this.profileData);
     }
 
     createProfileVideoData() {
         const playVideoBtns = document.querySelectorAll('.js-play-video-btn') as NodeList;
+        const panelPragromm = document.querySelector('.js-panel-programm') as HTMLElement;
+
+        if (panelPragromm && panelPragromm.dataset.user_id) {
+            this.profileData.userId = +panelPragromm.dataset.user_id;
+        }
+
+        if (panelPragromm && panelPragromm.dataset.programm_type) {
+            this.profileData.programmType = panelPragromm.dataset.programm_type;
+        }
 
         playVideoBtns && playVideoBtns.forEach((el) => {
             const button = el as HTMLButtonElement;
@@ -117,25 +133,29 @@ export class ProfileFunctionality {
 
             if (!programmId || !blockId || !videoId) return;
 
-            if (!this.profileData[programmId]) {
-                this.profileData[programmId] = {
+            if (!this.profileData.programms[programmId]) {
+                this.profileData.programms[programmId] = {
+                    programmId: +programmId.split('-')[1] || null,
                     blocksPassed: 0,
                     blocks: {}
                 };
             }
 
-            if (!this.profileData[programmId].blocks[blockId]) {
-                this.profileData[programmId].blocks[blockId] = {
-                    blockStatus: 'not-passed',
+            if (!this.profileData.programms[programmId].blocks[blockId]) {
+
+                const currentBlock = this.getCurrentBlock(programmId, blockId);
+
+                this.profileData.programms[programmId].blocks[blockId] = {
+                    blockStatus: currentBlock?.dataset?.block_status || null,
                     videos: {}
                 };
             }
 
-            if (!this.profileData[programmId].blocks?.[blockId]?.videos) return;
+            // Paths to current programm and block
+            let currentProgrammPath = this.profileData.programms[programmId];
+            const currentBlockPath = currentProgrammPath.blocks[blockId];
 
-            const programmBlock = this.profileData[programmId].blocks[blockId];
-
-            programmBlock.videos[videoId] = {
+            currentBlockPath.videos[videoId] = {
                 videoTitle: videoTitle || null,
                 videoId: videoId || null,
                 videoDuration: null,
@@ -159,7 +179,6 @@ export class ProfileFunctionality {
 
     changeBlockStatus(currentBlockObject) {
         if (!currentBlockObject) return;
-        console.log(currentBlockObject);
 
         const videosArray: videoData[] = Object.values(currentBlockObject.videos);
 
@@ -179,20 +198,86 @@ export class ProfileFunctionality {
         if (!currentProgrammObject) return;
 
         const blocksPassedArray: blockData[] = Object.values(currentProgrammObject.blocks);
+        console.log('blocksPassedArray', blocksPassedArray);
 
         const countOfPassedBlocks = blocksPassedArray.filter(block => block.blockStatus === 'passed');
 
         currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
     }
+
+    playNextVideo() {
+        const playNextBtns = document.querySelectorAll('.js-next-video-btn');
+
+        playNextBtns && playNextBtns.forEach((el) => {
+            const btn = el as HTMLButtonElement;
+
+            btn.addEventListener('click', () => {
+                const videoBlock = btn.closest('.js-programm-block') as HTMLElement;
+
+                const playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
+                const playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
+                const nextPLayBtn = playVideoBtn?.nextSibling as HTMLButtonElement;
+
+                if (nextPLayBtn) {
+                    playVideoBtns && playVideoBtns.forEach((el) => {
+                        const btn = el as HTMLButtonElement;
+                        btn.classList.remove('playing-video');
+                    });
+
+                    this.loadDataAndPlayVideo(nextPLayBtn);
+                    nextPLayBtn.classList.add('playing-video');
+                }
+            });
+        })
+    }
+
+    fetchDataToBackend(profileData) {
+        if (!profileData) return;
+
+        //@ts-ignore
+        fetch(`${var_from_php.ajax_url}?action=save_video_data`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(profileData)
+        });
+    }
+
+    getCurrentBlock(programmId, blockId) {
+        const blockIdstring = `${programmId}_${blockId}-container`;
+        const currentBlock = document.querySelector(`[data-block_id="${blockIdstring}"]`) as HTMLElement;
+
+        return currentBlock || null;
+    }
+
+    fetchUserDataForm() {
+        const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
+
+        form && form.addEventListener('submit', () => {
+            const formData = new FormData(form);
+
+            //@ts-ignore
+            fetch(`${var_from_php.ajax_url}?action=update_user_data`, {
+                method: 'POST',
+                body: formData
+            });
+        });
+    }
 }
 
 interface profileData {
-    //Programm
-    [key: string]: {
-        blocksPassed: number | null,
-        blocks: {
-            //Programm Block
-            [key: string]: blockData
+    userId: number
+    programmType: string,
+    programms: {
+        //Programm
+        [key: string]: {
+            programmId: number | null,
+            blocksPassed: number | null,
+            blocks: {
+                //Programm Block
+                [key: string]: blockData
+            }
         }
     }
 }
