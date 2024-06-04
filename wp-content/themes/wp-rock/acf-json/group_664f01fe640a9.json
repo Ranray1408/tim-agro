@@ -133,6 +133,13 @@
                 "operator": "==",
                 "value": "courses"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "lectures"
+            }
         ]
     ],
     "menu_order": 0,
@@ -144,5 +151,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717068873
+    "modified": 1717510875
 }

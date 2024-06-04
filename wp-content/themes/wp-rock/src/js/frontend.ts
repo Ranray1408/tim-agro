@@ -9,6 +9,7 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
+import { loadFileName } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -23,6 +24,7 @@ function ready() {
     initAccordion();
     initInnerAccordion();
     tabsNavigation('.js-tab-link', '.js-tab-panel');
+    loadFileName();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

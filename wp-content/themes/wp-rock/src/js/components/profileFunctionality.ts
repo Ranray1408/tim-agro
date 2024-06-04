@@ -1,8 +1,14 @@
 export class ProfileFunctionality {
     profileData: profileData = {
-        programmType: '',
         userId: 0,
-        programms : {}
+        courses: {
+            programmType: 'courses',
+            programms: {}
+        },
+        lectures: {
+            programmType: 'lectures',
+            programms: {}
+        },
     };
 
     constructor() { }
@@ -11,8 +17,13 @@ export class ProfileFunctionality {
     init() {
         this.playVideoByClickInit();
         this.addPauseListenerToAllVideos();
-        this.createProfileVideoData();
+        this.createProfileVideoData('courses');
+        this.createProfileVideoData('lectures');
         this.playNextVideo();
+        //User info form
+        this.editFormFieldAddEvent();
+        this.checkFormFields();
+        this.addEventfetchUserDataForm();
     }
 
     loadDataAndPlayVideo(playBtnData) {
@@ -73,28 +84,31 @@ export class ProfileFunctionality {
             const video = el as HTMLVideoElement;
 
             video.addEventListener('pause', () => {
-                this.saveVideoTimeData(video);
+                const parentPanel = video.closest(`.js-tab-panel`) as HTMLElement;
+
+                this.saveVideoTimeData(video, parentPanel.id);
             });
         });
     }
 
-    saveVideoTimeData(video) {
+    saveVideoTimeData(video, learninMaterialType) {
         if (!video.dataset?.video_id) return;
 
+
+        //Videio data
         const videoDuration = video.duration;
         const videoPuseTime = video.currentTime;
-        let viewed = false;
-
         const programmId = video.dataset.video_id?.split('_')[0];
         const blockId = video.dataset.video_id?.split('_')[1];
         const videoId = video.dataset.video_id?.split('_')[2];
 
+        let viewed = false;
         if (videoPuseTime && videoDuration) {
             viewed = +videoPuseTime / +videoDuration >= 0.9;
         }
 
         // Paths to current programm and block
-        const currentProgrammPath = this.profileData.programms[programmId];
+        const currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
         const currentBlockPath = currentProgrammPath.blocks[blockId];
 
         currentBlockPath.videos[videoId] = {
@@ -111,16 +125,15 @@ export class ProfileFunctionality {
         this.fetchDataToBackend(this.profileData);
     }
 
-    createProfileVideoData() {
-        const playVideoBtns = document.querySelectorAll('.js-play-video-btn') as NodeList;
-        const panelPragromm = document.querySelector('.js-panel-programm') as HTMLElement;
+    createProfileVideoData(learninMaterialType) {
+        const mainContainer = document.querySelector(`#${learninMaterialType}`) as HTMLElement;
 
-        if (panelPragromm && panelPragromm.dataset.user_id) {
-            this.profileData.userId = +panelPragromm.dataset.user_id;
-        }
+        const playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn') as NodeList;
 
-        if (panelPragromm && panelPragromm.dataset.programm_type) {
-            this.profileData.programmType = panelPragromm.dataset.programm_type;
+        console.log(mainContainer.dataset.user_id);
+        if (mainContainer && mainContainer.dataset.user_id) {
+            this.profileData.userId = +mainContainer.dataset.user_id;
+
         }
 
         playVideoBtns && playVideoBtns.forEach((el) => {
@@ -133,26 +146,26 @@ export class ProfileFunctionality {
 
             if (!programmId || !blockId || !videoId) return;
 
-            if (!this.profileData.programms[programmId]) {
-                this.profileData.programms[programmId] = {
+            if (!this.profileData[learninMaterialType].programms[programmId]) {
+                this.profileData[learninMaterialType].programms[programmId] = {
                     programmId: +programmId.split('-')[1] || null,
                     blocksPassed: 0,
                     blocks: {}
                 };
             }
 
-            if (!this.profileData.programms[programmId].blocks[blockId]) {
+            if (!this.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
 
                 const currentBlock = this.getCurrentBlock(programmId, blockId);
 
-                this.profileData.programms[programmId].blocks[blockId] = {
+                this.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
                     blockStatus: currentBlock?.dataset?.block_status || null,
                     videos: {}
                 };
             }
 
             // Paths to current programm and block
-            let currentProgrammPath = this.profileData.programms[programmId];
+            let currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
             const currentBlockPath = currentProgrammPath.blocks[blockId];
 
             currentBlockPath.videos[videoId] = {
@@ -251,32 +264,172 @@ export class ProfileFunctionality {
         return currentBlock || null;
     }
 
-    fetchUserDataForm() {
+    addEventfetchUserDataForm() {
         const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
 
-        form && form.addEventListener('submit', () => {
+        form && form.addEventListener('submit', (e) => {
+            e.preventDefault();
             const formData = new FormData(form);
 
             //@ts-ignore
             fetch(`${var_from_php.ajax_url}?action=update_user_data`, {
                 method: 'POST',
                 body: formData
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res.data);
+                    const respContainer = document.querySelector('.js-response-container');
+                    const additionalClass = res.success ? 'success' : 'error';
+
+                    if (respContainer) {
+                        const paragrahp = document.createElement('p');
+                        paragrahp.classList.add(additionalClass);
+                        paragrahp.innerText = res.data;
+                        respContainer.appendChild(paragrahp);
+                    }
+                });
+        });
+    }
+
+    checkFormFields() {
+        const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
+
+        const formInputs = form.querySelectorAll('input[type="text"]') as NodeList;
+        const formSubmit = form.querySelector('input[type="submit"]') as HTMLInputElement;
+
+        const checkAllInputs = () => {
+            formInputs && formInputs.forEach((el) => {
+                const input = el as HTMLInputElement;
+                const inputContainer = input.closest('.js-inner-input-wrapper');
+
+                if (this.validateField(input.name, input.value)) {
+                    inputContainer && inputContainer.classList.add('valid');
+                    inputContainer && inputContainer.classList.remove('not-valid');
+                    if (formSubmit) {
+                        formSubmit.disabled = false;
+                    }
+                } else {
+                    inputContainer && inputContainer.classList.add('not-valid');
+                    inputContainer && inputContainer.classList.remove('valid');
+
+                    if (formSubmit) {
+                        formSubmit.disabled = true;
+                    }
+                }
+            });
+        }
+
+        formInputs && formInputs.forEach((el) => {
+            const input = el as HTMLInputElement;
+            input.addEventListener('change', () => checkAllInputs());
+        });
+    }
+
+    editFormFieldAddEvent() {
+        const editBtns = document.querySelectorAll('.js-edit-btn') as NodeList;
+        const inpus = document.querySelectorAll('input[type="text"]') as NodeList;
+
+        const setInputDefaultState = (el) => {
+            const input = el as HTMLInputElement;
+
+            input.classList.remove('focus');
+        }
+
+        editBtns && editBtns.forEach((el) => {
+            const btn = el as HTMLButtonElement;
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                inpus && inpus.forEach((el) => setInputDefaultState(el));
+
+                const parentWrapper = btn.closest('.js-inner-input-wrapper');
+                const input = parentWrapper?.querySelector('input[type="text"]') as HTMLInputElement;
+
+                input.classList.add('focus');
             });
         });
+    }
+
+    validateField(fieldType = '', value = '') {
+        if (!fieldType || !value) {
+            throw Error(
+                '"validateField function - "You didn\'t add required parameters'
+            );
+        }
+
+        const phoneREGEX = /^[0-9+]{6,13}$/;
+        const nameREGEX = /^[a-zA-Z]{2,30}$/;
+        const postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
+        const emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        const dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
+
+        let checkResult = false;
+
+        switch (fieldType) {
+            case 'name':
+            case 'first_name':
+            case 'last_name':
+                checkResult = nameREGEX.test(value);
+                break;
+            case 'phone':
+                checkResult = phoneREGEX.test(value);
+                break;
+            case 'postal':
+                checkResult = postalREGEX.test(value);
+                break;
+            case 'email':
+                checkResult = emailREGEX.test(value);
+                break;
+            case 'price':
+                checkResult = dummyREGEX.test(value);
+                break;
+            case 'aim':
+                checkResult = dummyREGEX.test(value);
+                break;
+            case 'date':
+                checkResult = dummyREGEX.test(value);
+                break;
+            case 'subject':
+            case 'company':
+                checkResult = dummyREGEX.test(value);
+                break;
+            default:
+                break;
+        }
+
+        return checkResult;
     }
 }
 
 interface profileData {
     userId: number
-    programmType: string,
-    programms: {
-        //Programm
-        [key: string]: {
-            programmId: number | null,
-            blocksPassed: number | null,
-            blocks: {
-                //Programm Block
-                [key: string]: blockData
+    courses: {
+        programmType: string,
+        programms: {
+            //Programm
+            [key: string]: {
+                programmId: number | null,
+                blocksPassed: number | null,
+                blocks: {
+                    //Programm Block
+                    [key: string]: blockData
+                }
+            }
+        }
+    }
+    lectures: {
+        programmType: string,
+        programms: {
+            //Programm
+            [key: string]: {
+                programmId: number | null,
+                blocksPassed: number | null,
+                blocks: {
+                    //Programm Block
+                    [key: string]: blockData
+                }
             }
         }
     }

@@ -16,15 +16,28 @@ class profiel_functionality {
         // Code goes here
         $data = json_decode(file_get_contents("php://input"), true);
 
-        if (empty($data['programmType']) || empty($data)) {
+        if (empty($data)) {
             wp_send_json_error('No requred data');
         }
 
         if (empty($data['userId'])) {
             wp_send_json_error('No user id');
         }
+        $result_courses = $this->update_user_programm($data['courses'], $data['userId']);
+        $result_lectures = $this->update_user_programm($data['lectures'], $data['userId']);
 
-        $user_programm = get_field($data['programmType'], 'user_' . $data['userId']);
+        wp_send_json_success(
+            array(
+                'courses' => $result_courses,
+                'lectures' => $result_lectures
+            )
+        );
+    }
+
+    private function update_user_programm($data, $user_id) {
+        if(empty($data)) return false;
+
+        $user_programm = get_field($data['programmType'], 'user_' . $user_id);
 
         if (!empty($user_programm)) {
             foreach ($user_programm as $key => $item) {
@@ -36,36 +49,42 @@ class profiel_functionality {
                 }
             }
 
-            $result = update_field($data['programmType'], $user_programm, 'user_' . $data['userId']);
-
-            if ($result) {
-                wp_send_json_success($result);
-            }
+            return update_field($data['programmType'], $user_programm, 'user_' . $user_id);
         }
     }
 
     public function update_user_data() {
-        $nickname = $_POST['nickname'];
         $user_id = $_POST['user_id'];
+        $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-
-        $user_programm = update_field($phone, 'user_' . $user_id);
+        $file = $_POST['avatar'];
 
         $updated = wp_update_user(array(
             'ID' => $user_id,
-            'user_nicename' => $nickname,
+            'display_name' => $name,
             'user_email' => $email,
         ));
 
-
         if (is_wp_error($updated)) {
-            wp_send_json_error('Somethink went wrong');
+            wp_send_json_error('Error updating user data');
         }
-        if($updated && $user_programm) {
-            wp_send_json_success('Data updated successful');
-        } else if($updated && $user_programm) {
-            wp_send_json_success('Data updated successful, phone was not updated');
+
+
+        if (!empty($file)) {
+            $avatar_id = media_handle_upload('avatar', 0);
+            if (is_wp_error($avatar_id)) {
+                wp_send_json_error('Error uploading avatar');
+            }
+            update_field('user_avatar', $avatar_id, 'user_' . $user_id);
         }
+
+        $user_phone = update_field('user_phone', $phone, 'user_' . $user_id);
+
+        if (is_wp_error($user_phone)) {
+            wp_send_json_error('Error updating phone');
+        }
+
+        wp_send_json_success('Data updated successfully');
     }
 }

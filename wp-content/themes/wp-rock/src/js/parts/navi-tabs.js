@@ -44,7 +44,7 @@ const tabsNavigation = (
 
                 // Set active state to current
                 event.target.classList.add('active');
-                document.querySelector(TAB_ID).classList.add('active');
+                document.querySelector(`#${TAB_ID}`).classList.add('active');
 
                 // force trigger resize event for the document
                 if (document.createEvent) {

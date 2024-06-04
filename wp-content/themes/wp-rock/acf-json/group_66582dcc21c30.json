@@ -22,6 +22,30 @@
             "maxlength": ""
         },
         {
+            "key": "field_665efa1c647e2",
+            "label": "User avatar",
+            "name": "user_avatar",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
             "key": "field_66582dd26e3bc",
             "label": "Courses",
             "name": "courses",
@@ -116,19 +140,115 @@
                     "new_lines": ""
                 }
             ]
+        },
+        {
+            "key": "field_665f24c5bcad9",
+            "label": "Lectures",
+            "name": "lectures",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_665f24c5bcada",
+                    "label": "Post id",
+                    "name": "post_id",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "lectures"
+                    ],
+                    "taxonomy": "",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "id",
+                    "ui": 1
+                },
+                {
+                    "key": "field_665f24c5bcadb",
+                    "label": "Start access date",
+                    "name": "start_access_date",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "d.m.Y",
+                    "return_format": "d.m.Y",
+                    "first_day": 1
+                },
+                {
+                    "key": "field_665f24c5bcadc",
+                    "label": "Expire access  date",
+                    "name": "expire_access_date",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "d.m.Y",
+                    "return_format": "d.m.Y",
+                    "first_day": 1
+                },
+                {
+                    "key": "field_665f24c5bcadd",
+                    "label": "Programm data",
+                    "name": "programm_data",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": ""
+                }
+            ]
         }
     ],
     "location": [
         [
             {
-                "param": "current_user_role",
+                "param": "user_role",
                 "operator": "==",
                 "value": "subscriber"
             }
         ],
         [
             {
-                "param": "current_user_role",
+                "param": "user_role",
                 "operator": "==",
                 "value": "administrator"
             }
@@ -143,5 +263,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717428677
+    "modified": 1717517016
 }

@@ -130,16 +130,23 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     var _this = this;
     _classCallCheck(this, ProfileFunctionality);
     this.profileData = {
-      programmType: '',
       userId: 0,
-      programms: {}
+      courses: {
+        programmType: 'courses',
+        programms: {}
+      },
+      lectures: {
+        programmType: 'lectures',
+        programms: {}
+      }
     };
     this.addPauseListenerToAllVideos = function () {
       var videos = document.querySelectorAll('video');
       videos && videos.forEach(function (el) {
         var video = el;
         video.addEventListener('pause', function () {
-          _this.saveVideoTimeData(video);
+          var parentPanel = video.closest(".js-tab-panel");
+          _this.saveVideoTimeData(video, parentPanel.id);
         });
       });
     };
@@ -149,8 +156,12 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function init() {
       this.playVideoByClickInit();
       this.addPauseListenerToAllVideos();
-      this.createProfileVideoData();
+      this.createProfileVideoData('courses');
+      this.createProfileVideoData('lectures');
       this.playNextVideo();
+      this.editFormFieldAddEvent();
+      this.checkFormFields();
+      this.addEventfetchUserDataForm();
     }
   }, {
     key: "loadDataAndPlayVideo",
@@ -200,19 +211,19 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     }
   }, {
     key: "saveVideoTimeData",
-    value: function saveVideoTimeData(video) {
+    value: function saveVideoTimeData(video, learninMaterialType) {
       var _a, _b, _c, _d;
       if (!((_a = video.dataset) === null || _a === void 0 ? void 0 : _a.video_id)) return;
       var videoDuration = video.duration;
       var videoPuseTime = video.currentTime;
-      var viewed = false;
       var programmId = (_b = video.dataset.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
       var blockId = (_c = video.dataset.video_id) === null || _c === void 0 ? void 0 : _c.split('_')[1];
       var videoId = (_d = video.dataset.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[2];
+      var viewed = false;
       if (videoPuseTime && videoDuration) {
         viewed = +videoPuseTime / +videoDuration >= 0.9;
       }
-      var currentProgrammPath = this.profileData.programms[programmId];
+      var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
       var currentBlockPath = currentProgrammPath.blocks[blockId];
       currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
         videoDuration: videoDuration,
@@ -226,15 +237,13 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     }
   }, {
     key: "createProfileVideoData",
-    value: function createProfileVideoData() {
+    value: function createProfileVideoData(learninMaterialType) {
       var _this3 = this;
-      var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
-      var panelPragromm = document.querySelector('.js-panel-programm');
-      if (panelPragromm && panelPragromm.dataset.user_id) {
-        this.profileData.userId = +panelPragromm.dataset.user_id;
-      }
-      if (panelPragromm && panelPragromm.dataset.programm_type) {
-        this.profileData.programmType = panelPragromm.dataset.programm_type;
+      var mainContainer = document.querySelector("#".concat(learninMaterialType));
+      var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
+      console.log(mainContainer.dataset.user_id);
+      if (mainContainer && mainContainer.dataset.user_id) {
+        this.profileData.userId = +mainContainer.dataset.user_id;
       }
       playVideoBtns && playVideoBtns.forEach(function (el) {
         var _a, _b, _c, _d, _e, _f;
@@ -244,21 +253,21 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         var videoId = (_e = button.dataset.video_id) === null || _e === void 0 ? void 0 : _e.split('_')[2];
         var videoTitle = button.dataset.video_title;
         if (!programmId || !blockId || !videoId) return;
-        if (!_this3.profileData.programms[programmId]) {
-          _this3.profileData.programms[programmId] = {
+        if (!_this3.profileData[learninMaterialType].programms[programmId]) {
+          _this3.profileData[learninMaterialType].programms[programmId] = {
             programmId: +programmId.split('-')[1] || null,
             blocksPassed: 0,
             blocks: {}
           };
         }
-        if (!_this3.profileData.programms[programmId].blocks[blockId]) {
+        if (!_this3.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
           var currentBlock = _this3.getCurrentBlock(programmId, blockId);
-          _this3.profileData.programms[programmId].blocks[blockId] = {
+          _this3.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
             blockStatus: ((_f = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _f === void 0 ? void 0 : _f.block_status) || null,
             videos: {}
           };
         }
-        var currentProgrammPath = _this3.profileData.programms[programmId];
+        var currentProgrammPath = _this3.profileData[learninMaterialType].programms[programmId];
         var currentBlockPath = currentProgrammPath.blocks[blockId];
         currentBlockPath.videos[videoId] = {
           videoTitle: videoTitle || null,
@@ -352,16 +361,131 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       return currentBlock || null;
     }
   }, {
-    key: "fetchUserDataForm",
-    value: function fetchUserDataForm() {
+    key: "addEventfetchUserDataForm",
+    value: function addEventfetchUserDataForm() {
       var form = document.querySelector('.js-user-info-form');
-      form && form.addEventListener('submit', function () {
+      form && form.addEventListener('submit', function (e) {
+        e.preventDefault();
         var formData = new FormData(form);
         fetch("".concat(var_from_php.ajax_url, "?action=update_user_data"), {
           method: 'POST',
           body: formData
+        }).then(function (res) {
+          return res.json();
+        }).then(function (res) {
+          console.log(res.data);
+          var respContainer = document.querySelector('.js-response-container');
+          var additionalClass = res.success ? 'success' : 'error';
+          if (respContainer) {
+            var paragrahp = document.createElement('p');
+            paragrahp.classList.add(additionalClass);
+            paragrahp.innerText = res.data;
+            respContainer.appendChild(paragrahp);
+          }
         });
       });
+    }
+  }, {
+    key: "checkFormFields",
+    value: function checkFormFields() {
+      var _this5 = this;
+      var form = document.querySelector('.js-user-info-form');
+      var formInputs = form.querySelectorAll('input[type="text"]');
+      var formSubmit = form.querySelector('input[type="submit"]');
+      var checkAllInputs = function checkAllInputs() {
+        formInputs && formInputs.forEach(function (el) {
+          var input = el;
+          var inputContainer = input.closest('.js-inner-input-wrapper');
+          if (_this5.validateField(input.name, input.value)) {
+            inputContainer && inputContainer.classList.add('valid');
+            inputContainer && inputContainer.classList.remove('not-valid');
+            if (formSubmit) {
+              formSubmit.disabled = false;
+            }
+          } else {
+            inputContainer && inputContainer.classList.add('not-valid');
+            inputContainer && inputContainer.classList.remove('valid');
+            if (formSubmit) {
+              formSubmit.disabled = true;
+            }
+          }
+        });
+      };
+      formInputs && formInputs.forEach(function (el) {
+        var input = el;
+        input.addEventListener('change', function () {
+          return checkAllInputs();
+        });
+      });
+    }
+  }, {
+    key: "editFormFieldAddEvent",
+    value: function editFormFieldAddEvent() {
+      var editBtns = document.querySelectorAll('.js-edit-btn');
+      var inpus = document.querySelectorAll('input[type="text"]');
+      var setInputDefaultState = function setInputDefaultState(el) {
+        var input = el;
+        input.classList.remove('focus');
+      };
+      editBtns && editBtns.forEach(function (el) {
+        var btn = el;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          inpus && inpus.forEach(function (el) {
+            return setInputDefaultState(el);
+          });
+          var parentWrapper = btn.closest('.js-inner-input-wrapper');
+          var input = parentWrapper === null || parentWrapper === void 0 ? void 0 : parentWrapper.querySelector('input[type="text"]');
+          input.classList.add('focus');
+        });
+      });
+    }
+  }, {
+    key: "validateField",
+    value: function validateField() {
+      var fieldType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      if (!fieldType || !value) {
+        throw Error('"validateField function - "You didn\'t add required parameters');
+      }
+      var phoneREGEX = /^[0-9+]{6,13}$/;
+      var nameREGEX = /^[a-zA-Z]{2,30}$/;
+      var postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
+      var emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      var dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
+      var checkResult = false;
+      switch (fieldType) {
+        case 'name':
+        case 'first_name':
+        case 'last_name':
+          checkResult = nameREGEX.test(value);
+          break;
+        case 'phone':
+          checkResult = phoneREGEX.test(value);
+          break;
+        case 'postal':
+          checkResult = postalREGEX.test(value);
+          break;
+        case 'email':
+          checkResult = emailREGEX.test(value);
+          break;
+        case 'price':
+          checkResult = dummyREGEX.test(value);
+          break;
+        case 'aim':
+          checkResult = dummyREGEX.test(value);
+          break;
+        case 'date':
+          checkResult = dummyREGEX.test(value);
+          break;
+        case 'subject':
+        case 'company':
+          checkResult = dummyREGEX.test(value);
+          break;
+        default:
+          break;
+      }
+      return checkResult;
     }
   }]);
   return ProfileFunctionality;
@@ -839,6 +963,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fadeIn: function() { return /* binding */ fadeIn; },
 /* harmony export */   fadeOut: function() { return /* binding */ fadeOut; },
 /* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
+/* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
 /* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
 /* harmony export */   throttle: function() { return /* binding */ throttle; },
 /* harmony export */   trimParagraph: function() { return /* binding */ trimParagraph; },
@@ -1163,7 +1288,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) {}
+                while (--i >= 0 && matches.item(i) !== el) { }
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1230,6 +1355,18 @@ const setHeightEqualToWidth = (elementSelector) => {
         });
 };
 
+const loadFileName = () => {
+    const inputFileBtn = document.querySelector('.js-file-button');
+    const inputFile = inputFileBtn.querySelector('input');
+    const spanText = inputFileBtn.querySelector('span');
+
+    inputFile && inputFile.addEventListener('change', () => {
+        if (spanText) {
+            spanText.innerText = inputFile.files[0].name;
+        }
+    })
+}
+
 
 /***/ }),
 
@@ -1287,7 +1424,7 @@ const tabsNavigation = (
 
                 // Set active state to current
                 event.target.classList.add('active');
-                document.querySelector(TAB_ID).classList.add('active');
+                document.querySelector(`#${TAB_ID}`).classList.add('active');
 
                 // force trigger resize event for the document
                 if (document.createEvent) {
@@ -1528,8 +1665,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/accordion */ "./src/js/components/accordion.ts");
 /* harmony import */ var _components_menuActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/menuActions */ "./src/js/components/menuActions.ts");
 /* harmony import */ var _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/profileFunctionality */ "./src/js/components/profileFunctionality.ts");
-/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
-/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+/* harmony import */ var _parts_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/helpers */ "./src/js/parts/helpers.js");
+/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
+/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+
 
 
 
@@ -1538,14 +1677,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function ready() {
   var siteHeader = document.querySelector('.js-site-header');
-  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_5__["default"]();
+  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_6__["default"]();
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
   popupInstance.init();
   profileFunctionality.init();
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
-  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])('.js-tab-link', '.js-tab-panel');
+  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])('.js-tab-link', '.js-tab-panel');
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.loadFileName)();
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {
