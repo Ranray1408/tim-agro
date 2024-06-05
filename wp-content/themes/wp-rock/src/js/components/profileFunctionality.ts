@@ -127,6 +127,7 @@ export class ProfileFunctionality {
 
     createProfileVideoData(learninMaterialType) {
         const mainContainer = document.querySelector(`#${learninMaterialType}`) as HTMLElement;
+        if (!mainContainer) return;
 
         const playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn') as NodeList;
 
@@ -266,6 +267,7 @@ export class ProfileFunctionality {
 
     addEventfetchUserDataForm() {
         const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
+        if (!form) return;
 
         form && form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -294,7 +296,7 @@ export class ProfileFunctionality {
 
     checkFormFields() {
         const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
-
+        if (!form) return;
         const formInputs = form.querySelectorAll('input[type="text"]') as NodeList;
         const formSubmit = form.querySelector('input[type="submit"]') as HTMLInputElement;
 

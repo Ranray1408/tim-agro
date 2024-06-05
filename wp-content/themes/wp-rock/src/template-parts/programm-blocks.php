@@ -1,0 +1,132 @@
+<?php
+$programm = !empty($args['programm']) ? $args['programm'] : '';
+$access_status = !empty($args['access_status']) ? $args['access_status'] : '';
+$post_id = !empty($args['post_id']) ? $args['post_id'] : '';
+
+$text_block_status = array(
+    __('Не пройдено', 'wp-rock'),
+    __('В процесі', 'wp-rock'),
+    __('Пройдено', 'wp-rock')
+);
+
+$text_next_video = __('Наступне відео', 'wp-rock');
+
+$circle_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+<g clip-path="url(#clip0_2087_36018)">
+    <path d="M18 36C13.1921 36 8.67178 34.1277 5.27206 30.7279C1.87234 27.3282 0 22.8079 0 18C0 13.1921 1.87234 8.67178 5.27206 5.27206C8.67178 1.87234 13.1921 0 18 0C22.8079 0 27.3282 1.87234 30.7279 5.27206C34.1277 8.67178 36 13.1921 36 18C36 21.553 34.9456 25.0085 32.9502 27.9926C32.5187 28.6383 31.6453 28.8116 30.9996 28.3802C30.3541 27.9484 30.1805 27.075 30.6123 26.4295C32.2971 23.9093 33.1875 20.9946 33.1875 18C33.1875 9.62567 26.3743 2.8125 18 2.8125C9.62567 2.8125 2.8125 9.62567 2.8125 18C2.8125 26.3743 9.62567 33.1875 18 33.1875C20.7776 33.1875 23.4945 32.4311 25.8566 31.0004C26.5207 30.598 27.3853 30.8103 27.788 31.4747C28.1904 32.1389 27.9781 33.0038 27.3137 33.4059C24.5121 35.103 21.2915 36 18 36ZM16.4713 24.63L23.4816 20.5686C24.4078 20.0319 24.9609 19.0717 24.9609 18C24.9609 16.9283 24.4078 15.9681 23.4814 15.4314L16.4713 11.37C15.5443 10.8331 14.4366 10.8317 13.5085 11.3667C12.5785 11.9026 12.0234 12.8642 12.0234 13.9386V22.0614C12.0234 23.1358 12.5785 24.0974 13.5085 24.6333C13.9719 24.9002 14.4794 25.0334 14.987 25.0334C15.4968 25.0337 16.0068 24.8991 16.4713 24.63ZM15.0614 13.8035L22.0715 17.8649C22.0927 17.8772 22.1484 17.9094 22.1484 18C22.1484 18.0906 22.0927 18.1228 22.0715 18.1351L15.0614 22.1965C15.0392 22.2091 14.9873 22.2393 14.9131 22.1965C14.8359 22.152 14.8359 22.0886 14.8359 22.0614V13.9386C14.8359 13.9114 14.8359 13.848 14.9131 13.8035C14.9417 13.787 14.9669 13.7815 14.9884 13.7815C15.0227 13.7812 15.0477 13.7958 15.0614 13.8035Z" fill="#53F07F" />
+</g>
+<defs>
+    <clipPath id="clip0_2087_36018">
+        <rect width="36" height="36" fill="white" />
+    </clipPath>
+</defs>
+</svg>';
+
+if (!empty($programm) && $access_status !== 'access-expired') : ?>
+    <div class="programm__content js-wrock-accordion__content js-inner-accordion">
+        <?php
+        foreach ($programm as $key => $block) :
+            $block_index = $key + 1;
+            $block_title = $block['block_title'];
+            $videos = $block['videos'];
+
+            $block_status = 'not-passed';
+
+            // Get current block from user fields info
+            if (!empty($programm_data->blocks->{'block-' . $block_index})) {
+                $block = $programm_data->blocks->{'block-' . $block_index};
+                $block_status = $block->blockStatus;
+            }
+
+            // Forming ids
+            $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
+            $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
+
+            // Default value
+            $first_video_url = '#';
+            $first_video_id = '#';
+            $first_video_title = '...';
+            $start_video_from = '#t=4';
+
+            if (
+                !empty($videos[0]['video']['url']) &&
+                !empty($videos[0]['video']['ID']) &&
+                !empty($videos[0]['video_title'])
+            ) {
+                $first_video_url = $videos[0]['video']['url'];
+                $first_video_id = $full_video_id . $videos[0]['video']['ID'];
+                $first_video_title = $videos[0]['video_title'];
+            }
+
+            // Retunr text depend on block status
+            $block_status_text = block_status_text($block_status, $text_block_status);
+        ?>
+            <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="programm__block js-programm-block js-inner-accordion__content">
+
+                <button class="programm__block-btn js-inner-accordion__btn">
+                    <?php
+                    if (!empty($block_title)) {
+                        echo '<span class="body-type-0">
+                        ' . esc_html($block_title) . '
+                        </span>';
+                    }
+
+                    // Block status
+                    echo '<span class="block-status ' . $block_status . ' body-type-4 weight600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
+                    <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
+                </svg>
+                ' . $block_status_text . '
+            </span>';
+                    ?>
+                </button>
+                <div class="programm__block-content js-inner-accordion__content">
+                    <div id="<?php echo $video_container_id; ?>" class="programm__block-video">
+                        <video data-video_id="<?php echo $first_video_id; ?>" controls src="<?php echo $first_video_url . $start_video_from ?>"></video>
+
+                        <div class="programm__block-video-description">
+                            <div class="video-name js-video-title body-type-2 weight600">
+                                <?php echo $first_video_title; ?>
+                            </div>
+                            <button class="next-video-btn js-next-video-btn">
+                                <?php echo $text_next_video; ?>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- ************ Video list ************ -->
+                    <?php
+                    if (!empty($videos)) :
+                        echo '<div class="programm__block-videos-list">';
+                        foreach ($videos as $key => $video) :
+                            $video_title = !empty($video['video_title']) ? $video['video_title'] : '';
+                            $video_url = !empty($video['video']['url']) ? $video['video']['url'] : '#';
+                            $video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
+
+                            $active_class = $key === 0 ? 'playing-video' : '';
+
+                            $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
+
+                            echo '<button
+                                        data-video_container_id="' . $video_container_id . '"
+                                        data-video_url="' . $video_url . '"
+                                        data-video_id="' . $full_video_id . '"
+                                        data-video_title="' . $video_title . '"
+                                        data-video_duration="0"
+                                        data-video_stop_time="0"
+                                        class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
+
+                            if (!empty($video_title)) {
+                                echo '<span>' . esc_html($video_title) . '</span>';
+                            }
+
+                            echo $circle_svg;
+                            echo '</button>';
+                        endforeach;
+                        echo '</div>';
+                    endif; ?>
+                    <!-- ************ END Video list ************ -->
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

@@ -240,6 +240,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function createProfileVideoData(learninMaterialType) {
       var _this3 = this;
       var mainContainer = document.querySelector("#".concat(learninMaterialType));
+      if (!mainContainer) return;
       var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
       console.log(mainContainer.dataset.user_id);
       if (mainContainer && mainContainer.dataset.user_id) {
@@ -364,6 +365,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     key: "addEventfetchUserDataForm",
     value: function addEventfetchUserDataForm() {
       var form = document.querySelector('.js-user-info-form');
+      if (!form) return;
       form && form.addEventListener('submit', function (e) {
         e.preventDefault();
         var formData = new FormData(form);
@@ -390,6 +392,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function checkFormFields() {
       var _this5 = this;
       var form = document.querySelector('.js-user-info-form');
+      if (!form) return;
       var formInputs = form.querySelectorAll('input[type="text"]');
       var formSubmit = form.querySelector('input[type="submit"]');
       var checkAllInputs = function checkAllInputs() {
@@ -1288,7 +1291,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) { }
+                while (--i >= 0 && matches.item(i) !== el) {}
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1357,15 +1360,17 @@ const setHeightEqualToWidth = (elementSelector) => {
 
 const loadFileName = () => {
     const inputFileBtn = document.querySelector('.js-file-button');
+    if (!inputFileBtn) return;
     const inputFile = inputFileBtn.querySelector('input');
     const spanText = inputFileBtn.querySelector('span');
 
-    inputFile && inputFile.addEventListener('change', () => {
-        if (spanText) {
-            spanText.innerText = inputFile.files[0].name;
-        }
-    })
-}
+    inputFile &&
+        inputFile.addEventListener('change', () => {
+            if (spanText) {
+                spanText.innerText = inputFile.files[0].name;
+            }
+        });
+};
 
 
 /***/ }),

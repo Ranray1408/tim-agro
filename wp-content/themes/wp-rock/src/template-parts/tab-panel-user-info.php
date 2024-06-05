@@ -62,8 +62,8 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
 
                     if ($avatar) {
                         echo '<figure class="user-info__form-avatar">
-                            <img src="' . esc_url($avatar) . '" alt="User Avatar">
-                        </figure>';
+                                <img src="' . esc_url($avatar) . '" alt="User Avatar">
+                            </figure>';
                     } else {
                         echo '<figure class="user-info__form-avatar">
                             ' . $svg_no_photo . '
@@ -91,7 +91,7 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
                 </div>
 
                 <div class="user-info__form-input-wrapper">
-                    <span><?php echo $text_input_name; ?></span>
+                    <span class="body-type-5 weight600"><?php echo $text_input_name; ?></span>
                     <div class="user-info__form-inner-wrapper js-inner-input-wrapper">
                         <input type="hidden" name="user_id" value="<?php echo $current_user->ID; ?>">
                         <input type="text" name="name" value="<?php echo $nickname; ?>">
@@ -100,15 +100,15 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
                     </div>
                 </div>
                 <div class="user-info__form-input-wrapper">
-                    <span><?php echo $text_input_email; ?></span>
+                    <span class="body-type-5 weight600"><?php echo $text_input_email; ?></span>
                     <div class="user-info__form-inner-wrapper js-inner-input-wrapper">
                         <input type="text" name="email" value="<?php echo $email; ?>">
                         <?php echo $edit_btn; ?>
                         <?php echo $check_svg; ?>
                     </div>
                 </div>
-                <div class="user-info__form-input-wrapper">
-                    <span><?php echo $text_input_phone; ?></span>
+                <div class="user-info__form-input-wrapper m0">
+                    <span class="body-type-5 weight600"><?php echo $text_input_phone; ?></span>
                     <div class="user-info__form-inner-wrapper js-inner-input-wrapper">
                         <input type="text" name="phone" value="<?php echo $user_phone; ?>">
                         <?php echo $edit_btn; ?>

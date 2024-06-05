@@ -3,6 +3,7 @@ global $global_options;
 
 $home_text = get_field_value($global_options, 'home_text');
 $logout_text = get_field_value($global_options, 'logout_text');
+$logo = get_field_value($global_options, 'logo');
 
 $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
 <defs>
@@ -14,7 +15,7 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
 </g>
 </svg>';
 ?>
-<header class="profile-header d-flex align-items-center">
+<header class="profile-header site-header d-flex align-items-center js-site-header">
     <div class="container profile-header__container d-flex align-items-center justify-content-between">
         <a href="<?php echo get_home_url(); ?>" class="profile-header__home-btn d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -31,6 +32,24 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
             <span><?php echo esc_html($home_text); ?></span>
         </a>
 
+        <?php if ($logo) : ?>
+            <a class="profile-header__logo" href="<?php echo get_site_url(); ?>">
+                <img src="<?php echo $logo; ?>" alt="header logo" />
+            </a>
+        <?php endif; ?>
+
+        <nav class="site-header__menu-wrapper">
+            <?php
+            wp_nav_menu([
+                'menu' => 'Main menu',
+                'echo' => true,
+                'container' => false,
+                'menu_class' => 'site-header__menu',
+            ]);
+            ?>
+        </nav>
+
+
         <?php
         if (is_user_logged_in()) {
             $current_user = wp_get_current_user();
@@ -40,19 +59,37 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
 
             echo '<div class="profile-header__user-info d-flex align-items-center justify-content-center">';
 
+            echo '<div class="profile-header__user-info-inner">';
+
             if ($avatar) {
                 echo '<figure class="profile-header__user-avatar">
-                            <img src="' . esc_url($avatar) . '" alt="User Avatar">
-                        </figure>';
+                                <img src="' . esc_url($avatar) . '" alt="User Avatar">
+                            </figure>';
             } else {
                 echo '<figure class="profile-header__user-avatar">
-                            ' . $svg_no_photo . '
-                        </figure>';
+                                ' . $svg_no_photo . '
+                            </figure>';
             }
 
             echo '<span class="profile-header__user-nikname">' . esc_html($nickname) . '</span>';
 
+            echo '</div>';
+
+            echo '<div class="profile-header__user-info-inner-btn">';
+
+
+            echo ' <button data-role="mobile-menu" class="site-header__hamburger js-site-header-hamburger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                            <path d="M26.045 3.95454H3.9541V6.40909H26.045V3.95454Z" fill="#25292C" />
+                            <path d="M26.045 23.5909H3.9541V26.0455H26.045V23.5909Z" fill="#25292C" />
+                            <path d="M26.045 13.7727H3.9541V16.2273H26.045V13.7727Z" fill="#25292C" />
+                        </svg>
+                    </button>';
+
             echo '<button class="profile-header__logout-btn white-transparent" onclick="window.location.href=\'' . esc_url($logout_url) . '\'">' . esc_html($logout_text) . '</button>';
+
+            echo '</div>';
+
             echo '</div>';
         }
         ?>

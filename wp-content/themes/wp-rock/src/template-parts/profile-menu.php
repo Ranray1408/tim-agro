@@ -43,7 +43,6 @@ $menu_tabs = array(
                 </figure>';
     }
     ?>
-
     <?php if (!empty($menu_tabs)) : ?>
         <div class="profile__menu-tabs d-flex flex-column">
             <?php

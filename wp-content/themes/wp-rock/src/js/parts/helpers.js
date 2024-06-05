@@ -315,7 +315,7 @@ export function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) { }
+                while (--i >= 0 && matches.item(i) !== el) {}
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -384,12 +384,14 @@ export const setHeightEqualToWidth = (elementSelector) => {
 
 export const loadFileName = () => {
     const inputFileBtn = document.querySelector('.js-file-button');
+    if (!inputFileBtn) return;
     const inputFile = inputFileBtn.querySelector('input');
     const spanText = inputFileBtn.querySelector('span');
 
-    inputFile && inputFile.addEventListener('change', () => {
-        if (spanText) {
-            spanText.innerText = inputFile.files[0].name;
-        }
-    })
-}
+    inputFile &&
+        inputFile.addEventListener('change', () => {
+            if (spanText) {
+                spanText.innerText = inputFile.files[0].name;
+            }
+        });
+};
