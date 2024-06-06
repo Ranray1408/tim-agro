@@ -4,7 +4,7 @@ export const hoverClickEvent = (): void => {
     const canHover = window.matchMedia('(hover: hover)').matches;
 
     if (canHover) {
-        menuItems.forEach(item => {
+        menuItems.forEach((item) => {
             const subMenu = item.querySelector('.sub-menu') as HTMLElement;
 
             if (subMenu) {
@@ -27,7 +27,7 @@ export const hoverClickEvent = (): void => {
             });
         });
     } else {
-        menuItems.forEach(item => {
+        menuItems.forEach((item) => {
             item.addEventListener('click', (e) => {
                 e.stopImmediatePropagation();
 

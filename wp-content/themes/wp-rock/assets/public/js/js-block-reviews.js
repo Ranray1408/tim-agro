@@ -12889,7 +12889,6 @@ var __webpack_exports__ = {};
   \********************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-var _a;
 
 var initBlockReviews = function initBlockReviews() {
   var reviewsSwiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.js-reviews-slider', {
@@ -12917,9 +12916,6 @@ var initBlockReviews = function initBlockReviews() {
   });
 };
 document.addEventListener('DOMContentLoaded', initBlockReviews, false);
-if (window['acf']) {
-  (_a = window['acf']) === null || _a === void 0 ? void 0 : _a.addAction('render_block_preview', initBlockReviews);
-}
 }();
 /******/ })()
 ;

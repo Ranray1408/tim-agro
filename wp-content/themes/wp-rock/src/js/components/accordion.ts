@@ -40,5 +40,4 @@ export const initInnerAccordion = () => {
         });
 };
 
-
 export default initAccordion;

@@ -277,6 +277,14 @@
         }
     }
 
+    &__logout-btn {
+
+        @media screen and (max-width: 991px) {
+            margin-left: auto;
+            margin-right: 12px;
+        }
+    }
+
     &__login-btn {
         display: flex;
         gap: 14px;
@@ -290,6 +298,10 @@
         @media screen and (max-width: 670px) {
             font-size: 14px;
             padding: 10px 15px;
+        }
+
+        * {
+            pointer-events: none;
         }
     }
 }

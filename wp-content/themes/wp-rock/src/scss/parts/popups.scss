@@ -1,0 +1,204 @@
+#login-popup,
+#get-access-popup,
+#get-consultation-popup {
+    .popup-wrapper-inner {
+        position: relative;
+        background-color: var(--color-type-primary-white-2);
+        padding: 96px 105px 87px;
+        position: relative;
+        z-index: 1;
+        max-width: 943px;
+        width: 100%;
+        margin: 323px auto 0;
+
+        @media screen and (max-width: 991px) {
+            width: 90%;
+            padding: 65px 20px 58px;
+        }
+
+        .text-center {
+            text-align: left !important;
+        }
+
+        .wpcf7-spinner {
+            position: absolute;
+        }
+
+        .popup-close {
+            position: absolute;
+            font-size: 0;
+            width: 21px;
+            height: 21px;
+            top: 25px;
+            right: 25px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDIxIDIxIiBmaWxsPSJub25lIj4KICA8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMjA4N18zOTUzMykiPgogICAgPHBhdGggZD0iTTAgMi4xTDIuMSAwTDEwLjUgOC40TDE4LjkgMEwyMSAyLjFMMTIuNiAxMC41TDIxIDE4LjlMMTguOSAyMUwxMC41IDEyLjZMMi4xIDIxTDAgMTguOUw4LjQgMTAuNUwwIDIuMVoiIGZpbGw9IiMzM0IwNTYiLz4KICA8L2c+CiAgPGRlZnM+CiAgICA8Y2xpcFBhdGggaWQ9ImNsaXAwXzIwODdfMzk1MzMiPgogICAgICA8cmVjdCB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIGZpbGw9IndoaXRlIiB0cmFuc2Zvcm09Im1hdHJpeCgtMSAwIDAgMSAyMSAwKSIvPgogICAgPC9jbGlwUGF0aD4KICA8L2RlZnM+Cjwvc3ZnPg==);
+        }
+
+        .wpcf7-not-valid-tip {
+            padding: 10px 0;
+        }
+
+        .popup-title {
+            color: var(--color-type-dark-1);
+            font-size: 50px;
+            text-transform: uppercase;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 54px;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 46px;
+            }
+
+            @media screen and (max-width: 670px) {
+                font-size: 25px;
+            }
+
+            span {
+                color: var(--color-type-primary-1);
+                font-size: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+                line-height: inherit;
+            }
+
+
+            &:after {
+                top: -16px;
+                left: 0;
+
+                @media screen and (max-width: 768px) {
+                    width: 44px;
+                }
+            }
+        }
+
+        .popup-subtitle {
+            color: var(--color-type-dark-1);
+            margin-bottom: 47px;
+
+            @media screen and (max-width: 570px) {
+                margin-bottom: 55px;
+            }
+        }
+
+        input[type="submit"],
+        .wpcf7-submit {
+            color: var(--color-type-dark-1);
+        }
+    }
+
+    .wpcf7-form-control-wrap {
+        max-width: 420px;
+    }
+}
+
+.get-consultation-popup {
+
+    .inputs-wrapper {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 570px) {
+            flex-direction: column;
+            gap: 38px;
+        }
+    }
+
+    .bottom-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media screen and (max-width: 570px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    }
+}
+
+.get-access-popup {
+    .inputs-wrapper {
+        display: flex;
+        gap: 40px;
+
+        @media screen and (max-width: 570px) {
+            flex-direction: column;
+            gap: 38px;
+        }
+
+        &.w100 {
+            width: 100%;
+            margin-bottom: 24px;
+
+            @media screen and (max-width: 570px) {
+                margin-bottom: 38px;
+            }
+
+            .input-label {
+                width: 100%;
+            }
+        }
+    }
+
+    .bottom-wrapper {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media screen and (max-width: 570px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    }
+}
+
+
+#login-popup {
+    //display: block;
+
+    .popup-wrapper-inner {
+        max-width: 562px;
+    }
+}
+
+.login-form {
+
+    .inputs-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .bottom-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 23px;
+        gap: 30px;
+
+        .forgot-password {
+            color: var(--color-type-primary-5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            span {
+                border-bottom: 1px dashed var(--color-type-primary-5);
+            }
+        }
+    }
+
+    .response-container {
+        margin-top: 10px;
+    }
+}

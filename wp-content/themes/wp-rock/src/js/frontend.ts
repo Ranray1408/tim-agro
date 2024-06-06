@@ -9,7 +9,7 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
-import { loadFileName } from './parts/helpers';
+import { checkFormFields, fetchLogin, loadFileName } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -25,6 +25,8 @@ function ready() {
     initInnerAccordion();
     tabsNavigation('.js-tab-link', '.js-tab-panel');
     loadFileName();
+    fetchLogin();
+    checkFormFields();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');
@@ -33,7 +35,7 @@ function ready() {
     }
 
     window.document.addEventListener('scroll', () => {
-        //Scroll actions
+        // Scroll actions
 
         if (window.scrollY > 100) {
             siteHeader && siteHeader.classList.add('scrolled');
@@ -46,7 +48,7 @@ function ready() {
         const target = e.target as HTMLElement;
         const { role } = target.dataset;
 
-        //const hoverQuery = window.matchMedia('(hover: hover)');
+        // const hoverQuery = window.matchMedia('(hover: hover)');
 
         // if (target.classList.contains('menu-item-has-children') && !hoverQuery.matches) {
         //     target.classList.toggle('opened');
@@ -67,7 +69,7 @@ function ready() {
     });
 
     window.document.addEventListener('wpcf7mailsent', (event) => {
-       // Success send cf7
+        // Success send cf7
     });
 }
 

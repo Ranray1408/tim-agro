@@ -160,7 +160,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       this.createProfileVideoData('lectures');
       this.playNextVideo();
       this.editFormFieldAddEvent();
-      this.checkFormFields();
       this.addEventfetchUserDataForm();
     }
   }, {
@@ -388,40 +387,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "checkFormFields",
-    value: function checkFormFields() {
-      var _this5 = this;
-      var form = document.querySelector('.js-user-info-form');
-      if (!form) return;
-      var formInputs = form.querySelectorAll('input[type="text"]');
-      var formSubmit = form.querySelector('input[type="submit"]');
-      var checkAllInputs = function checkAllInputs() {
-        formInputs && formInputs.forEach(function (el) {
-          var input = el;
-          var inputContainer = input.closest('.js-inner-input-wrapper');
-          if (_this5.validateField(input.name, input.value)) {
-            inputContainer && inputContainer.classList.add('valid');
-            inputContainer && inputContainer.classList.remove('not-valid');
-            if (formSubmit) {
-              formSubmit.disabled = false;
-            }
-          } else {
-            inputContainer && inputContainer.classList.add('not-valid');
-            inputContainer && inputContainer.classList.remove('valid');
-            if (formSubmit) {
-              formSubmit.disabled = true;
-            }
-          }
-        });
-      };
-      formInputs && formInputs.forEach(function (el) {
-        var input = el;
-        input.addEventListener('change', function () {
-          return checkAllInputs();
-        });
-      });
-    }
-  }, {
     key: "editFormFieldAddEvent",
     value: function editFormFieldAddEvent() {
       var editBtns = document.querySelectorAll('.js-edit-btn');
@@ -442,53 +407,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           input.classList.add('focus');
         });
       });
-    }
-  }, {
-    key: "validateField",
-    value: function validateField() {
-      var fieldType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      if (!fieldType || !value) {
-        throw Error('"validateField function - "You didn\'t add required parameters');
-      }
-      var phoneREGEX = /^[0-9+]{6,13}$/;
-      var nameREGEX = /^[a-zA-Z]{2,30}$/;
-      var postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
-      var emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      var dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
-      var checkResult = false;
-      switch (fieldType) {
-        case 'name':
-        case 'first_name':
-        case 'last_name':
-          checkResult = nameREGEX.test(value);
-          break;
-        case 'phone':
-          checkResult = phoneREGEX.test(value);
-          break;
-        case 'postal':
-          checkResult = postalREGEX.test(value);
-          break;
-        case 'email':
-          checkResult = emailREGEX.test(value);
-          break;
-        case 'price':
-          checkResult = dummyREGEX.test(value);
-          break;
-        case 'aim':
-          checkResult = dummyREGEX.test(value);
-          break;
-        case 'date':
-          checkResult = dummyREGEX.test(value);
-          break;
-        case 'subject':
-        case 'company':
-          checkResult = dummyREGEX.test(value);
-          break;
-        default:
-          break;
-      }
-      return checkResult;
     }
   }]);
   return ProfileFunctionality;
@@ -959,12 +877,14 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   anchorLinkScroll: function() { return /* binding */ anchorLinkScroll; },
+/* harmony export */   checkFormFields: function() { return /* binding */ checkFormFields; },
 /* harmony export */   closestPolyfill: function() { return /* binding */ closestPolyfill; },
 /* harmony export */   copyToClipboard: function() { return /* binding */ copyToClipboard; },
 /* harmony export */   debounce: function() { return /* binding */ debounce; },
 /* harmony export */   equalHeights: function() { return /* binding */ equalHeights; },
 /* harmony export */   fadeIn: function() { return /* binding */ fadeIn; },
 /* harmony export */   fadeOut: function() { return /* binding */ fadeOut; },
+/* harmony export */   fetchLogin: function() { return /* binding */ fetchLogin; },
 /* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
 /* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
 /* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
@@ -1291,7 +1211,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) {}
+                while (--i >= 0 && matches.item(i) !== el) { }
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1370,6 +1290,90 @@ const loadFileName = () => {
                 spanText.innerText = inputFile.files[0].name;
             }
         });
+};
+
+const fetchLogin = () => {
+    const loginForm = document.querySelector('.js-login-form');
+    if (!loginForm) return;
+
+    loginForm &&
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+
+            // @ts-ignore
+            fetch(`${var_from_php.ajax_url}?action=user_login`, {
+                method: 'POST',
+                body: formData,
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    const respContainer = loginForm.querySelector(
+                        '.js-response-container'
+                    );
+                    const additionalClass = res.success ? 'success' : 'error';
+
+                    if (respContainer) {
+                        const paragrahp = document.createElement('p');
+                        paragrahp.classList.add(additionalClass);
+                        paragrahp.innerText = res.data;
+                        respContainer.appendChild(paragrahp);
+                        if (res.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+        });
+};
+
+const checkFormFields = () => {
+    const formInputs = document.querySelectorAll('input');
+    if (!formInputs) return;
+
+    const checkAllInputs = (target) => {
+        let allInputsValid = true;
+        console.log('target', target);
+        const parentForm = target.closest('form');
+
+        if (!parentForm) return;
+
+        const allInnerInputs = parentForm.querySelectorAll('input');
+
+
+        allInnerInputs.forEach((input) => {
+            const inputContainer = input.closest('.js-inner-input-wrapper');
+
+            if (!input.name || !input.value) return;
+
+            const isValid = validateField(input.name, input.value);
+
+            if (isValid) {
+                input && input.classList.add('valid');
+                input && input.classList.remove('valid');
+                inputContainer && inputContainer.classList.add('valid');
+                inputContainer &&
+                    inputContainer.classList.remove('not-valid');
+            } else {
+                input && input.classList.add('not-valid');
+                input && input.classList.remove('not-valid');
+                inputContainer &&
+                    inputContainer.classList.add('not-valid');
+                inputContainer &&
+                    inputContainer.classList.remove('valid');
+                allInputsValid = false;
+            }
+        });
+
+        if (formSubmit) {
+            formSubmit.disabled = !allInputsValid;
+        }
+    };
+
+    formInputs &&
+        formInputs.forEach((input) => {
+            input.addEventListener('change', (e) => checkAllInputs(e.target));
+        });
+
 };
 
 
@@ -1691,6 +1695,8 @@ function ready() {
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
   (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])('.js-tab-link', '.js-tab-panel');
   (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.loadFileName)();
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.fetchLogin)();
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.checkFormFields)();
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {

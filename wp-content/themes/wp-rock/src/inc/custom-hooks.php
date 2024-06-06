@@ -89,3 +89,18 @@ function wp_rock_color_panel(): void
     <?php
 }
 add_action('wp_head', 'wp_rock_color_panel');
+
+// add_action('admin_init', 'redirect_non_admin_users');
+
+// function redirect_non_admin_users() {
+//     if (!current_user_can('manage_options')) {
+//         wp_redirect(home_url());
+//         exit;
+//     }
+// }
+
+// add_filter('logout_url', 'redirect_after_logout');
+
+// function redirect_after_logout($logout_url) {
+//     return home_url();
+// }

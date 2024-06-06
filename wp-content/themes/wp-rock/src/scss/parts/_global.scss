@@ -7,6 +7,7 @@ primary-1 : #53F07F
 primary-2 : #F1E929
 primary-3 : #F74529
 primary-4 : #FA7124
+primary-5 : #08581E
 dark-1 : #151A1D
 dark-2 : #292F34
 dark-3 : #181C1F
@@ -87,6 +88,7 @@ textarea,
 .wpcf7-select,
 input[type="text"],
 input[type="tel"],
+input[type="password"],
 input[type="email"] {
     appearance: none;
     border: none;
@@ -107,6 +109,8 @@ input[type="email"] {
 }
 
 .wpcf7-acceptance {
+    padding-left: 30px;
+
     .wpcf7-list-item {
         margin: 0;
     }
@@ -130,7 +134,6 @@ input[type="email"] {
 
         .wpcf7-list-item-label {
             position: relative;
-            padding-left: 30px;
 
             &:before {
                 content: '';
@@ -139,7 +142,7 @@ input[type="email"] {
                 width: 15px;
                 height: 15px;
                 top: 0;
-                left: 0;
+                left: -25px;
                 background-color: var(--color-type-dark-1);
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -403,6 +406,23 @@ input[type="email"] {
         .big-title {
             top: 0;
             left: 0;
+        }
+    }
+}
+
+
+.breadcrumbs {
+    margin-bottom: 28px;
+    gap: 15px;
+    opacity: 0.9;
+
+    @media screen and (max-width: 991px) {
+        display: none !important;
+    }
+
+    span {
+        a {
+            color: var(--color-type-primary-1);
         }
     }
 }

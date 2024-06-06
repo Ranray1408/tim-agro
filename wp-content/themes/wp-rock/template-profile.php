@@ -5,8 +5,12 @@
  * Template name: Profile
  *
  */
+if (!is_user_logged_in()) {
+    wp_redirect(home_url());
+}
 get_header('profile');
 ?>
+
 
 <?php
 echo esc_html(get_template_part(

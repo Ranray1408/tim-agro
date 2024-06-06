@@ -16,6 +16,7 @@ global $global_options;
 <?php
 // Custom footer.
 echo esc_html( get_template_part( 'src/template-parts/custom', 'footer' ) );
+echo esc_html( get_template_part( 'src/template-parts/popups', null ) );
 ?>
 
 <?php do_action( 'wp_rock_after_site_footer' ); ?>

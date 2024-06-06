@@ -315,7 +315,7 @@ export function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) {}
+                while (--i >= 0 && matches.item(i) !== el) { }
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -394,4 +394,88 @@ export const loadFileName = () => {
                 spanText.innerText = inputFile.files[0].name;
             }
         });
+};
+
+export const fetchLogin = () => {
+    const loginForm = document.querySelector('.js-login-form');
+    if (!loginForm) return;
+
+    loginForm &&
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+
+            // @ts-ignore
+            fetch(`${var_from_php.ajax_url}?action=user_login`, {
+                method: 'POST',
+                body: formData,
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    const respContainer = loginForm.querySelector(
+                        '.js-response-container'
+                    );
+                    const additionalClass = res.success ? 'success' : 'error';
+
+                    if (respContainer) {
+                        const paragrahp = document.createElement('p');
+                        paragrahp.classList.add(additionalClass);
+                        paragrahp.innerText = res.data;
+                        respContainer.appendChild(paragrahp);
+                        if (res.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+        });
+};
+
+export const checkFormFields = () => {
+    const formInputs = document.querySelectorAll('input');
+    if (!formInputs) return;
+
+    const checkAllInputs = (target) => {
+        let allInputsValid = true;
+        console.log('target', target);
+        const parentForm = target.closest('form');
+
+        if (!parentForm) return;
+
+        const allInnerInputs = parentForm.querySelectorAll('input');
+
+
+        allInnerInputs.forEach((input) => {
+            const inputContainer = input.closest('.js-inner-input-wrapper');
+
+            if (!input.name || !input.value) return;
+
+            const isValid = validateField(input.name, input.value);
+
+            if (isValid) {
+                input && input.classList.add('valid');
+                input && input.classList.remove('valid');
+                inputContainer && inputContainer.classList.add('valid');
+                inputContainer &&
+                    inputContainer.classList.remove('not-valid');
+            } else {
+                input && input.classList.add('not-valid');
+                input && input.classList.remove('not-valid');
+                inputContainer &&
+                    inputContainer.classList.add('not-valid');
+                inputContainer &&
+                    inputContainer.classList.remove('valid');
+                allInputsValid = false;
+            }
+        });
+
+        if (formSubmit) {
+            formSubmit.disabled = !allInputsValid;
+        }
+    };
+
+    formInputs &&
+        formInputs.forEach((input) => {
+            input.addEventListener('change', (e) => checkAllInputs(e.target));
+        });
+
 };

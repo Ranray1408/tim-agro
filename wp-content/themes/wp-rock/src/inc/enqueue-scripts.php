@@ -44,6 +44,13 @@ function px_site_scripts() {
         }
     }
 
+    if(is_page('forgot-password')) {
+        $profile_page_style_file = THEME_DIR . '/assets/public/css/forgot-password-page.css';
+        if (file_exists($profile_page_style_file) && file_get_contents($profile_page_style_file)) {
+            wp_enqueue_style('profile_page', ASSETS_CSS . 'forgot-password-page.css', array(), null);
+        }
+    }
+
     wp_enqueue_script('form_script', '//js.hsforms.net/forms/embed/v2.js', array(), $custom_js_ver, true);
     wp_enqueue_script('frontend_js', ASSETS_JS . 'frontend.js', array('jquery'), $custom_js_ver, true);
 

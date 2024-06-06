@@ -10,6 +10,7 @@ class profiel_functionality {
         // Code goes here
         add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data'));
         add_action('wp_ajax_update_user_data', array($this, 'update_user_data'));
+        add_action('wp_ajax_nopriv_user_login', array($this, 'user_login'));
     }
 
     public function add_json_video_data() {
@@ -35,7 +36,7 @@ class profiel_functionality {
     }
 
     private function update_user_programm($data, $user_id) {
-        if(empty($data)) return false;
+        if (empty($data)) return false;
 
         $user_programm = get_field($data['programmType'], 'user_' . $user_id);
 
@@ -86,5 +87,33 @@ class profiel_functionality {
         }
 
         wp_send_json_success('Data updated successfully');
+    }
+
+    public function user_login() {
+        $username_or_email = $_POST['user-name-email'];
+        $password = $_POST['user-password'];
+
+        if (is_email($username_or_email)) {
+            $user = get_user_by('email', $username_or_email);
+        } else {
+            $user = get_user_by('login', $username_or_email);
+        }
+
+        if (empty($username_or_email) || empty($password)) {
+            wp_send_json_error('Please provide both username and password');
+        }
+
+        $credentials = array(
+            'user_login' => $user->user_login,
+            'user_password' => $password,
+        );
+
+        $user = wp_signon($credentials, false);
+
+        if (is_wp_error($user)) {
+            wp_send_json_error('Invalid username or password');
+        }
+
+        wp_send_json_success('Login successful');
     }
 }

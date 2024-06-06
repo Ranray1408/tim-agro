@@ -3,15 +3,15 @@ export class ProfileFunctionality {
         userId: 0,
         courses: {
             programmType: 'courses',
-            programms: {}
+            programms: {},
         },
         lectures: {
             programmType: 'lectures',
-            programms: {}
+            programms: {},
         },
     };
 
-    constructor() { }
+    constructor() {}
 
     // Main init method
     init() {
@@ -20,9 +20,8 @@ export class ProfileFunctionality {
         this.createProfileVideoData('courses');
         this.createProfileVideoData('lectures');
         this.playNextVideo();
-        //User info form
+        // User info form
         this.editFormFieldAddEvent();
-        this.checkFormFields();
         this.addEventfetchUserDataForm();
     }
 
@@ -62,8 +61,8 @@ export class ProfileFunctionality {
         if (!playVideoBtns) return;
 
         const removeAllActiveBtns = () => {
-            playVideoBtns.forEach(el => el.classList.remove('playing-video'));
-        }
+            playVideoBtns.forEach((el) => el.classList.remove('playing-video'));
+        };
 
         playVideoBtns.forEach((el) => {
             const button = el as HTMLButtonElement;
@@ -73,29 +72,29 @@ export class ProfileFunctionality {
                 button.classList.add('playing-video');
 
                 this.loadDataAndPlayVideo(button);
-            })
+            });
         });
     }
 
     addPauseListenerToAllVideos = () => {
         const videos = document.querySelectorAll('video') as NodeList;
 
-        videos && videos.forEach((el) => {
-            const video = el as HTMLVideoElement;
+        videos &&
+            videos.forEach((el) => {
+                const video = el as HTMLVideoElement;
 
-            video.addEventListener('pause', () => {
-                const parentPanel = video.closest(`.js-tab-panel`) as HTMLElement;
+                video.addEventListener('pause', () => {
+                    const parentPanel = video.closest(`.js-tab-panel`) as HTMLElement;
 
-                this.saveVideoTimeData(video, parentPanel.id);
+                    this.saveVideoTimeData(video, parentPanel.id);
+                });
             });
-        });
-    }
+    };
 
     saveVideoTimeData(video, learninMaterialType) {
         if (!video.dataset?.video_id) return;
 
-
-        //Videio data
+        // Videio data
         const videoDuration = video.duration;
         const videoPuseTime = video.currentTime;
         const programmId = video.dataset.video_id?.split('_')[0];
@@ -113,7 +112,7 @@ export class ProfileFunctionality {
 
         currentBlockPath.videos[videoId] = {
             ...currentBlockPath.videos[videoId],
-            videoDuration: videoDuration,
+            videoDuration,
             videoPauseTime: videoPuseTime,
             isVideoViewed: viewed,
         };
@@ -134,49 +133,48 @@ export class ProfileFunctionality {
         console.log(mainContainer.dataset.user_id);
         if (mainContainer && mainContainer.dataset.user_id) {
             this.profileData.userId = +mainContainer.dataset.user_id;
-
         }
 
-        playVideoBtns && playVideoBtns.forEach((el) => {
-            const button = el as HTMLButtonElement;
+        playVideoBtns &&
+            playVideoBtns.forEach((el) => {
+                const button = el as HTMLButtonElement;
 
-            const programmId = button.dataset?.video_id?.split('_')[0];
-            const blockId = button.dataset?.video_id?.split('_')[1];
-            const videoId = button.dataset.video_id?.split('_')[2];
-            const videoTitle = button.dataset.video_title
+                const programmId = button.dataset?.video_id?.split('_')[0];
+                const blockId = button.dataset?.video_id?.split('_')[1];
+                const videoId = button.dataset.video_id?.split('_')[2];
+                const videoTitle = button.dataset.video_title;
 
-            if (!programmId || !blockId || !videoId) return;
+                if (!programmId || !blockId || !videoId) return;
 
-            if (!this.profileData[learninMaterialType].programms[programmId]) {
-                this.profileData[learninMaterialType].programms[programmId] = {
-                    programmId: +programmId.split('-')[1] || null,
-                    blocksPassed: 0,
-                    blocks: {}
+                if (!this.profileData[learninMaterialType].programms[programmId]) {
+                    this.profileData[learninMaterialType].programms[programmId] = {
+                        programmId: +programmId.split('-')[1] || null,
+                        blocksPassed: 0,
+                        blocks: {},
+                    };
+                }
+
+                if (!this.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
+                    const currentBlock = this.getCurrentBlock(programmId, blockId);
+
+                    this.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
+                        blockStatus: currentBlock?.dataset?.block_status || null,
+                        videos: {},
+                    };
+                }
+
+                // Paths to current programm and block
+                const currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
+                const currentBlockPath = currentProgrammPath.blocks[blockId];
+
+                currentBlockPath.videos[videoId] = {
+                    videoTitle: videoTitle || null,
+                    videoId: videoId || null,
+                    videoDuration: null,
+                    videoPauseTime: null,
+                    isVideoViewed: false,
                 };
-            }
-
-            if (!this.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
-
-                const currentBlock = this.getCurrentBlock(programmId, blockId);
-
-                this.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
-                    blockStatus: currentBlock?.dataset?.block_status || null,
-                    videos: {}
-                };
-            }
-
-            // Paths to current programm and block
-            let currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-            const currentBlockPath = currentProgrammPath.blocks[blockId];
-
-            currentBlockPath.videos[videoId] = {
-                videoTitle: videoTitle || null,
-                videoId: videoId || null,
-                videoDuration: null,
-                videoPauseTime: null,
-                isVideoViewed: false,
-            };
-        });
+            });
 
         console.log('reated profileData', this.profileData);
     }
@@ -184,11 +182,12 @@ export class ProfileFunctionality {
     pauseAllVideos() {
         const videos = document.querySelectorAll('video') as NodeList;
 
-        videos && videos.forEach((el) => {
-            const video = el as HTMLVideoElement;
+        videos &&
+            videos.forEach((el) => {
+                const video = el as HTMLVideoElement;
 
-            video.pause();
-        });
+                video.pause();
+            });
     }
 
     changeBlockStatus(currentBlockObject) {
@@ -196,8 +195,8 @@ export class ProfileFunctionality {
 
         const videosArray: videoData[] = Object.values(currentBlockObject.videos);
 
-        let isBlockPassed = videosArray.every(video => video.isVideoViewed);
-        let isBlockNotPassed = videosArray.every(video => !video.isVideoViewed);
+        const isBlockPassed = videosArray.every((video) => video.isVideoViewed);
+        const isBlockNotPassed = videosArray.every((video) => !video.isVideoViewed);
 
         if (isBlockPassed) {
             currentBlockObject.blockStatus = 'passed';
@@ -214,7 +213,7 @@ export class ProfileFunctionality {
         const blocksPassedArray: blockData[] = Object.values(currentProgrammObject.blocks);
         console.log('blocksPassedArray', blocksPassedArray);
 
-        const countOfPassedBlocks = blocksPassedArray.filter(block => block.blockStatus === 'passed');
+        const countOfPassedBlocks = blocksPassedArray.filter((block) => block.blockStatus === 'passed');
 
         currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
     }
@@ -222,39 +221,41 @@ export class ProfileFunctionality {
     playNextVideo() {
         const playNextBtns = document.querySelectorAll('.js-next-video-btn');
 
-        playNextBtns && playNextBtns.forEach((el) => {
-            const btn = el as HTMLButtonElement;
+        playNextBtns &&
+            playNextBtns.forEach((el) => {
+                const btn = el as HTMLButtonElement;
 
-            btn.addEventListener('click', () => {
-                const videoBlock = btn.closest('.js-programm-block') as HTMLElement;
+                btn.addEventListener('click', () => {
+                    const videoBlock = btn.closest('.js-programm-block') as HTMLElement;
 
-                const playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
-                const playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
-                const nextPLayBtn = playVideoBtn?.nextSibling as HTMLButtonElement;
+                    const playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
+                    const playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
+                    const nextPLayBtn = playVideoBtn?.nextSibling as HTMLButtonElement;
 
-                if (nextPLayBtn) {
-                    playVideoBtns && playVideoBtns.forEach((el) => {
-                        const btn = el as HTMLButtonElement;
-                        btn.classList.remove('playing-video');
-                    });
+                    if (nextPLayBtn) {
+                        playVideoBtns &&
+                            playVideoBtns.forEach((el) => {
+                                const btn = el as HTMLButtonElement;
+                                btn.classList.remove('playing-video');
+                            });
 
-                    this.loadDataAndPlayVideo(nextPLayBtn);
-                    nextPLayBtn.classList.add('playing-video');
-                }
+                        this.loadDataAndPlayVideo(nextPLayBtn);
+                        nextPLayBtn.classList.add('playing-video');
+                    }
+                });
             });
-        })
     }
 
     fetchDataToBackend(profileData) {
         if (!profileData) return;
 
-        //@ts-ignore
+        // @ts-ignore
         fetch(`${var_from_php.ajax_url}?action=save_video_data`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(profileData)
+            body: JSON.stringify(profileData),
         });
     }
 
@@ -269,63 +270,30 @@ export class ProfileFunctionality {
         const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
         if (!form) return;
 
-        form && form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
+        form &&
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
 
-            //@ts-ignore
-            fetch(`${var_from_php.ajax_url}?action=update_user_data`, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res.data);
-                    const respContainer = document.querySelector('.js-response-container');
-                    const additionalClass = res.success ? 'success' : 'error';
+                // @ts-ignore
+                fetch(`${var_from_php.ajax_url}?action=update_user_data`, {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((res) => {
+                        console.log(res.data);
+                        const respContainer = document.querySelector('.js-response-container');
+                        const additionalClass = res.success ? 'success' : 'error';
 
-                    if (respContainer) {
-                        const paragrahp = document.createElement('p');
-                        paragrahp.classList.add(additionalClass);
-                        paragrahp.innerText = res.data;
-                        respContainer.appendChild(paragrahp);
-                    }
-                });
-        });
-    }
-
-    checkFormFields() {
-        const form = document.querySelector('.js-user-info-form') as HTMLFormElement;
-        if (!form) return;
-        const formInputs = form.querySelectorAll('input[type="text"]') as NodeList;
-        const formSubmit = form.querySelector('input[type="submit"]') as HTMLInputElement;
-
-        const checkAllInputs = () => {
-            formInputs && formInputs.forEach((el) => {
-                const input = el as HTMLInputElement;
-                const inputContainer = input.closest('.js-inner-input-wrapper');
-
-                if (this.validateField(input.name, input.value)) {
-                    inputContainer && inputContainer.classList.add('valid');
-                    inputContainer && inputContainer.classList.remove('not-valid');
-                    if (formSubmit) {
-                        formSubmit.disabled = false;
-                    }
-                } else {
-                    inputContainer && inputContainer.classList.add('not-valid');
-                    inputContainer && inputContainer.classList.remove('valid');
-
-                    if (formSubmit) {
-                        formSubmit.disabled = true;
-                    }
-                }
+                        if (respContainer) {
+                            const paragrahp = document.createElement('p');
+                            paragrahp.classList.add(additionalClass);
+                            paragrahp.innerText = res.data;
+                            respContainer.appendChild(paragrahp);
+                        }
+                    });
             });
-        }
-
-        formInputs && formInputs.forEach((el) => {
-            const input = el as HTMLInputElement;
-            input.addEventListener('change', () => checkAllInputs());
-        });
     }
 
     editFormFieldAddEvent() {
@@ -336,119 +304,70 @@ export class ProfileFunctionality {
             const input = el as HTMLInputElement;
 
             input.classList.remove('focus');
-        }
+        };
 
-        editBtns && editBtns.forEach((el) => {
-            const btn = el as HTMLButtonElement;
+        editBtns &&
+            editBtns.forEach((el) => {
+                const btn = el as HTMLButtonElement;
 
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
 
-                inpus && inpus.forEach((el) => setInputDefaultState(el));
+                    inpus && inpus.forEach((el) => setInputDefaultState(el));
 
-                const parentWrapper = btn.closest('.js-inner-input-wrapper');
-                const input = parentWrapper?.querySelector('input[type="text"]') as HTMLInputElement;
+                    const parentWrapper = btn.closest('.js-inner-input-wrapper');
+                    const input = parentWrapper?.querySelector('input[type="text"]') as HTMLInputElement;
 
-                input.classList.add('focus');
+                    input.classList.add('focus');
+                });
             });
-        });
-    }
-
-    validateField(fieldType = '', value = '') {
-        if (!fieldType || !value) {
-            throw Error(
-                '"validateField function - "You didn\'t add required parameters'
-            );
-        }
-
-        const phoneREGEX = /^[0-9+]{6,13}$/;
-        const nameREGEX = /^[a-zA-Z]{2,30}$/;
-        const postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
-        const emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        const dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
-
-        let checkResult = false;
-
-        switch (fieldType) {
-            case 'name':
-            case 'first_name':
-            case 'last_name':
-                checkResult = nameREGEX.test(value);
-                break;
-            case 'phone':
-                checkResult = phoneREGEX.test(value);
-                break;
-            case 'postal':
-                checkResult = postalREGEX.test(value);
-                break;
-            case 'email':
-                checkResult = emailREGEX.test(value);
-                break;
-            case 'price':
-                checkResult = dummyREGEX.test(value);
-                break;
-            case 'aim':
-                checkResult = dummyREGEX.test(value);
-                break;
-            case 'date':
-                checkResult = dummyREGEX.test(value);
-                break;
-            case 'subject':
-            case 'company':
-                checkResult = dummyREGEX.test(value);
-                break;
-            default:
-                break;
-        }
-
-        return checkResult;
     }
 }
 
 interface profileData {
-    userId: number
+    userId: number;
     courses: {
-        programmType: string,
+        programmType: string;
         programms: {
-            //Programm
+            // Programm
             [key: string]: {
-                programmId: number | null,
-                blocksPassed: number | null,
+                programmId: number | null;
+                blocksPassed: number | null;
                 blocks: {
-                    //Programm Block
-                    [key: string]: blockData
-                }
-            }
-        }
-    }
+                    // Programm Block
+                    [key: string]: blockData;
+                };
+            };
+        };
+    };
     lectures: {
-        programmType: string,
+        programmType: string;
         programms: {
-            //Programm
+            // Programm
             [key: string]: {
-                programmId: number | null,
-                blocksPassed: number | null,
+                programmId: number | null;
+                blocksPassed: number | null;
                 blocks: {
-                    //Programm Block
-                    [key: string]: blockData
-                }
-            }
-        }
-    }
+                    // Programm Block
+                    [key: string]: blockData;
+                };
+            };
+        };
+    };
 }
 
 interface blockData {
-    blockStatus: string | null,
+    blockStatus: string | null;
     // Programm Vlock Video
     videos: {
-        [key: string]: videoData
-    }
+        [key: string]: videoData;
+    };
 }
 
 interface videoData {
-    videoTitle: string | null,
-    videoId: string | null,
-    videoDuration: number | null,
-    videoPauseTime: number | null,
-    isVideoViewed: boolean,
+    videoTitle: string | null;
+    videoId: string | null;
+    videoDuration: number | null;
+    videoPauseTime: number | null;
+    isVideoViewed: boolean;
 }

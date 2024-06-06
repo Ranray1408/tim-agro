@@ -79,19 +79,3 @@
         }
     }
 }
-
-.breadcrumbs {
-    margin-bottom: 28px;
-    gap: 15px;
-    opacity: 0.9;
-
-    @media screen and (max-width: 991px) {
-        display: none;
-    }
-
-    span {
-        a {
-            color: var(--color-type-primary-1);
-        }
-    }
-}
