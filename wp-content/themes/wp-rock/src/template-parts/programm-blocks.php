@@ -2,6 +2,7 @@
 $programm = !empty($args['programm']) ? $args['programm'] : '';
 $access_status = !empty($args['access_status']) ? $args['access_status'] : '';
 $post_id = !empty($args['post_id']) ? $args['post_id'] : '';
+$programm_data = !empty($args['programm_data']) ? $args['programm_data'] : '';
 
 $text_block_status = array(
     __('Не пройдено', 'wp-rock'),
@@ -32,10 +33,11 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
 
             $block_status = 'not-passed';
 
+            $saved_block_data = $programm_data->blocks->{'block-' . $block_index} ?? '';
+
             // Get current block from user fields info
-            if (!empty($programm_data->blocks->{'block-' . $block_index})) {
-                $block = $programm_data->blocks->{'block-' . $block_index};
-                $block_status = $block->blockStatus;
+            if (!empty($saved_block_data)) {
+                $block_status = $saved_block_data->blockStatus;
             }
 
             // Forming ids
@@ -46,7 +48,7 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
             $first_video_url = '#';
             $first_video_id = '#';
             $first_video_title = '...';
-            $start_video_from = '#t=4';
+            $start_video_from = '#t=0';
 
             if (
                 !empty($videos[0]['video']['url']) &&
@@ -101,18 +103,23 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
                             $video_title = !empty($video['video_title']) ? $video['video_title'] : '';
                             $video_url = !empty($video['video']['url']) ? $video['video']['url'] : '#';
                             $video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
-
                             $active_class = $key === 0 ? 'playing-video' : '';
 
                             $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
 
+                            $save_video_data = $saved_block_data->videos->{'video-' . $video_id} ?? '';
+                            $video_duration = $save_video_data->videoDuration ?? 0;
+                            $video_pause_time = $save_video_data->videoPauseTime ?? 0;
+                            $video_is_viewed = $save_video_data->isVideoViewed ?? '';
+
                             echo '<button
                                         data-video_container_id="' . $video_container_id . '"
+                                        data-video_viewed="' . $video_is_viewed . '"
                                         data-video_url="' . $video_url . '"
                                         data-video_id="' . $full_video_id . '"
                                         data-video_title="' . $video_title . '"
-                                        data-video_duration="0"
-                                        data-video_stop_time="0"
+                                        data-video_duration="' . $video_duration . '"
+                                        data-video_pause_time="' . $video_pause_time . '"
                                         class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
 
                             if (!empty($video_title)) {

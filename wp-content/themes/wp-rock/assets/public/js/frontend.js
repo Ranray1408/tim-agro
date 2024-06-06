@@ -214,19 +214,19 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       var _a, _b, _c, _d;
       if (!((_a = video.dataset) === null || _a === void 0 ? void 0 : _a.video_id)) return;
       var videoDuration = video.duration;
-      var videoPuseTime = video.currentTime;
+      var videoPauseTime = video.currentTime;
       var programmId = (_b = video.dataset.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
       var blockId = (_c = video.dataset.video_id) === null || _c === void 0 ? void 0 : _c.split('_')[1];
       var videoId = (_d = video.dataset.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[2];
       var viewed = false;
-      if (videoPuseTime && videoDuration) {
-        viewed = +videoPuseTime / +videoDuration >= 0.9;
+      if (videoPauseTime && videoDuration) {
+        viewed = +videoPauseTime / +videoDuration >= 0.9;
       }
       var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
       var currentBlockPath = currentProgrammPath.blocks[blockId];
       currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
         videoDuration: videoDuration,
-        videoPauseTime: videoPuseTime,
+        videoPauseTime: videoPauseTime,
         isVideoViewed: viewed
       });
       this.changeBlockStatus(currentBlockPath);
@@ -241,17 +241,19 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       var mainContainer = document.querySelector("#".concat(learninMaterialType));
       if (!mainContainer) return;
       var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
-      console.log(mainContainer.dataset.user_id);
       if (mainContainer && mainContainer.dataset.user_id) {
         this.profileData.userId = +mainContainer.dataset.user_id;
       }
       playVideoBtns && playVideoBtns.forEach(function (el) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         var button = el;
         var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
         var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
         var videoId = (_e = button.dataset.video_id) === null || _e === void 0 ? void 0 : _e.split('_')[2];
         var videoTitle = button.dataset.video_title;
+        var videoDuration = (_f = button.dataset) === null || _f === void 0 ? void 0 : _f.video_duration;
+        var videoPauseTime = (_g = button.dataset) === null || _g === void 0 ? void 0 : _g.video_pause_time;
+        var videoIsViewed = (_h = button.dataset) === null || _h === void 0 ? void 0 : _h.video_viewed;
         if (!programmId || !blockId || !videoId) return;
         if (!_this3.profileData[learninMaterialType].programms[programmId]) {
           _this3.profileData[learninMaterialType].programms[programmId] = {
@@ -263,7 +265,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         if (!_this3.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
           var currentBlock = _this3.getCurrentBlock(programmId, blockId);
           _this3.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
-            blockStatus: ((_f = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _f === void 0 ? void 0 : _f.block_status) || null,
+            blockStatus: ((_j = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _j === void 0 ? void 0 : _j.block_status) || null,
             videos: {}
           };
         }
@@ -272,9 +274,9 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         currentBlockPath.videos[videoId] = {
           videoTitle: videoTitle || null,
           videoId: videoId || null,
-          videoDuration: null,
-          videoPauseTime: null,
-          isVideoViewed: false
+          videoDuration: videoDuration || null,
+          videoPauseTime: videoPauseTime || null,
+          isVideoViewed: videoIsViewed || ''
         };
       });
       console.log('reated profileData', this.profileData);

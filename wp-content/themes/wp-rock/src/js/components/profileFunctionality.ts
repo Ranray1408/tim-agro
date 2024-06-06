@@ -96,14 +96,14 @@ export class ProfileFunctionality {
 
         // Videio data
         const videoDuration = video.duration;
-        const videoPuseTime = video.currentTime;
+        const videoPauseTime = video.currentTime;
         const programmId = video.dataset.video_id?.split('_')[0];
         const blockId = video.dataset.video_id?.split('_')[1];
         const videoId = video.dataset.video_id?.split('_')[2];
 
         let viewed = false;
-        if (videoPuseTime && videoDuration) {
-            viewed = +videoPuseTime / +videoDuration >= 0.9;
+        if (videoPauseTime && videoDuration) {
+            viewed = +videoPauseTime / +videoDuration >= 0.9;
         }
 
         // Paths to current programm and block
@@ -113,7 +113,7 @@ export class ProfileFunctionality {
         currentBlockPath.videos[videoId] = {
             ...currentBlockPath.videos[videoId],
             videoDuration,
-            videoPauseTime: videoPuseTime,
+            videoPauseTime: videoPauseTime,
             isVideoViewed: viewed,
         };
 
@@ -130,7 +130,6 @@ export class ProfileFunctionality {
 
         const playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn') as NodeList;
 
-        console.log(mainContainer.dataset.user_id);
         if (mainContainer && mainContainer.dataset.user_id) {
             this.profileData.userId = +mainContainer.dataset.user_id;
         }
@@ -143,6 +142,10 @@ export class ProfileFunctionality {
                 const blockId = button.dataset?.video_id?.split('_')[1];
                 const videoId = button.dataset.video_id?.split('_')[2];
                 const videoTitle = button.dataset.video_title;
+
+                const videoDuration = button.dataset?.video_duration;
+                const videoPauseTime = button.dataset?.video_pause_time;
+                const videoIsViewed = button.dataset?.video_viewed;
 
                 if (!programmId || !blockId || !videoId) return;
 
@@ -170,9 +173,9 @@ export class ProfileFunctionality {
                 currentBlockPath.videos[videoId] = {
                     videoTitle: videoTitle || null,
                     videoId: videoId || null,
-                    videoDuration: null,
-                    videoPauseTime: null,
-                    isVideoViewed: false,
+                    videoDuration: videoDuration || null,
+                    videoPauseTime: videoPauseTime || null,
+                    isVideoViewed: videoIsViewed || '',
                 };
             });
 

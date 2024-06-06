@@ -138,6 +138,7 @@ $learning_material = get_field_value($user_fields, $programm_type);
                                     'programm' => $programm,
                                     'access_status' => $access_status,
                                     'post_id' => $post_id,
+                                    'programm_data' => $programm_data,
                                 ))
                             );
                             ?>
