@@ -32,8 +32,13 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
             $videos = $block['videos'];
 
             $block_status = 'not-passed';
+            $passed_blocks_count = 0;
 
             $saved_block_data = $programm_data->blocks->{'block-' . $block_index} ?? '';
+
+            if(!empty($programm_data->blocksPassed)) {
+                $passed_blocks_count = $programm_data->blocksPassed;
+            }
 
             // Get current block from user fields info
             if (!empty($saved_block_data)) {
@@ -44,11 +49,18 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
             $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
             $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
 
-            // Default value
+            $first_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
+
+            $start_video_from = '#t=0';
+
+            if(!empty($first_video_data)) {
+                $start_video_from = '#t=' . $first_video_data->videoPauseTime;
+            }
+
+            // Default value for playing first video in list
             $first_video_url = '#';
             $first_video_id = '#';
             $first_video_title = '...';
-            $start_video_from = '#t=0';
 
             if (
                 !empty($videos[0]['video']['url']) &&
@@ -75,16 +87,18 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
 
                     // Block status
                     echo '<span class="block-status ' . $block_status . ' body-type-4 weight600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
-                    <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
-                </svg>
-                ' . $block_status_text . '
-            </span>';
+                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
+                                    <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
+                                </svg>
+                                ' . $block_status_text . '
+                            </span>';
                     ?>
                 </button>
                 <div class="programm__block-content js-inner-accordion__content">
                     <div id="<?php echo $video_container_id; ?>" class="programm__block-video">
-                        <video data-video_id="<?php echo $first_video_id; ?>" controls src="<?php echo $first_video_url . $start_video_from ?>"></video>
+                        <video
+                        data-video_id="<?php echo $first_video_id; ?>"
+                        controls src="<?php echo $first_video_url . $start_video_from ?>"></video>
 
                         <div class="programm__block-video-description">
                             <div class="video-name js-video-title body-type-2 weight600">
@@ -113,6 +127,7 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';
 
                             echo '<button
+                                        data-passed_blocks_count="'.$passed_blocks_count.'"
                                         data-video_container_id="' . $video_container_id . '"
                                         data-video_viewed="' . $video_is_viewed . '"
                                         data-video_url="' . $video_url . '"

@@ -73,7 +73,8 @@ $learning_material = get_field_value($user_fields, $programm_type);
                             $programm_blocks = $programm_data->blocks;
                         }
                     ?>
-                        <div class="programm__accordion-item js-wrock-accordion__item">
+                        <div class="programm__accordion-item js-wrock-accordion__item"
+                            data-programm_id="<?php echo 'programm-' . $post_id; ?>">
                             <button class="programm__accordion-btn js-wrock-accordion__btn">
                                 <?php
                                 if (!empty($post_logo)) {

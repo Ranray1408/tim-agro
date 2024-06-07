@@ -223,14 +223,14 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         viewed = +videoPauseTime / +videoDuration >= 0.9;
       }
       var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-      var currentBlockPath = currentProgrammPath.blocks[blockId];
+      var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
       currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
         videoDuration: videoDuration,
         videoPauseTime: videoPauseTime,
         isVideoViewed: viewed
       });
       this.changeBlockStatus(currentBlockPath);
-      this.changeprogrammBlocksPassedStatus(currentProgrammPath);
+      this.changePassedBlocksCount(currentProgrammPath);
       console.log('reated profileData', this.profileData);
       this.fetchDataToBackend(this.profileData);
     }
@@ -245,7 +245,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         this.profileData.userId = +mainContainer.dataset.user_id;
       }
       playVideoBtns && playVideoBtns.forEach(function (el) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         var button = el;
         var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
         var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
@@ -254,23 +254,24 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         var videoDuration = (_f = button.dataset) === null || _f === void 0 ? void 0 : _f.video_duration;
         var videoPauseTime = (_g = button.dataset) === null || _g === void 0 ? void 0 : _g.video_pause_time;
         var videoIsViewed = (_h = button.dataset) === null || _h === void 0 ? void 0 : _h.video_viewed;
+        var blocksPassedCount = (_j = button.dataset) === null || _j === void 0 ? void 0 : _j.passed_blocks_count;
         if (!programmId || !blockId || !videoId) return;
         if (!_this3.profileData[learninMaterialType].programms[programmId]) {
           _this3.profileData[learninMaterialType].programms[programmId] = {
             programmId: +programmId.split('-')[1] || null,
-            blocksPassed: 0,
+            blocksPassed: blocksPassedCount,
             blocks: {}
           };
         }
         if (!_this3.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
           var currentBlock = _this3.getCurrentBlock(programmId, blockId);
           _this3.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
-            blockStatus: ((_j = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _j === void 0 ? void 0 : _j.block_status) || null,
+            blockStatus: ((_k = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _k === void 0 ? void 0 : _k.block_status) || null,
             videos: {}
           };
         }
         var currentProgrammPath = _this3.profileData[learninMaterialType].programms[programmId];
-        var currentBlockPath = currentProgrammPath.blocks[blockId];
+        var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
         currentBlockPath.videos[videoId] = {
           videoTitle: videoTitle || null,
           videoId: videoId || null,
@@ -279,7 +280,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           isVideoViewed: videoIsViewed || ''
         };
       });
-      console.log('reated profileData', this.profileData);
+      console.log('created profileData', this.profileData);
     }
   }, {
     key: "pauseAllVideos",
@@ -310,12 +311,11 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       }
     }
   }, {
-    key: "changeprogrammBlocksPassedStatus",
-    value: function changeprogrammBlocksPassedStatus(currentProgrammObject) {
+    key: "changePassedBlocksCount",
+    value: function changePassedBlocksCount(currentProgrammObject) {
       if (!currentProgrammObject) return;
-      var blocksPassedArray = Object.values(currentProgrammObject.blocks);
-      console.log('blocksPassedArray', blocksPassedArray);
-      var countOfPassedBlocks = blocksPassedArray.filter(function (block) {
+      var blocksArray = Object.values(currentProgrammObject.blocks);
+      var countOfPassedBlocks = blocksArray.filter(function (block) {
         return block.blockStatus === 'passed';
       });
       currentProgrammObject.blocksPassed = countOfPassedBlocks.length;

@@ -11,7 +11,7 @@ export class ProfileFunctionality {
         },
     };
 
-    constructor() {}
+    constructor() { }
 
     // Main init method
     init() {
@@ -108,17 +108,17 @@ export class ProfileFunctionality {
 
         // Paths to current programm and block
         const currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-        const currentBlockPath = currentProgrammPath.blocks[blockId];
+        const currentBlockPath = currentProgrammPath?.blocks[blockId];
 
         currentBlockPath.videos[videoId] = {
             ...currentBlockPath.videos[videoId],
-            videoDuration,
+            videoDuration: videoDuration,
             videoPauseTime: videoPauseTime,
             isVideoViewed: viewed,
         };
 
         this.changeBlockStatus(currentBlockPath);
-        this.changeprogrammBlocksPassedStatus(currentProgrammPath);
+        this.changePassedBlocksCount(currentProgrammPath);
 
         console.log('reated profileData', this.profileData);
         this.fetchDataToBackend(this.profileData);
@@ -130,6 +130,7 @@ export class ProfileFunctionality {
 
         const playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn') as NodeList;
 
+        //Set user id
         if (mainContainer && mainContainer.dataset.user_id) {
             this.profileData.userId = +mainContainer.dataset.user_id;
         }
@@ -147,12 +148,16 @@ export class ProfileFunctionality {
                 const videoPauseTime = button.dataset?.video_pause_time;
                 const videoIsViewed = button.dataset?.video_viewed;
 
+                const blocksPassedCount = button.dataset?.passed_blocks_count;
+
                 if (!programmId || !blockId || !videoId) return;
+
+
 
                 if (!this.profileData[learninMaterialType].programms[programmId]) {
                     this.profileData[learninMaterialType].programms[programmId] = {
                         programmId: +programmId.split('-')[1] || null,
-                        blocksPassed: 0,
+                        blocksPassed: blocksPassedCount,
                         blocks: {},
                     };
                 }
@@ -168,7 +173,7 @@ export class ProfileFunctionality {
 
                 // Paths to current programm and block
                 const currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-                const currentBlockPath = currentProgrammPath.blocks[blockId];
+                const currentBlockPath = currentProgrammPath?.blocks[blockId];
 
                 currentBlockPath.videos[videoId] = {
                     videoTitle: videoTitle || null,
@@ -179,7 +184,7 @@ export class ProfileFunctionality {
                 };
             });
 
-        console.log('reated profileData', this.profileData);
+        console.log('created profileData', this.profileData);
     }
 
     pauseAllVideos() {
@@ -210,13 +215,12 @@ export class ProfileFunctionality {
         }
     }
 
-    changeprogrammBlocksPassedStatus(currentProgrammObject) {
+    changePassedBlocksCount(currentProgrammObject) {
         if (!currentProgrammObject) return;
 
-        const blocksPassedArray: blockData[] = Object.values(currentProgrammObject.blocks);
-        console.log('blocksPassedArray', blocksPassedArray);
+        const blocksArray: blockData[] = Object.values(currentProgrammObject.blocks);
 
-        const countOfPassedBlocks = blocksPassedArray.filter((block) => block.blockStatus === 'passed');
+        const countOfPassedBlocks = blocksArray.filter((block) => block.blockStatus === 'passed');
 
         currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
     }
