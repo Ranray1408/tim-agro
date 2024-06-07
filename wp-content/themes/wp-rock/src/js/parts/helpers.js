@@ -455,7 +455,7 @@ export const checkFormFields = () => {
 
             if (isValid) {
                 input && input.classList.add('valid');
-                input && input.classList.remove('valid');
+                input && input.classList.remove('not-valid');
                 inputContainer && inputContainer.classList.add('valid');
                 inputContainer &&
                     inputContainer.classList.remove('not-valid');

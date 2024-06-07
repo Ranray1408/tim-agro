@@ -8,13 +8,9 @@ if (!empty($get_consultation_form)) {
     echo do_shortcode('[popup_box box_id="get-consultation-popup"]' . do_shortcode($get_consultation_form) . '[/popup_box]');
 }
 
-$get_access_form = get_field_value($global_options, 'get_access_form');
-if (!empty($get_access_form)) {
-    echo do_shortcode('[popup_box box_id="get-access-popup"]' . do_shortcode($get_access_form) . '[/popup_box]');
-}
 
 $forgot_password_popup =
-'<div class="forgot-password-popup">
+    '<div class="forgot-password-popup">
     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
     <g clip-path="url(#clip0_2087_37696)">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M25 0C11.2109 0 0 11.2109 0 25C0 38.7891 11.2109 50 25 50C38.7891 50 50 38.7891 50 25C50 11.2109 38.7891 0 25 0Z" fill="#33B056"/>
@@ -35,7 +31,7 @@ echo do_shortcode('[popup_box box_id="forgot-password-popup"]' . do_shortcode($f
 
 
 $get_access_popup_response =
-'<div class="get-access-popup-response">
+    '<div class="get-access-popup-response">
     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
     <g clip-path="url(#clip0_2087_37696)">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M25 0C11.2109 0 0 11.2109 0 25C0 38.7891 11.2109 50 25 50C38.7891 50 50 38.7891 50 25C50 11.2109 38.7891 0 25 0Z" fill="#33B056"/>

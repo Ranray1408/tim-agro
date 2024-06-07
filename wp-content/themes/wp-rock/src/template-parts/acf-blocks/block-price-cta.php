@@ -14,10 +14,11 @@ $show_link = get_field_value($fields, 'show_link');
 
 $green_class = $show_link ? 'green-svg' : '';
 
-$mid_text = get_field_value($fields, 'mid_text');
+$price = get_field_value($fields, 'price');
 $socials = get_field_value($fields, 'socials');
 $phone = get_field_value($fields, 'phone');
 $cta_button = get_field_value($fields, 'cta_button');
+$post_id = get_field_value($fields, 'post_id');
 ?>
 <div class="price-cta">
     <div class="container d-flex flex-column">
@@ -36,8 +37,8 @@ $cta_button = get_field_value($fields, 'cta_button');
                 echo '<a href="tel:' . esc_html($clear_phone) . '" class="price-cta__phone">
                             ' . esc_html($phone) . '
                         </a>';
-            } elseif (!empty($mid_text) && !$show_link) {
-                echo '<p class="price-cta__mid-text">' . esc_html($mid_text) . '</p>';
+            } elseif (!empty($price) && !$show_link) {
+                echo '<p class="price-cta__price">' . esc_html($price) . '</p>';
             }
             ?>
             <svg xmlns="http://www.w3.org/2000/svg" width="562" height="6" viewBox="0 0 562 6" fill="none">
@@ -45,10 +46,14 @@ $cta_button = get_field_value($fields, 'cta_button');
             </svg>
         </div>
         <?php
-        if (!empty($cta_button['url']) && !empty($cta_button['title'])) {
-            echo '<a href="' . esc_url($cta_button['url']) . '" class="price-cta__cta-button green-transparent">
-                        ' . esc_html($cta_button['title']) . '
-                    </a>';
+        if (!empty($cta_button)) {
+            echo '<button
+                        data-href="#get-access-popup"
+                        data-price="' . $price . '"
+                        data-post_id="' . $post_id . '"
+                        class="price-cta__cta-button green-transparent js-open-popup-activator js-get-access">
+                        ' . esc_html($cta_button) . '
+                    </button>';
         }
         ?>
         <div class="price-cta__socials d-flex align-items-center">
@@ -64,3 +69,40 @@ $cta_button = get_field_value($fields, 'cta_button');
         </div>
     </div>
 </div>
+
+<?php
+$get_access_form = '
+<div class="get-access-popup">
+    <form class="get-access-form">
+        <h2 class="popup-title">Вартість курсу <span>' . $price . '</span></h2>
+        <div class="popup-subtitle body-type-2 weight500">
+            Щоб отримати доступ, заповніть форму і натисніть кнопку
+        </div>
+        <div class="inputs-wrapper w100">
+            <label class="input-label">
+                <span class="input-text body-type-5 weight400">* Ваше ім\'я</span>
+                <input type="text" name="name" required>
+            </label>
+        </div>
+        <div class="inputs-wrapper">
+            <label class="input-label">
+                <span class="input-text body-type-5 weight400">* Телефон</span>
+                <input type="tel" name="phone" required>
+            </label>
+            <label class="input-label">
+                <span class="input-text body-type-5 weight400">* E-mail</span>
+                <input type="email" name="email" required>
+            </label>
+        </div>
+        <div class="bottom-wrapper">
+            <label class="checkbox">
+                <input checked type="checkbox">
+                <span>Надсилаючи данні, я приймаю умови Публічної оферти та Політики конфіденційності*</span>
+            </label>
+            <input type="submit" class="green-transparent" value="Відправити">
+        </div>
+    </form>
+</div>
+';
+
+echo do_shortcode('[popup_box box_id="get-access-popup"]' . do_shortcode($get_access_form) . '[/popup_box]');

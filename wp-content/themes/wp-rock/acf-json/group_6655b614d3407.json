@@ -42,8 +42,8 @@
         },
         {
             "key": "field_6655b676a7aa0",
-            "label": "Mid text",
-            "name": "mid_text",
+            "label": "Price",
+            "name": "price",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -158,7 +158,7 @@
             "key": "field_6655b72384588",
             "label": "Cta button",
             "name": "cta_button",
-            "type": "link",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -167,7 +167,35 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array"
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_666325f80049d",
+            "label": "Post id",
+            "name": "post_id",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page",
+                "courses",
+                "lectures"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "id",
+            "ui": 1
         }
     ],
     "location": [
@@ -188,5 +216,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716896091
+    "modified": 1717775081
 }
