@@ -11,9 +11,11 @@ global $global_options;
 $logo = get_field_value($global_options, 'logo');
 $logout_text = get_field_value($global_options, 'logout_text');
 $btn_login_text = get_field_value($global_options, 'btn_login_text');
+$thank_you_page = get_field_value($global_options, 'thank_you_page');
+$thank_you_page_url = $thank_you_page ? get_permalink($thank_you_page) : 0;
 ?>
 
-<header id="site-header" class="site-header js-site-header">
+<header id="site-header" class="site-header js-site-header" data-thank_you_page="<?php echo $thank_you_page_url; ?>">
     <div class="container site-header__container">
         <?php if ($logo) : ?>
             <a class="site-header__logo" href="<?php echo get_site_url(); ?>">

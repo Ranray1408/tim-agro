@@ -21,7 +21,7 @@ $args = array(
 
 $query = new WP_Query($args);
 ?>
-<div class="courses">
+<div class="courses" id="courses">
     <div class="container courses__container container-big-title reverse">
         <?php
         if (!empty($big_title)) {

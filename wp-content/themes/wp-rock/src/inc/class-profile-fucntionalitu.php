@@ -7,14 +7,15 @@ class profiel_functionality {
     }
 
     private function addActions() {
-        // Code goes here
         add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data'));
         add_action('wp_ajax_update_user_data', array($this, 'update_user_data'));
         add_action('wp_ajax_nopriv_user_login', array($this, 'user_login'));
+        // Restore password
+        add_action('wp_ajax_forgot_password', array($this, 'forgot_password'));
+        add_action('wp_ajax_nopriv_forgot_password', array($this, 'forgot_password'));
     }
 
     public function add_json_video_data() {
-        // Code goes here
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (empty($data)) {
@@ -115,5 +116,30 @@ class profiel_functionality {
         }
 
         wp_send_json_success('Login successful');
+    }
+
+    public function forgot_password() {
+        $user_email = $_POST['email'];
+        wp_send_json_success('Посилання для скидання пароля відправлено на ваш email.');
+        if (isset($user_email)) {
+            $user_email = sanitize_email($user_email);
+
+            $user = get_user_by('email', $user_email);
+            if (!$user) {
+                wp_send_json_error('Користувач з даним email не знайдений.');
+            } else {
+                $reset_link = wp_lostpassword_url();
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+                $headers[] = 'From: Your Site <no-reply@yoursite.com>';
+
+                $email_sent = wp_mail($user_email, 'Скидання пароля', 'Посилання для скидання пароля: ' . $reset_link, $headers);
+
+                if ($email_sent) {
+                    wp_send_json_success('Посилання для скидання пароля відправлено на ваш email.');
+                } else {
+                    wp_send_json_error('Сталася помилка під час відправлення email. Будь ласка, спробуйте ще раз.');
+                }
+            }
+        }
     }
 }

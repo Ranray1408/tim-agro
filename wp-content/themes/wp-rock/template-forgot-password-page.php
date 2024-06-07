@@ -27,9 +27,10 @@ $subtitle = get_field_value($fields, 'subtitle');
             echo '<p class="forgot-password__subtitle body-type-5 weight600">'.esc_html($subtitle).'</p>';
         }
         ?>
-        <form class="forgot-password__form">
-            <input class="form-input" type="email">
+        <form class="forgot-password__form js-forgot-password-form">
+            <input class="form-input" type="email" name="email">
             <input type="submit" class="green-transparent">
+            <div class="js-response-container forgot-password__form-response"></div>
         </form>
     </div>
 </div>

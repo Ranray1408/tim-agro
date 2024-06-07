@@ -152,8 +152,6 @@ export class ProfileFunctionality {
 
                 if (!programmId || !blockId || !videoId) return;
 
-
-
                 if (!this.profileData[learninMaterialType].programms[programmId]) {
                     this.profileData[learninMaterialType].programms[programmId] = {
                         programmId: +programmId.split('-')[1] || null,

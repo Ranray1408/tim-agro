@@ -889,6 +889,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchLogin: function() { return /* binding */ fetchLogin; },
 /* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
 /* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
+/* harmony export */   restorePasswordFormEvent: function() { return /* binding */ restorePasswordFormEvent; },
 /* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
 /* harmony export */   throttle: function() { return /* binding */ throttle; },
 /* harmony export */   trimParagraph: function() { return /* binding */ trimParagraph; },
@@ -1319,6 +1320,7 @@ const fetchLogin = () => {
                         const paragrahp = document.createElement('p');
                         paragrahp.classList.add(additionalClass);
                         paragrahp.innerText = res.data;
+                        respContainer.innerHTML = '';
                         respContainer.appendChild(paragrahp);
                         if (res.success) {
                             window.location.reload();
@@ -1334,12 +1336,13 @@ const checkFormFields = () => {
 
     const checkAllInputs = (target) => {
         let allInputsValid = true;
-        console.log('target', target);
+
         const parentForm = target.closest('form');
 
         if (!parentForm) return;
 
         const allInnerInputs = parentForm.querySelectorAll('input');
+        const formSubmit = parentForm.querySelectorAll('input[type="submit"]');
 
 
         allInnerInputs.forEach((input) => {
@@ -1357,7 +1360,7 @@ const checkFormFields = () => {
                     inputContainer.classList.remove('not-valid');
             } else {
                 input && input.classList.add('not-valid');
-                input && input.classList.remove('not-valid');
+                input && input.classList.remove('valid');
                 inputContainer &&
                     inputContainer.classList.add('not-valid');
                 inputContainer &&
@@ -1377,6 +1380,40 @@ const checkFormFields = () => {
         });
 
 };
+
+const restorePasswordFormEvent = (popupInstance) => {
+    const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+
+    if (!forgotPasswordForm) return;
+
+    forgotPasswordForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(forgotPasswordForm);
+
+        // @ts-ignore
+        fetch(`${var_from_php.ajax_url}?action=forgot_password`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res.data);
+                const respContainer = document.querySelector('.js-response-container');
+                const additionalClass = res.success ? 'success' : 'error';
+
+                if (respContainer && !res.success) {
+                    const paragrahp = document.createElement('p');
+                    paragrahp.classList.add(additionalClass);
+                    paragrahp.innerText = res.data;
+                    respContainer.innerHTML = '';
+                    respContainer.appendChild(paragrahp);
+                } else {
+                    popupInstance.openOnePopup('#forgot-password-popup');
+                }
+            });
+    });
+}
 
 
 /***/ }),
@@ -1692,6 +1729,7 @@ function ready() {
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
   popupInstance.init();
   profileFunctionality.init();
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
@@ -1699,6 +1737,7 @@ function ready() {
   (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.loadFileName)();
   (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.fetchLogin)();
   (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.checkFormFields)();
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.restorePasswordFormEvent)(popupInstance);
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {
@@ -1727,7 +1766,14 @@ function ready() {
         break;
     }
   });
-  window.document.addEventListener('wpcf7mailsent', function (event) {});
+  window.document.addEventListener('wpcf7mailsent', function (event) {
+    var siteHeader = document.querySelector('.js-site-header');
+    setTimeout(function () {
+      if (siteHeader && siteHeader.dataset.thank_you_page) {
+        window.location.replace(siteHeader.dataset.thank_you_page);
+      }
+    }, 2000);
+  });
 }
 window.document.addEventListener('DOMContentLoaded', ready);
 }();

@@ -17,6 +17,7 @@ $subtitle = get_field_value($fields, 'subtitle');
 $list = get_field_value($fields, 'list');
 $link = get_field_value($fields, 'link');
 
+$hide_breadcrumbs = get_field_value($fields, 'hide_breadcrumbs');
 ?>
 
 <div class="hero-banner <?php echo esc_html($class_name); ?>">
@@ -24,7 +25,7 @@ $link = get_field_value($fields, 'link');
     <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg" />
     <div class="container">
         <div class="hero-banner__content">
-            <?php if (!is_front_page()) : ?>
+            <?php if (!is_front_page() && !$hide_breadcrumbs) : ?>
                 <div class="breadcrumbs d-flex">
                     <?php if (function_exists('bcn_display')) {
                         bcn_display();

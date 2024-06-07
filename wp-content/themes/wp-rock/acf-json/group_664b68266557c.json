@@ -3,6 +3,25 @@
     "title": "Block - Hero banner",
     "fields": [
         {
+            "key": "field_6662e8c388cae",
+            "label": "Hide breadcrumbs",
+            "name": "hide_breadcrumbs",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_664b692d65af8",
             "label": "Background image",
             "name": "background_image",
@@ -185,5 +204,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716821486
+    "modified": 1717758179
 }

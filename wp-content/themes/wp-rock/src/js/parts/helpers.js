@@ -421,6 +421,7 @@ export const fetchLogin = () => {
                         const paragrahp = document.createElement('p');
                         paragrahp.classList.add(additionalClass);
                         paragrahp.innerText = res.data;
+                        respContainer.innerHTML = '';
                         respContainer.appendChild(paragrahp);
                         if (res.success) {
                             window.location.reload();
@@ -436,12 +437,13 @@ export const checkFormFields = () => {
 
     const checkAllInputs = (target) => {
         let allInputsValid = true;
-        console.log('target', target);
+
         const parentForm = target.closest('form');
 
         if (!parentForm) return;
 
         const allInnerInputs = parentForm.querySelectorAll('input');
+        const formSubmit = parentForm.querySelectorAll('input[type="submit"]');
 
 
         allInnerInputs.forEach((input) => {
@@ -459,7 +461,7 @@ export const checkFormFields = () => {
                     inputContainer.classList.remove('not-valid');
             } else {
                 input && input.classList.add('not-valid');
-                input && input.classList.remove('not-valid');
+                input && input.classList.remove('valid');
                 inputContainer &&
                     inputContainer.classList.add('not-valid');
                 inputContainer &&
@@ -479,3 +481,37 @@ export const checkFormFields = () => {
         });
 
 };
+
+export const restorePasswordFormEvent = (popupInstance) => {
+    const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+
+    if (!forgotPasswordForm) return;
+
+    forgotPasswordForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(forgotPasswordForm);
+
+        // @ts-ignore
+        fetch(`${var_from_php.ajax_url}?action=forgot_password`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res.data);
+                const respContainer = document.querySelector('.js-response-container');
+                const additionalClass = res.success ? 'success' : 'error';
+
+                if (respContainer && !res.success) {
+                    const paragrahp = document.createElement('p');
+                    paragrahp.classList.add(additionalClass);
+                    paragrahp.innerText = res.data;
+                    respContainer.innerHTML = '';
+                    respContainer.appendChild(paragrahp);
+                } else {
+                    popupInstance.openOnePopup('#forgot-password-popup');
+                }
+            });
+    });
+}

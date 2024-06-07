@@ -1,3 +1,5 @@
+#get-access-popup-response,
+#forgot-password-popup,
 #login-popup,
 #get-access-popup,
 #get-consultation-popup {
@@ -163,8 +165,6 @@
 
 
 #login-popup {
-    //display: block;
-
     .popup-wrapper-inner {
         max-width: 562px;
     }
@@ -200,5 +200,95 @@
 
     .response-container {
         margin-top: 10px;
+    }
+}
+
+
+#forgot-password-popup {
+    .popup-wrapper-inner {
+        padding: 45px 20px 50px;
+
+        @media screen and (max-width: 768px) {
+            padding: 40px 20px 46px;
+        }
+    }
+
+    .forgot-password-popup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        svg {
+            margin-bottom: 30px;
+
+            @media screen and (max-width: 768px) {
+                width: 33px;
+            }
+        }
+
+        &__text {
+            color: var(--color-type-dark-1);
+
+            @media screen and (max-width: 768px) {
+                text-align: center;
+            }
+        }
+    }
+}
+
+#get-access-popup-response {
+    .popup-wrapper-inner {
+        padding: 45px 20px 50px;
+
+        @media screen and (max-width: 768px) {
+            padding: 40px 20px 46px;
+        }
+    }
+
+    .get-access-popup-response {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        svg {
+            margin-bottom: 30px;
+
+            @media screen and (max-width: 768px) {
+                width: 33px;
+            }
+        }
+
+        &__title {
+            color: var(--color-type-dark-1);
+            font-size: 50px;
+            margin-bottom: 0;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 54px;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 46px;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            @media screen and (max-width: 670px) {
+                font-size: 25px;
+            }
+
+            &::after {
+                display: none;
+            }
+        }
+
+        &__text {
+            color: var(--color-type-dark-1);
+            margin-bottom: 0;
+
+            @media screen and (max-width: 768px) {
+                text-align: center;
+            }
+        }
     }
 }

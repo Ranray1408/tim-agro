@@ -9,7 +9,7 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
-import { checkFormFields, fetchLogin, loadFileName } from './parts/helpers';
+import { anchorLinkScroll, checkFormFields, fetchLogin, loadFileName, restorePasswordFormEvent } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -20,6 +20,8 @@ function ready() {
     popupInstance.init();
     profileFunctionality.init();
 
+    anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
+
     hoverClickEvent();
     initAccordion();
     initInnerAccordion();
@@ -27,6 +29,7 @@ function ready() {
     loadFileName();
     fetchLogin();
     checkFormFields();
+    restorePasswordFormEvent(popupInstance);
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');
@@ -70,6 +73,13 @@ function ready() {
 
     window.document.addEventListener('wpcf7mailsent', (event) => {
         // Success send cf7
+        const siteHeader = document.querySelector('.js-site-header') as HTMLElement;
+
+        setTimeout(() => {
+            if (siteHeader && siteHeader.dataset.thank_you_page) {
+                window.location.replace(siteHeader.dataset.thank_you_page);
+            }
+        }, 2000);
     });
 }
 

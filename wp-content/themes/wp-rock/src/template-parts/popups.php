@@ -1,17 +1,70 @@
 <?php
 //Get consultation
+global $global_options;
 
-echo do_shortcode('[popup_box box_id="get-consultation-popup"][contact-form-7 id="1cb54c0" title="Get consultation"][/popup_box]');
+$get_consultation_form = get_field_value($global_options, 'get_consultation_form');
 
-echo do_shortcode('[popup_box box_id="get-access-popup"][contact-form-7 id="12624d3" title="Get access"][/popup_box]');
+if (!empty($get_consultation_form)) {
+    echo do_shortcode('[popup_box box_id="get-consultation-popup"]' . do_shortcode($get_consultation_form) . '[/popup_box]');
+}
+
+$get_access_form = get_field_value($global_options, 'get_access_form');
+if (!empty($get_access_form)) {
+    echo do_shortcode('[popup_box box_id="get-access-popup"]' . do_shortcode($get_access_form) . '[/popup_box]');
+}
+
+$forgot_password_popup =
+'<div class="forgot-password-popup">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+    <g clip-path="url(#clip0_2087_37696)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M25 0C11.2109 0 0 11.2109 0 25C0 38.7891 11.2109 50 25 50C38.7891 50 50 38.7891 50 25C50 11.2109 38.7891 0 25 0Z" fill="#33B056"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.0898 16.5723C37.6953 17.1777 37.6953 18.1738 37.0898 18.7793L22.4414 33.4277C22.1387 33.7305 21.7383 33.8867 21.3379 33.8867C20.9375 33.8867 20.5371 33.7305 20.2344 33.4277L12.9102 26.1035C12.3047 25.498 12.3047 24.502 12.9102 23.8965C13.5156 23.291 14.5117 23.291 15.1172 23.8965L21.3379 30.1172L34.8828 16.5723C35.4883 15.957 36.4844 15.957 37.0898 16.5723Z" fill="#F2F3EB"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_2087_37696">
+        <rect width="50" height="50" fill="white"/>
+        </clipPath>
+    </defs>
+    </svg>
+    <div class="forgot-password-popup__text body-type-2 weight600">
+        На вашу пошту було надіслано новий пароль
+    </div>
+</div>';
+
+echo do_shortcode('[popup_box box_id="forgot-password-popup"]' . do_shortcode($forgot_password_popup) . '[/popup_box]');
+
+
+$get_access_popup_response =
+'<div class="get-access-popup-response">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+    <g clip-path="url(#clip0_2087_37696)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M25 0C11.2109 0 0 11.2109 0 25C0 38.7891 11.2109 50 25 50C38.7891 50 50 38.7891 50 25C50 11.2109 38.7891 0 25 0Z" fill="#33B056"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.0898 16.5723C37.6953 17.1777 37.6953 18.1738 37.0898 18.7793L22.4414 33.4277C22.1387 33.7305 21.7383 33.8867 21.3379 33.8867C20.9375 33.8867 20.5371 33.7305 20.2344 33.4277L12.9102 26.1035C12.3047 25.498 12.3047 24.502 12.9102 23.8965C13.5156 23.291 14.5117 23.291 15.1172 23.8965L21.3379 30.1172L34.8828 16.5723C35.4883 15.957 36.4844 15.957 37.0898 16.5723Z" fill="#F2F3EB"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_2087_37696">
+        <rect width="50" height="50" fill="white"/>
+        </clipPath>
+    </defs>
+    </svg>
+    <h2 class="get-access-popup-response__title">
+        Оплата пройшла успішно
+    </h2>
+    <p class="get-access-popup-response__text body-type-2 weight500">
+        На вашу пошту були надіслані доступи до особистого кабінету.
+    </p>
+</div>';
+
+echo do_shortcode('[popup_box box_id="get-access-popup-response"]' . do_shortcode($get_access_popup_response) . '[/popup_box]');
+
+
+
+
+
 
 global $globa_options;
 
 $forgot_password_page = get_field_value($globa_options, 'forgot_password_page');
-?>
-
-
-<?php
 
 $forgot_pass_btn = !empty($forgot_password_page) ? '<a class="forgot-password" href="' . get_permalink($forgot_password_page) . '">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -50,4 +103,4 @@ $login_form = '<form method="post" class="login-form js-login-form" action="' . 
                     <div class="js-response-container response-container"></div>
                 </form>';
 
-echo do_shortcode('[popup_box box_id="login-popup"]' . do_shortcode($login_form) . '[/popup_box]'); ?>
+echo do_shortcode('[popup_box box_id="login-popup"]' . do_shortcode($login_form) . '[/popup_box]');
