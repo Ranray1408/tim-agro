@@ -1,21 +1,47 @@
 <?php
-class profiel_functionality {
-    public $property1;
 
+/**
+ * Class profile_functionality
+ *
+ * Handles various user profile functionalities.
+ */
+class profile_functionality {
+    /**
+     * Initializes the class by adding action hooks.
+     */
     public function init() {
         $this->addActions();
     }
-
+    /**
+     * Adds necessary WordPress action hooks.
+     */
     private function addActions() {
-        add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data'));
-        add_action('wp_ajax_update_user_data', array($this, 'update_user_data'));
-        add_action('wp_ajax_nopriv_user_login', array($this, 'user_login'));
-        // Restore password
-        add_action('wp_ajax_forgot_password', array($this, 'forgot_password'));
-        add_action('wp_ajax_nopriv_forgot_password', array($this, 'forgot_password'));
-    }
+        // Save video data
+        add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data_action'));
+        // Update user data
+        add_action('wp_ajax_update_user_data', array($this, 'update_user_data_action'));
+        // User login via AJAX
+        add_action('wp_ajax_nopriv_user_login_action', array($this, 'user_login_action'));
+        // Forgot password functionality
+        add_action('wp_ajax_forgot_password', array($this, 'forgot_password_action'));
+        add_action('wp_ajax_nopriv_forgot_password', array($this, 'forgot_password_action'));
+        // User registration and login
+        add_action('wp_ajax_register_login_user', array($this, 'register_login_user_action'));
+        add_action('wp_ajax_nopriv_register_login_user', array($this, 'register_login_user_action'));
+        // Add programm access to user
+        add_action('wp_ajax_add_program_access_to_user', array($this, 'add_program_access_to_user_action'));
+        add_action('wp_ajax_nopriv_add_program_access_to_user', array($this, 'add_program_access_to_user_action'));
 
-    public function add_json_video_data() {
+        // Add programm access to user
+        add_action('wp_ajax_set_new_password', array($this, 'set_new_password_action'));
+        add_action('wp_ajax_nopriv_set_new_password', array($this, 'set_new_password_action'));
+    }
+    /**
+     * Adds JSON video data.
+     *
+     * @return void
+     */
+    public function add_json_video_data_action() {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (empty($data)) {
@@ -35,7 +61,11 @@ class profiel_functionality {
             )
         );
     }
-
+    /**
+     * Updates user programm.
+     *
+     * @return void
+     */
     private function update_user_programm($data, $user_id) {
         if (empty($data)) return false;
 
@@ -54,12 +84,16 @@ class profiel_functionality {
             return update_field($data['programmType'], $user_programm, 'user_' . $user_id);
         }
     }
-
-    public function update_user_data() {
-        $user_id = $_POST['user_id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
+    /**
+     * Updates user data.
+     *
+     * @return void
+     */
+    public function update_user_data_action() {
+        $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
         $file = $_POST['avatar'];
 
         $updated = wp_update_user(array(
@@ -89,38 +123,42 @@ class profiel_functionality {
 
         wp_send_json_success('Data updated successfully');
     }
-
-    public function user_login() {
-        $username_or_email = $_POST['user-name-email'];
-        $password = $_POST['user-password'];
-
-        if (is_email($username_or_email)) {
-            $user = get_user_by('email', $username_or_email);
-        } else {
-            $user = get_user_by('login', $username_or_email);
-        }
+    /**
+     * Handles user login via AJAX.
+     *
+     * @return void
+     */
+    public function user_login_action() {
+        $username_or_email = filter_input(INPUT_POST, 'user-name-email', FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, 'user-password', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (empty($username_or_email) || empty($password)) {
             wp_send_json_error('Please provide both username and password');
         }
 
-        $credentials = array(
-            'user_login' => $user->user_login,
-            'user_password' => $password,
-        );
-
-        $user = wp_signon($credentials, false);
+        $user = $this->get_user_by_email_or_name($username_or_email);
 
         if (is_wp_error($user)) {
+            wp_send_json_error('Can not find user by email or name');
+        }
+
+        $user_logined = $this->login_user($user, $password);
+
+        if (is_wp_error($user_logined)) {
             wp_send_json_error('Invalid username or password');
         }
 
         wp_send_json_success('Login successful');
     }
+    /**
+     * Handles forgot password functionality.
+     *
+     * @return void
+     */
+    public function forgot_password_action() {
+        $user_email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    public function forgot_password() {
-        $user_email = $_POST['email'];
-        wp_send_json_success('Посилання для скидання пароля відправлено на ваш email.');
         if (isset($user_email)) {
             $user_email = sanitize_email($user_email);
 
@@ -128,11 +166,7 @@ class profiel_functionality {
             if (!$user) {
                 wp_send_json_error('Користувач з даним email не знайдений.');
             } else {
-                $reset_link = wp_lostpassword_url();
-                $headers = array('Content-Type: text/html; charset=UTF-8');
-                $headers[] = 'From: Your Site <no-reply@yoursite.com>';
-
-                $email_sent = wp_mail($user_email, 'Скидання пароля', 'Посилання для скидання пароля: ' . $reset_link, $headers);
+                $email_sent = $this->send_reset_user_password($user, $forgot_password_page);
 
                 if ($email_sent) {
                     wp_send_json_success('Посилання для скидання пароля відправлено на ваш email.');
@@ -141,5 +175,141 @@ class profiel_functionality {
                 }
             }
         }
+    }
+    /**
+     * Registers and logs in a user.
+     *
+     * @return void
+     */
+    public function register_login_user_action() {
+        //Registration data
+        $user_email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $user_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
+        $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $user = get_user_by('email', $user_email);
+
+        if ($user) {
+            //If have user login it
+            wp_send_json_error('User already exists');
+        } else {
+
+            $user_data = $this->register_user($user_email, $user_name, $user_phone);
+            if (!$user_data) {
+                wp_send_json_error('Error registering user');
+            }
+
+            $logged_in = $this->login_user($user_data['user'], $user_data['user_pass']);
+            if (is_wp_error($logged_in)) {
+                wp_send_json_error($logged_in->get_error_message());
+            }
+
+            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
+
+            if ($email_sent) {
+                wp_send_json_success('The email was not sent.');
+            } else {
+                wp_send_json_error('The email was sent.');
+            }
+        }
+
+        wp_send_json_error('Something went wrong.');
+    }
+
+
+    public function add_program_access_to_user_action() {
+        //code ....
+    }
+
+    /**
+     * Registers a new user.
+     *
+     * @return array|false Array containing user ID, user object, and user password, or false on failure.
+     */
+    private function register_user($email, $name, $phone) {
+        $userdata = array(
+            'user_login' => $name,
+            'user_email' => $email,
+            'user_pass' => wp_generate_password(),
+            'first_name' => $name,
+        );
+
+        $user_id = wp_insert_user($userdata);
+
+        if (is_wp_error($user_id)) {
+            return false;
+        }
+
+        update_field('user_phone', $phone, 'user_' . $user_id);
+
+        return array(
+            'user_id' => $user_id,
+            'user' => get_user_by('id', $user_id),
+            'user_pass' => $userdata['user_pass'],
+        );
+    }
+    /**
+     * Logs in a user.
+     *
+     * @return WP_User|WP_Error WP_User object on success, WP_Error object on failure.
+     */
+    private function login_user($user, $password) {
+
+        $credentials = array(
+            'user_login' => $user->user_login,
+            'user_password' => $password,
+        );
+
+        $user = wp_signon($credentials, true);
+
+        return $user;
+    }
+    /**
+     * Retrieves a user by email or username.
+     *
+     * @return WP_User|false WP_User object if user is found, false otherwise.
+     */
+    private function get_user_by_email_or_name($username_or_email) {
+        if (empty($username_or_email)) return false;
+
+        if (is_email($username_or_email)) {
+            return get_user_by('email', $username_or_email);
+        } else {
+            return get_user_by('login', $username_or_email);
+        }
+
+        return false;
+    }
+
+    private function send_reset_user_password($user, $forgot_password_page, $generate_pass = '') {
+        if (empty($user) || empty($forgot_password_page)) return;
+
+        $hash = md5($user->user_email);
+        set_transient('hash_reset_password' . $hash, $user->user_email, 20 * 60);
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        $body    = "<h2>Вам було надано автоматично сгенерований пароль: " . $generate_pass . "</h2>
+                    <p>Для зміни сгенерованого паролю перейдіть за посиланням:</p>
+                    <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">Скинути пароль</a></p>";
+
+
+        return wp_mail($user->user_email, 'Forgot Password', $body, $headers);
+    }
+
+
+    public function set_new_password_action() {
+        $user_email = filter_input(INPUT_POST, 'user-email', FILTER_SANITIZE_SPECIAL_CHARS);
+        $user_new_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $user = get_user_by('email', $user_email);
+
+        if (!$user) {
+            wp_send_json_error('Користувач с таким email не знайдений.');
+        }
+
+        wp_set_password($user_new_password, $user->ID);
+
+        wp_send_json_success('Пароль оновлено.');
     }
 }

@@ -106,10 +106,23 @@ input[type="email"] {
     &:focus {
         outline: none;
     }
+
+    &.not-valid {
+        border-bottom: 1px solid var(--color-type-primary-3);
+    }
+
+    &.valid {
+        border-bottom: 1px solid var(--color-type-primary-1);
+    }
 }
 
 [type="submit"] {
     cursor: pointer;
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }
 }
 
 .wpcf7-acceptance {

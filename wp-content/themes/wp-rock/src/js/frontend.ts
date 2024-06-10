@@ -9,7 +9,7 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
-import { anchorLinkScroll, checkFormFields, fetchLogin, loadFileName, restorePasswordFormEvent } from './parts/helpers';
+import { anchorLinkScroll, checkFormFields, fetchLogin, getAccessFormEvent, loadFileName, restorePasswordFormEvent, setNewPasswordForm } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -26,10 +26,13 @@ function ready() {
     initAccordion();
     initInnerAccordion();
     tabsNavigation('.js-tab-link', '.js-tab-panel');
+
     loadFileName();
     fetchLogin();
     checkFormFields();
     restorePasswordFormEvent(popupInstance);
+    getAccessFormEvent();
+    setNewPasswordForm();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

@@ -294,6 +294,7 @@ export const validateField = (fieldType = null, value = null) => {
             checkResult = dummyREGEX.test(value);
             break;
         default:
+            checkResult = true;
             break;
     }
 
@@ -406,7 +407,7 @@ export const fetchLogin = () => {
             const formData = new FormData(loginForm);
 
             // @ts-ignore
-            fetch(`${var_from_php.ajax_url}?action=user_login`, {
+            fetch(`${var_from_php.ajax_url}?action=user_login_action`, {
                 method: 'POST',
                 body: formData,
             })
@@ -434,6 +435,7 @@ export const fetchLogin = () => {
 export const checkFormFields = () => {
     const formInputs = document.querySelectorAll('input');
     if (!formInputs) return;
+    let repeatPassword = '';
 
     const checkAllInputs = (target) => {
         let allInputsValid = true;
@@ -443,13 +445,16 @@ export const checkFormFields = () => {
         if (!parentForm) return;
 
         const allInnerInputs = parentForm.querySelectorAll('input');
-        const formSubmit = parentForm.querySelectorAll('input[type="submit"]');
+        const formSubmit = parentForm.querySelector('input[type="submit"]');
 
 
         allInnerInputs.forEach((input) => {
             const inputContainer = input.closest('.js-inner-input-wrapper');
 
-            if (!input.name || !input.value) return;
+            if (
+                !input.name || !input.value || input.type === 'hidden' ||
+                input.name === 'password' || input.name === 'password-repeat'
+            ) return;
 
             const isValid = validateField(input.name, input.value);
 
@@ -469,15 +474,38 @@ export const checkFormFields = () => {
                 allInputsValid = false;
             }
         });
-
         if (formSubmit) {
             formSubmit.disabled = !allInputsValid;
         }
     };
 
+    const checkPasswordMatch = (target) => {
+        const parentForm = target.closest('form');
+        if (!parentForm) return;
+
+        if (target.name === 'password-repeat') {
+            repeatPassword = target.value;
+
+            const passwordInput = parentForm.querySelector('input[name="password"]');
+            if (!passwordInput || target.name === 'password') return;
+
+            const passwordsMatch = (passwordInput.value === repeatPassword);
+
+            target.classList.toggle('valid', passwordsMatch);
+            target.classList.toggle('not-valid', !passwordsMatch);
+
+            const formSubmit = parentForm.querySelector('input[type="submit"]');
+            formSubmit && (formSubmit.disabled = !passwordsMatch);
+        }
+
+    }
+
     formInputs &&
         formInputs.forEach((input) => {
-            input.addEventListener('change', (e) => checkAllInputs(e.target));
+            input.addEventListener('change', (e) => {
+                checkAllInputs(e.target)
+                checkPasswordMatch(e.target);
+            });
         });
 
 };
@@ -497,9 +525,8 @@ export const restorePasswordFormEvent = (popupInstance) => {
             method: 'POST',
             body: formData,
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.data);
+            .then((res) => res.json())
+            .then((res) => {
                 const respContainer = document.querySelector('.js-response-container');
                 const additionalClass = res.success ? 'success' : 'error';
 
@@ -514,4 +541,63 @@ export const restorePasswordFormEvent = (popupInstance) => {
                 }
             });
     });
+}
+
+export const getAccessFormEvent = () => {
+    const getAccessForm = document.querySelector('.js-get-access-form');
+
+    if (!getAccessForm) return;
+
+    getAccessForm &&
+        getAccessForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(getAccessForm);
+            const resJSON = await fetch(`${var_from_php.ajax_url}?action=register_login_user`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const res = await resJSON.json();
+
+            if (res.success) {
+                console.log('res', res.data);
+                setTimeout(() => {
+                    window.location.href = getAccessForm.dataset.profile_page;
+                }, 2000);
+            }
+        });
+}
+
+export const setNewPasswordForm = () => {
+    const newPasswordForm = document.querySelector('.js-set-new-password-form');
+
+    if (!newPasswordForm) return;
+
+    newPasswordForm &&
+        newPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(newPasswordForm);
+
+            const resJSON = await fetch(`${var_from_php.ajax_url}?action=set_new_password`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const res = await resJSON.json();
+
+
+
+            const respContainer = document.querySelector('.js-response-container');
+            const additionalClass = res.success ? 'success' : 'error';
+
+            const paragrahp = document.createElement('p');
+            paragrahp.classList.add(additionalClass);
+            paragrahp.innerText = res.data;
+            respContainer.innerHTML = '';
+            respContainer.appendChild(paragrahp);
+
+
+        });
 }

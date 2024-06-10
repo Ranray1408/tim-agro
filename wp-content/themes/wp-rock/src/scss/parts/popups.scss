@@ -162,6 +162,11 @@
             gap: 10px;
         }
     }
+
+    .have-account-btn {
+        margin: 20px auto;
+        color: var(--color-type-dark-1);
+    }
 }
 
 
@@ -201,6 +206,16 @@
 
     .response-container {
         margin-top: 10px;
+
+        p {
+            &.error {
+                color: var(--color-type-primary-3);
+            }
+
+            &.success {
+                color: var(--color-type-primary-1);
+            }
+        }
     }
 }
 

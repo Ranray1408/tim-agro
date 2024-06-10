@@ -51,5 +51,5 @@ function get_field_value( $data_arr, $key ) {
     return ( isset( $data_arr[ $key ] ) ) ? $data_arr[ $key ] : null;
 }
 
-$profiel_functionality = new profiel_functionality();
-$profiel_functionality->init();
+$profile_functionality = new profile_functionality();
+$profile_functionality->init();

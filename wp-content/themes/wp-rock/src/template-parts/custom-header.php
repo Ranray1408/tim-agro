@@ -36,10 +36,9 @@ $thank_you_page_url = $thank_you_page ? get_permalink($thank_you_page) : 0;
 
 
         <?php if (is_user_logged_in() && !empty($logout_text)) : ?>
-            <button class="site-header__logout-btn white-transparent"
-                    onclick="window.location.href='<?php echo wp_logout_url(); ?>'">
+            <a href="<?php echo wp_logout_url(home_url() . '?logout=1', 'force'); ?>" class="site-header__logout-btn white-transparent">
                 <?php echo esc_html($logout_text); ?>
-            </button>
+            </a>
         <?php else : ?>
             <?php if (!empty($btn_login_text)) : ?>
                 <a href="#login-popup" class="site-header__login-btn green-transparent js-open-popup-activator">

@@ -90,17 +90,13 @@ function wp_rock_color_panel(): void
 }
 add_action('wp_head', 'wp_rock_color_panel');
 
-// add_action('admin_init', 'redirect_non_admin_users');
 
-// function redirect_non_admin_users() {
-//     if (!current_user_can('manage_options')) {
-//         wp_redirect(home_url());
-//         exit;
-//     }
-// }
+add_filter('logout_redirect', 'custom_logout_redirect', 10, 3);
 
-// add_filter('logout_url', 'redirect_after_logout');
-
-// function redirect_after_logout($logout_url) {
-//     return home_url();
-// }
+function custom_logout_redirect($redirect_to, $requested_redirect_to, $user) {
+    if (!isset($requested_redirect_to) || empty($requested_redirect_to)) {
+        return esc_url($_SERVER['REQUEST_URI']);
+    } else {
+        return $requested_redirect_to;
+    }
+}

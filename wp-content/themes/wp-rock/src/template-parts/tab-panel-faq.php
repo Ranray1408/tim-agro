@@ -1,9 +1,9 @@
 <?php
 
 $main_title = __('Мої дані', 'wp-rock');
-$profiel_fields = get_fields(get_the_ID());
+$profile_fields = get_fields(get_the_ID());
 
-$faq_repeater = get_field_value($profiel_fields, 'faq_repeater');
+$faq_repeater = get_field_value($profile_fields, 'faq_repeater');
 ?>
 <div id="faq" class="profile__panel js-tab-panel">
     <div class="container">

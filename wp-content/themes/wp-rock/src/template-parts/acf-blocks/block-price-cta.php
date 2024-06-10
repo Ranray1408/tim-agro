@@ -6,11 +6,15 @@
  * @package WP-rock
  * @since   4.4.0
  */
+global $global_options;
 
 $class_name = isset($args['className']) ? ' ' . $args['className'] : '';
 $fields = get_fields();
 $title = get_field_value($fields, 'title');
 $show_link = get_field_value($fields, 'show_link');
+
+$profile_page = get_field_value($global_options, 'profile_page');
+$forgot_password_page_id = get_field_value($global_options, 'forgot_password_page');
 
 $green_class = $show_link ? 'green-svg' : '';
 
@@ -19,6 +23,10 @@ $socials = get_field_value($fields, 'socials');
 $phone = get_field_value($fields, 'phone');
 $cta_button = get_field_value($fields, 'cta_button');
 $post_id = get_field_value($fields, 'post_id');
+
+$user_id = get_current_user_id() ? get_current_user_id() : null;
+
+$popup_id = is_user_logged_in() ? '#' : '#login-popup';
 ?>
 <div class="price-cta">
     <div class="container d-flex flex-column">
@@ -73,7 +81,7 @@ $post_id = get_field_value($fields, 'post_id');
 <?php
 $get_access_form = '
 <div class="get-access-popup">
-    <form class="get-access-form">
+    <form class="get-access-form js-get-access-form" data-profile_page="' . get_permalink($profile_page) . '">
         <h2 class="popup-title">Вартість курсу <span>' . $price . '</span></h2>
         <div class="popup-subtitle body-type-2 weight500">
             Щоб отримати доступ, заповніть форму і натисніть кнопку
@@ -96,12 +104,16 @@ $get_access_form = '
         </div>
         <div class="bottom-wrapper">
             <label class="checkbox">
-                <input checked type="checkbox">
+                <input checked type="checkbox" required>
                 <span>Надсилаючи данні, я приймаю умови Публічної оферти та Політики конфіденційності*</span>
             </label>
             <input type="submit" class="green-transparent" value="Відправити">
+            <input type="hidden" name="user_id" value="' . $user_id . '">
+            <input type="hidden" name="program_id" value="' . $post_id . '">
+            <input type="hidden" name="forgot_password_page" value="' . get_permalink($forgot_password_page_id) . '">
         </div>
     </form>
+    <button data-href="#login-popup" class="green-transparent have-account-btn js-open-popup-activator">Я вже маю акаунт</button>
 </div>
 ';
 
