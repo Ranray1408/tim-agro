@@ -1,6 +1,6 @@
 .block-faq {
     background-color: var(--color-type-primary-white-2);
-    padding: 104px 0 92px;
+    padding: 91px 0 104px;
 
     @media screen and (max-width: 991px) {
         padding: 84px 0 75px;
@@ -89,6 +89,9 @@
         }
 
         svg {
+            width: 44px;
+            height: 44px;
+
             @media screen and (max-width: 768px) {
                 width: 35px;
                 height: 35px;

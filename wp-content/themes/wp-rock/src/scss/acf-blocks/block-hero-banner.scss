@@ -3,6 +3,11 @@
     background-repeat: no-repeat;
     background-position: center right;
     background-size: contain;
+    min-height: 762px;
+
+    @media screen and (max-width: 1200px) {
+        min-height: auto;
+    }
 
     &__img-bg {
         width: 100%;
@@ -17,10 +22,10 @@
     }
 
     &__content {
-        max-width: 740px;
+        max-width: 1000px;
         position: relative;
-        padding-top: 288px;
-        padding-bottom: 209px;
+        padding-top: 244px;
+        padding-bottom: 80px;
 
         @media screen and (max-width: 670px) {
             padding-top: 214px;
@@ -45,6 +50,7 @@
 
     &__subtitle {
         margin-bottom: 58px;
+        max-width: 678px;
 
         p {
             color: inherit;
@@ -76,6 +82,39 @@
                 width: 42px;
                 height: 42px;
             }
+        }
+    }
+}
+
+.service-hero {
+    &.hero-banner {
+        min-height: 716px;
+
+        @media screen and (max-width: 1200px) {
+            min-height: auto;
+        }
+
+        .hero-banner__subtitle {
+            margin-bottom: 25px;
+
+            p {
+                margin-bottom: 9px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+}
+
+.single-courses {
+    .hero-banner__title {
+        margin-bottom: 35px;
+
+        @media screen and (max-width: 768px) {
+            margin-bottom: 19px;
         }
     }
 }

@@ -27,8 +27,11 @@ $post_id = get_field_value($fields, 'post_id');
 $user_id = get_current_user_id() ? get_current_user_id() : null;
 
 $popup_id = is_user_logged_in() ? '#' : '#login-popup';
+
+$link_class = $show_link ? 'shown-link' : '';
+
 ?>
-<div class="price-cta">
+<div class="price-cta <?php echo $link_class; ?>">
     <div class="container d-flex flex-column">
         <?php
         if (!empty($title)) {

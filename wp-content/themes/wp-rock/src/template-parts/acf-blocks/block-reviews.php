@@ -53,7 +53,7 @@ $slides = get_field_value($fields, 'slides');
                     </div>
                 </div>
                 <!-- If we need pagination -->
-                <div class="swiper-pagination d-inline-flex align-items-center justify-content-center"></div>
+                <div class="swiper-pagination"></div>
         </div>
     </div>
 <?php endif; ?>

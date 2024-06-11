@@ -27,6 +27,25 @@
             "mime_types": ""
         },
         {
+            "key": "field_66684061fc688",
+            "label": "Post title",
+            "name": "post_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_66574d74d99de",
             "label": "Programm",
             "name": "programm",
@@ -151,5 +170,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717510875
+    "modified": 1718108270
 }

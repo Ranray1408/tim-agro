@@ -1,6 +1,6 @@
 .who-benefits {
     background-repeat: no-repeat;
-    background-position: left bottom;
+    background-position: 17% bottom;
     background-size: contain;
     padding: 90px 0 133px;
     background-color: var(--color-type-primary-white-2);
@@ -11,12 +11,32 @@
         background-size: 60%;
     }
 
+    &__container {
+        position: relative;
+    }
+
+    &__bg {
+        position: absolute;
+        bottom: -133px;
+        left: -280px;
+        z-index: 1;
+
+        @media screen and (max-width: 991px) {
+            bottom: -212px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 230px;
+        }
+    }
+
     &__title {
         color: var(--color-type-dark-1);
         margin-bottom: 20px;
     }
 
     &__content {
+        position: relative;
+        z-index: 2;
         max-width: 1094px;
         width: 100%;
         margin-left: auto;
@@ -41,6 +61,7 @@
         display: flex;
         flex-direction: column;
         gap: 27px;
+        max-width: 990px;
     }
 
     &__item {

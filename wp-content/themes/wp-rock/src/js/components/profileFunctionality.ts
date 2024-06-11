@@ -11,7 +11,7 @@ export class ProfileFunctionality {
         },
     };
 
-    constructor() { }
+    constructor() {}
 
     // Main init method
     init() {
@@ -112,8 +112,8 @@ export class ProfileFunctionality {
 
         currentBlockPath.videos[videoId] = {
             ...currentBlockPath.videos[videoId],
-            videoDuration: videoDuration,
-            videoPauseTime: videoPauseTime,
+            videoDuration,
+            videoPauseTime,
             isVideoViewed: viewed,
         };
 
@@ -130,7 +130,7 @@ export class ProfileFunctionality {
 
         const playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn') as NodeList;
 
-        //Set user id
+        // Set user id
         if (mainContainer && mainContainer.dataset.user_id) {
             this.profileData.userId = +mainContainer.dataset.user_id;
         }

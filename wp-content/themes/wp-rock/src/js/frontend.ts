@@ -9,7 +9,15 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
-import { anchorLinkScroll, checkFormFields, fetchLogin, getAccessFormEvent, loadFileName, restorePasswordFormEvent, setNewPasswordForm } from './parts/helpers';
+import {
+    anchorLinkScroll,
+    checkFormFields,
+    fetchLogin,
+    getAccessFormEvent,
+    loadFileName,
+    restorePasswordFormEvent,
+    setNewPasswordForm,
+} from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 

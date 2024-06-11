@@ -82,6 +82,8 @@
     }
 
     &__menu-wrapper {
+        margin-top: 11px;
+
         @media screen and (max-width: 991px) {
             position: fixed;
             top: 300%;
@@ -288,7 +290,8 @@
     &__login-btn {
         display: flex;
         gap: 14px;
-        padding: 13px 24px 13px 20px;
+        padding: 11px 24px 11px 20px;
+        font-size: 16px;
 
         @media screen and (max-width: 991px) {
             margin-right: 12px;

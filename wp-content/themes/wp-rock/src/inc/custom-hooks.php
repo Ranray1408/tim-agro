@@ -90,13 +90,3 @@ function wp_rock_color_panel(): void
 }
 add_action('wp_head', 'wp_rock_color_panel');
 
-
-add_filter('logout_redirect', 'custom_logout_redirect', 10, 3);
-
-function custom_logout_redirect($redirect_to, $requested_redirect_to, $user) {
-    if (!isset($requested_redirect_to) || empty($requested_redirect_to)) {
-        return esc_url($_SERVER['REQUEST_URI']);
-    } else {
-        return $requested_redirect_to;
-    }
-}

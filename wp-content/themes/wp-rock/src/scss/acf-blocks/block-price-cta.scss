@@ -6,6 +6,14 @@
         padding: 57px 0;
     }
 
+    &.shown-link {
+        padding: 75px 0 81px;
+
+        @media screen and (max-width: 991px) {
+            padding: 57px 0;
+        }
+    }
+
     &__title {
         text-transform: uppercase;
         margin-bottom: 20px;
@@ -65,10 +73,22 @@
 
     &__socials {
         margin: 20px auto 0;
-        gap: 20px;
+        gap: 16px;
 
         @media screen and (max-width: 768px) {
             margin: 33px auto 0;
+        }
+    }
+
+    &__socials-item {
+        img {
+            width: 48px;
+            height: 48px;
+
+            @media screen and (max-width: 991px) {
+                width: 40px;
+                height: 40px;
+            }
         }
     }
 }

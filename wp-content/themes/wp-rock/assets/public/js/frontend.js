@@ -1217,7 +1217,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) { }
+                while (--i >= 0 && matches.item(i) !== el) {}
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1348,14 +1348,17 @@ const checkFormFields = () => {
         const allInnerInputs = parentForm.querySelectorAll('input');
         const formSubmit = parentForm.querySelector('input[type="submit"]');
 
-
         allInnerInputs.forEach((input) => {
             const inputContainer = input.closest('.js-inner-input-wrapper');
 
             if (
-                !input.name || !input.value || input.type === 'hidden' ||
-                input.name === 'password' || input.name === 'password-repeat'
-            ) return;
+                !input.name ||
+                !input.value ||
+                input.type === 'hidden' ||
+                input.name === 'password' ||
+                input.name === 'password-repeat'
+            )
+                return;
 
             const isValid = validateField(input.name, input.value);
 
@@ -1363,15 +1366,12 @@ const checkFormFields = () => {
                 input && input.classList.add('valid');
                 input && input.classList.remove('not-valid');
                 inputContainer && inputContainer.classList.add('valid');
-                inputContainer &&
-                    inputContainer.classList.remove('not-valid');
+                inputContainer && inputContainer.classList.remove('not-valid');
             } else {
                 input && input.classList.add('not-valid');
                 input && input.classList.remove('valid');
-                inputContainer &&
-                    inputContainer.classList.add('not-valid');
-                inputContainer &&
-                    inputContainer.classList.remove('valid');
+                inputContainer && inputContainer.classList.add('not-valid');
+                inputContainer && inputContainer.classList.remove('valid');
                 allInputsValid = false;
             }
         });
@@ -1387,10 +1387,12 @@ const checkFormFields = () => {
         if (target.name === 'password-repeat') {
             repeatPassword = target.value;
 
-            const passwordInput = parentForm.querySelector('input[name="password"]');
+            const passwordInput = parentForm.querySelector(
+                'input[name="password"]'
+            );
             if (!passwordInput || target.name === 'password') return;
 
-            const passwordsMatch = (passwordInput.value === repeatPassword);
+            const passwordsMatch = passwordInput.value === repeatPassword;
 
             target.classList.toggle('valid', passwordsMatch);
             target.classList.toggle('not-valid', !passwordsMatch);
@@ -1398,21 +1400,21 @@ const checkFormFields = () => {
             const formSubmit = parentForm.querySelector('input[type="submit"]');
             formSubmit && (formSubmit.disabled = !passwordsMatch);
         }
-
-    }
+    };
 
     formInputs &&
         formInputs.forEach((input) => {
             input.addEventListener('change', (e) => {
-                checkAllInputs(e.target)
+                checkAllInputs(e.target);
                 checkPasswordMatch(e.target);
             });
         });
-
 };
 
 const restorePasswordFormEvent = (popupInstance) => {
-    const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+    const forgotPasswordForm = document.querySelector(
+        '.js-forgot-password-form'
+    );
 
     if (!forgotPasswordForm) return;
 
@@ -1428,7 +1430,9 @@ const restorePasswordFormEvent = (popupInstance) => {
         })
             .then((res) => res.json())
             .then((res) => {
-                const respContainer = document.querySelector('.js-response-container');
+                const respContainer = document.querySelector(
+                    '.js-response-container'
+                );
                 const additionalClass = res.success ? 'success' : 'error';
 
                 if (respContainer && !res.success) {
@@ -1442,7 +1446,7 @@ const restorePasswordFormEvent = (popupInstance) => {
                 }
             });
     });
-}
+};
 
 const getAccessFormEvent = () => {
     const getAccessForm = document.querySelector('.js-get-access-form');
@@ -1454,10 +1458,13 @@ const getAccessFormEvent = () => {
             e.preventDefault();
 
             const formData = new FormData(getAccessForm);
-            const resJSON = await fetch(`${var_from_php.ajax_url}?action=register_login_user`, {
-                method: 'POST',
-                body: formData,
-            });
+            const resJSON = await fetch(
+                `${var_from_php.ajax_url}?action=register_login_user`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
 
             const res = await resJSON.json();
 
@@ -1468,7 +1475,7 @@ const getAccessFormEvent = () => {
                 }, 2000);
             }
         });
-}
+};
 
 const setNewPasswordForm = () => {
     const newPasswordForm = document.querySelector('.js-set-new-password-form');
@@ -1481,16 +1488,19 @@ const setNewPasswordForm = () => {
 
             const formData = new FormData(newPasswordForm);
 
-            const resJSON = await fetch(`${var_from_php.ajax_url}?action=set_new_password`, {
-                method: 'POST',
-                body: formData,
-            });
+            const resJSON = await fetch(
+                `${var_from_php.ajax_url}?action=set_new_password`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
 
             const res = await resJSON.json();
 
-
-
-            const respContainer = document.querySelector('.js-response-container');
+            const respContainer = document.querySelector(
+                '.js-response-container'
+            );
             const additionalClass = res.success ? 'success' : 'error';
 
             const paragrahp = document.createElement('p');
@@ -1498,10 +1508,8 @@ const setNewPasswordForm = () => {
             paragrahp.innerText = res.data;
             respContainer.innerHTML = '';
             respContainer.appendChild(paragrahp);
-
-
         });
-}
+};
 
 
 /***/ }),

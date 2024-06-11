@@ -44,9 +44,11 @@ $query = new WP_Query($args);
             <div class="lectures__lectures-wrapper d-flex flex-column">
                 <?php while ($query->have_posts()) : $query->the_post();
                     $post_fields = get_fields(get_the_ID());
-                    $post_icon = get_field_value($post_fields, 'icon');
+                    $post_icon = get_field_value($post_fields, 'logo');
+
+                    if(!get_the_excerpt()) continue;
                 ?>
-                    <div class="lectures__lectures-item d-flex">
+                    <div class="lectures__lectures-item">
                         <div class="lectures__lectures-title-wrapper d-flex">
                             <?php
                             if (!empty($post_icon)) {

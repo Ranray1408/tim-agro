@@ -1,6 +1,6 @@
 .about-person {
     background-color: var(--color-type-dark-2);
-    padding: 80px 0 94px;
+    padding: 80px 0 133px;
 
     @media screen and (max-width: 991px) {
         padding: 86px 0 67px;
@@ -26,6 +26,7 @@
         position: relative;
         max-width: 510px;
         width: 100%;
+        flex-shrink: 0;
 
         @media screen and (max-width: 991px) {
             margin-bottom: 35px;
@@ -35,6 +36,18 @@
             max-width: 263px;
         }
 
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(138deg, rgba(32, 32, 32, 0.00) 45.34%, #202020 97.85%);
+            z-index: 1;
+        }
+
         .logo {
             position: absolute;
             right: 60px;
@@ -42,8 +55,10 @@
             width: 240px;
             height: 240px;
             transform: translate(50%);
+            z-index: 2;
 
             @media screen and (max-width: 991px) {
+                flex-shrink: 1;
                 width: 113px;
                 height: 113px;
                 right: 15px;
@@ -72,7 +87,7 @@
     &__repeater {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 35px 54px;
+        gap: 40px 54px;
         margin-bottom: 60px;
 
         @media screen and (max-width: 470px) {
@@ -90,7 +105,7 @@
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
-        line-height: 22px;
+        line-height: 1.22;
         text-transform: uppercase;
     }
 
@@ -137,7 +152,7 @@
         font-size: 70px;
         font-style: normal;
         font-weight: 800;
-        line-height: 1.2;
+        line-height: 1.4;
 
         @media screen and (max-width: 991px) {
             font-size: 50px;

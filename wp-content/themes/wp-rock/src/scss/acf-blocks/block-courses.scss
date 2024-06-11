@@ -7,7 +7,7 @@
     }
 
     &__title {
-        margin-left: 80px;
+        margin-left: 130px;
         margin-bottom: 60px;
 
         @media screen and (max-width: 768px) {
@@ -18,7 +18,7 @@
 
     &__courses-wrapper {
         gap: 57px;
-        padding-left: 80px;
+        padding-left: 130px;
 
         @media screen and (max-width: 991px) {
             gap: 92px;
@@ -31,13 +31,17 @@
 
     &__courses-item {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 610px;
         position: relative;
         border: 1px solid var(--color-type-primary-white);
         min-height: 193px;
         padding: 25px;
         max-width: 1146px;
         width: 100%;
+
+        @media screen and (max-width: 1470px) {
+            grid-template-columns: 1fr 1fr;
+        }
 
         @media screen and (max-width: 991px) {
             grid-template-columns: 1fr;
@@ -48,7 +52,7 @@
     &__courses-logo {
         position: absolute;
         left: 1%;
-        top: 50%;
+        top: 60%;
         transform: translate(-50%, -50%);
 
         @media screen and (max-width: 991px) {
@@ -74,7 +78,7 @@
     }
 
     &__courses-info {
-        padding: 7px 54px;
+        padding: 7px 53px;
         border-left: 1px solid var(--color-type-primary-white);
 
         @media screen and (max-width: 991px) {

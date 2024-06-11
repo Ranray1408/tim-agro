@@ -6,6 +6,12 @@
         padding: 94px 0 64px;
     }
 
+    .container-big-title.reverse {
+        .big-title {
+            top: 106px;
+        }
+    }
+
     &__title {
         position: relative;
         margin-bottom: 42px;
@@ -58,9 +64,12 @@
             margin-top: 50px;
             align-items: center;
             position: relative;
+            display: inline-flex;
+            justify-content: flex-end;
 
             @media screen and (max-width: 991px) {
                 margin-top: 46px;
+                justify-content: center;
             }
 
             .swiper-pagination-bullet {

@@ -16,7 +16,8 @@ $big_title = get_field_value($fields, 'big_title');
 $title = get_field_value($fields, 'title');
 $args = array(
     'post_type' => 'courses',
-    'post_status' => 'publish'
+    'post_status' => 'publish',
+    'order' => 'ASC',
 );
 
 $query = new WP_Query($args);
@@ -38,6 +39,9 @@ $query = new WP_Query($args);
                 <?php while ($query->have_posts()) : $query->the_post();
                     $post_fields = get_fields(get_the_ID());
                     $post_logo = get_field_value($post_fields, 'logo');
+                    $post_title = get_field_value($post_fields, 'post_title');
+
+                    $post_title = !empty($post_title) ? $post_title : get_the_title();
                 ?>
                     <div class="courses__courses-item">
                         <?php
@@ -47,7 +51,7 @@ $query = new WP_Query($args);
                                 </figure>';
                         }
 
-                        echo '<p class="courses__courses-title body-type-0 ">' . get_the_title() . '</p>';
+                        echo '<p class="courses__courses-title body-type-0 ">' . do_shortcode($post_title) . '</p>';
 
                         ?>
 

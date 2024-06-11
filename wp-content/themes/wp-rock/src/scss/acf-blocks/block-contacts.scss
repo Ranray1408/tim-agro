@@ -50,6 +50,15 @@
                 }
             }
 
+            .input-label-textarea {
+                display: block;
+                margin-bottom: 22px;
+
+                @media screen and (max-width: 470px) {
+                    margin-bottom: 0;
+                }
+            }
+
             textarea {
                 height: 130px;
                 resize: none;
@@ -81,7 +90,6 @@
     }
 
     &__title {
-        margin-bottom: 10px;
         color: var(--color-type-dark-1);
     }
 
@@ -90,12 +98,17 @@
 
         @media screen and (max-width: 991px) {
             margin-bottom: 37px;
+            align-items: center;
         }
     }
 
     &__subtitle {
         margin-bottom: 30px;
         color: var(--color-type-dark-1);
+
+        @media screen and (max-width: 991px) {
+            margin-bottom: 0;
+        }
     }
 
     &__socials {
@@ -132,6 +145,7 @@
             @media screen and (max-width: 991px) {
                 display: block;
                 max-width: 150px;
+                margin-left: auto;
             }
         }
     }
