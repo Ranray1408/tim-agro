@@ -11,7 +11,7 @@
         z-index: 1;
         max-width: 943px;
         width: 100%;
-        margin: 323px auto 0;
+        margin: 150px auto 0;
 
         @media screen and (max-width: 991px) {
             width: 90%;
@@ -171,8 +171,17 @@
 
 
 #login-popup {
+
     .popup-wrapper-inner {
         max-width: 562px;
+
+        .popup-subtitle {
+            margin-bottom: 33px;
+
+            @media screen and (max-width: 570px) {
+                margin-bottom: 53px;
+            }
+        }
     }
 }
 

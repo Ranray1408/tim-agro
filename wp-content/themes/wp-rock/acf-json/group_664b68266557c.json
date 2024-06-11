@@ -171,6 +171,25 @@
             ]
         },
         {
+            "key": "field_6668652e4aec6",
+            "label": "Open popup",
+            "name": "open_popup",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_664b6852124e8",
             "label": "Link",
             "name": "link",
@@ -204,5 +223,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717758179
+    "modified": 1718117701
 }

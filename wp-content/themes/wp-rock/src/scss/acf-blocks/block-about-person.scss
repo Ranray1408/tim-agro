@@ -90,6 +90,10 @@
         gap: 40px 54px;
         margin-bottom: 60px;
 
+        @media screen and (max-width: 991px) {
+            margin-bottom: 40px;
+        }
+
         @media screen and (max-width: 470px) {
             grid-template-columns: 1fr;
         }

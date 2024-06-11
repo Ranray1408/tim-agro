@@ -52,6 +52,10 @@
         margin-bottom: 58px;
         max-width: 678px;
 
+        @media screen and (max-width: 991px) {
+            margin-bottom: 47px;
+        }
+
         p {
             color: inherit;
             margin-bottom: 20px;
@@ -103,6 +107,27 @@
                 &:last-child {
                     margin-bottom: 0;
                 }
+            }
+        }
+    }
+
+}
+
+.thank-you-page {
+    &.hero-banner {
+        height: 100%;
+
+        .hero-banner__title {
+            @media screen and (max-width: 768px) {
+                margin-bottom: 11px;
+            }
+        }
+
+        .hero-banner__subtitle {
+            margin-bottom: 91px;
+
+            @media screen and (max-width: 670px) {
+                margin-bottom: 44px;
             }
         }
     }

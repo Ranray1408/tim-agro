@@ -18,6 +18,9 @@ $list = get_field_value($fields, 'list');
 $link = get_field_value($fields, 'link');
 
 $hide_breadcrumbs = get_field_value($fields, 'hide_breadcrumbs');
+
+$open_popup = get_field_value($fields, 'open_popup');
+$popup_activator = $open_popup ? 'js-open-popup-activator' : '';
 ?>
 
 <div class="hero-banner <?php echo esc_html($class_name); ?>">
@@ -42,7 +45,7 @@ $hide_breadcrumbs = get_field_value($fields, 'hide_breadcrumbs');
             }
 
             if (!empty($subtitle)) {
-                echo '<div class="hero-banner__subtitle body-type-1">' . do_shortcode($subtitle) . '</div>';
+                echo '<div class="hero-banner__subtitle">' . do_shortcode($subtitle) . '</div>';
             }
 
             if (!empty($list)) {
@@ -63,7 +66,7 @@ $hide_breadcrumbs = get_field_value($fields, 'hide_breadcrumbs');
             }
 
             if (!empty($link['url']) && !empty($link['title'])) {
-                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies green-transparent">
+                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies green-transparent ' . $popup_activator . '">
                             ' . esc_html($link['title']) . '
                         </a>';
             }
