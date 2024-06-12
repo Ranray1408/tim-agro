@@ -9,14 +9,16 @@ import { ProfileFunctionality } from './components/profileFunctionality';
  * JavaScript
  */
 import Sliders from './components/swiper-init';
+import { FormsActionsClass } from './parts/formsActionsClass';
 import {
     anchorLinkScroll,
-    checkFormFields,
-    fetchLogin,
-    getAccessFormEvent,
+    //checkFormFields,
+    //fetchLogin,
+    //getAccessFormEvent,
     loadFileName,
-    restorePasswordFormEvent,
-    setNewPasswordForm,
+    validateField,
+    //restorePasswordFormEvent,
+    //setNewPasswordForm,
 } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
@@ -25,8 +27,10 @@ function ready() {
     const siteHeader = document.querySelector('.js-site-header');
     const popupInstance = new Popup();
     const profileFunctionality = new ProfileFunctionality();
+    const formsActionClass = new FormsActionsClass(popupInstance, validateField);
     popupInstance.init();
     profileFunctionality.init();
+    formsActionClass.init();
 
     anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
 
@@ -36,11 +40,12 @@ function ready() {
     tabsNavigation('.js-tab-link', '.js-tab-panel');
 
     loadFileName();
-    fetchLogin();
-    checkFormFields();
-    restorePasswordFormEvent(popupInstance);
-    getAccessFormEvent();
-    setNewPasswordForm();
+
+    // fetchLogin();
+    //checkFormFields();
+    //restorePasswordFormEvent(popupInstance);
+    //getAccessFormEvent();
+    //setNewPasswordForm();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');
@@ -62,11 +67,13 @@ function ready() {
         const target = e.target as HTMLElement;
         const { role } = target.dataset;
 
-        // const hoverQuery = window.matchMedia('(hover: hover)');
 
-        // if (target.classList.contains('menu-item-has-children') && !hoverQuery.matches) {
-        //     target.classList.toggle('opened');
-        // }
+        if (target.classList.contains('js-popup-in-popup')) {
+            popupInstance.forceCloseAllPopup();
+            setTimeout(() => {
+                popupInstance.openOnePopup(target.dataset.href);
+            }, 1000);
+        }
 
         if (!role) return;
 

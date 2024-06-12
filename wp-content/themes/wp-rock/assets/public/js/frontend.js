@@ -869,6 +869,258 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/js/parts/formsActionsClass.js":
+/*!*******************************************!*\
+  !*** ./src/js/parts/formsActionsClass.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FormsActionsClass: function() { return /* binding */ FormsActionsClass; }
+/* harmony export */ });
+class FormsActionsClass {
+    constructor(popupInstance, validateField) {
+        this.popupInstance = popupInstance;
+        this.validateField = validateField; // function
+    }
+
+    init() {
+        this.checkFormFields();
+
+        this.loginFormFetch();
+        this.restorePasswordFormFetch();
+        this.getAccessFormFetch();
+        this.setNewPasswordFormFetch();
+        this.buyProgrammFormFetch();
+    }
+
+    loginFormFetch() {
+        const loginForm = document.querySelector('.js-login-form');
+        if (!loginForm) return;
+
+        loginForm &&
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                // @ts-ignore
+                const res = await this.fetchToAction(loginForm, 'user_login_ajax');
+
+                this.setDataToRespContainer(res, loginForm);
+                if (res.success) {
+                    window.location.reload();
+                }
+            });
+    };
+
+    checkFormFields() {
+        const formInputs = document.querySelectorAll('input');
+        if (!formInputs) return;
+        let repeatPassword = '';
+
+        const checkAllInputs = (target) => {
+            let allInputsValid = true;
+
+            const parentForm = target.closest('form');
+
+            if (!parentForm) return;
+
+            const allInnerInputs = parentForm.querySelectorAll('input');
+            const formSubmit = parentForm.querySelector('input[type="submit"]');
+
+            allInnerInputs.forEach((input) => {
+                const inputContainer = input.closest('.js-inner-input-wrapper');
+
+                if (
+                    !input.name ||
+                    !input.value ||
+                    input.type === 'hidden' ||
+                    input.name === 'password' ||
+                    input.name === 'password-repeat'
+                )
+                    return;
+
+                const isValid = this.validateField(input.name, input.value);
+
+                if (isValid) {
+                    input && input.classList.add('valid');
+                    input && input.classList.remove('not-valid');
+                    inputContainer && inputContainer.classList.add('valid');
+                    inputContainer && inputContainer.classList.remove('not-valid');
+                } else {
+                    input && input.classList.add('not-valid');
+                    input && input.classList.remove('valid');
+                    inputContainer && inputContainer.classList.add('not-valid');
+                    inputContainer && inputContainer.classList.remove('valid');
+                    allInputsValid = false;
+                }
+            });
+            if (formSubmit) {
+                formSubmit.disabled = !allInputsValid;
+            }
+        };
+
+        const checkPasswordMatch = (target) => {
+            const parentForm = target.closest('form');
+            if (!parentForm) return;
+
+            if (target.name === 'password-repeat') {
+                repeatPassword = target.value;
+
+                const passwordInput = parentForm.querySelector(
+                    'input[name="password"]'
+                );
+                if (!passwordInput || target.name === 'password') return;
+
+                const passwordsMatch = passwordInput.value === repeatPassword;
+
+                target.classList.toggle('valid', passwordsMatch);
+                target.classList.toggle('not-valid', !passwordsMatch);
+
+                const formSubmit = parentForm.querySelector('input[type="submit"]');
+                formSubmit && (formSubmit.disabled = !passwordsMatch);
+            }
+        };
+
+        formInputs &&
+            formInputs.forEach((input) => {
+                input.addEventListener('change', (e) => {
+                    checkAllInputs(e.target);
+                    checkPasswordMatch(e.target);
+                });
+            });
+    };
+
+    restorePasswordFormFetch() {
+        const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+
+        if (!forgotPasswordForm) return;
+
+        forgotPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const res = await this.fetchToAction(forgotPasswordForm, 'forgot_password');
+
+            if (!res.success) {
+                this.setDataToRespContainer(res, forgotPasswordForm);
+            } else {
+                this.popupInstance.openOnePopup('#forgot-password-popup');
+            }
+        });
+    };
+
+    getAccessFormFetch() {
+        const getAccessForm = document.querySelector('.js-get-access-form');
+
+        if (!getAccessForm) return;
+
+        getAccessForm &&
+            getAccessForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                //FETCH TO FAKE PAY SYSTEM
+                const payRes = await this.paySystemFetch();
+
+                console.log('payRes', payRes);
+                if (payRes.success) {
+                    const res = await this.fetchToAction(getAccessForm, 'register_login_user');
+                    if (res.success) {
+                        this.popupInstance.forceCloseAllPopup();
+                        this.popupInstance.openOnePopup('#pay-success-response');
+
+                    } else {
+                        this.setDataToRespContainer(res, getAccessForm);
+                    }
+                }
+
+            });
+    };
+
+    async fetchToAction(form, actionName) {
+        const formData = new FormData(form);
+        const resJSON = await fetch(`${var_from_php.ajax_url}?action=${actionName}`, {
+            method: 'POST',
+            body: formData,
+        }
+        );
+
+        const res = await resJSON.json();
+        return res;
+    }
+
+    setNewPasswordFormFetch() {
+        const newPasswordForm = document.querySelector('.js-set-new-password-form');
+
+        if (!newPasswordForm) return;
+
+        newPasswordForm &&
+            newPasswordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(newPasswordForm);
+
+                const resJSON = await fetch(
+                    `${var_from_php.ajax_url}?action=set_new_password`,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
+
+                const res = await resJSON.json();
+
+                this.setDataToRespContainer(res, newPasswordForm);
+
+            });
+    };
+
+    buyProgrammFormFetch() {
+        const buyProgrammForm = document.querySelector('.js-buy-programm-form');
+
+        if (!buyProgrammForm) return;
+
+        buyProgrammForm &&
+            buyProgrammForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                //FETCH TO FAKE PAY SYSTEM
+                const res = await this.paySystemFetch();
+                console.log('res.success', res.success);
+                if (res.success) {
+                    this.setDataToRespContainer(res, buyProgrammForm);
+                    const res2 = await this.fetchToAction(buyProgrammForm, 'add_programm_to_user');
+
+                    if (res2.success) {
+                        this.setDataToRespContainer(res2, buyProgrammForm);
+                    }
+                }
+            });
+    }
+
+    async paySystemFetch() {
+        const resJSON = await fetch(`${var_from_php.ajax_url}?action=FAKE_PAY_SYSTEM`);
+        const res = await resJSON.json();
+
+        return res;
+    }
+
+    setDataToRespContainer(res, parentForm) {
+        if (!parentForm || !res) return;
+
+        const respContainer = parentForm.querySelector('.js-response-container');
+        if (!respContainer) return;
+
+        const additionalClass = res.success ? 'success' : 'error';
+        const paragrahp = document.createElement('p');
+        paragrahp.classList.add(additionalClass);
+        paragrahp.innerText = res.data;
+        respContainer.innerHTML = '';
+        respContainer.appendChild(paragrahp);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/js/parts/helpers.js":
 /*!*********************************!*\
   !*** ./src/js/parts/helpers.js ***!
@@ -879,20 +1131,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   anchorLinkScroll: function() { return /* binding */ anchorLinkScroll; },
-/* harmony export */   checkFormFields: function() { return /* binding */ checkFormFields; },
 /* harmony export */   closestPolyfill: function() { return /* binding */ closestPolyfill; },
 /* harmony export */   copyToClipboard: function() { return /* binding */ copyToClipboard; },
 /* harmony export */   debounce: function() { return /* binding */ debounce; },
 /* harmony export */   equalHeights: function() { return /* binding */ equalHeights; },
 /* harmony export */   fadeIn: function() { return /* binding */ fadeIn; },
 /* harmony export */   fadeOut: function() { return /* binding */ fadeOut; },
-/* harmony export */   fetchLogin: function() { return /* binding */ fetchLogin; },
-/* harmony export */   getAccessFormEvent: function() { return /* binding */ getAccessFormEvent; },
 /* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
 /* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
-/* harmony export */   restorePasswordFormEvent: function() { return /* binding */ restorePasswordFormEvent; },
 /* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
-/* harmony export */   setNewPasswordForm: function() { return /* binding */ setNewPasswordForm; },
 /* harmony export */   throttle: function() { return /* binding */ throttle; },
 /* harmony export */   trimParagraph: function() { return /* binding */ trimParagraph; },
 /* harmony export */   validateField: function() { return /* binding */ validateField; }
@@ -1217,7 +1464,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) {}
+                while (--i >= 0 && matches.item(i) !== el) { }
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1295,219 +1542,6 @@ const loadFileName = () => {
             if (spanText) {
                 spanText.innerText = inputFile.files[0].name;
             }
-        });
-};
-
-const fetchLogin = () => {
-    const loginForm = document.querySelector('.js-login-form');
-    if (!loginForm) return;
-
-    loginForm &&
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(loginForm);
-
-            // @ts-ignore
-            fetch(`${var_from_php.ajax_url}?action=user_login_action`, {
-                method: 'POST',
-                body: formData,
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    const respContainer = loginForm.querySelector(
-                        '.js-response-container'
-                    );
-                    const additionalClass = res.success ? 'success' : 'error';
-
-                    if (respContainer) {
-                        const paragrahp = document.createElement('p');
-                        paragrahp.classList.add(additionalClass);
-                        paragrahp.innerText = res.data;
-                        respContainer.innerHTML = '';
-                        respContainer.appendChild(paragrahp);
-                        if (res.success) {
-                            window.location.reload();
-                        }
-                    }
-                });
-        });
-};
-
-const checkFormFields = () => {
-    const formInputs = document.querySelectorAll('input');
-    if (!formInputs) return;
-    let repeatPassword = '';
-
-    const checkAllInputs = (target) => {
-        let allInputsValid = true;
-
-        const parentForm = target.closest('form');
-
-        if (!parentForm) return;
-
-        const allInnerInputs = parentForm.querySelectorAll('input');
-        const formSubmit = parentForm.querySelector('input[type="submit"]');
-
-        allInnerInputs.forEach((input) => {
-            const inputContainer = input.closest('.js-inner-input-wrapper');
-
-            if (
-                !input.name ||
-                !input.value ||
-                input.type === 'hidden' ||
-                input.name === 'password' ||
-                input.name === 'password-repeat'
-            )
-                return;
-
-            const isValid = validateField(input.name, input.value);
-
-            if (isValid) {
-                input && input.classList.add('valid');
-                input && input.classList.remove('not-valid');
-                inputContainer && inputContainer.classList.add('valid');
-                inputContainer && inputContainer.classList.remove('not-valid');
-            } else {
-                input && input.classList.add('not-valid');
-                input && input.classList.remove('valid');
-                inputContainer && inputContainer.classList.add('not-valid');
-                inputContainer && inputContainer.classList.remove('valid');
-                allInputsValid = false;
-            }
-        });
-        if (formSubmit) {
-            formSubmit.disabled = !allInputsValid;
-        }
-    };
-
-    const checkPasswordMatch = (target) => {
-        const parentForm = target.closest('form');
-        if (!parentForm) return;
-
-        if (target.name === 'password-repeat') {
-            repeatPassword = target.value;
-
-            const passwordInput = parentForm.querySelector(
-                'input[name="password"]'
-            );
-            if (!passwordInput || target.name === 'password') return;
-
-            const passwordsMatch = passwordInput.value === repeatPassword;
-
-            target.classList.toggle('valid', passwordsMatch);
-            target.classList.toggle('not-valid', !passwordsMatch);
-
-            const formSubmit = parentForm.querySelector('input[type="submit"]');
-            formSubmit && (formSubmit.disabled = !passwordsMatch);
-        }
-    };
-
-    formInputs &&
-        formInputs.forEach((input) => {
-            input.addEventListener('change', (e) => {
-                checkAllInputs(e.target);
-                checkPasswordMatch(e.target);
-            });
-        });
-};
-
-const restorePasswordFormEvent = (popupInstance) => {
-    const forgotPasswordForm = document.querySelector(
-        '.js-forgot-password-form'
-    );
-
-    if (!forgotPasswordForm) return;
-
-    forgotPasswordForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(forgotPasswordForm);
-
-        // @ts-ignore
-        fetch(`${var_from_php.ajax_url}?action=forgot_password`, {
-            method: 'POST',
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                const respContainer = document.querySelector(
-                    '.js-response-container'
-                );
-                const additionalClass = res.success ? 'success' : 'error';
-
-                if (respContainer && !res.success) {
-                    const paragrahp = document.createElement('p');
-                    paragrahp.classList.add(additionalClass);
-                    paragrahp.innerText = res.data;
-                    respContainer.innerHTML = '';
-                    respContainer.appendChild(paragrahp);
-                } else {
-                    popupInstance.openOnePopup('#forgot-password-popup');
-                }
-            });
-    });
-};
-
-const getAccessFormEvent = () => {
-    const getAccessForm = document.querySelector('.js-get-access-form');
-
-    if (!getAccessForm) return;
-
-    getAccessForm &&
-        getAccessForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(getAccessForm);
-            const resJSON = await fetch(
-                `${var_from_php.ajax_url}?action=register_login_user`,
-                {
-                    method: 'POST',
-                    body: formData,
-                }
-            );
-
-            const res = await resJSON.json();
-
-            if (res.success) {
-                console.log('res', res.data);
-                setTimeout(() => {
-                    window.location.href = getAccessForm.dataset.profile_page;
-                }, 2000);
-            }
-        });
-};
-
-const setNewPasswordForm = () => {
-    const newPasswordForm = document.querySelector('.js-set-new-password-form');
-
-    if (!newPasswordForm) return;
-
-    newPasswordForm &&
-        newPasswordForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(newPasswordForm);
-
-            const resJSON = await fetch(
-                `${var_from_php.ajax_url}?action=set_new_password`,
-                {
-                    method: 'POST',
-                    body: formData,
-                }
-            );
-
-            const res = await resJSON.json();
-
-            const respContainer = document.querySelector(
-                '.js-response-container'
-            );
-            const additionalClass = res.success ? 'success' : 'error';
-
-            const paragrahp = document.createElement('p');
-            paragrahp.classList.add(additionalClass);
-            paragrahp.innerText = res.data;
-            respContainer.innerHTML = '';
-            respContainer.appendChild(paragrahp);
         });
 };
 
@@ -1809,9 +1843,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/accordion */ "./src/js/components/accordion.ts");
 /* harmony import */ var _components_menuActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/menuActions */ "./src/js/components/menuActions.ts");
 /* harmony import */ var _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/profileFunctionality */ "./src/js/components/profileFunctionality.ts");
-/* harmony import */ var _parts_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/helpers */ "./src/js/parts/helpers.js");
-/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
-/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+/* harmony import */ var _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/formsActionsClass */ "./src/js/parts/formsActionsClass.js");
+/* harmony import */ var _parts_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/helpers */ "./src/js/parts/helpers.js");
+/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
+/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
+
 
 
 
@@ -1821,21 +1857,18 @@ __webpack_require__.r(__webpack_exports__);
 
 function ready() {
   var siteHeader = document.querySelector('.js-site-header');
-  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_6__["default"]();
+  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__["default"]();
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
+  var formsActionClass = new _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__.FormsActionsClass(popupInstance, _parts_helpers__WEBPACK_IMPORTED_MODULE_5__.validateField);
   popupInstance.init();
   profileFunctionality.init();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
+  formsActionClass.init();
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
-  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])('.js-tab-link', '.js-tab-panel');
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.loadFileName)();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.fetchLogin)();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.checkFormFields)();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.restorePasswordFormEvent)(popupInstance);
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.getAccessFormEvent)();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_4__.setNewPasswordForm)();
+  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_6__["default"])('.js-tab-link', '.js-tab-panel');
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.loadFileName)();
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {
@@ -1851,6 +1884,12 @@ function ready() {
   document.body.addEventListener('click', function (e) {
     var target = e.target;
     var role = target.dataset.role;
+    if (target.classList.contains('js-popup-in-popup')) {
+      popupInstance.forceCloseAllPopup();
+      setTimeout(function () {
+        popupInstance.openOnePopup(target.dataset.href);
+      }, 1000);
+    }
     if (!role) return;
     switch (role) {
       case 'mobile-menu':

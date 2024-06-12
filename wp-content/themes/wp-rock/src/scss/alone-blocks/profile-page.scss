@@ -237,6 +237,16 @@
             &__accordion-item {
                 background-color: rgb(48, 56, 63, 0.8);
 
+                &.access-expired {
+                    .programm__accordion-btn {
+                        .arrow-icon {
+                            pointer-events: none;
+                            opacity: 0.2;
+                            transform: none !important;
+                        }
+                    }
+                }
+
                 &.open {
                     .programm__content {
                         max-height: 10000px;
@@ -268,15 +278,6 @@
                     color: var(--color-type-primary-white);
                 }
 
-                .continue-access-btn {
-                    margin-top: auto;
-                    margin-left: 17px;
-
-                    @media screen and (max-width: 1024px) {
-                        margin-left: 0;
-                    }
-                }
-
                 .arrow-icon {
                     transition: transform 0.3s;
                     margin-left: auto;
@@ -291,6 +292,17 @@
                         margin-top: 20px;
                     }
 
+                }
+            }
+
+            &__continue-access-form {
+                .continue-access-btn {
+                    margin-top: auto;
+                    margin-left: 17px;
+
+                    @media screen and (max-width: 1024px) {
+                        margin-left: 0;
+                    }
                 }
             }
 

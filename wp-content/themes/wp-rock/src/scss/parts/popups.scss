@@ -1,4 +1,4 @@
-#get-access-popup-response,
+#pay-success-response,
 #forgot-password-popup,
 #login-popup,
 #get-access-popup,
@@ -200,7 +200,7 @@
         margin-top: 23px;
         gap: 30px;
 
-        .forgot-password {
+        .forgot-password-btn {
             color: var(--color-type-primary-5);
             display: flex;
             align-items: center;
@@ -209,20 +209,6 @@
 
             span {
                 border-bottom: 1px dashed var(--color-type-primary-5);
-            }
-        }
-    }
-
-    .response-container {
-        margin-top: 10px;
-
-        p {
-            &.error {
-                color: var(--color-type-primary-3);
-            }
-
-            &.success {
-                color: var(--color-type-primary-1);
             }
         }
     }
@@ -261,7 +247,7 @@
     }
 }
 
-#get-access-popup-response {
+#pay-success-response {
     .popup-wrapper-inner {
         padding: 45px 20px 50px;
 
@@ -270,7 +256,7 @@
         }
     }
 
-    .get-access-popup-response {
+    .pay-success-response {
         display: flex;
         flex-direction: column;
         align-items: center;

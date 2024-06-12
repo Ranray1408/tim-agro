@@ -21,7 +21,7 @@ class profile_functionality {
         // Update user data
         add_action('wp_ajax_update_user_data', array($this, 'update_user_data_action'));
         // User login via AJAX
-        add_action('wp_ajax_nopriv_user_login_action', array($this, 'user_login_action'));
+        add_action('wp_ajax_nopriv_user_login_ajax', array($this, 'user_login_action'));
         // Forgot password functionality
         add_action('wp_ajax_forgot_password', array($this, 'forgot_password_action'));
         add_action('wp_ajax_nopriv_forgot_password', array($this, 'forgot_password_action'));
@@ -29,12 +29,14 @@ class profile_functionality {
         add_action('wp_ajax_register_login_user', array($this, 'register_login_user_action'));
         add_action('wp_ajax_nopriv_register_login_user', array($this, 'register_login_user_action'));
         // Add programm access to user
-        add_action('wp_ajax_add_program_access_to_user', array($this, 'add_program_access_to_user_action'));
-        add_action('wp_ajax_nopriv_add_program_access_to_user', array($this, 'add_program_access_to_user_action'));
+        add_action('wp_ajax_add_programm_to_user', array($this, 'add_programm_to_user_action'));
 
         // Add programm access to user
         add_action('wp_ajax_set_new_password', array($this, 'set_new_password_action'));
         add_action('wp_ajax_nopriv_set_new_password', array($this, 'set_new_password_action'));
+
+        add_action('wp_ajax_nopriv_FAKE_PAY_SYSTEM', array($this, 'FAKE_PAY_SYSTEM'));
+        add_action('wp_ajax_FAKE_PAY_SYSTEM', array($this, 'FAKE_PAY_SYSTEM'));
     }
     /**
      * Adds JSON video data.
@@ -145,7 +147,7 @@ class profile_functionality {
         $user_logined = $this->login_user($user, $password);
 
         if (is_wp_error($user_logined)) {
-            wp_send_json_error('Invalid username or password');
+            wp_send_json_error('Невірний логін або пароль.');
         }
 
         wp_send_json_success('Login successful');
@@ -188,29 +190,37 @@ class profile_functionality {
         $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
         $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
 
+        $program_id = filter_input(INPUT_POST, 'program_id', FILTER_VALIDATE_INT);
         $user = get_user_by('email', $user_email);
 
         if ($user) {
             //If have user login it
             wp_send_json_error('User already exists');
         } else {
-
+            // Register new user
             $user_data = $this->register_user($user_email, $user_name, $user_phone);
             if (!$user_data) {
                 wp_send_json_error('Error registering user');
             }
 
+            //Login registered user
             $logged_in = $this->login_user($user_data['user'], $user_data['user_pass']);
             if (is_wp_error($logged_in)) {
                 wp_send_json_error($logged_in->get_error_message());
             }
 
+            $result = $this->add_update_user_programm($program_id, $user_data['user']->ID);
+
+            if ($result == false) {
+                wp_send_json_error('Programm was not added to profile.');
+            }
+
             $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
 
             if ($email_sent) {
-                wp_send_json_success('The email was not sent.');
+                wp_send_json_success('The email was send.');
             } else {
-                wp_send_json_error('The email was sent.');
+                wp_send_json_error('The email was not send.');
             }
         }
 
@@ -218,10 +228,70 @@ class profile_functionality {
     }
 
 
-    public function add_program_access_to_user_action() {
-        //code ....
+    public function add_programm_to_user_action() {
+        $user_id = filter_input(INPUT_POST, 'user-id', FILTER_VALIDATE_INT);
+        $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (!$post_id || !$user_id) {
+            wp_send_json_error('Some data is empty');
+        }
+
+        $result = $this->add_update_user_programm($post_id, $user_id);
+
+        if (!$result) {
+            wp_send_json_error('Щось пішло не так зверніться до адміністратора.');
+        }
     }
 
+    private function add_update_user_programm($programm_id, $user_id) {
+        if (!$programm_id || !$user_id) {
+            wp_send_json_error('Some data is empty');
+        }
+
+        $start_date = new DateTime();
+        $expire_date = clone $start_date;
+        $expire_date->modify('+30 days');
+
+        $programm_type = get_post_type($programm_id);
+        $user_programms_array = get_field($programm_type, 'user_' . $user_id);
+
+
+        $existing_programm_key = $this->is_programm_exist($user_programms_array, $programm_id);
+
+        if ($existing_programm_key !== false) {
+            //If programm already existing update access date
+            $user_programms_array[$existing_programm_key]['start_access_date'] = $start_date->format('d.m.Y');
+            $user_programms_array[$existing_programm_key]['expire_access_date'] = $expire_date->format('d.m.Y');
+
+            // Update the field with the new array
+            update_field($programm_type, $user_programms_array, 'user_' . $user_id);
+            wp_send_json_success('Доступ до курсу був продовжений.');
+        } else {
+            // If programm not exist add it to user
+            $new_program_access = array(
+                'post_id' => $programm_id,
+                'start_access_date' => $start_date->format('d.m.Y'), // Convert DateTime object to string
+                'expire_access_date' => $expire_date->format('d.m.Y'), // Convert DateTime object to string
+            );
+            $user_programms_array[] = $new_program_access;
+            // Update the field with the new array
+            update_field($programm_type, $user_programms_array, 'user_' . $user_id);
+            wp_send_json_success('Курс був доданий до вашого профілю.');
+        }
+    }
+
+
+    private function is_programm_exist($user_programms_array, $programm_id) {
+        // Check if the program already exists in the user's array
+        foreach ($user_programms_array as $key => $program) {
+            if ($program['post_id'] == $programm_id) {
+                // If the program already exists
+                return $key;
+            }
+        }
+
+        return false;
+    }
     /**
      * Registers a new user.
      *
@@ -311,5 +381,9 @@ class profile_functionality {
         wp_set_password($user_new_password, $user->ID);
 
         wp_send_json_success('Пароль оновлено.');
+    }
+
+    public function FAKE_PAY_SYSTEM() {
+        wp_send_json_success('Pay was succsessful');
     }
 }

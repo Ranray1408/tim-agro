@@ -491,3 +491,19 @@ input[type="email"] {
         }
     }
 }
+
+form {
+    .response-container {
+        margin-top: 10px;
+
+        p {
+            &.error {
+                color: var(--color-type-primary-3);
+            }
+
+            &.success {
+                color: var(--color-type-primary-1);
+            }
+        }
+    }
+}

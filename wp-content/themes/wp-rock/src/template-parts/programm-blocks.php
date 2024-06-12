@@ -49,12 +49,16 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
             $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
             $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
 
-            $first_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
+            //Check if we have saved video data
+            $saved_video_data = null;
+            if(!empty($saved_block_data->videos->{'video-' . $videos[0]['video']['ID']})) {
+                $saved_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
+            }
 
+            //Check if we have pause time in save data
             $start_video_from = '#t=0';
-
-            if(!empty($first_video_data)) {
-                $start_video_from = '#t=' . $first_video_data->videoPauseTime;
+            if(!empty($saved_video_data)) {
+                $start_video_from = '#t=' . $saved_video_data->videoPauseTime;
             }
 
             // Default value for playing first video in list
