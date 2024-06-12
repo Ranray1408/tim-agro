@@ -165,13 +165,14 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }, {
     key: "loadDataAndPlayVideo",
     value: function loadDataAndPlayVideo(playBtnData) {
-      var _a, _b, _c, _d, _e;
+      var _a, _b, _c, _d, _e, _f;
       if (!playBtnData) return;
       var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
       var videoUrl = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_url;
       var videoTitle = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_title;
       var videoId = (_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_id;
       var videoPlayingByBtn = (_e = playBtnData.dataset) === null || _e === void 0 ? void 0 : _e.play_btn_id;
+      var videoPauseTime = parseFloat((_f = playBtnData.dataset) === null || _f === void 0 ? void 0 : _f.video_pause_time);
       var videoContainer = document.querySelector("#".concat(containerId));
       var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
       if (videoTitleContainer) {
@@ -184,6 +185,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         video.src = videoUrl;
         video.dataset.video_id = videoId;
         video.dataset.video_playing_by_btn = videoPlayingByBtn;
+        video.currentTime = videoPauseTime;
         video.play();
       }
     }

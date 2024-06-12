@@ -5,12 +5,17 @@
  * Template name: Forgot password page
  *
  */
+global $global_options;
+
 
 get_header();
 $fields = get_fields(get_the_ID());
 
 $title = get_field_value($fields, 'title');
 $subtitle = get_field_value($fields, 'subtitle');
+
+$forgot_password_page = get_field_value($global_options, 'forgot_password_page');
+$forgot_password_page_url = $forgot_password_page ? get_permalink($forgot_password_page) : 0;
 
 $hash_reset_password = !empty($_GET['hash_reset_password']) ? $_GET['hash_reset_password'] : null;
 $transient =  $hash_reset_password ? get_transient('hash_reset_password' . $hash_reset_password) : null;
@@ -51,6 +56,7 @@ $pass_text2 = __('Повторіть новий пароль', 'wp-rock');
         ?>
             <form class="forgot-password__form js-forgot-password-form">
                 <input class="form-input" type="email" name="email">
+                <input type="hidden" name="forgot-password-page" value="<?php echo $forgot_password_page_url; ?>">
                 <input type="submit" class="green-transparent">
                 <div class="js-response-container forgot-password__form-response"></div>
             </form>

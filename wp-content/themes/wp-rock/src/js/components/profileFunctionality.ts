@@ -33,6 +33,7 @@ export class ProfileFunctionality {
         const videoTitle = playBtnData.dataset?.video_title;
         const videoId = playBtnData.dataset?.video_id;
         const videoPlayingByBtn = playBtnData.dataset?.play_btn_id;
+        const videoPauseTime = parseFloat(playBtnData.dataset?.video_pause_time);
 
         const videoContainer = document.querySelector(`#${containerId}`);
         const videoTitleContainer = videoContainer?.querySelector('.js-video-title') as HTMLElement;
@@ -51,6 +52,7 @@ export class ProfileFunctionality {
             video.src = videoUrl;
             video.dataset.video_id = videoId;
             video.dataset.video_playing_by_btn = videoPlayingByBtn;
+            video.currentTime = videoPauseTime;
             video.play();
         }
     }

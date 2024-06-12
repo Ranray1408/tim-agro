@@ -150,7 +150,7 @@ class profile_functionality {
             wp_send_json_error('Невірний логін або пароль.');
         }
 
-        wp_send_json_success('Login successful');
+        wp_send_json_success('Вхід виповнено.');
     }
     /**
      * Handles forgot password functionality.
@@ -159,7 +159,7 @@ class profile_functionality {
      */
     public function forgot_password_action() {
         $user_email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
+        $forgot_password_page = filter_input(INPUT_POST, 'forgot-password-page', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (isset($user_email)) {
             $user_email = sanitize_email($user_email);
@@ -195,12 +195,19 @@ class profile_functionality {
 
         if ($user) {
             //If have user login it
-            wp_send_json_error('User already exists');
+            wp_send_json_error('Такий користувач вже існує.');
         } else {
             // Register new user
             $user_data = $this->register_user($user_email, $user_name, $user_phone);
             if (!$user_data) {
                 wp_send_json_error('Error registering user');
+            }
+
+            // After registering user send to email generated password
+            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
+
+            if (!$email_sent) {
+                wp_send_json_error('The email was not send.');
             }
 
             //Login registered user
@@ -213,14 +220,6 @@ class profile_functionality {
 
             if ($result == false) {
                 wp_send_json_error('Programm was not added to profile.');
-            }
-
-            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
-
-            if ($email_sent) {
-                wp_send_json_success('The email was send.');
-            } else {
-                wp_send_json_error('The email was not send.');
             }
         }
 
@@ -359,9 +358,16 @@ class profile_functionality {
         set_transient('hash_reset_password' . $hash, $user->user_email, 20 * 60);
 
         $headers = array('Content-Type: text/html; charset=UTF-8');
-        $body    = "<h2>Вам було надано автоматично сгенерований пароль: " . $generate_pass . "</h2>
-                    <p>Для зміни сгенерованого паролю перейдіть за посиланням:</p>
+
+        $body    = "<h2>Ви відправили запит на відновлення паролю:</h2>
+                    <p>Для зміни паролю будь ласка перейдіть за посиланням:</p>
                     <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">Скинути пароль</a></p>";
+
+        if(!empty($generate_pass)) {
+            $body    = "<h2>Вам було надано автоматично сгенерований пароль: " . $generate_pass . "</h2>
+                        <p>Для зміни сгенерованого паролю перейдіть за посиланням:</p>
+                        <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">Скинути пароль</a></p>";
+        }
 
 
         return wp_mail($user->user_email, 'Forgot Password', $body, $headers);
@@ -384,6 +390,6 @@ class profile_functionality {
     }
 
     public function FAKE_PAY_SYSTEM() {
-        wp_send_json_success('Pay was succsessful');
+        wp_send_json_success('Pay was successful');
     }
 }
