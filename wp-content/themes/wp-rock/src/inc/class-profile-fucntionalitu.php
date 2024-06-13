@@ -47,11 +47,11 @@ class profile_functionality {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (empty($data)) {
-            wp_send_json_error('No requred data');
+            wp_send_json_error('Немає необхідних даних.');
         }
 
         if (empty($data['userId'])) {
-            wp_send_json_error('No user id');
+            wp_send_json_error('Немає ідентифікатора користувача.');
         }
         $result_courses = $this->update_user_programm($data['courses'], $data['userId']);
         $result_lectures = $this->update_user_programm($data['lectures'], $data['userId']);
@@ -105,14 +105,14 @@ class profile_functionality {
         ));
 
         if (is_wp_error($updated)) {
-            wp_send_json_error('Error updating user data');
+            wp_send_json_error('Помилка оновлення даних користувача.');
         }
 
 
         if (!empty($file)) {
             $avatar_id = media_handle_upload('avatar', 0);
             if (is_wp_error($avatar_id)) {
-                wp_send_json_error('Error uploading avatar');
+                wp_send_json_error('Помилка завантаження аватара.');
             }
             update_field('user_avatar', $avatar_id, 'user_' . $user_id);
         }
@@ -120,10 +120,10 @@ class profile_functionality {
         $user_phone = update_field('user_phone', $phone, 'user_' . $user_id);
 
         if (is_wp_error($user_phone)) {
-            wp_send_json_error('Error updating phone');
+            wp_send_json_error('Помилка оновлення телефону.');
         }
 
-        wp_send_json_success('Data updated successfully');
+        wp_send_json_success('Дані успішно оновлено.');
     }
     /**
      * Handles user login via AJAX.
@@ -135,13 +135,13 @@ class profile_functionality {
         $password = filter_input(INPUT_POST, 'user-password', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (empty($username_or_email) || empty($password)) {
-            wp_send_json_error('Please provide both username and password');
+            wp_send_json_error('Будь ласка, введіть ім\'я користувача та пароль.');
         }
 
         $user = $this->get_user_by_email_or_name($username_or_email);
 
         if (is_wp_error($user)) {
-            wp_send_json_error('Can not find user by email or name');
+            wp_send_json_error('Не вдається знайти користувача за електронною поштою чи іменем.');
         }
 
         $user_logined = $this->login_user($user, $password);
@@ -200,14 +200,14 @@ class profile_functionality {
             // Register new user
             $user_data = $this->register_user($user_email, $user_name, $user_phone);
             if (!$user_data) {
-                wp_send_json_error('Error registering user');
+                wp_send_json_error('Помилка реєстрації користувача.');
             }
 
             // After registering user send to email generated password
             $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
 
             if (!$email_sent) {
-                wp_send_json_error('The email was not send.');
+                wp_send_json_error('Електронний лист не було надіслано.');
             }
 
             //Login registered user
@@ -219,11 +219,11 @@ class profile_functionality {
             $result = $this->add_update_user_programm($program_id, $user_data['user']->ID);
 
             if ($result == false) {
-                wp_send_json_error('Programm was not added to profile.');
+                wp_send_json_error('Програма не була додана в профіль.');
             }
         }
 
-        wp_send_json_error('Something went wrong.');
+        wp_send_json_error('Щось пішло не так.');
     }
 
 
@@ -232,7 +232,7 @@ class profile_functionality {
         $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (!$post_id || !$user_id) {
-            wp_send_json_error('Some data is empty');
+            wp_send_json_error('Деякі дані порожні.');
         }
 
         $result = $this->add_update_user_programm($post_id, $user_id);
