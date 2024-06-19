@@ -1,24 +1,75 @@
 .hero-banner {
     position: relative;
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-size: contain;
     min-height: 762px;
+    background-repeat: no-repeat;
+    background-color: #202020;
 
     @media screen and (max-width: 1200px) {
         min-height: auto;
     }
 
-    &__img-bg {
+    &__gradient-layer {
+        position: absolute;
         width: 100%;
         height: 100%;
+        z-index: 2;
+        background: linear-gradient(90deg, #202020 40%, transparent 100%);
+
+        @media screen and (max-width: 670px) {
+            background: linear-gradient(180deg, #202020 40%, transparent 100%);
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 20%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: linear-gradient(180deg, #202020, transparent 100%);
+
+            @media screen and (max-width: 670px) {
+                display: none;
+            }
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 20%;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            background: linear-gradient(0deg, #202020, transparent 100%);
+
+            @media screen and (max-width: 670px) {
+                display: none;
+            }
+        }
+    }
+
+    &__img-bg {
         position: absolute;
         top: 0;
-        left: 0;
+        right: 0;
+        height: 100%;
+
+        @media screen and (max-width: 670px) {
+            top: auto;
+            bottom: 0;
+            height: 70%;
+        }
 
         &.mob {
-            display: none;
+            display: block;
         }
+    }
+
+    &__container {
+        position: relative;
+        z-index: 3;
     }
 
     &__content {
