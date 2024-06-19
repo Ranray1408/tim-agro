@@ -8,17 +8,11 @@ import { ProfileFunctionality } from './components/profileFunctionality';
 /**
  * JavaScript
  */
-import Sliders from './components/swiper-init';
 import { FormsActionsClass } from './parts/formsActionsClass';
 import {
     anchorLinkScroll,
-    //checkFormFields,
-    //fetchLogin,
-    //getAccessFormEvent,
     loadFileName,
     validateField,
-    //restorePasswordFormEvent,
-    //setNewPasswordForm,
 } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
@@ -32,7 +26,11 @@ function ready() {
     profileFunctionality.init();
     formsActionClass.init();
 
-    anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
+    anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', () => {
+        siteHeader && siteHeader.classList.remove('menu-opened');
+        document.body.classList.remove('popup-opened');
+        popupInstance.closePopup();
+    }, -70);
 
     hoverClickEvent();
     initAccordion();
@@ -40,12 +38,6 @@ function ready() {
     tabsNavigation('.js-tab-link', '.js-tab-panel');
 
     loadFileName();
-
-    // fetchLogin();
-    //checkFormFields();
-    //restorePasswordFormEvent(popupInstance);
-    //getAccessFormEvent();
-    //setNewPasswordForm();
 
     if (window.scrollY > 100) {
         siteHeader && siteHeader.classList.add('scrolled');

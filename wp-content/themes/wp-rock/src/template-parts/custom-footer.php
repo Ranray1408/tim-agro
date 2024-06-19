@@ -17,7 +17,7 @@ $social_links = get_field_value($global_options, 'social_links');
     <div class="container site-footer__container">
         <?php if ($logo) : ?>
             <a class="site-footer__logo" href="<?php echo get_site_url(); ?>">
-                <img src="<?php echo $logo; ?>" alt="foter logo" />
+                <img class="rotate-logo-anim" src="<?php echo $logo; ?>" alt="foter logo" />
             </a>
         <?php endif; ?>
 

@@ -22,12 +22,12 @@ $args = array(
 
 $query = new WP_Query($args);
 ?>
-<div class="lectures">
+<div class="lectures" id="lectures">
     <div class="container lectures__container container-big-title">
         <?php
         if (!empty($logo)) {
             echo '<figure class="lectures__lectures-logo">
-                    <img src="' . esc_url($logo) . '" alt="logo">
+                    <img class="rotate-logo-anim" src="' . esc_url($logo) . '" alt="logo">
                 </figure>';
         }
 

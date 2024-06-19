@@ -43,6 +43,11 @@ function my_wpeditor_formats_options( $settings ) {
             'block' => 'p',
             'classes' => 'body-type-4 weight400',
         ),
+        array(
+            'title' => 'Green filled text',
+            'block' => 'p',
+            'classes' => 'green-filled-text',
+        ),
     );
 
     $settings['style_formats'] = json_encode( $style_formats );

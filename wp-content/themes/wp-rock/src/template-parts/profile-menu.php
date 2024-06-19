@@ -39,7 +39,7 @@ $menu_tabs = array(
     <?php
     if (!empty($logo)) {
         echo '<figure class="profile__menu-logo d-flex align-items-center justify-content-center">
-                    <img src="' . esc_url($logo) . '" alt="logo">
+                    <img class="rotate-logo-anim" src="' . esc_url($logo) . '" alt="logo">
                 </figure>';
     }
     ?>

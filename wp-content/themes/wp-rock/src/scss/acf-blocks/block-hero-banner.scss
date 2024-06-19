@@ -42,15 +42,12 @@
     }
 
     &__filled-subtitle {
-        background-color: var(--color-type-primary-1);
-        color: var(--color-type-dark-1);
-        padding: 4px 30px;
         margin-bottom: 53px;
     }
 
     &__subtitle {
         margin-bottom: 58px;
-        max-width: 678px;
+        max-width: 720px;
 
         @media screen and (max-width: 991px) {
             margin-bottom: 47px;

@@ -92,6 +92,7 @@ input[type="password"],
 input[type="email"] {
     appearance: none;
     border: none;
+    border-radius: 0;
     background-color: transparent;
     color: var(--color-type-dark-1);
     font-family: 'Mulish', sans-serif;
@@ -505,5 +506,28 @@ form {
                 color: var(--color-type-primary-1);
             }
         }
+    }
+}
+
+.green-filled-text {
+    background-color: var(--color-type-primary-1);
+    color: var(--color-type-dark-1) !important;
+    padding: 6px 30px;
+
+    @media screen and (max-width: 768px) {
+        padding: 4px 17px;
+    }
+}
+
+.rotate-logo-anim {
+    animation: rotate-logo 10s infinite linear;
+}
+
+@keyframes rotate-logo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

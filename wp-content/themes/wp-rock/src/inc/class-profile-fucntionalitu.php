@@ -96,7 +96,7 @@ class profile_functionality {
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
-        $file = $_POST['avatar'];
+        $file = $_FILES['avatar'];
 
         $updated = wp_update_user(array(
             'ID' => $user_id,

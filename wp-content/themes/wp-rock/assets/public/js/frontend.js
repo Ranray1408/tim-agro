@@ -104,7 +104,6 @@ var hoverClickEvent = function hoverClickEvent() {
     });
   }
 };
-hoverClickEvent();
 
 /***/ }),
 
@@ -379,7 +378,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           return res.json();
         }).then(function (res) {
           console.log(res.data);
-          var respContainer = document.querySelector('.js-response-container');
+          var respContainer = form.querySelector('.js-response-container');
           var additionalClass = res.success ? 'success' : 'error';
           if (respContainer) {
             var paragrahp = document.createElement('p');
@@ -1865,7 +1864,11 @@ function ready() {
   popupInstance.init();
   profileFunctionality.init();
   formsActionClass.init();
-  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', null, 100);
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', function () {
+    siteHeader && siteHeader.classList.remove('menu-opened');
+    document.body.classList.remove('popup-opened');
+    popupInstance.closePopup();
+  }, -70);
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();

@@ -41,7 +41,7 @@ $popup_activator = $open_popup ? 'js-open-popup-activator' : '';
             }
 
             if (!empty($filled_subtitle)) {
-                echo '<div class="hero-banner__filled-subtitle d-inline-flex body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
+                echo '<div class="hero-banner__filled-subtitle green-filled-text d-inline-flex body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
             }
 
             if (!empty($subtitle)) {

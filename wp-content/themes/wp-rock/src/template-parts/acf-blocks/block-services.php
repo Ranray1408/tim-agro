@@ -18,7 +18,7 @@ $title = get_field_value($fields, 'title');
 
 $services = get_field_value($fields, 'services');
 ?>
-<div class="services">
+<div class="services" id="services">
     <?php
     if (!empty($background_image)) {
         echo '<img class="services__bg-image" src="' . esc_url($background_image) . '" alt="bg">';

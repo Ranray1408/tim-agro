@@ -115,8 +115,8 @@ $svg_no_photo = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
                         <?php echo $check_svg; ?>
                     </div>
                 </div>
-                <div class="js-response-container user-info__form-response-container body-type-3"></div>
                 <input class="green-transparent user-info__form-submit" value="<?php echo $text_submit_btn; ?>" type="submit">
+                <div class="js-response-container response-container body-type-3"></div>
             </form>
         </div>
     </div>

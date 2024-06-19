@@ -19,7 +19,7 @@ $socials = get_field_value($fields, 'socials');
 $form = get_field_value($fields, 'form');
 $photo = get_field_value($fields, 'photo');
 ?>
-<div class="contacts">
+<div class="contacts" id="contacts">
     <div class="container contacts__container d-flex container-big-title">
         <div class="contacts__form-wrapper">
                 <?php

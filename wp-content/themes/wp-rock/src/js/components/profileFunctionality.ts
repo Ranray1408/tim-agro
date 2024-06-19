@@ -290,7 +290,7 @@ export class ProfileFunctionality {
                     .then((res) => res.json())
                     .then((res) => {
                         console.log(res.data);
-                        const respContainer = document.querySelector('.js-response-container');
+                        const respContainer = form.querySelector('.js-response-container');
                         const additionalClass = res.success ? 'success' : 'error';
 
                         if (respContainer) {

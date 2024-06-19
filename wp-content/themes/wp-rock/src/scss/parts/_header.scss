@@ -13,16 +13,12 @@
 
     &.scrolled {
         background-color: var(--color-type-dark-2);
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
 
-        @media screen and (max-width: 991px) {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
 
         .site-header__logo {
-            max-width: 100px;
+            max-width: 60px;
 
             @media screen and (max-width: 991px) {
                 max-width: 50px;
@@ -66,7 +62,7 @@
     &__container {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
     }
 
     &__logo {
@@ -76,8 +72,25 @@
         max-width: 160px;
         width: 100%;
 
+        @media screen and (max-width: 1200px) {
+            max-width: 140px;
+        }
+
         @media screen and (max-width: 670px) {
             max-width: 127px;
+        }
+    }
+
+    &__container-inner {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 137px;
+
+        @media screen and (max-width: 1470px) {
+            margin-left: 0;
+            justify-content: space-around;
         }
     }
 
@@ -102,7 +115,7 @@
         justify-content: center;
         gap: 55px;
 
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: 1470px) {
             gap: 30px;
         }
 
@@ -121,10 +134,6 @@
             font-style: normal;
             font-weight: 600;
             line-height: 1.2;
-
-            @media screen and (max-width: 1200px) {
-                font-size: 16px;
-            }
 
             @media screen and (max-width: 991px) {
                 border-top: 1px solid var(--color-type-primary-white);
@@ -196,10 +205,6 @@
                         @media screen and (max-width: 991px) {
                             display: flex;
                         }
-                    }
-
-                    >a {
-                        pointer-events: none;
                     }
 
                     .menu-image-title {
@@ -305,7 +310,12 @@
         justify-content: center;
         gap: 20px;
 
+        @media screen and (max-width: 1200px) {
+            flex-direction: column;
+        }
+
         @media screen and (max-width: 991px) {
+            flex-direction: row;
             margin-left: auto;
             margin-right: 12px;
         }

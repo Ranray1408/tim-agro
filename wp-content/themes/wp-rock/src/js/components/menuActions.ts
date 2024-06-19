@@ -50,12 +50,10 @@ export const hoverClickEvent = (): void => {
                     }
 
                     subMenu.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Зупиняємо поширення події кліку
+                        e.stopPropagation();
                     });
                 }
             });
         });
     }
 };
-
-hoverClickEvent();
