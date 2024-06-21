@@ -13,7 +13,7 @@ $big_title = get_field_value($fields, 'big_title');
 $title = get_field_value($fields, 'title');
 $slides = get_field_value($fields, 'slides');
 ?>
-<div class="reviews">
+<div class="reviews js-anim-activate">
     <div class="container reviews__container container-big-title reverse">
         <?php
         if (!empty($big_title)) {
@@ -24,7 +24,7 @@ $slides = get_field_value($fields, 'slides');
         <div class="reviews__slider js-reviews-slider swiper">
             <?php
             if (!empty($title)) {
-                echo ' <h2 class="reviews__title">' . esc_html($title) . '</h2>';
+                echo ' <h2 class="reviews__title from-left">' . esc_html($title) . '</h2>';
             }
             ?>
             <?php if (!empty($slides)) : ?>

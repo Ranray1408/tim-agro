@@ -17,7 +17,7 @@ $title = get_field_value($fields, 'title');
 $accordion = get_field_value($fields, 'accordion');
 ?>
 
-<div class="block-faq">
+<div class="block-faq js-anim-activate">
     <div class="container container-big-title">
         <?php
         if (!empty($big_title)) {
@@ -25,11 +25,11 @@ $accordion = get_field_value($fields, 'accordion');
         }
 
         if (!empty($title)) {
-            echo ' <h2 class="block-faq__title">' . esc_html($title) . '</h2>';
+            echo ' <h2 class="block-faq__title from-left">' . esc_html($title) . '</h2>';
         }
         ?>
         <?php if (!empty($accordion)) : ?>
-            <div class="block-faq__accordion d-flex flex-column js-wrock-accordion">
+            <div class="block-faq__accordion from-right d-flex flex-column js-wrock-accordion">
                 <?php foreach ($accordion as $item) {
                     if (!empty($item['button_text']) && !empty($item['content'])) {
                         echo '<div class="block-faq__accordion-item js-wrock-accordion__item">

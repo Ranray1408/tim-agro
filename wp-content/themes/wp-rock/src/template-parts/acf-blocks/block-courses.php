@@ -22,7 +22,7 @@ $args = array(
 
 $query = new WP_Query($args);
 ?>
-<div class="courses" id="courses">
+<div class="courses js-anim-activate" id="courses">
     <div class="container courses__container container-big-title reverse">
         <?php
         if (!empty($big_title)) {
@@ -30,12 +30,12 @@ $query = new WP_Query($args);
         }
 
         if (!empty($title)) {
-            echo ' <h2 class="courses__title">' . esc_html($title) . '</h2>';
+            echo ' <h2 class="courses__title from-left">' . esc_html($title) . '</h2>';
         }
         ?>
 
         <?php if ($query->have_posts()) : ?>
-            <div class="courses__courses-wrapper d-flex flex-column">
+            <div class="courses__courses-wrapper from-right d-flex flex-column">
                 <?php while ($query->have_posts()) : $query->the_post();
                     $post_fields = get_fields(get_the_ID());
                     $post_logo = get_field_value($post_fields, 'logo');

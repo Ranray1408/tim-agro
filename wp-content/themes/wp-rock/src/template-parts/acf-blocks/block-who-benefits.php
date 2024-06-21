@@ -15,7 +15,7 @@ $subtitle = get_field_value($fields, 'subtitle');
 $benefits_repeater = get_field_value($fields, 'benefits_repeater');
 ?>
 
-<div class="who-benefits <?php echo esc_html($class_name); ?>">
+<div class="who-benefits js-anim-activate <?php echo esc_html($class_name); ?>">
     <div class="container who-benefits__container">
         <?php
         if (!empty($background_image)) {
@@ -25,15 +25,15 @@ $benefits_repeater = get_field_value($fields, 'benefits_repeater');
         <div class="who-benefits__content">
             <?php
             if (!empty($title)) {
-                echo '<h2 class="who-benefits__title">' . do_shortcode($title) . '</h2>';
+                echo '<h2 class="who-benefits__title from-left">' . do_shortcode($title) . '</h2>';
             }
             if (!empty($subtitle)) {
-                echo '<div class="who-benefits__subtitle">' . do_shortcode($subtitle) . '</div>';
+                echo '<div class="who-benefits__subtitle from-left">' . do_shortcode($subtitle) . '</div>';
             }
             ?>
 
             <?php if (!empty($benefits_repeater)) : ?>
-                <div class="who-benefits__inner">
+                <div class="who-benefits__inner from-right">
                     <?php foreach ($benefits_repeater as $item) {
                         if (!empty($item['text'])) {
                             echo '<div class="who-benefits__item">

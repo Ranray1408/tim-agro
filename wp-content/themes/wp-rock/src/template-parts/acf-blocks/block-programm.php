@@ -13,7 +13,7 @@ $big_title = get_field_value($fields, 'big_title');
 $title = get_field_value($fields, 'title');
 $blocks_list = get_field_value($fields, 'blocks_list');
 ?>
-<div class="programm">
+<div class="programm js-anim-activate">
     <div class="container programm__container container-big-title reverse">
         <?php
         if (!empty($big_title)) {
@@ -21,11 +21,11 @@ $blocks_list = get_field_value($fields, 'blocks_list');
         }
 
         if (!empty($title)) {
-            echo ' <h2 class="programm__title">' . esc_html($title) . '</h2>';
+            echo ' <h2 class="programm__title from-right">' . esc_html($title) . '</h2>';
         }
         ?>
         <?php if (!empty($blocks_list)) : ?>
-            <div class="programm__inner-wrap">
+            <div class="programm__inner-wrap from-left">
                 <?php
                 foreach ($blocks_list as $item) {
                     if (!empty($item['title']) && !empty($item['content'])) {

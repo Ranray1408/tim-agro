@@ -21,7 +21,7 @@ $pupils_title = get_field_value($fields, 'pupils_title');
 
 $logo = get_field_value($global_options, 'logo');
 ?>
-<div class="about-person" id="about-me">
+<div class="about-person js-anim-activate" id="about-me">
     <div class="container about-person__container container-big-title">
         <?php
         if (!empty($big_title)) {
@@ -33,7 +33,7 @@ $logo = get_field_value($global_options, 'logo');
         }
 
         if (!empty($photo)) {
-            echo '<figure class="about-person__photo">
+            echo '<figure class="about-person__photo from-left">
                     <img src="' . esc_url($photo) . '" alt="photo">
                     <figure class="logo ">
                         <img class="rotate-logo-anim" src="' . esc_url($logo) . '" alt="logo">
@@ -41,7 +41,7 @@ $logo = get_field_value($global_options, 'logo');
                 </figure>';
         }
         ?>
-        <div class="about-person__content">
+        <div class="about-person__content from-right">
             <?php
             if (!empty($title)) {
                 echo ' <h2 class="about-person__title">' . esc_html($title) . '</h2>';

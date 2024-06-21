@@ -18,7 +18,7 @@ $title = get_field_value($fields, 'title');
 
 $services = get_field_value($fields, 'services');
 ?>
-<div class="services" id="services">
+<div class="services js-anim-activate" id="services">
     <?php
     if (!empty($background_image)) {
         echo '<img class="services__bg-image" src="' . esc_url($background_image) . '" alt="bg">';
@@ -31,12 +31,12 @@ $services = get_field_value($fields, 'services');
         }
 
         if (!empty($title)) {
-            echo ' <h2 class="services__title">' . esc_html($title) . '</h2>';
+            echo ' <h2 class="services__title from-right">' . esc_html($title) . '</h2>';
         }
         ?>
 
         <?php if (!empty($services)) :  ?>
-            <div class="services__inner">
+            <div class="services__inner from-left">
                 <?php foreach ($services as $service_id) :
                     $servies_fields = get_fields($service_id);
                     $title = get_the_title($service_id);

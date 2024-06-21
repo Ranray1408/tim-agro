@@ -1857,6 +1857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function ready() {
+  var blocks = document.querySelectorAll('.js-anim-activate');
   var siteHeader = document.querySelector('.js-site-header');
   var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__["default"]();
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
@@ -1885,6 +1886,10 @@ function ready() {
     } else {
       siteHeader && siteHeader.classList.remove('scrolled');
     }
+    blocks && blocks.forEach(function (el) {
+      var block = el;
+      (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.isInViewport)(block) && block.classList.add('viewed');
+    });
   });
   document.body.addEventListener('click', function (e) {
     var target = e.target;

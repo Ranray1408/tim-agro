@@ -14,16 +14,16 @@ $class_name = isset($args['className']) ? ' ' . $args['className'] : '';
 $title = get_field_value($fields, 'title');
 $items_list = get_field_value($fields, 'items_list');
 ?>
-<div class="course-materials">
+<div class="course-materials js-anim-activate">
     <div class="container">
         <?php
         if (!empty($title)) {
-            echo '<h2 class="course-materials__title">' . esc_html($title) . '</h2>';
+            echo '<h2 class="course-materials__title from-right">' . esc_html($title) . '</h2>';
         }
         ?>
 
         <?php if (!empty($items_list)) : ?>
-            <div class="course-materials__list">
+            <div class="course-materials__list from-left">
                 <?php foreach ($items_list as $item) : ?>
                     <div class="course-materials__list-item d-flex align-items-center flex-column">
                         <?php

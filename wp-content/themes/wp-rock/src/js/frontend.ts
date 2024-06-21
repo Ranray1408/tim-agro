@@ -11,6 +11,7 @@ import { ProfileFunctionality } from './components/profileFunctionality';
 import { FormsActionsClass } from './parts/formsActionsClass';
 import {
     anchorLinkScroll,
+    isInViewport,
     loadFileName,
     validateField,
 } from './parts/helpers';
@@ -18,6 +19,7 @@ import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
 function ready() {
+    const blocks = document.querySelectorAll('.js-anim-activate');
     const siteHeader = document.querySelector('.js-site-header');
     const popupInstance = new Popup();
     const profileFunctionality = new ProfileFunctionality();
@@ -53,6 +55,12 @@ function ready() {
         } else {
             siteHeader && siteHeader.classList.remove('scrolled');
         }
+
+        blocks && blocks.forEach((el) => {
+            const block = el as HTMLElement;
+
+            isInViewport(block) && block.classList.add('viewed');
+        });
     });
 
     document.body.addEventListener('click', (e) => {

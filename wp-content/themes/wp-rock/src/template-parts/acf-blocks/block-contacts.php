@@ -19,9 +19,9 @@ $socials = get_field_value($fields, 'socials');
 $form = get_field_value($fields, 'form');
 $photo = get_field_value($fields, 'photo');
 ?>
-<div class="contacts" id="contacts">
+<div class="contacts js-anim-activate" id="contacts">
     <div class="container contacts__container d-flex container-big-title">
-        <div class="contacts__form-wrapper">
+        <div class="contacts__form-wrapper from-left">
                 <?php
                 if (!empty($big_title)) {
                     echo '<div class="big-title">' . esc_html($big_title) . '</div>';
@@ -66,7 +66,7 @@ $photo = get_field_value($fields, 'photo');
         </div>
         <?php
         if (!empty($photo)) {
-            echo '<figure class="contacts__photo">
+            echo '<figure class="contacts__photo from-right">
                     <img src="' . esc_url($photo) . '" alt="photo">
                 </figure>';
         }
