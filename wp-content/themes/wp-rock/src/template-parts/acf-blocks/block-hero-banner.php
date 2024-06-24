@@ -26,7 +26,6 @@ $popup_activator = $open_popup ? 'js-open-popup-activator' : '';
 <div class="hero-banner js-anim-activate <?php echo esc_html($class_name); ?>">
     <div class="hero-banner__gradient-layer"></div>
     <img class="hero-banner__img-bg" src="<?php echo $background_image; ?>" alt="bg" />
-    <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg" />
     <div class="container hero-banner__container">
         <div class="hero-banner__content">
             <?php if (!is_front_page() && !$hide_breadcrumbs) : ?>
