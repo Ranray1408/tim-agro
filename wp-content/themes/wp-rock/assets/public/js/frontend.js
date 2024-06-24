@@ -1880,6 +1880,10 @@ function ready() {
   } else {
     siteHeader && siteHeader.classList.remove('scrolled');
   }
+  blocks && blocks.forEach(function (el) {
+    var block = el;
+    (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.isInViewport)(block) && block.classList.add('viewed');
+  });
   window.document.addEventListener('scroll', function () {
     if (window.scrollY > 100) {
       siteHeader && siteHeader.classList.add('scrolled');

@@ -23,7 +23,7 @@ $open_popup = get_field_value($fields, 'open_popup');
 $popup_activator = $open_popup ? 'js-open-popup-activator' : '';
 ?>
 
-<div class="hero-banner <?php echo esc_html($class_name); ?>">
+<div class="hero-banner js-anim-activate <?php echo esc_html($class_name); ?>">
     <div class="hero-banner__gradient-layer"></div>
     <img class="hero-banner__img-bg" src="<?php echo $background_image; ?>" alt="bg" />
     <img class="hero-banner__img-bg mob" src="<?php echo $background_image_mob; ?>" alt="bg" />
@@ -38,19 +38,19 @@ $popup_activator = $open_popup ? 'js-open-popup-activator' : '';
             <?php endif; ?>
             <?php
             if (!empty($title)) {
-                echo '<h1 class="hero-banner__title">' . do_shortcode($title) . '</h1>';
+                echo '<h1 class="hero-banner__title from-right">' . do_shortcode($title) . '</h1>';
             }
 
             if (!empty($filled_subtitle)) {
-                echo '<div class="hero-banner__filled-subtitle green-filled-text d-inline-flex body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
+                echo '<div class="hero-banner__filled-subtitle from-left green-filled-text d-inline-flex body-type-1 font-weight-400">' . do_shortcode($filled_subtitle) . '</div>';
             }
 
             if (!empty($subtitle)) {
-                echo '<div class="hero-banner__subtitle">' . do_shortcode($subtitle) . '</div>';
+                echo '<div class="hero-banner__subtitle from-right">' . do_shortcode($subtitle) . '</div>';
             }
 
             if (!empty($list)) {
-                echo '<div class="hero-banner__list d-flex flex-column">';
+                echo '<div class="hero-banner__list from-left d-flex flex-column">';
                 foreach ($list as $list_item) {
                     if (!empty($list_item['text'])) {
                         echo '<div class="hero-banner__list-item d-flex align-items-center">
@@ -67,7 +67,7 @@ $popup_activator = $open_popup ? 'js-open-popup-activator' : '';
             }
 
             if (!empty($link['url']) && !empty($link['title'])) {
-                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies green-transparent ' . $popup_activator . '">
+                echo '<a href="' . esc_url($link['url']) . '" class="hero-banner__choose-studies green-transparent from-right ' . $popup_activator . '">
                             ' . esc_html($link['title']) . '
                         </a>';
             }

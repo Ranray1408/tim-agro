@@ -47,6 +47,13 @@ function ready() {
         siteHeader && siteHeader.classList.remove('scrolled');
     }
 
+
+    blocks && blocks.forEach((el) => {
+        const block = el as HTMLElement;
+
+        isInViewport(block) && block.classList.add('viewed');
+    });
+
     window.document.addEventListener('scroll', () => {
         // Scroll actions
 
