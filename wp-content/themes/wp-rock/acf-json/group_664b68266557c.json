@@ -48,6 +48,31 @@
             "mime_types": ""
         },
         {
+            "key": "field_667a9a8a0fb3e",
+            "label": "Background image mob",
+            "name": "background_image_mob",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
             "key": "field_664b6833124e6",
             "label": "Title",
             "name": "title",
@@ -210,5 +235,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719240530
+    "modified": 1719311028
 }

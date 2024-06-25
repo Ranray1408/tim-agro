@@ -66,14 +66,15 @@ $link_class = $show_link ? 'shown-link' : '';
                         ' . esc_html($cta_button) . '
                     </button>';
         } else {
-
-            echo '<form class="price-cta__buy-programm-form js-buy-programm-form">
-                    <input type="hidden" name="user-id" value="' . $user_id . '">
-                    <input type="hidden" name="post-id" value="' . $post_id . '">
-                    <input type="submit" value="' . esc_html($cta_button) . '"
-                        class="price-cta__cta-button green-transparent from-left">
-                    <div class="js-response-container response-container"></div>
-                </form>';
+            if(!empty($cta_button)) {
+                echo '<form class="price-cta__buy-programm-form js-buy-programm-form">
+                        <input type="hidden" name="user-id" value="' . $user_id . '">
+                        <input type="hidden" name="post-id" value="' . $post_id . '">
+                        <input type="submit" value="' . esc_html($cta_button) . '"
+                            class="price-cta__cta-button green-transparent from-left">
+                        <div class="js-response-container response-container"></div>
+                    </form>';
+            }
         }
 
         if (!empty($socials)) {

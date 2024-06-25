@@ -70,6 +70,7 @@ svg {
 }
 
 button {
+    border-radius: 0;
     transition: color 0.3s, backgroun-color 0.3s, border-color 0.3s;
 }
 
@@ -510,6 +511,7 @@ form {
 }
 
 .green-filled-text {
+    text-transform: uppercase;
     background-color: var(--color-type-primary-1);
     color: var(--color-type-dark-1) !important;
     padding: 6px 30px;
@@ -520,7 +522,10 @@ form {
 }
 
 .rotate-logo-anim {
-    animation: rotate-logo 20s infinite linear;
+    .rotate-part {
+        animation: rotate-logo 20s infinite linear;
+        transform-origin: center center;
+    }
 }
 
 @keyframes rotate-logo {

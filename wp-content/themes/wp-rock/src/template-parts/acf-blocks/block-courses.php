@@ -21,6 +21,7 @@ $args = array(
 );
 
 $query = new WP_Query($args);
+if(!$query->have_posts()) return;
 ?>
 <div class="courses js-anim-activate" id="courses">
     <div class="container courses__container container-big-title reverse">

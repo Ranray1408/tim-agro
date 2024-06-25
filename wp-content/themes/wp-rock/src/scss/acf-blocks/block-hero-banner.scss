@@ -61,6 +61,19 @@
             bottom: 0;
             height: 70%;
         }
+
+        @media screen and (max-width: 670px) {
+            display: none;
+        }
+
+        &.mob {
+            display: none;
+            width: 100%;
+
+            @media screen and (max-width: 670px) {
+                display: block;
+            }
+        }
     }
 
     &__container {
@@ -69,6 +82,9 @@
     }
 
     &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         max-width: 1000px;
         position: relative;
         padding-top: 244px;

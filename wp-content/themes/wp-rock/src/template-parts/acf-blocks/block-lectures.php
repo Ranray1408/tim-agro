@@ -21,13 +21,15 @@ $args = array(
 );
 
 $query = new WP_Query($args);
+
+if(!$query->have_posts()) return;
 ?>
 <div class="lectures js-anim-activate" id="lectures">
     <div class="container lectures__container container-big-title">
         <?php
         if (!empty($logo)) {
             echo '<figure class="lectures__lectures-logo">
-                    <img class="rotate-logo-anim" src="' . esc_url($logo) . '" alt="logo">
+                    <img class="rotate-logo-anim style-svg" src="' . esc_url($logo) . '" alt="logo">
                 </figure>';
         }
 

@@ -35,8 +35,8 @@ $logo = get_field_value($global_options, 'logo');
         if (!empty($photo)) {
             echo '<figure class="about-person__photo from-left">
                     <img src="' . esc_url($photo) . '" alt="photo">
-                    <figure class="logo ">
-                        <img class="rotate-logo-anim" src="' . esc_url($logo) . '" alt="logo">
+                    <figure class="logo">
+                        <img class="rotate-logo-anim style-svg" src="' . esc_url($logo) . '" alt="logo">
                     </figure>
                 </figure>';
         }

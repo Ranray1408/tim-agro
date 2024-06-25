@@ -24,7 +24,7 @@ $profile_page_url = $thank_you_page ? get_permalink($profile_page) : 0;
     <div class="container site-header__container">
         <?php if ($logo) : ?>
             <a class="site-header__logo rotate-logo-anim" href="<?php echo get_site_url(); ?>">
-                <img src="<?php echo $logo; ?>" alt="header logo" />
+                <img class="style-svg rotate-logo-anim" src="<?php echo $logo; ?>" alt="header logo" />
             </a>
         <?php endif; ?>
         <div class="site-header__container-inner">
