@@ -1,8 +1,11 @@
 <?php
-$programm = !empty($args['programm']) ? $args['programm'] : '';
+
 $access_status = !empty($args['access_status']) ? $args['access_status'] : '';
 $post_id = !empty($args['post_id']) ? $args['post_id'] : '';
 $programm_data = !empty($args['programm_data']) ? $args['programm_data'] : '';
+$client = !empty($args['client']) ? $args['client'] : null;
+
+$blocks_folder = !empty($args['blocks_folder']['body']['data']) ? $args['blocks_folder']['body']['data'] : null;
 
 $text_block_status = array(
     __('Не пройдено', 'wp-rock'),
@@ -23,17 +26,20 @@ $circle_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" vi
 </defs>
 </svg>';
 
-if (!empty($programm) && $access_status !== 'access-expired') : ?>
+if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
-        foreach ($programm as $key => $block) :
+        foreach ($blocks_folder as $key => $block) :
+            $uri = $block['folder']['uri'];
+            $videos = $client->request($uri. '/videos', array(), 'GET');
+            $block_title = $block['folder']['name'];
             $block_index = $key + 1;
-            $block_title = $block['block_title'];
-            $videos = $block['videos'];
+            //$videos = $block['videos'];
 
             $block_status = 'not-passed';
             $passed_blocks_count = 0;
 
+            //Data information about block that saved in user fields
             $saved_block_data = $programm_data->blocks->{'block-' . $block_index} ?? '';
 
             if(!empty($programm_data->blocksPassed)) {
@@ -51,29 +57,31 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
 
             //Check if we have saved video data
             $saved_video_data = null;
-            if(!empty($saved_block_data->videos->{'video-' . $videos[0]['video']['ID']})) {
-                $saved_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
-            }
+            // if(!empty($saved_block_data->videos->{'video-' . $videos[0]['video']['ID']})) {
+            //     $saved_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
+            // }
 
             //Check if we have pause time in save data
-            $start_video_from = '#t=0';
-            if(!empty($saved_video_data)) {
-                $start_video_from = '#t=' . $saved_video_data->videoPauseTime;
-            }
+            // $start_video_from = '#t=0';
+            // if(!empty($saved_video_data)) {
+            //     $start_video_from = '#t=' . $saved_video_data->videoPauseTime;
+            // }
 
             // Default value for playing first video in list
+            $first_video = !empty($videos['body']['data'][0]) ? $videos['body']['data'][0] : null;
             $first_video_url = '#';
             $first_video_id = '#';
             $first_video_title = '...';
 
+
             if (
-                !empty($videos[0]['video']['url']) &&
-                !empty($videos[0]['video']['ID']) &&
-                !empty($videos[0]['video_title'])
+                !empty($first_video['player_embed_url']) &&
+                // !empty($videos[0]['video']['ID']) &&
+                !empty($first_video['name'])
             ) {
-                $first_video_url = $videos[0]['video']['url'];
-                $first_video_id = $full_video_id . $videos[0]['video']['ID'];
-                $first_video_title = $videos[0]['video_title'];
+                $first_video_url = $first_video['player_embed_url'];
+                //$first_video_id = $full_video_id . $videos[0]['video']['ID'];
+                $first_video_title = $first_video['name'];
             }
 
             // Retunr text depend on block status
@@ -100,9 +108,15 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
                 </button>
                 <div class="programm__block-content js-inner-accordion__content">
                     <div id="<?php echo $video_container_id; ?>" class="programm__block-video">
-                        <video
+                        <!-- <video
                         data-video_id="<?php echo $first_video_id; ?>"
-                        controls src="<?php echo $first_video_url . $start_video_from ?>"></video>
+                        controls src="<?php echo $first_video_url . $start_video_from ?>"></video> -->
+                        <?php
+                        if($first_video) {
+                            echo $first_video['embed']['html'];
+                        }
+
+                        ?>
 
                         <div class="programm__block-video-description">
                             <div class="video-name js-video-title body-type-2 weight600">
@@ -115,11 +129,11 @@ if (!empty($programm) && $access_status !== 'access-expired') : ?>
                     </div>
                     <!-- ************ Video list ************ -->
                     <?php
-                    if (!empty($videos)) :
+                    if (!empty($videos['body']['data'])) :
                         echo '<div class="programm__block-videos-list">';
-                        foreach ($videos as $key => $video) :
-                            $video_title = !empty($video['video_title']) ? $video['video_title'] : '';
-                            $video_url = !empty($video['video']['url']) ? $video['video']['url'] : '#';
+                        foreach ($videos['body']['data'] as $key => $video) :
+                            $video_title = !empty($video['name']) ? $video['name'] : '';
+                            $video_url = !empty($video['player_embed_url']) ? $video['player_embed_url'] : '#';
                             $video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
                             $active_class = $key === 0 ? 'playing-video' : '';
 
