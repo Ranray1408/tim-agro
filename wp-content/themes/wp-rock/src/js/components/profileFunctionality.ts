@@ -11,7 +11,7 @@ export class ProfileFunctionality {
         },
     };
 
-    constructor() {}
+    constructor() { }
 
     // Main init method
     init() {
@@ -23,6 +23,8 @@ export class ProfileFunctionality {
         // User info form
         this.editFormFieldAddEvent();
         this.addEventfetchUserDataForm();
+
+        this.initPlayerOnOpenBlock();
     }
 
     loadDataAndPlayVideo(playBtnData) {
@@ -37,24 +39,27 @@ export class ProfileFunctionality {
 
         const videoContainer = document.querySelector(`#${containerId}`);
         const videoTitleContainer = videoContainer?.querySelector('.js-video-title') as HTMLElement;
+        console.log('videoContainer', videoContainer, playBtnData);
 
         if (videoTitleContainer) {
             videoTitleContainer.innerHTML = `${videoTitle}`;
         }
 
         if (!videoContainer) return;
+        console.log('videoContainer', videoContainer);
 
-        const video = videoContainer.querySelector('video');
+        //const video = videoContainer.querySelector('video');
+        this.initVimeoPlayer(videoContainer, videoId, true);
 
-        this.pauseAllVideos();
+        //this.pauseAllVideos();
 
-        if (video) {
-            video.src = videoUrl;
-            video.dataset.video_id = videoId;
-            video.dataset.video_playing_by_btn = videoPlayingByBtn;
-            video.currentTime = videoPauseTime;
-            video.play();
-        }
+        // if (video) {
+        //     video.src = videoUrl;
+        //     video.dataset.video_id = videoId;
+        //     video.dataset.video_playing_by_btn = videoPlayingByBtn;
+        //     video.currentTime = videoPauseTime;
+        //     video.play();
+        // }
     }
 
     playVideoByClickInit() {
@@ -69,6 +74,7 @@ export class ProfileFunctionality {
         playVideoBtns.forEach((el) => {
             const button = el as HTMLButtonElement;
             button.addEventListener('click', (e) => {
+                e.stopPropagation();
                 removeAllActiveBtns();
                 this.pauseAllVideos();
                 button.classList.add('playing-video');
@@ -328,6 +334,35 @@ export class ProfileFunctionality {
                     input.classList.add('focus');
                 });
             });
+    }
+
+    initVimeoPlayer(playerEl, videoId, loadVideo = false, start = 0) {
+
+        // @ts-ignore
+        const player = new Vimeo.Player(playerEl, {
+            // @ts-ignore
+            id: videoId,
+        });
+
+        loadVideo && player.loadVideo(videoId);
+
+        if (start) {
+            player.setCurrentTime(start);
+        }
+
+        return player;
+    }
+
+    initPlayerOnOpenBlock() {
+        const blocks = document.querySelectorAll('.js-programm-block') as NodeList;
+
+        blocks && blocks.forEach((el) => {
+            const block = el as HTMLElement;
+            block.addEventListener('click', (e) => {
+                const player = document.querySelector(`#${block.dataset.block_id}`) as HTMLElement;
+                this.initVimeoPlayer(player, player.dataset.video_id);
+            });
+        });
     }
 }
 

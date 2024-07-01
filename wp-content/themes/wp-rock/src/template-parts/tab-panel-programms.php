@@ -7,7 +7,6 @@ $fields = get_fields();
 $programm_title = !empty($args['programm_title']) ? $args['programm_title'] : '';
 $programm_type = !empty($args['programm_type']) ? $args['programm_type'] : '';
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
-$client = !empty($args['client']) ? $args['client'] : null;
 
 $eye_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 <path d="M23.8475 11.5332C23.6331 11.2399 18.5245 4.35165 11.9999 4.35165C5.47529 4.35165 0.366469 11.2399 0.152297 11.5329C-0.0507657 11.8112 -0.0507657 12.1886 0.152297 12.4668C0.366469 12.7601 5.47529 19.6484 11.9999 19.6484C18.5245 19.6484 23.6331 12.7601 23.8475 12.467C24.0508 12.1888 24.0508 11.8112 23.8475 11.5332ZM11.9999 18.0659C7.19383 18.0659 3.03127 13.4941 1.79907 11.9995C3.02968 10.5035 7.18351 5.93406 11.9999 5.93406C16.8057 5.93406 20.968 10.5051 22.2007 12.0005C20.9701 13.4964 16.8163 18.0659 11.9999 18.0659Z" fill="#151A1D"/>
@@ -41,7 +40,6 @@ $user_programm = get_field_value($user_fields, $programm_type);
                             'user_programm_item' => $user_programm_item,
                             'additional_class' => $additional_class,
                             'current_user' => $current_user,
-                            'client' => $client,
                         ));
                     endforeach;
                     ?>

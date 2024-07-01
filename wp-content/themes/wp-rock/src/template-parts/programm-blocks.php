@@ -3,7 +3,7 @@
 $access_status = !empty($args['access_status']) ? $args['access_status'] : '';
 $post_id = !empty($args['post_id']) ? $args['post_id'] : '';
 $programm_data = !empty($args['programm_data']) ? $args['programm_data'] : '';
-$client = !empty($args['client']) ? $args['client'] : null;
+global $client;
 
 $blocks_folder = !empty($args['blocks_folder']['body']['data']) ? $args['blocks_folder']['body']['data'] : null;
 
@@ -30,19 +30,19 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
         foreach ($blocks_folder as $key => $block) :
-            $uri = $block['folder']['uri'];
-            $videos = $client->request($uri. '/videos', array(), 'GET');
+            if (empty($block['folder']['uri'])) continue;
+            $videos = $client->request($block['folder']['uri'] . '/videos', array(), 'GET');
+
             $block_title = $block['folder']['name'];
             $block_index = $key + 1;
             //$videos = $block['videos'];
-
             $block_status = 'not-passed';
             $passed_blocks_count = 0;
 
             //Data information about block that saved in user fields
             $saved_block_data = $programm_data->blocks->{'block-' . $block_index} ?? '';
 
-            if(!empty($programm_data->blocksPassed)) {
+            if (!empty($programm_data->blocksPassed)) {
                 $passed_blocks_count = $programm_data->blocksPassed;
             }
 
@@ -72,7 +72,6 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
             $first_video_url = '#';
             $first_video_id = '#';
             $first_video_title = '...';
-
 
             if (
                 !empty($first_video['player_embed_url']) &&
@@ -107,13 +106,15 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                     ?>
                 </button>
                 <div class="programm__block-content js-inner-accordion__content">
-                    <div id="<?php echo $video_container_id; ?>" class="programm__block-video">
+                    <div class="programm__block-video">
                         <!-- <video
                         data-video_id="<?php echo $first_video_id; ?>"
                         controls src="<?php echo $first_video_url . $start_video_from ?>"></video> -->
                         <?php
-                        if($first_video) {
-                            echo $first_video['embed']['html'];
+                        if ($first_video) {
+                            //echo $first_video['embed']['html'];
+                            $video_clear_id = str_replace('/videos/', '', $first_video['uri']);
+                            echo '<div data-video_id="' . $video_clear_id . '" id="' . $video_container_id . '"></div>';
                         }
 
                         ?>
@@ -133,23 +134,37 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                         echo '<div class="programm__block-videos-list">';
                         foreach ($videos['body']['data'] as $key => $video) :
                             $video_title = !empty($video['name']) ? $video['name'] : '';
-                            $video_url = !empty($video['player_embed_url']) ? $video['player_embed_url'] : '#';
-                            $video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
+                            $video_duration = !empty($video['duration']) ? $video['duration'] : '';
+
+                            //$video_url = !empty($video['player_embed_url']) ? $video['player_embed_url'] : '#';
+                            //$video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
                             $active_class = $key === 0 ? 'playing-video' : '';
 
-                            $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
+                            // $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
 
-                            $save_video_data = $saved_block_data->videos->{'video-' . $video_id} ?? '';
-                            $video_duration = $save_video_data->videoDuration ?? 0;
+                            $clear_video_id = str_replace('/videos/', '', $video['uri']);
+
+                            //$save_video_data = $saved_block_data->videos->{'video-' . $video_id} ?? '';
+                            //$video_duration = $save_video_data->videoDuration ?? 0;
                             $video_pause_time = $save_video_data->videoPauseTime ?? 0;
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';
 
+                            // echo '<button
+                            //             data-passed_blocks_count="' . $passed_blocks_count . '"
+                            //             data-video_container_id="' . $video_container_id . '"
+                            //             data-video_viewed="' . $video_is_viewed . '"
+                            //             data-video_url="' . $video_url . '"
+                            //             data-video_id="'.$clear_video_id.'"
+                            //             data-video_title="' . $video_title . '"
+                            //             data-video_duration="' . $video_duration . '"
+                            //             data-video_pause_time="' . $video_pause_time . '"
+                            //             class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
+
                             echo '<button
-                                        data-passed_blocks_count="'.$passed_blocks_count.'"
+                                        data-passed_blocks_count="' . $passed_blocks_count . '"
                                         data-video_container_id="' . $video_container_id . '"
                                         data-video_viewed="' . $video_is_viewed . '"
-                                        data-video_url="' . $video_url . '"
-                                        data-video_id="' . $full_video_id . '"
+                                        data-video_id="'.$clear_video_id.'"
                                         data-video_title="' . $video_title . '"
                                         data-video_duration="' . $video_duration . '"
                                         data-video_pause_time="' . $video_pause_time . '"

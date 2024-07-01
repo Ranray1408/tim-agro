@@ -15,10 +15,10 @@ $text_access_date = array(
 
 $text_continue_access = __('Продовжити доступ ', 'wp-rock');
 
+global $client;
 $user_programm_item = !empty($args['user_programm_item']) ? $args['user_programm_item'] : 0;
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
 $current_user = !empty($args['current_user']) ? $args['current_user'] : '';
-$client = !empty($args['client']) ? $args['client'] : '';
 
 if (empty($user_programm_item['post_id']) || empty($client)) return;
 
@@ -130,7 +130,6 @@ if (!empty($programm_data->blocks)) {
             'access_status' => $access_status,
             'post_id' => $post_id,
             'programm_data' => $programm_data,
-            'client' => $client,
         ))
     );
     ?>

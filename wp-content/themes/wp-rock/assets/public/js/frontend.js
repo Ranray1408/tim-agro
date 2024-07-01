@@ -160,6 +160,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       this.playNextVideo();
       this.editFormFieldAddEvent();
       this.addEventfetchUserDataForm();
+      this.initPlayerOnOpenBlock();
     }
   }, {
     key: "loadDataAndPlayVideo",
@@ -174,19 +175,13 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       var videoPauseTime = parseFloat((_f = playBtnData.dataset) === null || _f === void 0 ? void 0 : _f.video_pause_time);
       var videoContainer = document.querySelector("#".concat(containerId));
       var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
+      console.log('videoContainer', videoContainer, playBtnData);
       if (videoTitleContainer) {
         videoTitleContainer.innerHTML = "".concat(videoTitle);
       }
       if (!videoContainer) return;
-      var video = videoContainer.querySelector('video');
-      this.pauseAllVideos();
-      if (video) {
-        video.src = videoUrl;
-        video.dataset.video_id = videoId;
-        video.dataset.video_playing_by_btn = videoPlayingByBtn;
-        video.currentTime = videoPauseTime;
-        video.play();
-      }
+      console.log('videoContainer', videoContainer);
+      this.initVimeoPlayer(videoContainer, videoId, true);
     }
   }, {
     key: "playVideoByClickInit",
@@ -202,6 +197,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       playVideoBtns.forEach(function (el) {
         var button = el;
         button.addEventListener('click', function (e) {
+          e.stopPropagation();
           removeAllActiveBtns();
           _this2.pauseAllVideos();
           button.classList.add('playing-video');
@@ -408,6 +404,33 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           var parentWrapper = btn.closest('.js-inner-input-wrapper');
           var input = parentWrapper === null || parentWrapper === void 0 ? void 0 : parentWrapper.querySelector('input[type="text"]');
           input.classList.add('focus');
+        });
+      });
+    }
+  }, {
+    key: "initVimeoPlayer",
+    value: function initVimeoPlayer(playerEl, videoId) {
+      var loadVideo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var start = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var player = new Vimeo.Player(playerEl, {
+        id: videoId
+      });
+      loadVideo && player.loadVideo(videoId);
+      if (start) {
+        player.setCurrentTime(start);
+      }
+      return player;
+    }
+  }, {
+    key: "initPlayerOnOpenBlock",
+    value: function initPlayerOnOpenBlock() {
+      var _this5 = this;
+      var blocks = document.querySelectorAll('.js-programm-block');
+      blocks && blocks.forEach(function (el) {
+        var block = el;
+        block.addEventListener('click', function (e) {
+          var player = document.querySelector("#".concat(block.dataset.block_id));
+          _this5.initVimeoPlayer(player, player.dataset.video_id);
         });
       });
     }

@@ -54,6 +54,8 @@ function px_site_scripts() {
     wp_enqueue_script('form_script', '//js.hsforms.net/forms/embed/v2.js', array(), $custom_js_ver, true);
     wp_enqueue_script('frontend_js', ASSETS_JS . 'frontend.js', array('jquery'), $custom_js_ver, true);
 
+    wp_enqueue_script('vimeo_player','https://player.vimeo.com/api/player.js', array(), $custom_js_ver, true);
+
     $posts_per_page = get_option('posts_per_page');
 
     $vars = array(

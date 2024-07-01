@@ -10,28 +10,6 @@ if (!is_user_logged_in()) {
 }
 get_header('profile');
 
-require get_template_directory() . '/vendor/autoload.php';
-use Vimeo\Vimeo;
-
-$client_id = 'c8b5f4ae254bfdc534542558fde0d89ae99b76ae';
-$client_secret = 'TlpYbxGzrOQEjfkA+Uc8HaZBb5e0nqTScCrZe83An9ILVa72qlAYkS5KPAdyAzneMmzYQ4vSeSx5dTwJk2PUfZ4MXCfqLZuaPjYYaYcu+VUAKe3kiE8HjWrFY3qjZPzm';
-$client_token = 'f9644f60392275c14ccb5e927369e4b3';
-
-
-// @intelephense-disable-line
-$client = new Vimeo($client_id, $client_secret, $client_token);
-
-// $response = $client->request("/users/221812259/projects/21350299/items", array(), 'GET');
-// var_dump($response);
-
-// foreach($response['body']['data'] as $item) {
-//     $response_video = $client->request($item['folder']['uri'].'/videos', array(), 'GET');
-
-//     foreach($response_video['body']['data'] as $video) {
-//         var_dump($video['name']);
-//     }
-//     var_dump($response_video);
-// }
 ?>
 
 
@@ -43,7 +21,6 @@ echo esc_html(get_template_part(
         'programm_title' => 'Мої курси',
         'programm_type' => 'courses',
         'additional_class' => 'active',
-        'client' => $client
     )
 ));
 

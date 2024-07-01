@@ -53,3 +53,15 @@ function get_field_value( $data_arr, $key ) {
 
 $profile_functionality = new profile_functionality();
 $profile_functionality->init();
+
+// Vimeo SDK
+require get_template_directory() . '/vendor/autoload.php';
+use Vimeo\Vimeo;
+
+$client_id = 'c8b5f4ae254bfdc534542558fde0d89ae99b76ae';
+$client_secret = 'TlpYbxGzrOQEjfkA+Uc8HaZBb5e0nqTScCrZe83An9ILVa72qlAYkS5KPAdyAzneMmzYQ4vSeSx5dTwJk2PUfZ4MXCfqLZuaPjYYaYcu+VUAKe3kiE8HjWrFY3qjZPzm';
+$client_token = 'f9644f60392275c14ccb5e927369e4b3';
+
+// @intelephense-disable-line
+global $client;
+$client = new Vimeo($client_id, $client_secret, $client_token);
