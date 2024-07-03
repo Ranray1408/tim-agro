@@ -29,18 +29,19 @@ $circle_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" vi
 if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
-        foreach ($blocks_folder as $key => $block) :
-            if (empty($block['folder']['uri'])) continue;
-            $videos = $client->request($block['folder']['uri'] . '/videos', array(), 'GET');
+        foreach ($blocks_folder as $block) :
+            if ($block['type'] === 'video') continue;
+            $videos = $client->request($block['folder']['uri'] . '/videos',  array(), 'GET');
+            if (empty($videos['body']['data'])) continue;
 
             $block_title = $block['folder']['name'];
-            $block_index = $key + 1;
-            //$videos = $block['videos'];
+            $sanitize_block_title = sanitize_title($block['folder']['name']);
+
             $block_status = 'not-passed';
             $passed_blocks_count = 0;
 
             //Data information about block that saved in user fields
-            $saved_block_data = $programm_data->blocks->{'block-' . $block_index} ?? '';
+            $saved_block_data = $programm_data->blocks->{$sanitize_block_title} ?? '';
 
             if (!empty($programm_data->blocksPassed)) {
                 $passed_blocks_count = $programm_data->blocksPassed;
@@ -52,20 +53,10 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
             }
 
             // Forming ids
-            $video_container_id = 'programm-' . $post_id . '_' . 'block-' . $block_index . '-container';
-            $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-';
+            $video_container_id = 'programm-' . $post_id . '_' . $sanitize_block_title;
 
             //Check if we have saved video data
             $saved_video_data = null;
-            // if(!empty($saved_block_data->videos->{'video-' . $videos[0]['video']['ID']})) {
-            //     $saved_video_data = $saved_block_data->videos->{'video-' . $videos[0]['video']['ID']};
-            // }
-
-            //Check if we have pause time in save data
-            // $start_video_from = '#t=0';
-            // if(!empty($saved_video_data)) {
-            //     $start_video_from = '#t=' . $saved_video_data->videoPauseTime;
-            // }
 
             // Default value for playing first video in list
             $first_video = !empty($videos['body']['data'][0]) ? $videos['body']['data'][0] : null;
@@ -75,16 +66,12 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
             if (
                 !empty($first_video['player_embed_url']) &&
-                // !empty($videos[0]['video']['ID']) &&
                 !empty($first_video['name'])
             ) {
                 $first_video_url = $first_video['player_embed_url'];
-                //$first_video_id = $full_video_id . $videos[0]['video']['ID'];
                 $first_video_title = $first_video['name'];
             }
 
-            // Retunr text depend on block status
-            $block_status_text = block_status_text($block_status, $text_block_status);
         ?>
             <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="programm__block js-programm-block js-inner-accordion__content">
 
@@ -97,24 +84,25 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                     }
 
                     // Block status
-                    echo '<span class="block-status ' . $block_status . ' body-type-4 weight600">
+                    echo '<span class="block-status js-block-status ' . $block_status . ' body-type-4 weight600">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
                                     <circle cx="3.5" cy="3.5" r="3.5" fill="white"/>
                                 </svg>
-                                ' . $block_status_text . '
+                                <span class="not-passed text">' . $text_block_status[0] . '</span>
+                                <span class="in-progress text">' . $text_block_status[1] . '</span>
+                                <span class="passed text">' . $text_block_status[2] . '</span>
                             </span>';
                     ?>
                 </button>
                 <div class="programm__block-content js-inner-accordion__content">
-                    <div class="programm__block-video">
-                        <!-- <video
-                        data-video_id="<?php echo $first_video_id; ?>"
-                        controls src="<?php echo $first_video_url . $start_video_from ?>"></video> -->
+                    <div class="programm__block-video-wrapper js-block-video">
+
                         <?php
                         if ($first_video) {
-                            //echo $first_video['embed']['html'];
                             $video_clear_id = str_replace('/videos/', '', $first_video['uri']);
-                            echo '<div data-video_id="' . $video_clear_id . '" id="' . $video_container_id . '"></div>';
+                            echo '<div
+                                    data-video_id="' . $video_clear_id . '"
+                                    data-video_container_id="' . $video_container_id . '"></div>';
                         }
 
                         ?>
@@ -136,37 +124,21 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                             $video_title = !empty($video['name']) ? $video['name'] : '';
                             $video_duration = !empty($video['duration']) ? $video['duration'] : '';
 
-                            //$video_url = !empty($video['player_embed_url']) ? $video['player_embed_url'] : '#';
-                            //$video_id = !empty($video['video']['ID']) ? $video['video']['ID'] : '#';
                             $active_class = $key === 0 ? 'playing-video' : '';
-
-                            // $full_video_id = 'programm-' . $post_id  . '_block-' . $block_index . '_' . 'video-' . $video_id;
 
                             $clear_video_id = str_replace('/videos/', '', $video['uri']);
 
-                            //$save_video_data = $saved_block_data->videos->{'video-' . $video_id} ?? '';
-                            //$video_duration = $save_video_data->videoDuration ?? 0;
+                            $save_video_data = $saved_block_data->videos->{$clear_video_id} ?? '';
                             $video_pause_time = $save_video_data->videoPauseTime ?? 0;
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';
 
-                            // echo '<button
-                            //             data-passed_blocks_count="' . $passed_blocks_count . '"
-                            //             data-video_container_id="' . $video_container_id . '"
-                            //             data-video_viewed="' . $video_is_viewed . '"
-                            //             data-video_url="' . $video_url . '"
-                            //             data-video_id="'.$clear_video_id.'"
-                            //             data-video_title="' . $video_title . '"
-                            //             data-video_duration="' . $video_duration . '"
-                            //             data-video_pause_time="' . $video_pause_time . '"
-                            //             class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
-
                             echo '<button
+                                        id="video-btn-' . $clear_video_id . '"
                                         data-passed_blocks_count="' . $passed_blocks_count . '"
                                         data-video_container_id="' . $video_container_id . '"
                                         data-video_viewed="' . $video_is_viewed . '"
-                                        data-video_id="'.$clear_video_id.'"
+                                        data-video_id="' . $clear_video_id . '"
                                         data-video_title="' . $video_title . '"
-                                        data-video_duration="' . $video_duration . '"
                                         data-video_pause_time="' . $video_pause_time . '"
                                         class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';
 
@@ -182,6 +154,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                     <!-- ************ END Video list ************ -->
                 </div>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach;
+        ?>
     </div>
 <?php endif; ?>

@@ -16,6 +16,8 @@ $text_access_date = array(
 $text_continue_access = __('Продовжити доступ ', 'wp-rock');
 
 global $client;
+global $global_options;
+
 $user_programm_item = !empty($args['user_programm_item']) ? $args['user_programm_item'] : 0;
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
 $current_user = !empty($args['current_user']) ? $args['current_user'] : '';
@@ -33,12 +35,11 @@ $post_logo = get_field_value($post_fields, 'logo');
 $post_title = get_the_title($post_id);
 $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_programm_item['expire_access_date'] : '';
 
-$user_id = '221812259';
 
-//$programm = get_field_value($post_fields, 'programm');
-//$programm_videos = $client->request("/users/$user_id/projects/$folder_id/videos", array(), 'GET');
-$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", array(), 'GET');
+$user_id = get_field_value($global_options, 'user_id');;
 
+$args = array('sort' => 'date', 'direction' => 'asc');
+$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
 $blocks_count = !empty($blocks_folder['body']['total']) ? $blocks_folder['body']['total'] : 0;
 
 

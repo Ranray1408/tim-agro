@@ -474,11 +474,19 @@
                     justify-content: center;
                     gap: 7px;
 
+                    .text {
+                        display: none;
+                    }
+
                     &.not-passed {
                         color: var(--color-type-primary-white);
 
                         svg circle {
-                            fill: var(--type-primary-primary-white);
+                            fill: var(--color-type-primary-white);
+                        }
+
+                        .text.not-passed {
+                            display: block;
                         }
                     }
 
@@ -488,6 +496,10 @@
                         svg circle {
                             fill: var(--color-type-primary-2);
                         }
+
+                        .text.in-progress {
+                            display: block;
+                        }
                     }
 
                     &.passed {
@@ -495,6 +507,10 @@
 
                         svg circle {
                             fill: var(--color-type-primary-1);
+                        }
+
+                        .text.passed {
+                            display: block;
                         }
                     }
                 }
@@ -508,7 +524,7 @@
             }
 
             // Video
-            &__block-video {
+            &__block-video-wrapper {
                 max-width: 875px;
                 width: 100%;
                 margin-bottom: 40px;

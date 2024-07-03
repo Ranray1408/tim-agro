@@ -10,15 +10,14 @@ export class ProfileFunctionality {
             programms: {},
         },
     };
-
+    initedPlayer = null;
     constructor() { }
 
     // Main init method
     init() {
         this.playVideoByClickInit();
-        this.addPauseListenerToAllVideos();
         this.createProfileVideoData('courses');
-        this.createProfileVideoData('lectures');
+        //this.createProfileVideoData('lectures');
         this.playNextVideo();
         // User info form
         this.editFormFieldAddEvent();
@@ -31,35 +30,27 @@ export class ProfileFunctionality {
         if (!playBtnData) return;
 
         const containerId = playBtnData.dataset?.video_container_id;
-        const videoUrl = playBtnData.dataset?.video_url;
         const videoTitle = playBtnData.dataset?.video_title;
         const videoId = playBtnData.dataset?.video_id;
-        const videoPlayingByBtn = playBtnData.dataset?.play_btn_id;
         const videoPauseTime = parseFloat(playBtnData.dataset?.video_pause_time);
 
-        const videoContainer = document.querySelector(`#${containerId}`);
-        const videoTitleContainer = videoContainer?.querySelector('.js-video-title') as HTMLElement;
-        console.log('videoContainer', videoContainer, playBtnData);
+        const videoContainer = document.querySelector(`[data-video_container_id="${containerId}"]`) as HTMLElement;
+        const blockVideoWrapper = videoContainer.closest('.js-block-video') as HTMLElement;
+        const videoTitleContainer = blockVideoWrapper?.querySelector('.js-video-title') as HTMLElement;
 
         if (videoTitleContainer) {
             videoTitleContainer.innerHTML = `${videoTitle}`;
         }
 
         if (!videoContainer) return;
-        console.log('videoContainer', videoContainer);
+        videoContainer.dataset.video_id = playBtnData.dataset.video_id;
 
-        //const video = videoContainer.querySelector('video');
-        this.initVimeoPlayer(videoContainer, videoId, true);
+        const onPauseCallback = (pauseInfo) => {
+            playBtnData.dataset.video_pause_time = pauseInfo.seconds;
+        }
 
-        //this.pauseAllVideos();
-
-        // if (video) {
-        //     video.src = videoUrl;
-        //     video.dataset.video_id = videoId;
-        //     video.dataset.video_playing_by_btn = videoPlayingByBtn;
-        //     video.currentTime = videoPauseTime;
-        //     video.play();
-        // }
+        //@ts-ignore
+        this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
     }
 
     playVideoByClickInit() {
@@ -76,7 +67,6 @@ export class ProfileFunctionality {
             button.addEventListener('click', (e) => {
                 e.stopPropagation();
                 removeAllActiveBtns();
-                this.pauseAllVideos();
                 button.classList.add('playing-video');
 
                 this.loadDataAndPlayVideo(button);
@@ -84,39 +74,25 @@ export class ProfileFunctionality {
         });
     }
 
-    addPauseListenerToAllVideos = () => {
-        const videos = document.querySelectorAll('video') as NodeList;
+    saveVideoTimeData(videoContainer, videoParams, learninMaterialType) {
+        if (!videoContainer && !videoParams && !learninMaterialType) return;
 
-        videos &&
-            videos.forEach((el) => {
-                const video = el as HTMLVideoElement;
+        const videoDuration = videoParams.duration;
+        const videoPauseTime = videoParams.seconds;
 
-                video.addEventListener('pause', () => {
-                    const parentPanel = video.closest(`.js-tab-panel`) as HTMLElement;
-
-                    this.saveVideoTimeData(video, parentPanel.id);
-                });
-            });
-    };
-
-    saveVideoTimeData(video, learninMaterialType) {
-        if (!video.dataset?.video_id) return;
-
-        // Videio data
-        const videoDuration = video.duration;
-        const videoPauseTime = video.currentTime;
-        const programmId = video.dataset.video_id?.split('_')[0];
-        const blockId = video.dataset.video_id?.split('_')[1];
-        const videoId = video.dataset.video_id?.split('_')[2];
+        const programmId = videoContainer.dataset.video_container_id?.split('_')[0];
+        const shortBlockId = videoContainer.dataset.video_container_id?.split('_')[1];
+        const videoId = videoContainer.dataset.video_id;
 
         let viewed = false;
-        if (videoPauseTime && videoDuration) {
-            viewed = +videoPauseTime / +videoDuration >= 0.9;
+        if (videoParams.percent) {
+            viewed = videoParams.percent >= 0.9;
         }
-
         // Paths to current programm and block
         const currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-        const currentBlockPath = currentProgrammPath?.blocks[blockId];
+        const currentBlockPath = currentProgrammPath?.blocks[shortBlockId];
+
+        currentBlockPath.fullBlockId = videoContainer.dataset.video_container_id;
 
         currentBlockPath.videos[videoId] = {
             ...currentBlockPath.videos[videoId],
@@ -125,10 +101,11 @@ export class ProfileFunctionality {
             isVideoViewed: viewed,
         };
 
+        console.log('related profileData', this.profileData);
+
         this.changeBlockStatus(currentBlockPath);
         this.changePassedBlocksCount(currentProgrammPath);
 
-        console.log('reated profileData', this.profileData);
         this.fetchDataToBackend(this.profileData);
     }
 
@@ -147,10 +124,9 @@ export class ProfileFunctionality {
             playVideoBtns.forEach((el) => {
                 const button = el as HTMLButtonElement;
 
-                const programmId = button.dataset?.video_id?.split('_')[0];
-                const blockId = button.dataset?.video_id?.split('_')[1];
-                const videoId = button.dataset.video_id?.split('_')[2];
-                const videoTitle = button.dataset.video_title;
+                const programmId = button.dataset?.video_container_id?.split('_')[0];
+                const blockId = button.dataset?.video_container_id?.split('_')[1];
+                const videoId = button.dataset?.video_id;
 
                 const videoDuration = button.dataset?.video_duration;
                 const videoPauseTime = button.dataset?.video_pause_time;
@@ -160,6 +136,7 @@ export class ProfileFunctionality {
 
                 if (!programmId || !blockId || !videoId) return;
 
+                // If no current programm create it in programms array
                 if (!this.profileData[learninMaterialType].programms[programmId]) {
                     this.profileData[learninMaterialType].programms[programmId] = {
                         programmId: +programmId.split('-')[1] || null,
@@ -168,6 +145,7 @@ export class ProfileFunctionality {
                     };
                 }
 
+                // If no current block create it in blocks array
                 if (!this.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
                     const currentBlock = this.getCurrentBlock(programmId, blockId);
 
@@ -182,7 +160,6 @@ export class ProfileFunctionality {
                 const currentBlockPath = currentProgrammPath?.blocks[blockId];
 
                 currentBlockPath.videos[videoId] = {
-                    videoTitle: videoTitle || null,
                     videoId: videoId || null,
                     videoDuration: videoDuration || null,
                     videoPauseTime: videoPauseTime || null,
@@ -193,31 +170,42 @@ export class ProfileFunctionality {
         console.log('created profileData', this.profileData);
     }
 
-    pauseAllVideos() {
-        const videos = document.querySelectorAll('video') as NodeList;
-
-        videos &&
-            videos.forEach((el) => {
-                const video = el as HTMLVideoElement;
-
-                video.pause();
-            });
-    }
-
     changeBlockStatus(currentBlockObject) {
         if (!currentBlockObject) return;
 
+        let status = '';
         const videosArray: videoData[] = Object.values(currentBlockObject.videos);
 
         const isBlockPassed = videosArray.every((video) => video.isVideoViewed);
         const isBlockNotPassed = videosArray.every((video) => !video.isVideoViewed);
 
         if (isBlockPassed) {
-            currentBlockObject.blockStatus = 'passed';
+            status = 'passed';
         } else if (isBlockNotPassed) {
-            currentBlockObject.blockStatus = 'not-passed';
+            status = 'not-passed';
         } else {
-            currentBlockObject.blockStatus = 'in-progress';
+            status = 'in-progress';
+        }
+        currentBlockObject.blockStatus = status;
+
+        this.visualUpdateBlockStatus(currentBlockObject.blockStatus, status);
+    }
+
+    visualUpdateBlockStatus(blockContainerId, status) {
+        const queryStr = `.js-programm-block[data-block_id="${blockContainerId}"]`;
+        const blockElem = document.querySelector(queryStr) as  HTMLElement;
+
+        if (blockElem) {
+            console.log('blockElem', blockElem);
+            blockElem.dataset.block_status = status;
+            const statusContainer = blockElem.querySelector('.js-block-status');
+            if (statusContainer) {
+                statusContainer.classList.remove('passed');
+                statusContainer.classList.remove('not-passed');
+                statusContainer.classList.remove('in-progress');
+
+                statusContainer.classList.add(status);
+            }
         }
     }
 
@@ -238,7 +226,8 @@ export class ProfileFunctionality {
             playNextBtns.forEach((el) => {
                 const btn = el as HTMLButtonElement;
 
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const videoBlock = btn.closest('.js-programm-block') as HTMLElement;
 
                     const playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
@@ -252,8 +241,8 @@ export class ProfileFunctionality {
                                 btn.classList.remove('playing-video');
                             });
 
-                        this.loadDataAndPlayVideo(nextPLayBtn);
                         nextPLayBtn.classList.add('playing-video');
+                        this.loadDataAndPlayVideo(nextPLayBtn);
                     }
                 });
             });
@@ -273,7 +262,7 @@ export class ProfileFunctionality {
     }
 
     getCurrentBlock(programmId, blockId) {
-        const blockIdstring = `${programmId}_${blockId}-container`;
+        const blockIdstring = `${programmId}_${blockId}`;
         const currentBlock = document.querySelector(`[data-block_id="${blockIdstring}"]`) as HTMLElement;
 
         return currentBlock || null;
@@ -336,19 +325,30 @@ export class ProfileFunctionality {
             });
     }
 
-    initVimeoPlayer(playerEl, videoId, loadVideo = false, start = 0) {
+    initVimeoPlayer(playerEl, videoId, loadVideo = false, start = 0, cb = () => { }) {
+        let player;
 
-        // @ts-ignore
-        const player = new Vimeo.Player(playerEl, {
+        if (!loadVideo) {
+            // If player was not initialized
             // @ts-ignore
-            id: videoId,
-        });
+            player = new Vimeo.Player(playerEl, {
+                id: videoId,
+            });
 
-        loadVideo && player.loadVideo(videoId);
+            start && player.setCurrentTime(start);
 
-        if (start) {
-            player.setCurrentTime(start);
+        } else {
+            // If player already initialized
+            player = playerEl;
+            player.loadVideo(videoId).then(() => {
+                start && player.setCurrentTime(start);
+            });
         }
+
+        // Reset "after pause" event
+        player.off('pause', cb);
+        player.on('pause', cb);
+
 
         return player;
     }
@@ -358,9 +358,32 @@ export class ProfileFunctionality {
 
         blocks && blocks.forEach((el) => {
             const block = el as HTMLElement;
-            block.addEventListener('click', (e) => {
-                const player = document.querySelector(`#${block.dataset.block_id}`) as HTMLElement;
-                this.initVimeoPlayer(player, player.dataset.video_id);
+            block.addEventListener('click', () => {
+
+                const player = block.querySelector(`[data-video_container_id="${block.dataset.block_id}"]`) as HTMLElement;
+                //Get first button of block
+                const firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn') as HTMLElement;
+                const videoStartTime = firstPlayBtnInBlcok?.dataset.video_pause_time ? +firstPlayBtnInBlcok.dataset.video_pause_time : 0;
+
+                if (!player || !firstPlayBtnInBlcok) return;
+
+                // Init vimeo player after open accrodiont block
+                firstPlayBtnInBlcok.classList.add('playing-video');
+
+                const onPauseCallback = (pauseInfo) => {
+                    const parentProgramm = block.closest('.js-programm') as HTMLElement;
+                    const playVideoBtn = block.querySelector(`#video-btn-${player.dataset.video_id}`) as HTMLElement;
+
+                    if (playVideoBtn) {
+                        playVideoBtn.dataset.video_pause_time = `${pauseInfo.seconds}`;
+                    }
+
+                    this.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
+                }
+
+                //@ts-ignore
+                this.initedPlayer = this.initVimeoPlayer(player, player.dataset.video_id, false, videoStartTime, onPauseCallback);
+
             });
         });
     }
@@ -400,6 +423,7 @@ interface profileData {
 
 interface blockData {
     blockStatus: string | null;
+    blockId: string;
     // Programm Vlock Video
     videos: {
         [key: string]: videoData;

@@ -126,7 +126,6 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var ProfileFunctionality = /*#__PURE__*/function () {
   function ProfileFunctionality() {
-    var _this = this;
     _classCallCheck(this, ProfileFunctionality);
     this.profileData = {
       userId: 0,
@@ -139,24 +138,13 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         programms: {}
       }
     };
-    this.addPauseListenerToAllVideos = function () {
-      var videos = document.querySelectorAll('video');
-      videos && videos.forEach(function (el) {
-        var video = el;
-        video.addEventListener('pause', function () {
-          var parentPanel = video.closest(".js-tab-panel");
-          _this.saveVideoTimeData(video, parentPanel.id);
-        });
-      });
-    };
+    this.initedPlayer = null;
   }
   _createClass(ProfileFunctionality, [{
     key: "init",
     value: function init() {
       this.playVideoByClickInit();
-      this.addPauseListenerToAllVideos();
       this.createProfileVideoData('courses');
-      this.createProfileVideoData('lectures');
       this.playNextVideo();
       this.editFormFieldAddEvent();
       this.addEventfetchUserDataForm();
@@ -165,28 +153,29 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }, {
     key: "loadDataAndPlayVideo",
     value: function loadDataAndPlayVideo(playBtnData) {
-      var _a, _b, _c, _d, _e, _f;
+      var _a, _b, _c, _d;
       if (!playBtnData) return;
       var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
-      var videoUrl = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_url;
-      var videoTitle = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_title;
-      var videoId = (_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_id;
-      var videoPlayingByBtn = (_e = playBtnData.dataset) === null || _e === void 0 ? void 0 : _e.play_btn_id;
-      var videoPauseTime = parseFloat((_f = playBtnData.dataset) === null || _f === void 0 ? void 0 : _f.video_pause_time);
-      var videoContainer = document.querySelector("#".concat(containerId));
-      var videoTitleContainer = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.querySelector('.js-video-title');
-      console.log('videoContainer', videoContainer, playBtnData);
+      var videoTitle = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_title;
+      var videoId = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_id;
+      var videoPauseTime = parseFloat((_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_pause_time);
+      var videoContainer = document.querySelector("[data-video_container_id=\"".concat(containerId, "\"]"));
+      var blockVideoWrapper = videoContainer.closest('.js-block-video');
+      var videoTitleContainer = blockVideoWrapper === null || blockVideoWrapper === void 0 ? void 0 : blockVideoWrapper.querySelector('.js-video-title');
       if (videoTitleContainer) {
         videoTitleContainer.innerHTML = "".concat(videoTitle);
       }
       if (!videoContainer) return;
-      console.log('videoContainer', videoContainer);
-      this.initVimeoPlayer(videoContainer, videoId, true);
+      videoContainer.dataset.video_id = playBtnData.dataset.video_id;
+      var onPauseCallback = function onPauseCallback(pauseInfo) {
+        playBtnData.dataset.video_pause_time = pauseInfo.seconds;
+      };
+      this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
     }
   }, {
     key: "playVideoByClickInit",
     value: function playVideoByClickInit() {
-      var _this2 = this;
+      var _this = this;
       var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
       if (!playVideoBtns) return;
       var removeAllActiveBtns = function removeAllActiveBtns() {
@@ -199,42 +188,42 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         button.addEventListener('click', function (e) {
           e.stopPropagation();
           removeAllActiveBtns();
-          _this2.pauseAllVideos();
           button.classList.add('playing-video');
-          _this2.loadDataAndPlayVideo(button);
+          _this.loadDataAndPlayVideo(button);
         });
       });
     }
   }, {
     key: "saveVideoTimeData",
-    value: function saveVideoTimeData(video, learninMaterialType) {
-      var _a, _b, _c, _d;
-      if (!((_a = video.dataset) === null || _a === void 0 ? void 0 : _a.video_id)) return;
-      var videoDuration = video.duration;
-      var videoPauseTime = video.currentTime;
-      var programmId = (_b = video.dataset.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
-      var blockId = (_c = video.dataset.video_id) === null || _c === void 0 ? void 0 : _c.split('_')[1];
-      var videoId = (_d = video.dataset.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[2];
+    value: function saveVideoTimeData(videoContainer, videoParams, learninMaterialType) {
+      var _a, _b;
+      if (!videoContainer && !videoParams && !learninMaterialType) return;
+      var videoDuration = videoParams.duration;
+      var videoPauseTime = videoParams.seconds;
+      var programmId = (_a = videoContainer.dataset.video_container_id) === null || _a === void 0 ? void 0 : _a.split('_')[0];
+      var shortBlockId = (_b = videoContainer.dataset.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[1];
+      var videoId = videoContainer.dataset.video_id;
       var viewed = false;
-      if (videoPauseTime && videoDuration) {
-        viewed = +videoPauseTime / +videoDuration >= 0.9;
+      if (videoParams.percent) {
+        viewed = videoParams.percent >= 0.9;
       }
       var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-      var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
+      var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[shortBlockId];
+      currentBlockPath.fullBlockId = videoContainer.dataset.video_container_id;
       currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
         videoDuration: videoDuration,
         videoPauseTime: videoPauseTime,
         isVideoViewed: viewed
       });
+      console.log('related profileData', this.profileData);
       this.changeBlockStatus(currentBlockPath);
       this.changePassedBlocksCount(currentProgrammPath);
-      console.log('reated profileData', this.profileData);
       this.fetchDataToBackend(this.profileData);
     }
   }, {
     key: "createProfileVideoData",
     value: function createProfileVideoData(learninMaterialType) {
-      var _this3 = this;
+      var _this2 = this;
       var mainContainer = document.querySelector("#".concat(learninMaterialType));
       if (!mainContainer) return;
       var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
@@ -244,33 +233,31 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       playVideoBtns && playVideoBtns.forEach(function (el) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         var button = el;
-        var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
-        var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
-        var videoId = (_e = button.dataset.video_id) === null || _e === void 0 ? void 0 : _e.split('_')[2];
-        var videoTitle = button.dataset.video_title;
+        var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
+        var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_container_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
+        var videoId = (_e = button.dataset) === null || _e === void 0 ? void 0 : _e.video_id;
         var videoDuration = (_f = button.dataset) === null || _f === void 0 ? void 0 : _f.video_duration;
         var videoPauseTime = (_g = button.dataset) === null || _g === void 0 ? void 0 : _g.video_pause_time;
         var videoIsViewed = (_h = button.dataset) === null || _h === void 0 ? void 0 : _h.video_viewed;
         var blocksPassedCount = (_j = button.dataset) === null || _j === void 0 ? void 0 : _j.passed_blocks_count;
         if (!programmId || !blockId || !videoId) return;
-        if (!_this3.profileData[learninMaterialType].programms[programmId]) {
-          _this3.profileData[learninMaterialType].programms[programmId] = {
+        if (!_this2.profileData[learninMaterialType].programms[programmId]) {
+          _this2.profileData[learninMaterialType].programms[programmId] = {
             programmId: +programmId.split('-')[1] || null,
             blocksPassed: blocksPassedCount,
             blocks: {}
           };
         }
-        if (!_this3.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
-          var currentBlock = _this3.getCurrentBlock(programmId, blockId);
-          _this3.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
+        if (!_this2.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
+          var currentBlock = _this2.getCurrentBlock(programmId, blockId);
+          _this2.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
             blockStatus: ((_k = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _k === void 0 ? void 0 : _k.block_status) || null,
             videos: {}
           };
         }
-        var currentProgrammPath = _this3.profileData[learninMaterialType].programms[programmId];
+        var currentProgrammPath = _this2.profileData[learninMaterialType].programms[programmId];
         var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
         currentBlockPath.videos[videoId] = {
-          videoTitle: videoTitle || null,
           videoId: videoId || null,
           videoDuration: videoDuration || null,
           videoPauseTime: videoPauseTime || null,
@@ -280,18 +267,10 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       console.log('created profileData', this.profileData);
     }
   }, {
-    key: "pauseAllVideos",
-    value: function pauseAllVideos() {
-      var videos = document.querySelectorAll('video');
-      videos && videos.forEach(function (el) {
-        var video = el;
-        video.pause();
-      });
-    }
-  }, {
     key: "changeBlockStatus",
     value: function changeBlockStatus(currentBlockObject) {
       if (!currentBlockObject) return;
+      var status = '';
       var videosArray = Object.values(currentBlockObject.videos);
       var isBlockPassed = videosArray.every(function (video) {
         return video.isVideoViewed;
@@ -300,11 +279,30 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         return !video.isVideoViewed;
       });
       if (isBlockPassed) {
-        currentBlockObject.blockStatus = 'passed';
+        status = 'passed';
       } else if (isBlockNotPassed) {
-        currentBlockObject.blockStatus = 'not-passed';
+        status = 'not-passed';
       } else {
-        currentBlockObject.blockStatus = 'in-progress';
+        status = 'in-progress';
+      }
+      currentBlockObject.blockStatus = status;
+      this.visualUpdateBlockStatus(currentBlockObject.blockStatus, status);
+    }
+  }, {
+    key: "visualUpdateBlockStatus",
+    value: function visualUpdateBlockStatus(blockContainerId, status) {
+      var queryStr = ".js-programm-block[data-block_id=\"".concat(blockContainerId, "\"]");
+      var blockElem = document.querySelector(queryStr);
+      if (blockElem) {
+        console.log('blockElem', blockElem);
+        blockElem.dataset.block_status = status;
+        var statusContainer = blockElem.querySelector('.js-block-status');
+        if (statusContainer) {
+          statusContainer.classList.remove('passed');
+          statusContainer.classList.remove('not-passed');
+          statusContainer.classList.remove('in-progress');
+          statusContainer.classList.add(status);
+        }
       }
     }
   }, {
@@ -320,11 +318,12 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }, {
     key: "playNextVideo",
     value: function playNextVideo() {
-      var _this4 = this;
+      var _this3 = this;
       var playNextBtns = document.querySelectorAll('.js-next-video-btn');
       playNextBtns && playNextBtns.forEach(function (el) {
         var btn = el;
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
           var videoBlock = btn.closest('.js-programm-block');
           var playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
           var playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
@@ -334,8 +333,8 @@ var ProfileFunctionality = /*#__PURE__*/function () {
               var btn = el;
               btn.classList.remove('playing-video');
             });
-            _this4.loadDataAndPlayVideo(nextPLayBtn);
             nextPLayBtn.classList.add('playing-video');
+            _this3.loadDataAndPlayVideo(nextPLayBtn);
           }
         });
       });
@@ -355,7 +354,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }, {
     key: "getCurrentBlock",
     value: function getCurrentBlock(programmId, blockId) {
-      var blockIdstring = "".concat(programmId, "_").concat(blockId, "-container");
+      var blockIdstring = "".concat(programmId, "_").concat(blockId);
       var currentBlock = document.querySelector("[data-block_id=\"".concat(blockIdstring, "\"]"));
       return currentBlock || null;
     }
@@ -412,25 +411,45 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function initVimeoPlayer(playerEl, videoId) {
       var loadVideo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var start = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-      var player = new Vimeo.Player(playerEl, {
-        id: videoId
-      });
-      loadVideo && player.loadVideo(videoId);
-      if (start) {
-        player.setCurrentTime(start);
+      var cb = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+      var player;
+      if (!loadVideo) {
+        player = new Vimeo.Player(playerEl, {
+          id: videoId
+        });
+        start && player.setCurrentTime(start);
+      } else {
+        player = playerEl;
+        player.loadVideo(videoId).then(function () {
+          start && player.setCurrentTime(start);
+        });
       }
+      player.off('pause', cb);
+      player.on('pause', cb);
       return player;
     }
   }, {
     key: "initPlayerOnOpenBlock",
     value: function initPlayerOnOpenBlock() {
-      var _this5 = this;
+      var _this4 = this;
       var blocks = document.querySelectorAll('.js-programm-block');
       blocks && blocks.forEach(function (el) {
         var block = el;
-        block.addEventListener('click', function (e) {
-          var player = document.querySelector("#".concat(block.dataset.block_id));
-          _this5.initVimeoPlayer(player, player.dataset.video_id);
+        block.addEventListener('click', function () {
+          var player = block.querySelector("[data-video_container_id=\"".concat(block.dataset.block_id, "\"]"));
+          var firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn');
+          var videoStartTime = (firstPlayBtnInBlcok === null || firstPlayBtnInBlcok === void 0 ? void 0 : firstPlayBtnInBlcok.dataset.video_pause_time) ? +firstPlayBtnInBlcok.dataset.video_pause_time : 0;
+          if (!player || !firstPlayBtnInBlcok) return;
+          firstPlayBtnInBlcok.classList.add('playing-video');
+          var onPauseCallback = function onPauseCallback(pauseInfo) {
+            var parentProgramm = block.closest('.js-programm');
+            var playVideoBtn = block.querySelector("#video-btn-".concat(player.dataset.video_id));
+            if (playVideoBtn) {
+              playVideoBtn.dataset.video_pause_time = "".concat(pauseInfo.seconds);
+            }
+            _this4.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
+          };
+          _this4.initedPlayer = _this4.initVimeoPlayer(player, player.dataset.video_id, false, videoStartTime, onPauseCallback);
         });
       });
     }

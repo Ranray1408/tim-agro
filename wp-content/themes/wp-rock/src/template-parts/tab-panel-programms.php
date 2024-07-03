@@ -45,6 +45,8 @@ $user_programm = get_field_value($user_fields, $programm_type);
                     ?>
                 </div>
                 <!-- ***************** END Main accrodiont ***************** -->
+            <?php else : ?>
+                <h3 class="programm__title-not-found"><?php echo __('Нічого не знайдено', 'wp-rock'); ?></h3>
             <?php endif; ?>
         </div>
     </div>

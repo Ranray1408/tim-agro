@@ -44,28 +44,6 @@ echo esc_html(get_template_part(
     'faq'
 ));
 
-function block_status_text($status, $text_block_status) {
-    $text = '';
-
-    switch ($status) {
-        case 'not-passed':
-            $text = $text_block_status[0];
-            break;
-        case 'in-progress':
-            $text = $text_block_status[1];
-            break;
-        case 'passed':
-            $text = $text_block_status[2];
-            break;
-        default:
-            $text = $text_block_status[0];
-            $status = 'not-passed';
-    }
-
-    return $text;
-}
-
-
 function progress_bar($blocks_passed, $blocks_count) {
 
     $total_width = 161;
