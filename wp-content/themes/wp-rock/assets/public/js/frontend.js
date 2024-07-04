@@ -219,6 +219,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       this.changeBlockStatus(currentBlockPath);
       this.changePassedBlocksCount(currentProgrammPath);
       this.fetchDataToBackend(this.profileData);
+      this.visualUpdateProgressBar(videoContainer, learninMaterialType);
     }
   }, {
     key: "createProfileVideoData",
@@ -286,7 +287,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         status = 'in-progress';
       }
       currentBlockObject.blockStatus = status;
-      this.visualUpdateBlockStatus(currentBlockObject.blockStatus, status);
+      this.visualUpdateBlockStatus(currentBlockObject.fullBlockId, status);
     }
   }, {
     key: "visualUpdateBlockStatus",
@@ -304,6 +305,42 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           statusContainer.classList.add(status);
         }
       }
+    }
+  }, {
+    key: "visualUpdateProgressBar",
+    value: function visualUpdateProgressBar(videoContainer, learninMaterialType) {
+      var programmIdStr = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.dataset.video_container_id.split('_')[0];
+      var programmItem = document.querySelector("[data-programm_id=\"".concat(programmIdStr, "\"]"));
+      var progressBarWrap = programmItem.querySelector('.js-progress-info');
+      if (!this.profileData[learninMaterialType].programms) return;
+      var programmsData = this.profileData[learninMaterialType].programms;
+      if (!programmsData[programmIdStr].blocks) return;
+      var blocksData = programmsData[programmIdStr].blocks;
+      var blocksCount = Object.keys(blocksData).length;
+      var passedBlocksCount = programmsData[programmIdStr].blocksPassed;
+      var passedBlocksSpan = progressBarWrap.querySelector('.js-passed-blocks-span');
+      var progressBar = progressBarWrap.querySelector('.js-progress-bar');
+      if (progressBar) {
+        progressBar.innerHTML = this.generateProgressBar(161, blocksCount, passedBlocksCount);
+      }
+      if (passedBlocksSpan) {
+        passedBlocksSpan.innerText = "".concat(passedBlocksCount);
+      }
+    }
+  }, {
+    key: "generateProgressBar",
+    value: function generateProgressBar(totalWidth, blocksCount, blocksPassed) {
+      var blockWidth = 0;
+      if (blocksCount !== 0) {
+        blockWidth = totalWidth / blocksCount;
+      }
+      var svg = '';
+      svg += '<rect width="' + totalWidth + '" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';
+      for (var i = 0; i < blocksPassed; i++) {
+        var xPosition = i * blockWidth;
+        svg += '<rect width="' + blockWidth + '" height="5" transform="matrix(1 0 0 -1 ' + xPosition + ' 5)" fill="#53F07F" />';
+      }
+      return svg;
     }
   }, {
     key: "changePassedBlocksCount",

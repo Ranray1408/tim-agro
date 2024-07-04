@@ -40,7 +40,21 @@ $user_id = get_field_value($global_options, 'user_id');;
 
 $args = array('sort' => 'date', 'direction' => 'asc');
 $blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
-$blocks_count = !empty($blocks_folder['body']['total']) ? $blocks_folder['body']['total'] : 0;
+$blocks_count = 0;
+
+
+if(!empty($blocks_folder['body']['data'])) {
+    $array = array_filter($blocks_folder['body']['data'], function($item) {
+
+        if($item['type'] === 'folder') {
+            $total_block_videos = $item['folder']['metadata']['connections']['videos']['total'];
+
+            return  $total_block_videos;
+        }
+
+    });
+    $blocks_count = count($array);
+}
 
 
 $access_status = access_status($expire_access_date);
@@ -73,7 +87,7 @@ if (!empty($programm_data->blocks)) {
 
             <div class="progress-info">
                 <div class="progress-wrapper">
-                    <div class="progress-info-inner d-flex align-items-center">
+                    <div class="progress-info-inner js-progress-info d-flex align-items-center">
                         <div class="passed-block body-type-5 weight600">
                             <?php
                             if (str_contains($additional_class, 'lectures')) {
@@ -83,7 +97,7 @@ if (!empty($programm_data->blocks)) {
                             }
 
                             echo $text_done .
-                                '<span class="passed-blocks-span">
+                                '<span class="passed-blocks-span js-passed-blocks-span">
                                     ' . $passed_blocks_count . '
                                 </span>
                                 ' . $text_from . '
@@ -136,3 +150,4 @@ if (!empty($programm_data->blocks)) {
     ?>
     <!-- ***************** END Blocks accrodiont ***************** -->
 </div>
+<?php

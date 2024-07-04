@@ -26,6 +26,7 @@ export class ProfileFunctionality {
         this.initPlayerOnOpenBlock();
     }
 
+    //Loading video data by click
     loadDataAndPlayVideo(playBtnData) {
         if (!playBtnData) return;
 
@@ -107,6 +108,8 @@ export class ProfileFunctionality {
         this.changePassedBlocksCount(currentProgrammPath);
 
         this.fetchDataToBackend(this.profileData);
+
+        this.visualUpdateProgressBar(videoContainer, learninMaterialType);
     }
 
     createProfileVideoData(learninMaterialType) {
@@ -188,12 +191,12 @@ export class ProfileFunctionality {
         }
         currentBlockObject.blockStatus = status;
 
-        this.visualUpdateBlockStatus(currentBlockObject.blockStatus, status);
+        this.visualUpdateBlockStatus(currentBlockObject.fullBlockId, status);
     }
 
     visualUpdateBlockStatus(blockContainerId, status) {
         const queryStr = `.js-programm-block[data-block_id="${blockContainerId}"]`;
-        const blockElem = document.querySelector(queryStr) as  HTMLElement;
+        const blockElem = document.querySelector(queryStr) as HTMLElement;
 
         if (blockElem) {
             console.log('blockElem', blockElem);
@@ -207,6 +210,57 @@ export class ProfileFunctionality {
                 statusContainer.classList.add(status);
             }
         }
+    }
+
+    visualUpdateProgressBar(videoContainer, learninMaterialType) {
+
+        // Finding programm inforamtion containers
+        const programmIdStr = videoContainer?.dataset.video_container_id.split('_')[0];
+        const programmItem = document.querySelector(`[data-programm_id="${programmIdStr}"]`) as HTMLElement;
+        const progressBarWrap = programmItem.querySelector('.js-progress-info') as HTMLElement;
+
+        // Set path to programm in var
+        if (!this.profileData[learninMaterialType].programms) return;
+        const programmsData = this.profileData[learninMaterialType].programms;
+
+        // Set path to block in var
+        if (!programmsData[programmIdStr].blocks) return;
+        const blocksData = programmsData[programmIdStr].blocks;
+
+        //Get total blocks count and count of passed blocks
+        const blocksCount = Object.keys(blocksData).length
+        const passedBlocksCount = programmsData[programmIdStr].blocksPassed;
+
+        // Finding progress bar containers
+        const passedBlocksSpan = progressBarWrap.querySelector('.js-passed-blocks-span') as HTMLElement;
+        const progressBar = progressBarWrap.querySelector('.js-progress-bar') as HTMLElement;
+
+        if (progressBar) {
+            // Generate progress bar line "svg rect"
+            progressBar.innerHTML = this.generateProgressBar(161, blocksCount, passedBlocksCount);
+        }
+
+        if (passedBlocksSpan) {
+            passedBlocksSpan.innerText = `${passedBlocksCount}`;
+        }
+
+    }
+
+    generateProgressBar(totalWidth, blocksCount, blocksPassed) {
+        let blockWidth = 0;
+        if (blocksCount !== 0) {
+            blockWidth = totalWidth / blocksCount;
+        }
+
+        let svg = '';
+
+        svg += '<rect width="' + totalWidth + '" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';
+
+        for (let i = 0; i < blocksPassed; i++) {
+            const xPosition = i * blockWidth;
+            svg += '<rect width="' + blockWidth + '" height="5" transform="matrix(1 0 0 -1 ' + xPosition + ' 5)" fill="#53F07F" />';
+        }
+        return svg;
     }
 
     changePassedBlocksCount(currentProgrammObject) {
