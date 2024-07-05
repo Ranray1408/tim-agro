@@ -275,11 +275,11 @@
             "endpoint": 0
         },
         {
-            "key": "field_6617eba850a5d",
-            "label": "Page 404 background image",
-            "name": "page_404_background_image",
+            "key": "field_6617eb7e50a5a",
+            "label": "Page 404 title",
+            "name": "page_404_title",
             "aria-label": "",
-            "type": "image",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -288,21 +288,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "preview_size": "medium"
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
-            "key": "field_6617eb7e50a5a",
-            "label": "Page 404 title",
-            "name": "page_404_title",
+            "key": "field_6687ad2d6d04e",
+            "label": "Page 404 link text",
+            "name": "page_404_link_text",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -666,5 +661,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720021760
+    "modified": 1720168153
 }
