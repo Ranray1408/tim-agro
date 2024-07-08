@@ -249,7 +249,8 @@ class profile_functionality {
 
         $start_date = new DateTime();
         $expire_date = clone $start_date;
-        $expire_date->modify('+30 days');
+        // Update programm for a 90 days
+        $expire_date->modify('+90 days');
 
         $programm_type = get_post_type($programm_id);
         $user_programms_array = get_field($programm_type, 'user_' . $user_id);

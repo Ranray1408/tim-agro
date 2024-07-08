@@ -145,6 +145,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function init() {
       this.playVideoByClickInit();
       this.createProfileVideoData('courses');
+      this.createProfileVideoData('lectures');
       this.playNextVideo();
       this.editFormFieldAddEvent();
       this.addEventfetchUserDataForm();

@@ -340,6 +340,14 @@
                             margin-right: 0;
                             gap: 5px;
                         }
+
+                        .passed-block-done {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            color: var(--color-type-primary-1);
+                        }
                     }
 
                     .progress-info-inner {

@@ -17,7 +17,7 @@ export class ProfileFunctionality {
     init() {
         this.playVideoByClickInit();
         this.createProfileVideoData('courses');
-        //this.createProfileVideoData('lectures');
+        this.createProfileVideoData('lectures');
         this.playNextVideo();
         // User info form
         this.editFormFieldAddEvent();
