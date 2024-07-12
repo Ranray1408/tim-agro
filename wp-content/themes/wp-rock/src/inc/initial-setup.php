@@ -73,7 +73,7 @@ if (!empty($client_id) && !empty($client_secret) && !empty($client_token)) {
 }
 
 function log_data($data) {
-    $log_file = WP_CONTENT_DIR . '/monobank_webhooks.log';
+    $log_file = WP_CONTENT_DIR . '/error_logs.log';
     $log_entry = date('[Y-m-d H:i:s]') . ' ' . json_encode($data) . PHP_EOL;
     file_put_contents($log_file, $log_entry, FILE_APPEND);
 }
@@ -84,4 +84,4 @@ $monobank = new MonobankPayment($monobank_token);
 
 global $monobank;
 
-$monobank->init($token);
+$monobank->init($monobank_token);
