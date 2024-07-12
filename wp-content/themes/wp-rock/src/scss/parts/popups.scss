@@ -300,6 +300,10 @@
             @media screen and (max-width: 768px) {
                 text-align: center;
             }
+
+            a {
+                color: var(--color-type-primary-1);
+            }
         }
     }
 }

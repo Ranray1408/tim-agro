@@ -34,9 +34,6 @@ class profile_functionality {
         // Add programm access to user
         add_action('wp_ajax_set_new_password', array($this, 'set_new_password_action'));
         add_action('wp_ajax_nopriv_set_new_password', array($this, 'set_new_password_action'));
-
-        add_action('wp_ajax_nopriv_FAKE_PAY_SYSTEM', array($this, 'FAKE_PAY_SYSTEM'));
-        add_action('wp_ajax_FAKE_PAY_SYSTEM', array($this, 'FAKE_PAY_SYSTEM'));
     }
     /**
      * Adds JSON video data.
@@ -47,11 +44,11 @@ class profile_functionality {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (empty($data)) {
-            wp_send_json_error('Немає необхідних даних.');
+            wp_send_json_error(__('Немає необхідних даних.', 'wp-rock'));
         }
 
         if (empty($data['userId'])) {
-            wp_send_json_error('Немає ідентифікатора користувача.');
+            wp_send_json_error(__('Немає ідентифікатора користувача.', 'wp-rock'));
         }
         $result_courses = $this->update_user_programm($data['courses'], $data['userId']);
         $result_lectures = $this->update_user_programm($data['lectures'], $data['userId']);
@@ -68,7 +65,7 @@ class profile_functionality {
      *
      * @return void
      */
-    private function update_user_programm($data, $user_id) {
+    public function update_user_programm($data, $user_id) {
         if (empty($data)) return false;
 
         $user_programm = get_field($data['programmType'], 'user_' . $user_id);
@@ -105,14 +102,14 @@ class profile_functionality {
         ));
 
         if (is_wp_error($updated)) {
-            wp_send_json_error('Помилка оновлення даних користувача.');
+            wp_send_json_error(__('Помилка оновлення даних користувача.', 'wp-rock'));
         }
 
 
         if (!empty($file)) {
             $avatar_id = media_handle_upload('avatar', 0);
             if (is_wp_error($avatar_id)) {
-                wp_send_json_error('Помилка завантаження аватара.');
+                wp_send_json_error(__('Помилка завантаження аватара.', 'wp-rock'));
             }
             update_field('user_avatar', $avatar_id, 'user_' . $user_id);
         }
@@ -120,10 +117,10 @@ class profile_functionality {
         $user_phone = update_field('user_phone', $phone, 'user_' . $user_id);
 
         if (is_wp_error($user_phone)) {
-            wp_send_json_error('Помилка оновлення телефону.');
+            wp_send_json_error(__('Помилка оновлення телефону.', 'wp-rock'));
         }
 
-        wp_send_json_success('Дані успішно оновлено.');
+        wp_send_json_success(__('Дані успішно оновлено.', 'wp-rock'));
     }
     /**
      * Handles user login via AJAX.
@@ -135,22 +132,22 @@ class profile_functionality {
         $password = filter_input(INPUT_POST, 'user-password', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (empty($username_or_email) || empty($password)) {
-            wp_send_json_error('Будь ласка, введіть ім\'я користувача та пароль.');
+            wp_send_json_error(__('Будь ласка, введіть ім\'я користувача та пароль.', 'wp-rock'));
         }
 
         $user = $this->get_user_by_email_or_name($username_or_email);
 
         if (is_wp_error($user)) {
-            wp_send_json_error('Не вдається знайти користувача за електронною поштою чи іменем.');
+            wp_send_json_error(__('Не вдається знайти користувача за електронною поштою чи іменем.', 'wp-rock'));
         }
 
         $user_logined = $this->login_user($user, $password);
 
         if (is_wp_error($user_logined)) {
-            wp_send_json_error('Невірний логін або пароль.');
+            wp_send_json_error(__('Невірний логін або пароль.', 'wp-rock'));
         }
 
-        wp_send_json_success('Вхід виповнено.');
+        wp_send_json_success(__('Вхід виповнено.', 'wp-rock'));
     }
     /**
      * Handles forgot password functionality.
@@ -166,14 +163,14 @@ class profile_functionality {
 
             $user = get_user_by('email', $user_email);
             if (!$user) {
-                wp_send_json_error('Користувач з даним email не знайдений.');
+                wp_send_json_error(__('Користувач з даним email не знайдений.', 'wp-rock'));
             } else {
                 $email_sent = $this->send_reset_user_password($user, $forgot_password_page);
 
                 if ($email_sent) {
-                    wp_send_json_success('Посилання для скидання пароля відправлено на ваш email.');
+                    wp_send_json_success(__('Посилання для скидання пароля відправлено на ваш email.', 'wp-rock'));
                 } else {
-                    wp_send_json_error('Сталася помилка під час відправлення email. Будь ласка, спробуйте ще раз.');
+                    wp_send_json_error(__('Сталася помилка під час відправлення email. Будь ласка, спробуйте ще раз.', 'wp-rock'));
                 }
             }
         }
@@ -190,24 +187,24 @@ class profile_functionality {
         $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
         $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $program_id = filter_input(INPUT_POST, 'program_id', FILTER_VALIDATE_INT);
+        //$program_id = filter_input(INPUT_POST, 'post-id', FILTER_VALIDATE_INT);
         $user = get_user_by('email', $user_email);
 
         if ($user) {
             //If have user login it
-            wp_send_json_error('Такий користувач вже існує.');
+            wp_send_json_error(__('Такий користувач вже існує.', 'wp-rock'));
         } else {
             // Register new user
             $user_data = $this->register_user($user_email, $user_name, $user_phone);
             if (!$user_data) {
-                wp_send_json_error('Помилка реєстрації користувача.');
+                wp_send_json_error(__('Помилка реєстрації користувача.', 'wp-rock'));
             }
 
             // After registering user send to email generated password
             $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
 
             if (!$email_sent) {
-                wp_send_json_error('Електронний лист не було надіслано.');
+                wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
             }
 
             //Login registered user
@@ -216,14 +213,11 @@ class profile_functionality {
                 wp_send_json_error($logged_in->get_error_message());
             }
 
-            $result = $this->add_update_user_programm($program_id, $user_data['user']->ID);
 
-            if ($result == false) {
-                wp_send_json_error('Програма не була додана в профіль.');
-            }
+            wp_send_json_success(__('Користувач був зареєстрований', 'wp-rock'));
         }
 
-        wp_send_json_error('Щось пішло не так.');
+        wp_send_json_error(__('Щось пішло не так.', 'wp-rock'));
     }
 
 
@@ -232,19 +226,21 @@ class profile_functionality {
         $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (!$post_id || !$user_id) {
-            wp_send_json_error('Деякі дані порожні.');
+            wp_send_json_error(__('Деякі дані порожні.', 'wp-rock'));
         }
 
         $result = $this->add_update_user_programm($post_id, $user_id);
 
-        if (!$result) {
-            wp_send_json_error('Щось пішло не так зверніться до адміністратора.');
+        if (!$result['success']) {
+            wp_send_json_error(__('Щось пішло не так зверніться до адміністратора.', 'wp-rock'));
         }
+
+        wp_send_json_success($result['text']);
     }
 
-    private function add_update_user_programm($programm_id, $user_id) {
+    public function add_update_user_programm($programm_id, $user_id) {
         if (!$programm_id || !$user_id) {
-            wp_send_json_error('Some data is empty');
+            wp_send_json_error(__('Деякі дані не завнені', 'wp-rock'));
         }
 
         $start_date = new DateTime();
@@ -255,6 +251,7 @@ class profile_functionality {
         $programm_type = get_post_type($programm_id);
         $user_programms_array = get_field($programm_type, 'user_' . $user_id);
 
+        $result = array('success' => false, 'text' => 'Unknown error');
 
         $existing_programm_key = $this->is_programm_exist($user_programms_array, $programm_id);
 
@@ -265,7 +262,8 @@ class profile_functionality {
 
             // Update the field with the new array
             update_field($programm_type, $user_programms_array, 'user_' . $user_id);
-            wp_send_json_success('Доступ до курсу був продовжений.');
+            $result['text'] = __('Доступ до курсу був продовжений.', 'wp-rock');
+            $result['success'] = true;
         } else {
             // If programm not exist add it to user
             $new_program_access = array(
@@ -276,8 +274,11 @@ class profile_functionality {
             $user_programms_array[] = $new_program_access;
             // Update the field with the new array
             update_field($programm_type, $user_programms_array, 'user_' . $user_id);
-            wp_send_json_success('Курс був доданий до вашого профілю.');
+            $result['text'] = __('Курс був доданий до вашого профілю.', 'wp-rock');
+            $result['success'] = true;
         }
+
+        return $result;
     }
 
 
@@ -360,14 +361,16 @@ class profile_functionality {
 
         $headers = array('Content-Type: text/html; charset=UTF-8');
 
-        $body    = "<h2>Ви відправили запит на відновлення паролю:</h2>
-                    <p>Для зміни паролю будь ласка перейдіть за посиланням:</p>
-                    <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">Скинути пароль</a></p>";
+        $body    = "<h2>" . __('Ви відправили запит на відновлення паролю:', 'wp-rock') . "</h2>
+                    <p>" . __('Для зміни паролю будь ласка перейдіть за посиланням:', 'wp-rock') . "</p>
+                    <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">
+                        " . __('Скинути пароль', 'wp-rock') . "</a></p>";
 
-        if(!empty($generate_pass)) {
-            $body    = "<h2>Вам було надано автоматично сгенерований пароль: " . $generate_pass . "</h2>
-                        <p>Для зміни сгенерованого паролю перейдіть за посиланням:</p>
-                        <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">Скинути пароль</a></p>";
+        if (!empty($generate_pass)) {
+            $body    = "<h2>" . __('Вам було надано автоматично сгенерований пароль:', 'wp-rock') . " " . $generate_pass . "</h2>
+                        <p>" . __('Для зміни сгенерованого паролю перейдіть за посиланням:', 'wp-rock') . "</p>
+                        <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">
+                            " . __('Скинути пароль', 'wp-rock') . "</a></p>";
         }
 
 
@@ -382,15 +385,11 @@ class profile_functionality {
         $user = get_user_by('email', $user_email);
 
         if (!$user) {
-            wp_send_json_error('Користувач с таким email не знайдений.');
+            wp_send_json_error(__('Користувач с таким email не знайдений.', 'wp-rock'));
         }
 
         wp_set_password($user_new_password, $user->ID);
 
-        wp_send_json_success('Пароль оновлено.');
-    }
-
-    public function FAKE_PAY_SYSTEM() {
-        wp_send_json_success('Pay was successful');
+        wp_send_json_success(__('Пароль оновлено.', 'wp-rock'));
     }
 }

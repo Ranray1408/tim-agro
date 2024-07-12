@@ -4,7 +4,7 @@ export class FormsActionsClass {
         this.validateField = validateField; // function
     }
 
-    init() {
+    async init() {
         this.checkFormFields();
 
         this.loginFormFetch();
@@ -131,20 +131,18 @@ export class FormsActionsClass {
 
         if (!getAccessForm) return;
 
+        // Get access to programm: register and buying programm
         getAccessForm &&
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //FETCH TO FAKE PAY SYSTEM
-                const payRes = await this.paySystemFetch();
-
-                console.log('payRes', payRes);
-                if (payRes.success) {
-                    const res = await this.fetchToAction(getAccessForm, 'register_login_user');
-                    if (res.success) {
-                        this.popupInstance.forceCloseAllPopup();
-                        this.popupInstance.openOnePopup('#pay-success-response');
-
+                //Regsiter and login user
+                const res = await this.fetchToAction(getAccessForm, 'register_login_user');
+                if (res.success) {
+                    //FETCH TO MONO PAY SYSTEM
+                    const payRes = await this.fetchToAction(getAccessForm, 'create_payment_action');
+                    if (payRes.success) {
+                        window.location.href = payRes.data.pageUrl;
                     } else {
                         this.setDataToRespContainer(res, getAccessForm);
                     }
@@ -174,17 +172,7 @@ export class FormsActionsClass {
             newPasswordForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const formData = new FormData(newPasswordForm);
-
-                const resJSON = await fetch(
-                    `${var_from_php.ajax_url}?action=set_new_password`,
-                    {
-                        method: 'POST',
-                        body: formData,
-                    }
-                );
-
-                const res = await resJSON.json();
+                const res = await this.fetchToAction(newPasswordForm, 'set_new_password');
 
                 this.setDataToRespContainer(res, newPasswordForm);
 
@@ -196,29 +184,20 @@ export class FormsActionsClass {
 
         if (!buyProgrammForm) return;
 
+        // Buy programm by registered user
         buyProgrammForm &&
             buyProgrammForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //FETCH TO FAKE PAY SYSTEM
-                const res = await this.paySystemFetch();
-                console.log('res.success', res.success);
-                if (res.success) {
-                    this.setDataToRespContainer(res, buyProgrammForm);
-                    const res2 = await this.fetchToAction(buyProgrammForm, 'add_programm_to_user');
+                //FETCH TO MONO PAY SYSTEM ( Create pay account)
+                const res = await this.fetchToAction(buyProgrammForm, 'create_payment_action');
+                console.log('payRes', res);
 
-                    if (res2.success) {
-                        this.setDataToRespContainer(res2, buyProgrammForm);
-                    }
+                if (res.success) {
+                    //If success return to pay page
+                    window.location.href = res.data.pageUrl;
                 }
             });
-    }
-
-    async paySystemFetch() {
-        const resJSON = await fetch(`${var_from_php.ajax_url}?action=FAKE_PAY_SYSTEM`);
-        const res = await resJSON.json();
-
-        return res;
     }
 
     setDataToRespContainer(res, parentForm) {

@@ -131,8 +131,10 @@ if (!empty($programm_data->blocks)) {
                     access_date_block($access_status, $expire_access_date, $text_access_date);
                     if ($access_status === 'access-expired') {
                         echo '<form class="programm__continue-access-form js-buy-programm-form">
-                                    <input type="hidden" name="user-id"
-                                        value="' . $current_user->ID . '">
+                                    <input type="hidden" name="redirect-page"
+                                        value="' . get_the_permalink() . '">
+                                    <input type="hidden" name="email"
+                                        value="' . $current_user->user_email . '">
                                     <input type="hidden" name="post-id"
                                         value="' . $post_id . '">
                                     <input type="submit" value="' . esc_html($text_continue_access) . '"

@@ -52,11 +52,13 @@ function get_field_value($data_arr, $key) {
     return (isset($data_arr[$key])) ? $data_arr[$key] : null;
 }
 
+global $profile_functionality;
 $profile_functionality = new profile_functionality();
 $profile_functionality->init();
 
 // Vimeo SDK
 require get_template_directory() . '/vendor/autoload.php';
+
 use Vimeo\Vimeo;
 
 global $global_options;
@@ -65,8 +67,21 @@ $client_secret = get_field_value($global_options, 'client_secret');
 $client_token = get_field_value($global_options, 'client_token');
 
 global $client;
-if(!empty($client_id) && !empty($client_secret) && !empty($client_token)) {
+if (!empty($client_id) && !empty($client_secret) && !empty($client_token)) {
     // @intelephense-disable-line
     $client = new Vimeo($client_id, $client_secret, $client_token);
 }
 
+function log_data($data) {
+    $log_file = WP_CONTENT_DIR . '/monobank_webhooks.log';
+    $log_entry = date('[Y-m-d H:i:s]') . ' ' . json_encode($data) . PHP_EOL;
+    file_put_contents($log_file, $log_entry, FILE_APPEND);
+}
+
+$monobank_token = get_field_value($global_options, 'monobank_token');
+// Monobank payment
+$monobank = new MonobankPayment($monobank_token);
+
+global $monobank;
+
+$monobank->init($token);

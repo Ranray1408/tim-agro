@@ -28,6 +28,12 @@ function ready() {
     profileFunctionality.init();
     formsActionClass.init();
 
+    const paySuccessResponse = document.querySelector('#pay-success-response');
+
+    if (paySuccessResponse) {
+        popupInstance.openOnePopup('#pay-success-response');
+    }
+
     anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', () => {
         siteHeader && siteHeader.classList.remove('menu-opened');
         document.body.classList.remove('popup-opened');

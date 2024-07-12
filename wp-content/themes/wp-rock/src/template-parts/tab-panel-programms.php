@@ -1,6 +1,7 @@
 <?php
 
 global $global_options;
+global $monobank;
 
 $fields = get_fields();
 
@@ -22,6 +23,8 @@ $user_fields = get_fields('user_' . $current_user->ID);
 
 //Information from saved user data
 $user_programm = get_field_value($user_fields, $programm_type);
+
+$payment = $monobank->check_payment();
 ?>
 
 <div id="<?php echo $programm_type; ?>" class="profile__panel js-programm js-tab-panel <?php echo $additional_class; ?>" data-programm_type="<?php echo $programm_type; ?>" data-user_id="<?php echo $current_user->ID; ?>">
@@ -41,6 +44,11 @@ $user_programm = get_field_value($user_fields, $programm_type);
                             'additional_class' => $additional_class,
                             'current_user' => $current_user,
                         ));
+
+                        echo get_template_part('src/template-parts/pay-success-response', null, array(
+                            'payment' => $payment,
+                            'post_id' => $user_programm_item['post_id']
+                        ));
                     endforeach;
                     ?>
                 </div>
@@ -52,3 +60,4 @@ $user_programm = get_field_value($user_fields, $programm_type);
     </div>
 </div>
 <?php
+
