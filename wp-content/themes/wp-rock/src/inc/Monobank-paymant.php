@@ -82,20 +82,43 @@ class MonobankPayment {
     }
 
     public function create_payment_action() {
-        $registration = filter_input(INPUT_POST, 'registration', FILTER_VALIDATE_INT);
         $redirect_page = filter_input(INPUT_POST, 'redirect-page', FILTER_VALIDATE_URL);
         $post_id = filter_input(INPUT_POST, 'post-id', FILTER_VALIDATE_INT);
         $user_email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        // If this registration form
+        $registration = filter_input(INPUT_POST, 'registration', FILTER_VALIDATE_INT);
+        // If this form to continue access
+        $current_period_index = filter_input(INPUT_POST, 'continue-period', FILTER_VALIDATE_INT);
+
 
         $params = $registration ? '?first-login=true' : '';
 
+        //Get post fields
         $post_fields = get_fields($post_id);
         $price = get_field_value($post_fields, 'price');
-        $price = $price ? $price * 100 : 0;
+        $continue_checkboxes = get_field_value($post_fields, 'continue_checkboxes');
+        $continue_price = $continue_checkboxes[$current_period_index - 1]['price'] ?? null;
+        $access_period = $continue_checkboxes[$current_period_index - 1]['period'] ?? 90;
+        $continue_price = (int)preg_replace('/\D/', '', $continue_price);
+
+        $final_price = 0;
+
+        if ($continue_price) {
+            $final_price = $continue_price * 100;
+        } else {
+            $final_price = (int)$price * 100;
+        }
+
+        if(!empty($params)) {
+            $params .= '&access_period=' . $access_period;
+        } else {
+            $params = '?access_period=' . $access_period;
+        }
+
         $currency = 980;
         $current_url = $redirect_page ? $redirect_page : get_site_url();
 
-        $result = $this->createPayment('1111-1111-1111-1111', $price, $currency, $current_url, $current_url . $params);
+        $result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
 
         if ($result['success']) {
             set_transient($user_email . '_payment', $result['data']['invoiceId']);

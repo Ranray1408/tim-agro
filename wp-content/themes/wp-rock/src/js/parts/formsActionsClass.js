@@ -131,7 +131,7 @@ export class FormsActionsClass {
 
         if (!getAccessForm) return;
 
-        // Get access to programm: register and buying programm
+        // Get access to programm: registering user and buying programm
         getAccessForm &&
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -143,9 +143,9 @@ export class FormsActionsClass {
                     const payRes = await this.fetchToAction(getAccessForm, 'create_payment_action');
                     if (payRes.success) {
                         window.location.href = payRes.data.pageUrl;
-                    } else {
-                        this.setDataToRespContainer(res, getAccessForm);
                     }
+                } else {
+                    this.setDataToRespContainer(res, getAccessForm);
                 }
 
             });
@@ -191,7 +191,6 @@ export class FormsActionsClass {
 
                 //FETCH TO MONO PAY SYSTEM ( Create pay account)
                 const res = await this.fetchToAction(buyProgrammForm, 'create_payment_action');
-                console.log('payRes', res);
 
                 if (res.success) {
                     //If success return to pay page

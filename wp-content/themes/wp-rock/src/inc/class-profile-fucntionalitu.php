@@ -29,7 +29,7 @@ class profile_functionality {
         add_action('wp_ajax_register_login_user', array($this, 'register_login_user_action'));
         add_action('wp_ajax_nopriv_register_login_user', array($this, 'register_login_user_action'));
         // Add programm access to user
-        add_action('wp_ajax_add_programm_to_user', array($this, 'add_programm_to_user_action'));
+        //add_action('wp_ajax_add_programm_to_user', array($this, 'add_programm_to_user_action'));
 
         // Add programm access to user
         add_action('wp_ajax_set_new_password', array($this, 'set_new_password_action'));
@@ -186,12 +186,12 @@ class profile_functionality {
         $user_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
         $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
         $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
+        $promocode = filter_input(INPUT_POST, 'promocode', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        //$program_id = filter_input(INPUT_POST, 'post-id', FILTER_VALIDATE_INT);
         $user = get_user_by('email', $user_email);
 
         if ($user) {
-            //If have user login it
+            //If have user already registered
             wp_send_json_error(__('Такий користувач вже існує.', 'wp-rock'));
         } else {
             // Register new user
@@ -220,40 +220,72 @@ class profile_functionality {
         wp_send_json_error(__('Щось пішло не так.', 'wp-rock'));
     }
 
+    private function promocode_validation($promocode, $user_email) {
+        $args = array(
+            'post_type' => 'promocodes'
+        );
 
-    public function add_programm_to_user_action() {
-        $user_id = filter_input(INPUT_POST, 'user-id', FILTER_VALIDATE_INT);
-        $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $promocodes = get_posts($args);
+        $user = get_user_by('email', $user_email);
 
-        if (!$post_id || !$user_id) {
-            wp_send_json_error(__('Деякі дані порожні.', 'wp-rock'));
+        if (!empty($promocodes)) {
+            foreach ($promocodes as $poromocode) {
+
+            }
         }
 
-        $result = $this->add_update_user_programm($post_id, $user_id);
+        if ($user) {
+            $user_promocode_field = get_field('promocode', 'user_' . $user->ID);
 
-        if (!$result['success']) {
-            wp_send_json_error(__('Щось пішло не так зверніться до адміністратора.', 'wp-rock'));
+            if ($user_promocode_field === $promocode) {
+                return true;
+            }
         }
 
-        wp_send_json_success($result['text']);
+        return false;
     }
 
-    public function add_update_user_programm($programm_id, $user_id) {
-        if (!$programm_id || !$user_id) {
+    public function generate_promocode() {
+        $args = array(
+            ''
+        );
+
+        $promocode_id = wp_insert_post($args);
+    }
+
+    // public function add_programm_to_user_action() {
+    //     $user_id = filter_input(INPUT_POST, 'user-id', FILTER_VALIDATE_INT);
+    //     $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    //     if (!$post_id || !$user_id) {
+    //         wp_send_json_error(__('Деякі дані порожні.', 'wp-rock'));
+    //     }
+
+    //     $result = $this->add_update_user_programm($post_id, $user_id, 30);
+
+    //     if (!$result['success']) {
+    //         wp_send_json_error(__('Щось пішло не так зверніться до адміністратора.', 'wp-rock'));
+    //     }
+
+    //     wp_send_json_success($result['text']);
+    // }
+
+    public function add_update_user_programm($programm_id, $user_id, $days_period) {
+        if (!$programm_id || !$user_id || !$days_period) {
             wp_send_json_error(__('Деякі дані не завнені', 'wp-rock'));
         }
 
         $start_date = new DateTime();
         $expire_date = clone $start_date;
         // Update programm for a 90 days
-        $expire_date->modify('+90 days');
+        $expire_date->modify('+' . $days_period . ' days');
 
         $programm_type = get_post_type($programm_id);
         $user_programms_array = get_field($programm_type, 'user_' . $user_id);
 
         $result = array('success' => false, 'text' => 'Unknown error');
 
-        $existing_programm_key = $this->is_programm_exist($user_programms_array, $programm_id);
+        $existing_programm_key = $this->is_user_have_programm($user_programms_array, $programm_id);
 
         if ($existing_programm_key !== false) {
             //If programm already existing update access date
@@ -282,7 +314,9 @@ class profile_functionality {
     }
 
 
-    private function is_programm_exist($user_programms_array, $programm_id) {
+    public function is_user_have_programm($user_programms_array, $programm_id) {
+        if (!$user_programms_array) return false;
+
         // Check if the program already exists in the user's array
         foreach ($user_programms_array as $key => $program) {
             if ($program['post_id'] == $programm_id) {

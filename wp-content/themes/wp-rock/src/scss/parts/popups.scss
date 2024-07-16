@@ -1,3 +1,4 @@
+#continue-access-popup,
 #pay-success-response,
 #forgot-password-popup,
 #login-popup,
@@ -146,6 +147,37 @@
 
             @media screen and (max-width: 570px) {
                 margin-bottom: 38px;
+            }
+        }
+
+        &.promocode {
+            justify-content: flex-start;
+            .input-label {
+                display: flex;
+                align-items: center;
+                margin-top: 26px;
+
+                @media screen and (max-width: 415px) {
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                input[type="text"] {
+                    border: 1px solid var(--color-type-dark-1);
+                    background-color: #F2F3EB;
+                    width: 161px;
+                    height: 31px;
+                }
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                span {
+                    margin-right: 18px;
+                    font-size: 16px;
+                }
             }
         }
     }
@@ -303,6 +335,95 @@
 
             a {
                 color: var(--color-type-primary-1);
+            }
+        }
+    }
+}
+
+#continue-access-popup {
+    .continue-access-popup {
+        &__title {
+            color: var(--color-type-dark-1);
+            font-size: 50px;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 44px;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 36px;
+            }
+
+            @media screen and (max-width: 670px) {
+                font-size: 22px;
+            }
+
+            &:after {
+                width: 44px;
+                top: -16px;
+                left: 0;
+            }
+        }
+
+        &__text {
+            color: var(--color-type-dark-1);
+            margin-bottom: 26px;
+        }
+
+        &__checks-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 33px;
+        }
+
+        &__checkbox {
+            position: relative;
+            cursor: pointer;
+
+            input {
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+
+            input:checked+.continue-access-popup__checkbox-inner {
+                background: var(--color-type-dark-1);
+
+                span {
+                    color: var(--color-type-primary-white);
+
+                    @media screen and (max-width: 415px) {
+                        font-size: 14px;
+                    }
+
+                    &:last-child {
+                        color: var(--color-type-primary-1);
+                    }
+                }
+            }
+        }
+
+        &__checkbox-inner {
+            background-color: var(--color-type-primary-white-4);
+            padding: 8px 13px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            height: 100%;
+
+            span {
+                color: var(--color-type-dark-1);
+
+                &:last-child {
+                    font-weight: 800;
+                    color: var(--color-type-primary-1);
+                }
             }
         }
     }

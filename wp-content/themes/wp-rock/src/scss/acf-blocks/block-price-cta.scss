@@ -63,18 +63,21 @@
         }
     }
 
-    &__buy-programm-form {
+    &__cta-button,
+    &__buy-programm-btn {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    &__cta-button {
         margin: 32px auto 0;
 
         @media screen and (max-width: 768px) {
             margin: 25px auto 0;
         }
+    }
+
+    &__buy-programm-form {
+        display: flex;
+        justify-content: center;
     }
 
     &__socials {

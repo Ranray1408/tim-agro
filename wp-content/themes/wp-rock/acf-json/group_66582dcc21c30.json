@@ -6,6 +6,7 @@
             "key": "field_665de1bbccb2b",
             "label": "User phone",
             "name": "user_phone",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_665efa1c647e2",
             "label": "User avatar",
             "name": "user_avatar",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -49,6 +51,7 @@
             "key": "field_66582dd26e3bc",
             "label": "Courses",
             "name": "courses",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -62,12 +65,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_66582de06e3bd",
                     "label": "Post id",
                     "name": "post_id",
+                    "aria-label": "",
                     "type": "post_object",
                     "instructions": "",
                     "required": 0,
@@ -84,12 +89,14 @@
                     "allow_null": 0,
                     "multiple": 0,
                     "return_format": "id",
-                    "ui": 1
+                    "ui": 1,
+                    "parent_repeater": "field_66582dd26e3bc"
                 },
                 {
                     "key": "field_665850f6f60c9",
                     "label": "Start access date",
                     "name": "start_access_date",
+                    "aria-label": "",
                     "type": "date_picker",
                     "instructions": "",
                     "required": 0,
@@ -101,12 +108,14 @@
                     },
                     "display_format": "d.m.Y",
                     "return_format": "d.m.Y",
-                    "first_day": 1
+                    "first_day": 1,
+                    "parent_repeater": "field_66582dd26e3bc"
                 },
                 {
                     "key": "field_66582def6e3be",
                     "label": "Expire access  date",
                     "name": "expire_access_date",
+                    "aria-label": "",
                     "type": "date_picker",
                     "instructions": "",
                     "required": 0,
@@ -118,12 +127,14 @@
                     },
                     "display_format": "d.m.Y",
                     "return_format": "d.m.Y",
-                    "first_day": 1
+                    "first_day": 1,
+                    "parent_repeater": "field_66582dd26e3bc"
                 },
                 {
                     "key": "field_6658511ff60ca",
                     "label": "Programm data",
                     "name": "programm_data",
+                    "aria-label": "",
                     "type": "textarea",
                     "instructions": "",
                     "required": 0,
@@ -137,7 +148,8 @@
                     "placeholder": "",
                     "maxlength": "",
                     "rows": "",
-                    "new_lines": ""
+                    "new_lines": "",
+                    "parent_repeater": "field_66582dd26e3bc"
                 }
             ]
         },
@@ -145,6 +157,7 @@
             "key": "field_665f24c5bcad9",
             "label": "Lectures",
             "name": "lectures",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -158,12 +171,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_665f24c5bcada",
                     "label": "Post id",
                     "name": "post_id",
+                    "aria-label": "",
                     "type": "post_object",
                     "instructions": "",
                     "required": 0,
@@ -180,12 +195,14 @@
                     "allow_null": 0,
                     "multiple": 0,
                     "return_format": "id",
-                    "ui": 1
+                    "ui": 1,
+                    "parent_repeater": "field_665f24c5bcad9"
                 },
                 {
                     "key": "field_665f24c5bcadb",
                     "label": "Start access date",
                     "name": "start_access_date",
+                    "aria-label": "",
                     "type": "date_picker",
                     "instructions": "",
                     "required": 0,
@@ -197,12 +214,14 @@
                     },
                     "display_format": "d.m.Y",
                     "return_format": "d.m.Y",
-                    "first_day": 1
+                    "first_day": 1,
+                    "parent_repeater": "field_665f24c5bcad9"
                 },
                 {
                     "key": "field_665f24c5bcadc",
                     "label": "Expire access  date",
                     "name": "expire_access_date",
+                    "aria-label": "",
                     "type": "date_picker",
                     "instructions": "",
                     "required": 0,
@@ -214,12 +233,14 @@
                     },
                     "display_format": "d.m.Y",
                     "return_format": "d.m.Y",
-                    "first_day": 1
+                    "first_day": 1,
+                    "parent_repeater": "field_665f24c5bcad9"
                 },
                 {
                     "key": "field_665f24c5bcadd",
                     "label": "Programm data",
                     "name": "programm_data",
+                    "aria-label": "",
                     "type": "textarea",
                     "instructions": "",
                     "required": 0,
@@ -233,9 +254,30 @@
                     "placeholder": "",
                     "maxlength": "",
                     "rows": "",
-                    "new_lines": ""
+                    "new_lines": "",
+                    "parent_repeater": "field_665f24c5bcad9"
                 }
             ]
+        },
+        {
+            "key": "field_6696599ed8f92",
+            "label": "Promocode",
+            "name": "promocode",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -263,5 +305,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717517016
+    "modified": 1721129391
 }

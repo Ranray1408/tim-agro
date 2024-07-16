@@ -49,6 +49,10 @@ $payment = $monobank->check_payment();
                             'payment' => $payment,
                             'post_id' => $user_programm_item['post_id']
                         ));
+
+                        echo get_template_part('src/template-parts/continue-access-popup', null, array(
+                            'post_id' => $user_programm_item['post_id']
+                        ));
                     endforeach;
                     ?>
                 </div>
@@ -60,4 +64,3 @@ $payment = $monobank->check_payment();
     </div>
 </div>
 <?php
-

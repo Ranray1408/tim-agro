@@ -26,6 +26,11 @@ $circle_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" vi
 </defs>
 </svg>';
 
+$headers = [
+    'Authorization: Bearer ' . $access_token,
+    'Content-Type: application/json',
+];
+
 if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
