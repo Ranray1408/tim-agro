@@ -3,11 +3,11 @@
     "title": "Promocode fields",
     "fields": [
         {
-            "key": "field_66965ce021635",
-            "label": "Promocode",
-            "name": "promocode",
+            "key": "field_6696aca7a399c",
+            "label": "Using date",
+            "name": "using_date",
             "aria-label": "",
-            "type": "text",
+            "type": "date_picker",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,11 +16,9 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
         },
         {
             "key": "field_66965d1621636",
@@ -36,36 +34,16 @@
                 "class": "",
                 "id": ""
             },
-            "display_format": "d\/m\/Y",
-            "return_format": "d\/m\/Y",
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
             "first_day": 1
-        },
-        {
-            "key": "field_66965d8721638",
-            "label": "Max using time",
-            "name": "max_using_time",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         },
         {
             "key": "field_66965d7321637",
             "label": "Used",
             "name": "used",
             "aria-label": "",
-            "type": "text",
+            "type": "true_false",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -74,16 +52,16 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
         },
         {
             "key": "field_66965db121639",
-            "label": "User used",
-            "name": "user_used",
+            "label": "User who used",
+            "name": "user_who_used",
             "aria-label": "",
             "type": "user",
             "instructions": "",
@@ -98,6 +76,54 @@
             "return_format": "id",
             "multiple": 0,
             "allow_null": 0
+        },
+        {
+            "key": "field_66965d8721638",
+            "label": "Discount type",
+            "name": "discount_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "percent": "Percent",
+                "fixed": "Fixed"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6696abafcf107",
+            "label": "Discount value",
+            "name": "discount_value",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -118,5 +144,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721130564
+    "modified": 1721309494
 }

@@ -6,6 +6,7 @@
             "key": "field_6655b628a7a9e",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_6655b635a7a9f",
             "label": "Show link",
             "name": "show_link",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -44,6 +46,7 @@
             "key": "field_6655b676a7aa0",
             "label": "Price",
             "name": "price",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -71,6 +74,7 @@
             "key": "field_6655b690a7aa1",
             "label": "Phone",
             "name": "phone",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -98,6 +102,7 @@
             "key": "field_6655b6b6a7aa2",
             "label": "Socials",
             "name": "socials",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -111,12 +116,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_6655c0f84083c",
                     "label": "Icon",
                     "name": "icon",
+                    "aria-label": "",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -135,12 +142,14 @@
                     "max_width": "",
                     "max_height": "",
                     "max_size": "",
-                    "mime_types": ""
+                    "mime_types": "",
+                    "parent_repeater": "field_6655b6b6a7aa2"
                 },
                 {
                     "key": "field_6655b6c1a7aa3",
                     "label": "Link",
                     "name": "link",
+                    "aria-label": "",
                     "type": "link",
                     "instructions": "",
                     "required": 0,
@@ -150,7 +159,8 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "url"
+                    "return_format": "url",
+                    "parent_repeater": "field_6655b6b6a7aa2"
                 }
             ]
         },
@@ -158,6 +168,7 @@
             "key": "field_6655b72384588",
             "label": "Cta button",
             "name": "cta_button",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -177,6 +188,7 @@
             "key": "field_666325f80049d",
             "label": "Post id",
             "name": "post_id",
+            "aria-label": "",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -216,5 +228,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717775081
+    "modified": 1721309419
 }

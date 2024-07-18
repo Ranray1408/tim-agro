@@ -6,6 +6,7 @@
             "key": "field_6661c8a1b63b4",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_6661c8aeb63b5",
             "label": "Subtitle",
             "name": "subtitle",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -59,5 +61,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717684430
+    "modified": 1721309470
 }

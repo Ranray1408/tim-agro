@@ -6,6 +6,7 @@
             "key": "field_6655904f4b724",
             "label": "Big title",
             "name": "big_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_665590554b725",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -44,6 +46,7 @@
             "key": "field_6655905e4b726",
             "label": "Blocks list",
             "name": "blocks_list",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -57,12 +60,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_665590b49a123",
                     "label": "Title",
                     "name": "title",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -76,12 +81,14 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "parent_repeater": "field_6655905e4b726"
                 },
                 {
                     "key": "field_665590bc9a124",
                     "label": "Content",
                     "name": "content",
+                    "aria-label": "",
                     "type": "wysiwyg",
                     "instructions": "",
                     "required": 0,
@@ -95,7 +102,8 @@
                     "tabs": "all",
                     "toolbar": "full",
                     "media_upload": 1,
-                    "delay": 0
+                    "delay": 0,
+                    "parent_repeater": "field_6655905e4b726"
                 }
             ]
         }
@@ -118,5 +126,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716900660
+    "modified": 1721309425
 }

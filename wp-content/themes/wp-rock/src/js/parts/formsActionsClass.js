@@ -139,10 +139,12 @@ export class FormsActionsClass {
                 //Regsiter and login user
                 const res = await this.fetchToAction(getAccessForm, 'register_login_user');
                 if (res.success) {
-                    //FETCH TO MONO PAY SYSTEM
                     const payRes = await this.fetchToAction(getAccessForm, 'create_payment_action');
+                    //FETCH TO MONO PAY SYSTEM
                     if (payRes.success) {
                         window.location.href = payRes.data.pageUrl;
+                    } else {
+                        this.setDataToRespContainer(res, getAccessForm);
                     }
                 } else {
                     this.setDataToRespContainer(res, getAccessForm);

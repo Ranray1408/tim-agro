@@ -6,6 +6,7 @@
             "key": "field_664f699899ffa",
             "label": "Background image",
             "name": "background_image",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -30,6 +31,7 @@
             "key": "field_664f663b89131",
             "label": "Big title",
             "name": "big_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -49,6 +51,7 @@
             "key": "field_664f664789132",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -68,6 +71,7 @@
             "key": "field_664f664e89133",
             "label": "Services",
             "name": "services",
+            "aria-label": "",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -105,5 +109,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716480576
+    "modified": 1721309437
 }

@@ -89,7 +89,7 @@ class MonobankPayment {
         $registration = filter_input(INPUT_POST, 'registration', FILTER_VALIDATE_INT);
         // If this form to continue access
         $current_period_index = filter_input(INPUT_POST, 'continue-period', FILTER_VALIDATE_INT);
-
+        $promocode = filter_input(INPUT_POST, 'promocode', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $params = $registration ? '?first-login=true' : '';
 
@@ -109,7 +109,7 @@ class MonobankPayment {
             $final_price = (int)$price * 100;
         }
 
-        if(!empty($params)) {
+        if (!empty($params)) {
             $params .= '&access_period=' . $access_period;
         } else {
             $params = '?access_period=' . $access_period;
@@ -118,14 +118,138 @@ class MonobankPayment {
         $currency = 980;
         $current_url = $redirect_page ? $redirect_page : get_site_url();
 
-        $result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
 
-        if ($result['success']) {
-            set_transient($user_email . '_payment', $result['data']['invoiceId']);
-            wp_send_json_success($result['data']);
-        } else {
-            wp_send_json_error($result['error']);
+        $result = $this->use_promocode($promocode, $user_email, $final_price);
+
+        if (!$result['success']) {
+            wp_send_json_error($result['text']);
         }
+
+        wp_send_json_success('===' . ((int)$result['price'] / 100));
+        //$result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
+
+        // if ($result['success']) {
+        //     set_transient($user_email . '_payment', $result['data']['invoiceId']);
+        //     wp_send_json_success($result['data']);
+        // } else {
+        //     wp_send_json_error($result['error']);
+        // }
+    }
+
+    private function use_promocode($promocode_value, $user_email, $price) {
+        $result = array('success' => false, 'price' => 0, 'text' => 'Uknown error');
+
+        if (empty($promocode_value)) {
+            $result['success'] = true;
+            return $result;
+        }
+
+        $args = array(
+            'post_type' => 'promocodes'
+        );
+
+        $posts = get_posts($args);
+        $user = get_user_by('email', $user_email);
+        $promocode = null;
+
+        if (empty($posts) && empty($user)) {
+            return $result;
+        }
+
+        foreach ($posts as $post) {
+            if ($promocode_value === $post->post_title) {
+                $promocode = $post;
+                break;
+            }
+        }
+
+        if (empty($promocode)) {
+            $result['text'] = __('Такого промокоду не існує.', 'wp-rock');
+            return $result;
+        }
+
+        $post_fields = get_fields($promocode->ID);
+
+        if (!$post_fields && empty($post_fields['discount_value'])) {
+            return $result;
+        }
+
+        if ($post_fields['used']) {
+            $result['text'] = __('Промокод вже використаний.', 'wp-rock');
+            return $result;
+        }
+
+        $date = new DateTime();
+        $expire_date = new DateTime($post_fields['expire_date']);
+        $expire_date->setTime(23, 59, 59);
+
+        if ($date > $expire_date) {
+            $result['text'] = __('Срок дії промокоду вийшов.', 'wp-rock');
+            return $result;
+        }
+
+        $post_fields['using_date'] = $date->format('Ymd');
+        $post_fields['used'] = true;
+        $post_fields['user_who_used'] = $user->ID;
+
+        switch ($post_fields['discount_type']) {
+            case 'fixed':
+                $result['price'] =$price - ((int)$post_fields['discount_value'] * 100);
+                $result['success'] = true;
+                break;
+            case 'percent':
+                $discount_percent = $post_fields['discount_value'];
+                $discount_amount = ($discount_percent / 100) * $price;
+                $result['price'] = $price - $discount_amount;
+                $result['success'] = true;
+                break;
+        }
+
+        foreach ($post_fields as $key => $value) {
+            update_field($key, $value, $promocode->ID);
+        }
+
+        return $result;
+    }
+
+
+    public function generate_promocode($expire_period) {
+        $result = array('success' => false, 'text' => 'Uknown error');
+        $start_date = new DateTime();
+        $discount_value = 300;
+        $promocode_value = 'PROMO_' . uniqid();
+
+        $args = array(
+            'post_type' => 'promocodes',
+            'post_title' => $promocode_value,
+            'post_status' => 'publish',
+            'post_author' => 1
+        );
+
+        $promocode_id = wp_insert_post($args);
+
+        if(!$promocode_id) {
+            $result['text'] = __('Помилка створення промокоду.' ,'wp-rock');
+            return $result;
+        }
+
+        $post_fields = get_fields($promocode_id);
+        $expire_date = clone $start_date;
+        // Create expire date for promocode
+        $expire_date->modify('+' . (int)$expire_period . ' days');
+        $post_fields['expire_date'] = $expire_date;
+
+        update_field('expire_date', $expire_date->format('d.m.Y'), $promocode_id);
+        update_field('discount_value', $discount_value, $promocode_id);
+        update_field('used', false, $promocode_id);
+
+
+
+        $result['success'] = true;
+        $result['text'] = __('Промокод створенний.', 'wp-rock');
+        $result['promocode'] = $promocode_value;
+
+        return $result;
     }
 
     private function handle_webhook() {

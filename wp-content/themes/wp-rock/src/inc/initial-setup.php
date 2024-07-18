@@ -67,9 +67,19 @@ $client_secret = get_field_value($global_options, 'client_secret');
 $client_token = get_field_value($global_options, 'client_token');
 
 global $client;
-if (!empty($client_id) && !empty($client_secret) && !empty($client_token)) {
+if (!empty($client_id) && !empty($client_secret) && !empty($client_token) && isHostReachable()) {
     // @intelephense-disable-line
     $client = new Vimeo($client_id, $client_secret, $client_token);
+}
+
+function isHostReachable($host = 'api.vimeo.com', $port = 443) {
+    $connection = @fsockopen($host, $port, $errno, $errstr, 5);
+    if ($connection) {
+        fclose($connection);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function log_data($data) {

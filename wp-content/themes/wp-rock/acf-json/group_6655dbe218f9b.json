@@ -6,6 +6,7 @@
             "key": "field_6655dbee51ee1",
             "label": "Big title",
             "name": "big_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_6655dbf551ee2",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -44,6 +46,7 @@
             "key": "field_6655dc1a51ee3",
             "label": "Slides",
             "name": "slides",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -57,12 +60,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_6655dc2851ee4",
                     "label": "Image",
                     "name": "image",
+                    "aria-label": "",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -81,7 +86,8 @@
                     "max_width": "",
                     "max_height": "",
                     "max_size": "",
-                    "mime_types": ""
+                    "mime_types": "",
+                    "parent_repeater": "field_6655dc1a51ee3"
                 }
             ]
         }
@@ -104,5 +110,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716902991
+    "modified": 1721309432
 }

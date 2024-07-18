@@ -6,6 +6,7 @@
             "key": "field_664e0b06d5257",
             "label": "Big title",
             "name": "big_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_664de669cb891",
             "label": "Photo",
             "name": "photo",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -49,6 +51,7 @@
             "key": "field_664de65fcb890",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -68,6 +71,7 @@
             "key": "field_664de685cb892",
             "label": "Repeater",
             "name": "repeater",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -81,12 +85,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_664de697cb893",
                     "label": "Icon",
                     "name": "icon",
+                    "aria-label": "",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -105,12 +111,14 @@
                     "max_width": "",
                     "max_height": "",
                     "max_size": "",
-                    "mime_types": ""
+                    "mime_types": "",
+                    "parent_repeater": "field_664de685cb892"
                 },
                 {
                     "key": "field_664de6a1cb894",
                     "label": "Text",
                     "name": "text",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -124,12 +132,14 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "parent_repeater": "field_664de685cb892"
                 },
                 {
                     "key": "field_664e181c1c686",
                     "label": "Link",
                     "name": "link",
+                    "aria-label": "",
                     "type": "link",
                     "instructions": "",
                     "required": 0,
@@ -139,7 +149,8 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "array"
+                    "return_format": "array",
+                    "parent_repeater": "field_664de685cb892"
                 }
             ]
         },
@@ -147,6 +158,7 @@
             "key": "field_664de6bdcb895",
             "label": "Socials title",
             "name": "socials_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -166,6 +178,7 @@
             "key": "field_664de6cacb896",
             "label": "Socials",
             "name": "socials",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -179,12 +192,14 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_664deb541672b",
                     "label": "Icon",
                     "name": "icon",
+                    "aria-label": "",
                     "type": "image",
                     "instructions": "",
                     "required": 0,
@@ -203,12 +218,14 @@
                     "max_width": "",
                     "max_height": "",
                     "max_size": "",
-                    "mime_types": ""
+                    "mime_types": "",
+                    "parent_repeater": "field_664de6cacb896"
                 },
                 {
                     "key": "field_664de6e1cb897",
                     "label": "Link",
                     "name": "link",
+                    "aria-label": "",
                     "type": "url",
                     "instructions": "",
                     "required": 0,
@@ -219,7 +236,8 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "placeholder": ""
+                    "placeholder": "",
+                    "parent_repeater": "field_664de6cacb896"
                 }
             ]
         },
@@ -227,6 +245,7 @@
             "key": "field_664de70ccb899",
             "label": "Pupils count",
             "name": "pupils_count",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -246,6 +265,7 @@
             "key": "field_664de71acb89a",
             "label": "Pupils title",
             "name": "pupils_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -280,5 +300,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716394039
+    "modified": 1721309341
 }

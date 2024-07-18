@@ -32,32 +32,34 @@ if (empty($user_programm_item['post_id']) || empty($client)) return;
 $post_id = $user_programm_item['post_id'];
 
 $post_fields = get_fields($post_id);
+
 //API to load video from vimeo
-$vimeo_blocks_folder = get_field_value($post_fields, 'vimeo_blocks_folder');
+//$vimeo_blocks_folder = get_field_value($post_fields, 'vimeo_blocks_folder');
 
 $post_logo = get_field_value($post_fields, 'logo');
 $post_title = get_the_title($post_id);
 $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_programm_item['expire_access_date'] : '';
 
 
-$user_id = get_field_value($global_options, 'user_id');;
+$user_id = get_field_value($global_options, 'user_id');
 
 $args = array('sort' => 'date', 'direction' => 'asc');
-$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
-$blocks_count = 0;
+//$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
+$blocks_folder = get_field_value($post_fields, 'blocks');
+$blocks_count = !empty($blocks_folder) ? count($blocks_folder) : $blocks_folder;
 
 
-if (!empty($blocks_folder['body']['data'])) {
-    $array = array_filter($blocks_folder['body']['data'], function ($item) {
+// if (!empty($blocks_folder)) {
+//     // $array = array_filter($blocks_folder['body']['data'], function ($item) {
 
-        if ($item['type'] === 'folder') {
-            $total_block_videos = $item['folder']['metadata']['connections']['videos']['total'];
+//     //     if ($item['type'] === 'folder') {
+//     //         $total_block_videos = $item['folder']['metadata']['connections']['videos']['total'];
 
-            return  $total_block_videos;
-        }
-    });
-    $blocks_count = count($array);
-}
+//     //         return  $total_block_videos;
+//     //     }
+//     // });
+//     $blocks_count = count($array);
+// }
 
 
 $access_status = access_status($expire_access_date);
@@ -131,7 +133,7 @@ if (!empty($programm_data->blocks)) {
                     access_date_block($access_status, $expire_access_date, $text_access_date);
                     if ($access_status === 'access-expired') {
                         echo '<div class="programm__continue-access-wrapper">';
-                            echo '<a href="#continue-access-popup" class="continue-access-btn green-transparent from-left js-open-popup-activator">
+                        echo '<a href="#continue-access-popup" class="continue-access-btn green-transparent from-left js-open-popup-activator">
                                 ' . esc_html($text_continue_access) . '
                             </a>';
                         echo '</div>';
@@ -158,4 +160,3 @@ if (!empty($programm_data->blocks)) {
     ?>
     <!-- ***************** END Blocks accrodiont ***************** -->
 </div>
-<?php

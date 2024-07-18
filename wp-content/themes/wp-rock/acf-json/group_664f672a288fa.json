@@ -6,6 +6,7 @@
             "key": "field_664f67322b82d",
             "label": "Icon",
             "name": "icon",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -45,5 +46,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716480021
+    "modified": 1721309480
 }

@@ -40,18 +40,48 @@ export class ProfileFunctionality {
         const videoTitleContainer = blockVideoWrapper?.querySelector('.js-video-title') as HTMLElement;
 
         if (videoTitleContainer) {
-            videoTitleContainer.innerHTML = `${videoTitle}`;
+            videoTitleContainer.innerText = `${videoTitle}`;
         }
 
         if (!videoContainer) return;
         videoContainer.dataset.video_id = playBtnData.dataset.video_id;
 
+        this.loadPDFButtons(playBtnData);
         const onPauseCallback = (pauseInfo) => {
             playBtnData.dataset.video_pause_time = pauseInfo.seconds;
         }
 
         //@ts-ignore
         this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
+    }
+
+    loadPDFButtons(playBtnData) {
+        if (!playBtnData || !playBtnData.dataset || !playBtnData.dataset.video_files) {
+            console.error('Video files data is missing.');
+            return;
+        }
+
+        const videoFiles = JSON.parse(playBtnData.dataset.video_files);
+
+        let html = '';
+        const a = `<a class="green-transparent"></a>`
+
+        videoFiles && videoFiles.forEach((item) => {
+            if (!item.file && !item.file) return;
+
+            html += `<a target="_blank" href="${item.file}" class="green-transparent">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z" fill="white"/>
+                            <path d="M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z" fill="white"/>
+                            <path d="M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z" fill="white"/>
+                        </svg>
+                        ${item.file_name}
+                    </a>`;
+        });
+
+        const videoembedFiles = document.querySelector('.js-video-embed-files') as HTMLElement;
+
+        videoembedFiles.innerHTML = html;
     }
 
     playVideoByClickInit() {
@@ -490,4 +520,14 @@ interface videoData {
     videoDuration: number | null;
     videoPauseTime: number | null;
     isVideoViewed: boolean;
+}
+function escapeHTML(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }

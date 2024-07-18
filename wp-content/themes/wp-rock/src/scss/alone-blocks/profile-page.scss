@@ -559,6 +559,20 @@
                     margin-bottom: 16px;
                 }
 
+                .video-embed-files {
+                    display: flex;
+                    align-items: center;
+                    gap: 13px;
+                    margin-bottom: 21px;
+
+                    a {
+                        padding: 10px 13px;
+                        gap: 11px;
+                        font-size: 16px;
+                        font-weight: 400;
+                    }
+                }
+
                 .next-video-btn {
                     color: var(--color-type-primary-1);
                     font-family: 'Mulish', sans-serif;

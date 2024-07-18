@@ -186,7 +186,6 @@ class profile_functionality {
         $user_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
         $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
         $forgot_password_page = filter_input(INPUT_POST, 'forgot_password_page', FILTER_SANITIZE_SPECIAL_CHARS);
-        $promocode = filter_input(INPUT_POST, 'promocode', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $user = get_user_by('email', $user_email);
 
@@ -201,11 +200,11 @@ class profile_functionality {
             }
 
             // After registering user send to email generated password
-            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
+            // $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
 
-            if (!$email_sent) {
-                wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
-            }
+            // if (!$email_sent) {
+            //     wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
+            // }
 
             //Login registered user
             $logged_in = $this->login_user($user_data['user'], $user_data['user_pass']);
@@ -218,39 +217,6 @@ class profile_functionality {
         }
 
         wp_send_json_error(__('Щось пішло не так.', 'wp-rock'));
-    }
-
-    private function promocode_validation($promocode, $user_email) {
-        $args = array(
-            'post_type' => 'promocodes'
-        );
-
-        $promocodes = get_posts($args);
-        $user = get_user_by('email', $user_email);
-
-        if (!empty($promocodes)) {
-            foreach ($promocodes as $poromocode) {
-
-            }
-        }
-
-        if ($user) {
-            $user_promocode_field = get_field('promocode', 'user_' . $user->ID);
-
-            if ($user_promocode_field === $promocode) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public function generate_promocode() {
-        $args = array(
-            ''
-        );
-
-        $promocode_id = wp_insert_post($args);
     }
 
     // public function add_programm_to_user_action() {

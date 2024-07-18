@@ -6,6 +6,7 @@
             "key": "field_664c991fa95f1",
             "label": "Background image",
             "name": "background_image",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -30,6 +31,7 @@
             "key": "field_664c98bc7d437",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -49,6 +51,7 @@
             "key": "field_664c98c77d438",
             "label": "Subtitle",
             "name": "subtitle",
+            "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
             "required": 0,
@@ -62,12 +65,17 @@
             "placeholder": "",
             "prepend": "",
             "append": "",
-            "maxlength": ""
+            "maxlength": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_664c98d07d439",
             "label": "Benefits repeater",
             "name": "benefits_repeater",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -81,12 +89,13 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
             "sub_fields": [
                 {
                     "key": "field_664c98e07d43a",
                     "label": "Text",
                     "name": "text",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -100,9 +109,11 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "parent_repeater": "field_664c98d07d439"
                 }
-            ]
+            ],
+            "rows_per_page": 20
         }
     ],
     "location": [
@@ -123,5 +134,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716358089
+    "modified": 1721309443
 }
