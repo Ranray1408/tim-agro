@@ -125,7 +125,7 @@ class MonobankPayment {
             wp_send_json_error($result['text']);
         }
 
-        $result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
+        $result = $this->createPayment('1111-1111-1111-1111', $result['price'], $currency, $current_url, $current_url . $params);
 
         if ($result['success']) {
             set_transient($user_email . '_payment', $result['data']['invoiceId']);
@@ -216,6 +216,7 @@ class MonobankPayment {
         $result = array('success' => false, 'text' => 'Uknown error');
         $start_date = new DateTime();
         $discount_value = 300;
+        $discount_type = 'fixed';
         $promocode_value = 'PROMO_' . uniqid();
 
         $args = array(
@@ -236,13 +237,13 @@ class MonobankPayment {
         $expire_date = clone $start_date;
         // Create expire date for promocode
         $expire_date->modify('+' . (int)$expire_period . ' days');
-        $post_fields['expire_date'] = $expire_date;
+        $post_fields['expire_date'] = $expire_date->format('Ymd');
+        $post_fields['discount_value'] = $discount_value;
+        $post_fields['discount_type'] = $discount_type;
 
-        update_field('expire_date', $expire_date->format('d.m.Y'), $promocode_id);
-        update_field('discount_value', $discount_value, $promocode_id);
-        update_field('used', false, $promocode_id);
-
-
+        foreach ($post_fields as $key => $value) {
+            update_field($key, $value, $promocode_id);
+        }
 
         $result['success'] = true;
         $result['text'] = __('Промокод створенний.', 'wp-rock');

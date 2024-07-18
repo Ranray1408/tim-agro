@@ -1,5 +1,6 @@
 #continue-access-popup,
 #pay-success-response,
+#buy-programm-popup,
 #forgot-password-popup,
 #login-popup,
 #get-access-popup,
@@ -150,12 +151,35 @@
             }
         }
 
+
+    }
+
+    .bottom-wrapper {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media screen and (max-width: 570px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    }
+
+    .have-account-btn {
+        margin: 20px auto;
+        color: var(--color-type-dark-1);
+    }
+}
+
+#buy-programm-popup {
+    .inputs-wrapper {
         &.promocode {
             justify-content: flex-start;
             .input-label {
                 display: flex;
                 align-items: center;
-                margin-top: 26px;
 
                 @media screen and (max-width: 415px) {
                     flex-direction: column;
@@ -181,26 +205,7 @@
             }
         }
     }
-
-    .bottom-wrapper {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        @media screen and (max-width: 570px) {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-    }
-
-    .have-account-btn {
-        margin: 20px auto;
-        color: var(--color-type-dark-1);
-    }
 }
-
 
 #login-popup {
 

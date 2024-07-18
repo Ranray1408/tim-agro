@@ -1185,25 +1185,32 @@ class FormsActionsClass {
     }
 
     buyProgrammFormFetch() {
-        const buyProgrammForm = document.querySelector('.js-buy-programm-form');
+        const buyProgrammForm = document.querySelectorAll(
+            '.js-buy-programm-form'
+        );
 
         if (!buyProgrammForm) return;
 
-        // Buy programm by registered user
         buyProgrammForm &&
-            buyProgrammForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            buyProgrammForm.forEach((form) => {
+                // Buy programm by registered user
+                form &&
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
 
-                // FETCH TO MONO PAY SYSTEM ( Create pay account)
-                const res = await this.fetchToAction(
-                    buyProgrammForm,
-                    'create_payment_action'
-                );
+                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                        const res = await this.fetchToAction(
+                            form,
+                            'create_payment_action'
+                        );
 
-                if (res.success) {
-                    // If success return to pay page
-                    window.location.href = res.data.pageUrl;
-                }
+                        if (res.success) {
+                            // If success return to pay page
+                            window.location.href = res.data.pageUrl;
+                        } else {
+                            this.setDataToRespContainer(res, form);
+                        }
+                    });
             });
     }
 
