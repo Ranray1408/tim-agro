@@ -1,4 +1,4 @@
-export const hoverClickEvent = (): void => {
+const hoverClickEvent = (): void => {
     const menuItems = document.querySelectorAll('ul > .menu-item');
 
     const canHover = window.matchMedia('(hover: hover)').matches;
@@ -49,11 +49,13 @@ export const hoverClickEvent = (): void => {
                         subMenu.style.left = `-${overflow + offset}px`;
                     }
 
-                    subMenu.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                    subMenu.addEventListener('click', (event) => {
+                        event.stopPropagation();
                     });
                 }
             });
         });
     }
 };
+
+export default hoverClickEvent;

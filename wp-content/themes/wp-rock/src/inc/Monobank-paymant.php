@@ -125,15 +125,14 @@ class MonobankPayment {
             wp_send_json_error($result['text']);
         }
 
-        wp_send_json_success('===' . ((int)$result['price'] / 100));
-        //$result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
+        $result = $this->createPayment('1111-1111-1111-1111', $final_price, $currency, $current_url, $current_url . $params);
 
-        // if ($result['success']) {
-        //     set_transient($user_email . '_payment', $result['data']['invoiceId']);
-        //     wp_send_json_success($result['data']);
-        // } else {
-        //     wp_send_json_error($result['error']);
-        // }
+        if ($result['success']) {
+            set_transient($user_email . '_payment', $result['data']['invoiceId']);
+            wp_send_json_success($result['data']);
+        } else {
+            wp_send_json_error($result['error']);
+        }
     }
 
     private function use_promocode($promocode_value, $user_email, $price) {

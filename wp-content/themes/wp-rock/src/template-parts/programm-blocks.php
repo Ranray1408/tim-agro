@@ -36,17 +36,11 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
         foreach ($blocks_folder as $block) :
-            //if ($block['type'] === 'video') continue;
-            $videos = []; //$client->request($block['folder']['uri'] . '/videos',  array(), 'GET');
+            $videos = [];
 
             if (!empty($block['videos'])) {
                 foreach ($block['videos'] as $video) {
-                    $response = $client->request('/videos/' . $video['video_id'], [
-                        'headers' => array(
-                            "Authorization: Bearer dd7d34d951051bea87cd402fedc11014" ,
-                            "Content-Type: application/json"
-                        )
-                    ], 'GET');
+                    $response = $client->request('/videos/' . $video['video_id'], [], 'GET');
                     $videos[] = array(
                         'video_id' => $video['video_id'],
                         'name' => $response['body']['name'],
@@ -58,7 +52,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
             if (empty($videos)) continue;
 
-            $block_title = $block['block_title']; //$block['folder']['name'];
+            $block_title = $block['block_title'];
             $sanitize_block_title = sanitize_title($block_title);
 
             $block_status = 'not-passed';
@@ -84,16 +78,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
             // Default value for playing first video in list
             $first_video = !empty($videos[0]) ? $videos[0] : null;
-            //$first_video_url = '#';
-            //$first_video_id = '#';
             $first_video_title = !empty($first_video['name']) ? do_shortcode($first_video['name']) : '...';
-
-            // if (!empty($first_video['name'])
-            // ) {
-            //     //$first_video_url = $first_video['player_embed_url'];
-            //     $first_video_title = $first_video['name'];
-            // }
-
         ?>
             <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="programm__block js-programm-block js-inner-accordion__content">
 
@@ -121,7 +106,6 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
                         <?php
                         if ($first_video) {
-                            //$video_clear_id = str_replace('/videos/', '', $first_video['uri']);
                             echo '<div data-video_id="' . $first_video['video_id'] . '"
                                     data-video_container_id="' . $video_container_id . '"></div>';
                         }
@@ -158,8 +142,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
                             $active_class = $key === 0 ? 'playing-video' : '';
 
-                            $video_id = $video['video_id']; //str_replace('/videos/', '', $video['uri']);
-
+                            $video_id = $video['video_id'];
                             $save_video_data = $saved_block_data->videos->{$video_id} ?? '';
                             $video_pause_time = $save_video_data->videoPauseTime ?? 0;
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';

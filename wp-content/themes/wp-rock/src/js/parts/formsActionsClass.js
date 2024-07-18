@@ -1,4 +1,4 @@
-export class FormsActionsClass {
+export default class FormsActionsClass {
     constructor(popupInstance, validateField) {
         this.popupInstance = popupInstance;
         this.validateField = validateField; // function
@@ -22,14 +22,17 @@ export class FormsActionsClass {
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 // @ts-ignore
-                const res = await this.fetchToAction(loginForm, 'user_login_ajax');
+                const res = await this.fetchToAction(
+                    loginForm,
+                    'user_login_ajax'
+                );
 
                 this.setDataToRespContainer(res, loginForm);
                 if (res.success) {
                     window.location.reload();
                 }
             });
-    };
+    }
 
     checkFormFields() {
         const formInputs = document.querySelectorAll('input');
@@ -47,7 +50,8 @@ export class FormsActionsClass {
             const formSubmit = parentForm.querySelector('input[type="submit"]');
 
             allInnerInputs.forEach((input) => {
-                const inputContainer = input.closest('.js-inner-input-wrapper');
+                const inputContainer =
+                    input.closest('.js-inner-input-wrapper') ?? null;
 
                 if (
                     !input.name ||
@@ -64,7 +68,8 @@ export class FormsActionsClass {
                     input && input.classList.add('valid');
                     input && input.classList.remove('not-valid');
                     inputContainer && inputContainer.classList.add('valid');
-                    inputContainer && inputContainer.classList.remove('not-valid');
+                    inputContainer &&
+                        inputContainer.classList.remove('not-valid');
                 } else {
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
@@ -95,7 +100,9 @@ export class FormsActionsClass {
                 target.classList.toggle('valid', passwordsMatch);
                 target.classList.toggle('not-valid', !passwordsMatch);
 
-                const formSubmit = parentForm.querySelector('input[type="submit"]');
+                const formSubmit = parentForm.querySelector(
+                    'input[type="submit"]'
+                );
                 formSubmit && (formSubmit.disabled = !passwordsMatch);
             }
         };
@@ -107,16 +114,21 @@ export class FormsActionsClass {
                     checkPasswordMatch(e.target);
                 });
             });
-    };
+    }
 
     restorePasswordFormFetch() {
-        const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+        const forgotPasswordForm = document.querySelector(
+            '.js-forgot-password-form'
+        );
 
         if (!forgotPasswordForm) return;
 
         forgotPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const res = await this.fetchToAction(forgotPasswordForm, 'forgot_password');
+            const res = await this.fetchToAction(
+                forgotPasswordForm,
+                'forgot_password'
+            );
 
             if (!res.success) {
                 this.setDataToRespContainer(res, forgotPasswordForm);
@@ -124,7 +136,7 @@ export class FormsActionsClass {
                 this.popupInstance.openOnePopup('#forgot-password-popup');
             }
         });
-    };
+    }
 
     getAccessFormFetch() {
         const getAccessForm = document.querySelector('.js-get-access-form');
@@ -136,11 +148,17 @@ export class FormsActionsClass {
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //Regsiter and login user
-                const res = await this.fetchToAction(getAccessForm, 'register_login_user');
+                // Regsiter and login user
+                const res = await this.fetchToAction(
+                    getAccessForm,
+                    'register_login_user'
+                );
                 if (res.success) {
-                    const payRes = await this.fetchToAction(getAccessForm, 'create_payment_action');
-                    //FETCH TO MONO PAY SYSTEM
+                    const payRes = await this.fetchToAction(
+                        getAccessForm,
+                        'create_payment_action'
+                    );
+                    // FETCH TO MONO PAY SYSTEM
                     if (payRes.success) {
                         window.location.href = payRes.data.pageUrl;
                     } else {
@@ -149,16 +167,18 @@ export class FormsActionsClass {
                 } else {
                     this.setDataToRespContainer(res, getAccessForm);
                 }
-
             });
-    };
+    }
 
     async fetchToAction(form, actionName) {
         const formData = new FormData(form);
-        const resJSON = await fetch(`${var_from_php.ajax_url}?action=${actionName}`, {
-            method: 'POST',
-            body: formData,
-        }
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}?action=${actionName}`,
+            {
+                method: 'POST',
+                body: formData,
+            }
         );
 
         const res = await resJSON.json();
@@ -166,7 +186,9 @@ export class FormsActionsClass {
     }
 
     setNewPasswordFormFetch() {
-        const newPasswordForm = document.querySelector('.js-set-new-password-form');
+        const newPasswordForm = document.querySelector(
+            '.js-set-new-password-form'
+        );
 
         if (!newPasswordForm) return;
 
@@ -174,12 +196,14 @@ export class FormsActionsClass {
             newPasswordForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const res = await this.fetchToAction(newPasswordForm, 'set_new_password');
+                const res = await this.fetchToAction(
+                    newPasswordForm,
+                    'set_new_password'
+                );
 
                 this.setDataToRespContainer(res, newPasswordForm);
-
             });
-    };
+    }
 
     buyProgrammFormFetch() {
         const buyProgrammForm = document.querySelector('.js-buy-programm-form');
@@ -191,11 +215,14 @@ export class FormsActionsClass {
             buyProgrammForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //FETCH TO MONO PAY SYSTEM ( Create pay account)
-                const res = await this.fetchToAction(buyProgrammForm, 'create_payment_action');
+                // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                const res = await this.fetchToAction(
+                    buyProgrammForm,
+                    'create_payment_action'
+                );
 
                 if (res.success) {
-                    //If success return to pay page
+                    // If success return to pay page
                     window.location.href = res.data.pageUrl;
                 }
             });
@@ -204,7 +231,9 @@ export class FormsActionsClass {
     setDataToRespContainer(res, parentForm) {
         if (!parentForm || !res) return;
 
-        const respContainer = parentForm.querySelector('.js-response-container');
+        const respContainer = parentForm.querySelector(
+            '.js-response-container'
+        );
         if (!respContainer) return;
 
         const additionalClass = res.success ? 'success' : 'error';

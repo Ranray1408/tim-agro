@@ -2,7 +2,7 @@ import Swiper, { Navigation, Pagination } from 'swiper';
 
 /* eslint-disable @wordpress/no-global-event-listener */
 const initBlockReviews = () => {
-    const reviewsSwiper = new Swiper('.js-reviews-slider', {
+    return new Swiper('.js-reviews-slider', {
         slidesPerView: 1,
         spaceBetween: 0,
         modules: [Pagination, Navigation],

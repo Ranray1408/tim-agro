@@ -28,8 +28,6 @@ class profile_functionality {
         // User registration and login
         add_action('wp_ajax_register_login_user', array($this, 'register_login_user_action'));
         add_action('wp_ajax_nopriv_register_login_user', array($this, 'register_login_user_action'));
-        // Add programm access to user
-        //add_action('wp_ajax_add_programm_to_user', array($this, 'add_programm_to_user_action'));
 
         // Add programm access to user
         add_action('wp_ajax_set_new_password', array($this, 'set_new_password_action'));
@@ -200,11 +198,11 @@ class profile_functionality {
             }
 
             // After registering user send to email generated password
-            // $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
+            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
 
-            // if (!$email_sent) {
-            //     wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
-            // }
+            if (!$email_sent) {
+                wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
+            }
 
             //Login registered user
             $logged_in = $this->login_user($user_data['user'], $user_data['user_pass']);
@@ -219,23 +217,6 @@ class profile_functionality {
         wp_send_json_error(__('Щось пішло не так.', 'wp-rock'));
     }
 
-    // public function add_programm_to_user_action() {
-    //     $user_id = filter_input(INPUT_POST, 'user-id', FILTER_VALIDATE_INT);
-    //     $post_id = filter_input(INPUT_POST, 'post-id', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    //     if (!$post_id || !$user_id) {
-    //         wp_send_json_error(__('Деякі дані порожні.', 'wp-rock'));
-    //     }
-
-    //     $result = $this->add_update_user_programm($post_id, $user_id, 30);
-
-    //     if (!$result['success']) {
-    //         wp_send_json_error(__('Щось пішло не так зверніться до адміністратора.', 'wp-rock'));
-    //     }
-
-    //     wp_send_json_success($result['text']);
-    // }
-
     public function add_update_user_programm($programm_id, $user_id, $days_period) {
         if (!$programm_id || !$user_id || !$days_period) {
             wp_send_json_error(__('Деякі дані не завнені', 'wp-rock'));
@@ -243,7 +224,7 @@ class profile_functionality {
 
         $start_date = new DateTime();
         $expire_date = clone $start_date;
-        // Update programm for a 90 days
+        // Update programm for a N days
         $expire_date->modify('+' . $days_period . ' days');
 
         $programm_type = get_post_type($programm_id);

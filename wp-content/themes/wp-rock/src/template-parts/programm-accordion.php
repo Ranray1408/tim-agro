@@ -33,9 +33,6 @@ $post_id = $user_programm_item['post_id'];
 
 $post_fields = get_fields($post_id);
 
-//API to load video from vimeo
-//$vimeo_blocks_folder = get_field_value($post_fields, 'vimeo_blocks_folder');
-
 $post_logo = get_field_value($post_fields, 'logo');
 $post_title = get_the_title($post_id);
 $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_programm_item['expire_access_date'] : '';
@@ -44,22 +41,8 @@ $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_
 $user_id = get_field_value($global_options, 'user_id');
 
 $args = array('sort' => 'date', 'direction' => 'asc');
-//$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
 $blocks_folder = get_field_value($post_fields, 'blocks');
 $blocks_count = !empty($blocks_folder) ? count($blocks_folder) : $blocks_folder;
-
-
-// if (!empty($blocks_folder)) {
-//     // $array = array_filter($blocks_folder['body']['data'], function ($item) {
-
-//     //     if ($item['type'] === 'folder') {
-//     //         $total_block_videos = $item['folder']['metadata']['connections']['videos']['total'];
-
-//     //         return  $total_block_videos;
-//     //     }
-//     // });
-//     $blocks_count = count($array);
-// }
 
 
 $access_status = access_status($expire_access_date);

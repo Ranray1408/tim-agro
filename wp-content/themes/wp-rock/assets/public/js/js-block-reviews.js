@@ -12891,7 +12891,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
 
 var initBlockReviews = function initBlockReviews() {
-  var reviewsSwiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.js-reviews-slider', {
+  return new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.js-reviews-slider', {
     slidesPerView: 1,
     spaceBetween: 0,
     modules: [swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_0__.Navigation],

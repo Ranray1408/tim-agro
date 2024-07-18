@@ -3,18 +3,13 @@
  */
 import '../scss/frontend.scss';
 import initAccordion, { initInnerAccordion } from './components/accordion';
-import { hoverClickEvent } from './components/menuActions';
-import { ProfileFunctionality } from './components/profileFunctionality';
+import hoverClickEvent from './components/menuActions';
+import ProfileFunctionality from './components/profileFunctionality';
 /**
  * JavaScript
  */
-import { FormsActionsClass } from './parts/formsActionsClass';
-import {
-    anchorLinkScroll,
-    isInViewport,
-    loadFileName,
-    validateField,
-} from './parts/helpers';
+import FormsActionsClass from './parts/formsActionsClass';
+import { anchorLinkScroll, isInViewport, loadFileName, validateField } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -34,11 +29,15 @@ function ready() {
         popupInstance.openOnePopup('#pay-success-response');
     }
 
-    anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', () => {
-        siteHeader && siteHeader.classList.remove('menu-opened');
-        document.body.classList.remove('popup-opened');
-        popupInstance.closePopup();
-    }, -70);
+    anchorLinkScroll(
+        'a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)',
+        () => {
+            siteHeader && siteHeader.classList.remove('menu-opened');
+            document.body.classList.remove('popup-opened');
+            popupInstance.closePopup();
+        },
+        -70
+    );
 
     hoverClickEvent();
     initAccordion();
@@ -53,12 +52,12 @@ function ready() {
         siteHeader && siteHeader.classList.remove('scrolled');
     }
 
+    blocks &&
+        blocks.forEach((el) => {
+            const block = el as HTMLElement;
 
-    blocks && blocks.forEach((el) => {
-        const block = el as HTMLElement;
-
-        isInViewport(block) && block.classList.add('viewed');
-    });
+            isInViewport(block) && block.classList.add('viewed');
+        });
 
     window.document.addEventListener('scroll', () => {
         // Scroll actions
@@ -69,17 +68,17 @@ function ready() {
             siteHeader && siteHeader.classList.remove('scrolled');
         }
 
-        blocks && blocks.forEach((el) => {
-            const block = el as HTMLElement;
+        blocks &&
+            blocks.forEach((el) => {
+                const block = el as HTMLElement;
 
-            isInViewport(block) && block.classList.add('viewed');
-        });
+                isInViewport(block) && block.classList.add('viewed');
+            });
     });
 
     document.body.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         const { role } = target.dataset;
-
 
         if (target.classList.contains('js-popup-in-popup')) {
             popupInstance.forceCloseAllPopup();
@@ -102,13 +101,13 @@ function ready() {
         }
     });
 
-    window.document.addEventListener('wpcf7mailsent', (event) => {
+    window.document.addEventListener('wpcf7mailsent', () => {
         // Success send cf7
-        const siteHeader = document.querySelector('.js-site-header') as HTMLElement;
+        const header = document.querySelector('.js-site-header') as HTMLElement;
 
         setTimeout(() => {
-            if (siteHeader && siteHeader.dataset.thank_you_page) {
-                window.location.replace(siteHeader.dataset.thank_you_page);
+            if (header && header.dataset.thank_you_page) {
+                window.location.replace(header.dataset.thank_you_page);
             }
         }, 2000);
     });

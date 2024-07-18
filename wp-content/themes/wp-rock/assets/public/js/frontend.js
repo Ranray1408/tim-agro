@@ -52,9 +52,6 @@ var initInnerAccordion = function initInnerAccordion() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   hoverClickEvent: function() { return /* binding */ hoverClickEvent; }
-/* harmony export */ });
 var hoverClickEvent = function hoverClickEvent() {
   var menuItems = document.querySelectorAll('ul > .menu-item');
   var canHover = window.matchMedia('(hover: hover)').matches;
@@ -96,14 +93,15 @@ var hoverClickEvent = function hoverClickEvent() {
             var overflow = bounding.right - window.innerWidth;
             subMenu.style.left = "-".concat(overflow + offset, "px");
           }
-          subMenu.addEventListener('click', function (e) {
-            e.stopPropagation();
+          subMenu.addEventListener('click', function (event) {
+            event.stopPropagation();
           });
         }
       });
     });
   }
 };
+/* harmony default export */ __webpack_exports__["default"] = (hoverClickEvent);
 
 /***/ }),
 
@@ -116,7 +114,7 @@ var hoverClickEvent = function hoverClickEvent() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ProfileFunctionality: function() { return /* binding */ ProfileFunctionality; }
+/* harmony export */   "default": function() { return /* binding */ ProfileFunctionality; }
 /* harmony export */ });
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -154,12 +152,12 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }, {
     key: "loadDataAndPlayVideo",
     value: function loadDataAndPlayVideo(playBtnData) {
-      var _a, _b, _c, _d;
+      var _a, _b, _c, _d, _e;
       if (!playBtnData) return;
       var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
       var videoTitle = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_title;
       var videoId = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_id;
-      var videoPauseTime = parseFloat((_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_pause_time);
+      var videoPauseTime = (_e = parseFloat((_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_pause_time)) !== null && _e !== void 0 ? _e : null;
       var videoContainer = document.querySelector("[data-video_container_id=\"".concat(containerId, "\"]"));
       var blockVideoWrapper = videoContainer.closest('.js-block-video');
       var videoTitleContainer = blockVideoWrapper === null || blockVideoWrapper === void 0 ? void 0 : blockVideoWrapper.querySelector('.js-video-title');
@@ -183,7 +181,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       }
       var videoFiles = JSON.parse(playBtnData.dataset.video_files);
       var html = '';
-      var a = "<a class=\"green-transparent\"></a>";
       videoFiles && videoFiles.forEach(function (item) {
         if (!item.file && !item.file) return;
         html += "<a target=\"_blank\" href=\"".concat(item.file, "\" class=\"green-transparent\">\n                        <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z\" fill=\"white\"/>\n                            <path d=\"M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z\" fill=\"white\"/>\n                            <path d=\"M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z\" fill=\"white\"/>\n                        </svg>\n                        ").concat(item.file_name, "\n                    </a>");
@@ -354,10 +351,10 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         blockWidth = totalWidth / blocksCount;
       }
       var svg = '';
-      svg += '<rect width="' + totalWidth + '" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';
+      svg += "<rect width=\"".concat(totalWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 0 5)\" fill=\"#131614\" />");
       for (var i = 0; i < blocksPassed; i++) {
         var xPosition = i * blockWidth;
-        svg += '<rect width="' + blockWidth + '" height="5" transform="matrix(1 0 0 -1 ' + xPosition + ' 5)" fill="#53F07F" />';
+        svg += "<rect width=\"".concat(blockWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 ").concat(xPosition, " 5)\" fill=\"#53F07F\" />");
       }
       return svg;
     }
@@ -385,9 +382,9 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           var playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
           var nextPLayBtn = playVideoBtn === null || playVideoBtn === void 0 ? void 0 : playVideoBtn.nextSibling;
           if (nextPLayBtn) {
-            playVideoBtns && playVideoBtns.forEach(function (el) {
-              var btn = el;
-              btn.classList.remove('playing-video');
+            playVideoBtns && playVideoBtns.forEach(function (el2) {
+              var btn2 = el2;
+              btn2.classList.remove('playing-video');
             });
             nextPLayBtn.classList.add('playing-video');
             _this3.loadDataAndPlayVideo(nextPLayBtn);
@@ -397,14 +394,14 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     }
   }, {
     key: "fetchDataToBackend",
-    value: function fetchDataToBackend(profileData) {
-      if (!profileData) return;
+    value: function fetchDataToBackend(profileDataParams) {
+      if (!profileDataParams) return;
       fetch("".concat(var_from_php.ajax_url, "?action=save_video_data"), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(profileData)
+        body: JSON.stringify(profileDataParams)
       });
     }
   }, {
@@ -453,8 +450,8 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         var btn = el;
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-          inpus && inpus.forEach(function (el) {
-            return setInputDefaultState(el);
+          inpus && inpus.forEach(function (el2) {
+            return setInputDefaultState(el2);
           });
           var parentWrapper = btn.closest('.js-inner-input-wrapper');
           var input = parentWrapper === null || parentWrapper === void 0 ? void 0 : parentWrapper.querySelector('input[type="text"]');
@@ -467,7 +464,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
     value: function initVimeoPlayer(playerEl, videoId) {
       var loadVideo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var start = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-      var cb = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+      var cb = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function (pauseInfo) {};
       var player;
       if (!loadVideo) {
         player = new Vimeo.Player(playerEl, {
@@ -512,18 +509,7 @@ var ProfileFunctionality = /*#__PURE__*/function () {
   }]);
   return ProfileFunctionality;
 }();
-function escapeHTML(text) {
-  var map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, function (m) {
-    return map[m];
-  });
-}
+
 
 /***/ }),
 
@@ -989,7 +975,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FormsActionsClass: function() { return /* binding */ FormsActionsClass; }
+/* harmony export */   "default": function() { return /* binding */ FormsActionsClass; }
 /* harmony export */ });
 class FormsActionsClass {
     constructor(popupInstance, validateField) {
@@ -1015,14 +1001,17 @@ class FormsActionsClass {
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 // @ts-ignore
-                const res = await this.fetchToAction(loginForm, 'user_login_ajax');
+                const res = await this.fetchToAction(
+                    loginForm,
+                    'user_login_ajax'
+                );
 
                 this.setDataToRespContainer(res, loginForm);
                 if (res.success) {
                     window.location.reload();
                 }
             });
-    };
+    }
 
     checkFormFields() {
         const formInputs = document.querySelectorAll('input');
@@ -1040,7 +1029,8 @@ class FormsActionsClass {
             const formSubmit = parentForm.querySelector('input[type="submit"]');
 
             allInnerInputs.forEach((input) => {
-                const inputContainer = input.closest('.js-inner-input-wrapper');
+                const inputContainer =
+                    input.closest('.js-inner-input-wrapper') ?? null;
 
                 if (
                     !input.name ||
@@ -1057,7 +1047,8 @@ class FormsActionsClass {
                     input && input.classList.add('valid');
                     input && input.classList.remove('not-valid');
                     inputContainer && inputContainer.classList.add('valid');
-                    inputContainer && inputContainer.classList.remove('not-valid');
+                    inputContainer &&
+                        inputContainer.classList.remove('not-valid');
                 } else {
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
@@ -1088,7 +1079,9 @@ class FormsActionsClass {
                 target.classList.toggle('valid', passwordsMatch);
                 target.classList.toggle('not-valid', !passwordsMatch);
 
-                const formSubmit = parentForm.querySelector('input[type="submit"]');
+                const formSubmit = parentForm.querySelector(
+                    'input[type="submit"]'
+                );
                 formSubmit && (formSubmit.disabled = !passwordsMatch);
             }
         };
@@ -1100,16 +1093,21 @@ class FormsActionsClass {
                     checkPasswordMatch(e.target);
                 });
             });
-    };
+    }
 
     restorePasswordFormFetch() {
-        const forgotPasswordForm = document.querySelector('.js-forgot-password-form');
+        const forgotPasswordForm = document.querySelector(
+            '.js-forgot-password-form'
+        );
 
         if (!forgotPasswordForm) return;
 
         forgotPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const res = await this.fetchToAction(forgotPasswordForm, 'forgot_password');
+            const res = await this.fetchToAction(
+                forgotPasswordForm,
+                'forgot_password'
+            );
 
             if (!res.success) {
                 this.setDataToRespContainer(res, forgotPasswordForm);
@@ -1117,7 +1115,7 @@ class FormsActionsClass {
                 this.popupInstance.openOnePopup('#forgot-password-popup');
             }
         });
-    };
+    }
 
     getAccessFormFetch() {
         const getAccessForm = document.querySelector('.js-get-access-form');
@@ -1129,11 +1127,17 @@ class FormsActionsClass {
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //Regsiter and login user
-                const res = await this.fetchToAction(getAccessForm, 'register_login_user');
+                // Regsiter and login user
+                const res = await this.fetchToAction(
+                    getAccessForm,
+                    'register_login_user'
+                );
                 if (res.success) {
-                    const payRes = await this.fetchToAction(getAccessForm, 'create_payment_action');
-                    //FETCH TO MONO PAY SYSTEM
+                    const payRes = await this.fetchToAction(
+                        getAccessForm,
+                        'create_payment_action'
+                    );
+                    // FETCH TO MONO PAY SYSTEM
                     if (payRes.success) {
                         window.location.href = payRes.data.pageUrl;
                     } else {
@@ -1142,16 +1146,18 @@ class FormsActionsClass {
                 } else {
                     this.setDataToRespContainer(res, getAccessForm);
                 }
-
             });
-    };
+    }
 
     async fetchToAction(form, actionName) {
         const formData = new FormData(form);
-        const resJSON = await fetch(`${var_from_php.ajax_url}?action=${actionName}`, {
-            method: 'POST',
-            body: formData,
-        }
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}?action=${actionName}`,
+            {
+                method: 'POST',
+                body: formData,
+            }
         );
 
         const res = await resJSON.json();
@@ -1159,7 +1165,9 @@ class FormsActionsClass {
     }
 
     setNewPasswordFormFetch() {
-        const newPasswordForm = document.querySelector('.js-set-new-password-form');
+        const newPasswordForm = document.querySelector(
+            '.js-set-new-password-form'
+        );
 
         if (!newPasswordForm) return;
 
@@ -1167,12 +1175,14 @@ class FormsActionsClass {
             newPasswordForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const res = await this.fetchToAction(newPasswordForm, 'set_new_password');
+                const res = await this.fetchToAction(
+                    newPasswordForm,
+                    'set_new_password'
+                );
 
                 this.setDataToRespContainer(res, newPasswordForm);
-
             });
-    };
+    }
 
     buyProgrammFormFetch() {
         const buyProgrammForm = document.querySelector('.js-buy-programm-form');
@@ -1184,11 +1194,14 @@ class FormsActionsClass {
             buyProgrammForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                //FETCH TO MONO PAY SYSTEM ( Create pay account)
-                const res = await this.fetchToAction(buyProgrammForm, 'create_payment_action');
+                // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                const res = await this.fetchToAction(
+                    buyProgrammForm,
+                    'create_payment_action'
+                );
 
                 if (res.success) {
-                    //If success return to pay page
+                    // If success return to pay page
                     window.location.href = res.data.pageUrl;
                 }
             });
@@ -1197,7 +1210,9 @@ class FormsActionsClass {
     setDataToRespContainer(res, parentForm) {
         if (!parentForm || !res) return;
 
-        const respContainer = parentForm.querySelector('.js-response-container');
+        const respContainer = parentForm.querySelector(
+            '.js-response-container'
+        );
         if (!respContainer) return;
 
         const additionalClass = res.success ? 'success' : 'error';
@@ -1555,7 +1570,7 @@ function closestPolyfill() {
             do {
                 i = matches.length;
                 // eslint-disable-next-line no-empty
-                while (--i >= 0 && matches.item(i) !== el) { }
+                while (--i >= 0 && matches.item(i) !== el) {}
             } while (i < 0 && (el = el.parentElement));
             return el;
         };
@@ -1950,8 +1965,8 @@ function ready() {
   var blocks = document.querySelectorAll('.js-anim-activate');
   var siteHeader = document.querySelector('.js-site-header');
   var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__["default"]();
-  var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__.ProfileFunctionality();
-  var formsActionClass = new _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__.FormsActionsClass(popupInstance, _parts_helpers__WEBPACK_IMPORTED_MODULE_5__.validateField);
+  var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  var formsActionClass = new _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__["default"](popupInstance, _parts_helpers__WEBPACK_IMPORTED_MODULE_5__.validateField);
   popupInstance.init();
   profileFunctionality.init();
   formsActionClass.init();
@@ -1964,7 +1979,7 @@ function ready() {
     document.body.classList.remove('popup-opened');
     popupInstance.closePopup();
   }, -70);
-  (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__.hoverClickEvent)();
+  (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
   (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_6__["default"])('.js-tab-link', '.js-tab-panel');
@@ -2011,11 +2026,11 @@ function ready() {
         break;
     }
   });
-  window.document.addEventListener('wpcf7mailsent', function (event) {
-    var siteHeader = document.querySelector('.js-site-header');
+  window.document.addEventListener('wpcf7mailsent', function () {
+    var header = document.querySelector('.js-site-header');
     setTimeout(function () {
-      if (siteHeader && siteHeader.dataset.thank_you_page) {
-        window.location.replace(siteHeader.dataset.thank_you_page);
+      if (header && header.dataset.thank_you_page) {
+        window.location.replace(header.dataset.thank_you_page);
       }
     }, 2000);
   });

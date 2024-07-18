@@ -1,4 +1,53 @@
-export class ProfileFunctionality {
+interface videoData {
+    videoTitle: string | null;
+    videoId: string | null;
+    videoDuration: number | null;
+    videoPauseTime: number | null;
+    isVideoViewed: boolean;
+}
+
+interface blockData {
+    blockStatus: string | null;
+    blockId: string;
+    // Programm Vlock Video
+    videos: {
+        [key: string]: videoData;
+    };
+}
+
+interface profileData {
+    userId: number;
+    courses: {
+        programmType: string;
+        programms: {
+            // Programm
+            [key: string]: {
+                programmId: number | null;
+                blocksPassed: number | null;
+                blocks: {
+                    // Programm Block
+                    [key: string]: blockData;
+                };
+            };
+        };
+    };
+    lectures: {
+        programmType: string;
+        programms: {
+            // Programm
+            [key: string]: {
+                programmId: number | null;
+                blocksPassed: number | null;
+                blocks: {
+                    // Programm Block
+                    [key: string]: blockData;
+                };
+            };
+        };
+    };
+}
+
+export default class ProfileFunctionality {
     profileData: profileData = {
         userId: 0,
         courses: {
@@ -10,8 +59,8 @@ export class ProfileFunctionality {
             programms: {},
         },
     };
+
     initedPlayer = null;
-    constructor() { }
 
     // Main init method
     init() {
@@ -26,14 +75,14 @@ export class ProfileFunctionality {
         this.initPlayerOnOpenBlock();
     }
 
-    //Loading video data by click
+    // Loading video data by click
     loadDataAndPlayVideo(playBtnData) {
         if (!playBtnData) return;
 
         const containerId = playBtnData.dataset?.video_container_id;
         const videoTitle = playBtnData.dataset?.video_title;
         const videoId = playBtnData.dataset?.video_id;
-        const videoPauseTime = parseFloat(playBtnData.dataset?.video_pause_time);
+        const videoPauseTime = parseFloat(playBtnData.dataset?.video_pause_time) ?? null;
 
         const videoContainer = document.querySelector(`[data-video_container_id="${containerId}"]`) as HTMLElement;
         const blockVideoWrapper = videoContainer.closest('.js-block-video') as HTMLElement;
@@ -48,10 +97,11 @@ export class ProfileFunctionality {
 
         this.loadPDFButtons(playBtnData);
         const onPauseCallback = (pauseInfo) => {
+            // eslint-disable-next-line no-param-reassign
             playBtnData.dataset.video_pause_time = pauseInfo.seconds;
-        }
+        };
 
-        //@ts-ignore
+        // @ts-ignore
         this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
     }
 
@@ -64,12 +114,12 @@ export class ProfileFunctionality {
         const videoFiles = JSON.parse(playBtnData.dataset.video_files);
 
         let html = '';
-        const a = `<a class="green-transparent"></a>`
 
-        videoFiles && videoFiles.forEach((item) => {
-            if (!item.file && !item.file) return;
+        videoFiles &&
+            videoFiles.forEach((item) => {
+                if (!item.file && !item.file) return;
 
-            html += `<a target="_blank" href="${item.file}" class="green-transparent">
+                html += `<a target="_blank" href="${item.file}" class="green-transparent">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z" fill="white"/>
                             <path d="M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z" fill="white"/>
@@ -77,7 +127,7 @@ export class ProfileFunctionality {
                         </svg>
                         ${item.file_name}
                     </a>`;
-        });
+            });
 
         const videoembedFiles = document.querySelector('.js-video-embed-files') as HTMLElement;
 
@@ -219,6 +269,7 @@ export class ProfileFunctionality {
         } else {
             status = 'in-progress';
         }
+        // eslint-disable-next-line no-param-reassign
         currentBlockObject.blockStatus = status;
 
         this.visualUpdateBlockStatus(currentBlockObject.fullBlockId, status);
@@ -243,12 +294,10 @@ export class ProfileFunctionality {
     }
 
     visualUpdateProgressBar(videoContainer, learninMaterialType) {
-
         // Finding programm inforamtion containers
         const programmIdStr = videoContainer?.dataset.video_container_id.split('_')[0];
         const programmItem = document.querySelector(`[data-programm_id="${programmIdStr}"]`) as HTMLElement;
         const progressBarWrap = programmItem.querySelector('.js-progress-info') as HTMLElement;
-
         // Set path to programm in var
         if (!this.profileData[learninMaterialType].programms) return;
         const programmsData = this.profileData[learninMaterialType].programms;
@@ -257,8 +306,8 @@ export class ProfileFunctionality {
         if (!programmsData[programmIdStr].blocks) return;
         const blocksData = programmsData[programmIdStr].blocks;
 
-        //Get total blocks count and count of passed blocks
-        const blocksCount = Object.keys(blocksData).length
+        // Get total blocks count and count of passed blocks
+        const blocksCount = Object.keys(blocksData).length;
         const passedBlocksCount = programmsData[programmIdStr].blocksPassed;
 
         // Finding progress bar containers
@@ -273,7 +322,6 @@ export class ProfileFunctionality {
         if (passedBlocksSpan) {
             passedBlocksSpan.innerText = `${passedBlocksCount}`;
         }
-
     }
 
     generateProgressBar(totalWidth, blocksCount, blocksPassed) {
@@ -284,11 +332,11 @@ export class ProfileFunctionality {
 
         let svg = '';
 
-        svg += '<rect width="' + totalWidth + '" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';
+        svg += `<rect width="${totalWidth}" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />`;
 
         for (let i = 0; i < blocksPassed; i++) {
             const xPosition = i * blockWidth;
-            svg += '<rect width="' + blockWidth + '" height="5" transform="matrix(1 0 0 -1 ' + xPosition + ' 5)" fill="#53F07F" />';
+            svg += `<rect width="${blockWidth}" height="5" transform="matrix(1 0 0 -1 ${xPosition} 5)" fill="#53F07F" />`;
         }
         return svg;
     }
@@ -300,6 +348,7 @@ export class ProfileFunctionality {
 
         const countOfPassedBlocks = blocksArray.filter((block) => block.blockStatus === 'passed');
 
+        // eslint-disable-next-line no-param-reassign
         currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
     }
 
@@ -320,9 +369,9 @@ export class ProfileFunctionality {
 
                     if (nextPLayBtn) {
                         playVideoBtns &&
-                            playVideoBtns.forEach((el) => {
-                                const btn = el as HTMLButtonElement;
-                                btn.classList.remove('playing-video');
+                            playVideoBtns.forEach((el2) => {
+                                const btn2 = el2 as HTMLButtonElement;
+                                btn2.classList.remove('playing-video');
                             });
 
                         nextPLayBtn.classList.add('playing-video');
@@ -332,8 +381,8 @@ export class ProfileFunctionality {
             });
     }
 
-    fetchDataToBackend(profileData) {
-        if (!profileData) return;
+    fetchDataToBackend(profileDataParams) {
+        if (!profileDataParams) return;
 
         // @ts-ignore
         fetch(`${var_from_php.ajax_url}?action=save_video_data`, {
@@ -341,7 +390,7 @@ export class ProfileFunctionality {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(profileData),
+            body: JSON.stringify(profileDataParams),
         });
     }
 
@@ -399,7 +448,7 @@ export class ProfileFunctionality {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
 
-                    inpus && inpus.forEach((el) => setInputDefaultState(el));
+                    inpus && inpus.forEach((el2) => setInputDefaultState(el2));
 
                     const parentWrapper = btn.closest('.js-inner-input-wrapper');
                     const input = parentWrapper?.querySelector('input[type="text"]') as HTMLInputElement;
@@ -409,7 +458,8 @@ export class ProfileFunctionality {
             });
     }
 
-    initVimeoPlayer(playerEl, videoId, loadVideo = false, start = 0, cb = () => { }) {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    initVimeoPlayer(playerEl, videoId, loadVideo = false, start = 0, cb = (pauseInfo) => {}) {
         let player;
 
         if (!loadVideo) {
@@ -420,7 +470,6 @@ export class ProfileFunctionality {
             });
 
             start && player.setCurrentTime(start);
-
         } else {
             // If player already initialized
             player = playerEl;
@@ -433,101 +482,52 @@ export class ProfileFunctionality {
         player.off('pause', cb);
         player.on('pause', cb);
 
-
         return player;
     }
 
     initPlayerOnOpenBlock() {
         const blocks = document.querySelectorAll('.js-programm-block') as NodeList;
 
-        blocks && blocks.forEach((el) => {
-            const block = el as HTMLElement;
-            block.addEventListener('click', () => {
+        blocks &&
+            blocks.forEach((el) => {
+                const block = el as HTMLElement;
+                block.addEventListener('click', () => {
+                    const player = block.querySelector(
+                        `[data-video_container_id="${block.dataset.block_id}"]`
+                    ) as HTMLElement;
+                    // Get first button of block
+                    const firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn') as HTMLElement;
+                    const videoStartTime = firstPlayBtnInBlcok?.dataset.video_pause_time
+                        ? +firstPlayBtnInBlcok.dataset.video_pause_time
+                        : 0;
 
-                const player = block.querySelector(`[data-video_container_id="${block.dataset.block_id}"]`) as HTMLElement;
-                //Get first button of block
-                const firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn') as HTMLElement;
-                const videoStartTime = firstPlayBtnInBlcok?.dataset.video_pause_time ? +firstPlayBtnInBlcok.dataset.video_pause_time : 0;
+                    if (!player || !firstPlayBtnInBlcok) return;
 
-                if (!player || !firstPlayBtnInBlcok) return;
+                    // Init vimeo player after open accrodiont block
+                    firstPlayBtnInBlcok.classList.add('playing-video');
 
-                // Init vimeo player after open accrodiont block
-                firstPlayBtnInBlcok.classList.add('playing-video');
+                    const onPauseCallback = (pauseInfo) => {
+                        const parentProgramm = block.closest('.js-programm') as HTMLElement;
+                        const playVideoBtn = block.querySelector(
+                            `#video-btn-${player.dataset.video_id}`
+                        ) as HTMLElement;
 
-                const onPauseCallback = (pauseInfo) => {
-                    const parentProgramm = block.closest('.js-programm') as HTMLElement;
-                    const playVideoBtn = block.querySelector(`#video-btn-${player.dataset.video_id}`) as HTMLElement;
+                        if (playVideoBtn) {
+                            playVideoBtn.dataset.video_pause_time = `${pauseInfo.seconds}`;
+                        }
 
-                    if (playVideoBtn) {
-                        playVideoBtn.dataset.video_pause_time = `${pauseInfo.seconds}`;
-                    }
+                        this.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
+                    };
 
-                    this.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
-                }
-
-                //@ts-ignore
-                this.initedPlayer = this.initVimeoPlayer(player, player.dataset.video_id, false, videoStartTime, onPauseCallback);
-
+                    // @ts-ignore
+                    this.initedPlayer = this.initVimeoPlayer(
+                        player,
+                        player.dataset.video_id,
+                        false,
+                        videoStartTime,
+                        onPauseCallback
+                    );
+                });
             });
-        });
     }
-}
-
-interface profileData {
-    userId: number;
-    courses: {
-        programmType: string;
-        programms: {
-            // Programm
-            [key: string]: {
-                programmId: number | null;
-                blocksPassed: number | null;
-                blocks: {
-                    // Programm Block
-                    [key: string]: blockData;
-                };
-            };
-        };
-    };
-    lectures: {
-        programmType: string;
-        programms: {
-            // Programm
-            [key: string]: {
-                programmId: number | null;
-                blocksPassed: number | null;
-                blocks: {
-                    // Programm Block
-                    [key: string]: blockData;
-                };
-            };
-        };
-    };
-}
-
-interface blockData {
-    blockStatus: string | null;
-    blockId: string;
-    // Programm Vlock Video
-    videos: {
-        [key: string]: videoData;
-    };
-}
-
-interface videoData {
-    videoTitle: string | null;
-    videoId: string | null;
-    videoDuration: number | null;
-    videoPauseTime: number | null;
-    isVideoViewed: boolean;
-}
-function escapeHTML(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
