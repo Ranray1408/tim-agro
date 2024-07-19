@@ -6,6 +6,11 @@
  * Handles various user profile functionalities.
  */
 class profile_functionality {
+    private $monobank;
+
+    public function __construct($monobank) {
+        $this->monobank = $monobank;
+    }
     /**
      * Initializes the class by adding action hooks.
      */
@@ -16,6 +21,7 @@ class profile_functionality {
      * Adds necessary WordPress action hooks.
      */
     private function addActions() {
+        global $monobank;
         // Save video data
         add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data_action'));
         // Update user data
@@ -197,8 +203,10 @@ class profile_functionality {
                 wp_send_json_error(__('Помилка реєстрації користувача.', 'wp-rock'));
             }
 
+            $result = $this->monobank->generate_promocode(180);
+
             // After registering user send to email generated password
-            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass']);
+            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass'], $result['promocode']);
 
             if (!$email_sent) {
                 wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
@@ -334,7 +342,7 @@ class profile_functionality {
         return false;
     }
 
-    private function send_reset_user_password($user, $forgot_password_page, $generate_pass = '') {
+    private function send_reset_user_password($user, $forgot_password_page, $generate_pass = '', $promocode = '') {
         if (empty($user) || empty($forgot_password_page)) return;
 
         $hash = md5($user->user_email);
@@ -342,16 +350,25 @@ class profile_functionality {
 
         $headers = array('Content-Type: text/html; charset=UTF-8');
 
+        $promocode_text = !empty($promocode)
+            ? '<p>' . __('Для вас було сгенеровано промокоде на покупку наступного курсу:
+                <h2>' . $promocode . '</h2>', 'wp-rock') . '</p>'
+            : '';
+
         $body    = "<h2>" . __('Ви відправили запит на відновлення паролю:', 'wp-rock') . "</h2>
                     <p>" . __('Для зміни паролю будь ласка перейдіть за посиланням:', 'wp-rock') . "</p>
                     <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">
                         " . __('Скинути пароль', 'wp-rock') . "</a></p>";
 
         if (!empty($generate_pass)) {
-            $body    = "<h2>" . __('Вам було надано автоматично сгенерований пароль:', 'wp-rock') . " " . $generate_pass . "</h2>
-                        <p>" . __('Для зміни сгенерованого паролю перейдіть за посиланням:', 'wp-rock') . "</p>
-                        <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">
-                            " . __('Скинути пароль', 'wp-rock') . "</a></p>";
+            $body = "<h2>
+            " . __('Вам було надано автоматично сгенерований пароль: ' . $generate_pass, 'wp-rock') . "
+            <br>
+            " . __('Ваш логін для входу: ' . $user->user_email, 'wp-rock') . "</h2>
+                    <p>" . __('Для зміни сгенерованого паролю перейдіть за посиланням:', 'wp-rock') . "</p>
+                    <p><a href=\"$forgot_password_page?hash_reset_password=$hash\">
+                    " . __('Скинути пароль', 'wp-rock') . "</a></p>
+                    " . $promocode_text;
         }
 
 

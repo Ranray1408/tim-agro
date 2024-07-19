@@ -136,7 +136,7 @@ class MonobankPayment {
     }
 
     private function use_promocode($promocode_value, $user_email, $price) {
-        $result = array('success' => false, 'price' => 0, 'text' => 'Uknown error');
+        $result = array('success' => false, 'price' => $price, 'text' => 'Uknown error');
 
         if (empty($promocode_value)) {
             $result['success'] = true;
@@ -178,16 +178,15 @@ class MonobankPayment {
             return $result;
         }
 
-        $date = new DateTime();
+        $date = date('d.m.Y');
         $expire_date = new DateTime($post_fields['expire_date']);
-        $expire_date->setTime(23, 59, 59);
 
-        if ($date > $expire_date) {
+        if ($date > $expire_date->format('d.m.Y')) {
             $result['text'] = __('Срок дії промокоду вийшов.', 'wp-rock');
             return $result;
         }
 
-        $post_fields['using_date'] = $date->format('Ymd');
+        $post_fields['using_date'] = $date;
         $post_fields['used'] = true;
         $post_fields['user_who_used'] = $user->ID;
 

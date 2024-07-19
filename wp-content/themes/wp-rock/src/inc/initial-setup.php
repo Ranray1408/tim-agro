@@ -52,8 +52,15 @@ function get_field_value($data_arr, $key) {
     return (isset($data_arr[$key])) ? $data_arr[$key] : null;
 }
 
+// Monobank payment
+global $monobank;
+$monobank_token = get_field_value($global_options, 'monobank_token');
+$monobank = new MonobankPayment($monobank_token);
+$monobank->init($monobank_token);
+
+
 global $profile_functionality;
-$profile_functionality = new profile_functionality();
+$profile_functionality = new profile_functionality($monobank);
 $profile_functionality->init();
 
 // Vimeo SDK
@@ -81,17 +88,9 @@ function isHostReachable($host = 'api.vimeo.com', $port = 443) {
         return false;
     }
 }
-//dd7d34d951051bea87cd402fedc11014
+
 function log_data($data) {
     $log_file = WP_CONTENT_DIR . '/error_logs.log';
     $log_entry = date('[Y-m-d H:i:s]') . ' ' . json_encode($data) . PHP_EOL;
     file_put_contents($log_file, $log_entry, FILE_APPEND);
 }
-
-$monobank_token = get_field_value($global_options, 'monobank_token');
-// Monobank payment
-$monobank = new MonobankPayment($monobank_token);
-
-global $monobank;
-
-$monobank->init($monobank_token);
