@@ -5,7 +5,9 @@ $post_id = !empty($args['post_id']) ? $args['post_id'] : '';
 $programm_data = !empty($args['programm_data']) ? $args['programm_data'] : '';
 global $client;
 
-$blocks_folder = !empty($args['blocks_folder']) ? $args['blocks_folder'] : null;
+// $blocks_folder = !empty($args['blocks_folder']) ? $args['blocks_folder'] : null;
+$blocks_folder = !empty($args['blocks_folder']['body']['data']) ? $args['blocks_folder']['body']['data'] : null;
+
 
 $text_block_status = array(
     __('Не пройдено', 'wp-rock'),
@@ -32,27 +34,28 @@ $svg_pdf = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="h
                 <path d="M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z" fill="white"/>
             </svg>';
 
+$video_files = get_field('videos_embed_files', $post_id);
+
+$video_files_array = array();
+
+if(!empty($video_files)) {
+    foreach ($video_files as $item) {
+        $video_files_array[$item['video_id']] = $item['files'];
+    }
+}
+
 if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
         foreach ($blocks_folder as $block) :
-            $videos = [];
+            if ($block['type'] === 'video') continue;
 
-            if (!empty($block['videos'])) {
-                foreach ($block['videos'] as $video) {
-                    $response = $client->request('/videos/' . $video['video_id'], [], 'GET');
-                    $videos[] = array(
-                        'video_id' => $video['video_id'],
-                        'name' => $response['body']['name'],
-                        'files' => $video['files'],
-                        'duration' => $response['body']['duration'],
-                    );
-                }
-            }
+            if (empty($block['folder']['uri'])) continue;
+            $videos = $client->request($block['folder']['uri'] . '/videos', array(), 'GET');
+            $block_title = $block['folder']['name'];
 
             if (empty($videos)) continue;
 
-            $block_title = $block['block_title'];
             $sanitize_block_title = sanitize_title($block_title);
 
             $block_status = 'not-passed';
@@ -77,8 +80,10 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
             $saved_video_data = null;
 
             // Default value for playing first video in list
-            $first_video = !empty($videos[0]) ? $videos[0] : null;
+            $first_video = !empty($videos['body']['data'][0]) ? $videos['body']['data'][0] : null;
+            $clear_video_id = str_replace('/videos/', '', $videos['body']['data'][0]['uri']);
             $first_video_title = !empty($first_video['name']) ? do_shortcode($first_video['name']) : '...';
+            $first_video_files = !empty($video_files_array[$clear_video_id]) ? $video_files_array[$clear_video_id] : null;
         ?>
             <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="programm__block js-programm-block js-inner-accordion__content">
 
@@ -106,7 +111,8 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
                         <?php
                         if ($first_video) {
-                            echo '<div data-video_id="' . $first_video['video_id'] . '"
+                            $video_clear_id = str_replace('/videos/', '', $first_video['uri']);
+                            echo '<div data-video_id="' . $video_clear_id . '"
                                     data-video_container_id="' . $video_container_id . '"></div>';
                         }
 
@@ -116,9 +122,9 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                             <div class="video-name js-video-title body-type-2 weight600">
                                 <?php echo $first_video_title; ?>
                             </div>
-                            <?php if (!empty($first_video['files'])) {
+                            <?php if (!empty($first_video_files)) {
                                 echo '<div class="video-embed-files js-video-embed-files">';
-                                foreach ($first_video['files'] as $file) {
+                                foreach ($first_video_files as $file) {
                                     echo '<a target="_blank" class="green-transparent" href="' . $file['file'] . '">
                                             ' . $svg_pdf . '
                                             <span>' . $file['file_name'] . '</span>
@@ -133,27 +139,28 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                     </div>
                     <!-- ************ Video list ************ -->
                     <?php
-                    if (!empty($videos)) :
+                    if (!empty($videos['body']['data'])) :
                         echo '<div class="programm__block-videos-list">';
-                        foreach ($videos as $key => $video) :
+                        foreach ($videos['body']['data'] as $key => $video) :
 
                             $video_title = !empty($video['name']) ? $video['name'] : '';
                             $video_duration = !empty($video['duration']) ? $video['duration'] : '';
 
                             $active_class = $key === 0 ? 'playing-video' : '';
-
-                            $video_id = $video['video_id'];
-                            $save_video_data = $saved_block_data->videos->{$video_id} ?? '';
+                            $clear_video_id = str_replace('/videos/', '', $video['uri']);
+                            $save_video_data = $saved_block_data->videos->{$clear_video_id} ?? '';
                             $video_pause_time = $save_video_data->videoPauseTime ?? 0;
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';
 
+                            $video_files = !empty($video_files_array[$clear_video_id]) ? $video_files_array[$clear_video_id] : null;
+
                             echo '<button
-                                        id="video-btn-' . $video_id . '"
-                                        data-video_files="' . htmlspecialchars(json_encode($video['files'])) . '"
+                                        id="video-btn-' . $clear_video_id . '"
+                                        data-video_files="' . htmlspecialchars(json_encode($video_files)) . '"
                                         data-passed_blocks_count="' . $passed_blocks_count . '"
                                         data-video_container_id="' . $video_container_id . '"
                                         data-video_viewed="' . $video_is_viewed . '"
-                                        data-video_id="' . $video_id . '"
+                                        data-video_id="' . $clear_video_id . '"
                                         data-video_title="' . htmlspecialchars($video_title) . '"
                                         data-video_pause_time="' . $video_pause_time . '"
                                         class="programm__block-video-btn js-play-video-btn body-type-4 weight600 ' . $active_class . '">';

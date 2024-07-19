@@ -21,6 +21,7 @@ $text_continue_access = __('Продовжити доступ ', 'wp-rock');
 
 global $client;
 global $global_options;
+global $client;
 
 $user_programm_item = !empty($args['user_programm_item']) ? $args['user_programm_item'] : 0;
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
@@ -39,11 +40,15 @@ $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_
 
 
 $user_id = get_field_value($global_options, 'user_id');
+$vimeo_blocks_folder = get_field_value($post_fields, 'vimeo_blocks_folder');
+
 
 $args = array('sort' => 'date', 'direction' => 'asc');
-$blocks_folder = get_field_value($post_fields, 'blocks');
-$blocks_count = !empty($blocks_folder) ? count($blocks_folder) : $blocks_folder;
 
+//API to load video from vimeo
+$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
+
+$blocks_count = !empty($blocks_folder['body']['total']) ? $blocks_folder['body']['total'] : 0;
 
 $access_status = access_status($expire_access_date);
 
