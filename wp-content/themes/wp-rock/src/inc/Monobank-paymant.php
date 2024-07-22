@@ -178,21 +178,21 @@ class MonobankPayment {
             return $result;
         }
 
-        $date = date('d.m.Y');
-        $expire_date = new DateTime($post_fields['expire_date']);
+        $current_date = new DateTime();
+        $expire_date = DateTime::createFromFormat('d.m.Y', $post_fields['expire_date']);
 
-        if ($date > $expire_date->format('d.m.Y')) {
+        if (!$expire_date || $current_date->format('Y-m-d') > $expire_date->format('Y-m-d')) {
             $result['text'] = __('Срок дії промокоду вийшов.', 'wp-rock');
             return $result;
         }
 
-        $post_fields['using_date'] = $date;
+        $post_fields['using_date'] = $current_date->format('d.m.Y');
         $post_fields['used'] = true;
         $post_fields['user_who_used'] = $user->ID;
 
         switch ($post_fields['discount_type']) {
             case 'fixed':
-                $result['price'] =$price - ((int)$post_fields['discount_value'] * 100);
+                $result['price'] = $price - ((int)$post_fields['discount_value'] * 100);
                 $result['success'] = true;
                 break;
             case 'percent':
@@ -227,8 +227,8 @@ class MonobankPayment {
 
         $promocode_id = wp_insert_post($args);
 
-        if(!$promocode_id) {
-            $result['text'] = __('Помилка створення промокоду.' ,'wp-rock');
+        if (!$promocode_id) {
+            $result['text'] = __('Помилка створення промокоду.', 'wp-rock');
             return $result;
         }
 
