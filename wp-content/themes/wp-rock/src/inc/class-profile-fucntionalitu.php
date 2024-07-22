@@ -373,7 +373,10 @@ class profile_functionality {
         }
 
 
-        return wp_mail($user->user_email, 'Forgot Password', $body, $headers);
+        $emailTitle =  (!empty($generate_pass)) ? 'TimAgro - Notification' : 'TimAgro - Password reset';
+
+
+        return wp_mail($user->user_email, $emailTitle, $body, $headers);
     }
 
 
