@@ -260,7 +260,7 @@ export const validateField = (fieldType = null, value = null) => {
     const phoneREGEX = /^[0-9+]{6,13}$/;
     const nameREGEX = /^[a-zA-Z]{2,30}( [a-zA-Z]{2,30})?$/;
     const postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
-    const emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const emailREGEX = /^[\w+.-]+@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
 
     let checkResult = false;

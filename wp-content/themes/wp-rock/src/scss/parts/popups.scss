@@ -94,6 +94,14 @@
         .wpcf7-submit {
             color: var(--color-type-dark-1);
         }
+
+        .input-label {
+            .not-valid-text {
+                color: var(--color-type-primary-3);
+                font-size: 16px;
+                margin: 10px 0;
+            }
+        }
     }
 
     .wpcf7-form-control-wrap {
@@ -177,6 +185,7 @@
     .inputs-wrapper {
         &.promocode {
             justify-content: flex-start;
+
             .input-label {
                 display: flex;
                 align-items: center;

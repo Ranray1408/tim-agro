@@ -1018,6 +1018,28 @@ class FormsActionsClass {
         if (!formInputs) return;
         let repeatPassword = '';
 
+        const notValidText = (inputName) => {
+            let textResult = '';
+
+            switch (inputName) {
+                case 'name':
+                    textResult =
+                        'Ведіть данні у форматі "First name" "Second name" або "First name"';
+                    break;
+                case 'email':
+                    textResult = 'Невірний формат воду email';
+                    break;
+                case 'phone':
+                    textResult =
+                        'Невірний формат воду телефону "+380000000000"';
+                    break;
+                default:
+                    textResult = 'Невірний формат воду';
+            }
+
+            return textResult;
+        };
+
         const checkAllInputs = (target) => {
             let allInputsValid = true;
 
@@ -1043,6 +1065,12 @@ class FormsActionsClass {
 
                 const isValid = this.validateField(input.name, input.value);
 
+                // eslint-disable-next-line no-shadow
+                const notValidTextParagraph =
+                    inputContainer.querySelector('.js-not-valid-text');
+
+                notValidTextParagraph && notValidTextParagraph.remove();
+
                 if (isValid) {
                     input && input.classList.add('valid');
                     input && input.classList.remove('not-valid');
@@ -1050,6 +1078,13 @@ class FormsActionsClass {
                     inputContainer &&
                         inputContainer.classList.remove('not-valid');
                 } else {
+                    const p = document.createElement('p');
+                    p.classList.add('js-not-valid-text');
+                    p.classList.add('not-valid-text');
+                    p.innerText = notValidText(input.name);
+
+                    inputContainer.appendChild(p);
+
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
                     inputContainer && inputContainer.classList.add('not-valid');
@@ -1521,7 +1556,7 @@ const validateField = (fieldType = null, value = null) => {
     const phoneREGEX = /^[0-9+]{6,13}$/;
     const nameREGEX = /^[a-zA-Z]{2,30}( [a-zA-Z]{2,30})?$/;
     const postalREGEX = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
-    const emailREGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const emailREGEX = /^[\w+.-]+@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const dummyREGEX = /^[a-zA-Z0-9]{2,30}$/;
 
     let checkResult = false;

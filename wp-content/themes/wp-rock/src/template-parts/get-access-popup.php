@@ -17,17 +17,17 @@ $get_access_form = '
             ' . __('Щоб отримати доступ, заповніть форму і натисніть кнопку', 'wp-rock') . '
         </div>
         <div class="inputs-wrapper w100">
-            <label class="input-label">
+            <label class="input-label js-inner-input-wrapper">
                 <span class="input-text body-type-5 weight400">* Ваше ім\'я</span>
                 <input type="text" name="name" required>
             </label>
         </div>
         <div class="inputs-wrapper">
-            <label class="input-label">
+            <label class="input-label js-inner-input-wrapper">
                 <span class="input-text body-type-5 weight400">* Телефон</span>
                 <input type="tel" name="phone" required>
             </label>
-            <label class="input-label">
+            <label class="input-label js-inner-input-wrapper">
                 <span class="input-text body-type-5 weight400">* E-mail</span>
                 <input type="email" name="email" required>
             </label>

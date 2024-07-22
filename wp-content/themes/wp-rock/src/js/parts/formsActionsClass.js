@@ -39,6 +39,28 @@ export default class FormsActionsClass {
         if (!formInputs) return;
         let repeatPassword = '';
 
+        const notValidText = (inputName) => {
+            let textResult = '';
+
+            switch (inputName) {
+                case 'name':
+                    textResult =
+                        'Ведіть данні у форматі "First name" "Second name" або "First name"';
+                    break;
+                case 'email':
+                    textResult = 'Невірний формат воду email';
+                    break;
+                case 'phone':
+                    textResult =
+                        'Невірний формат воду телефону "+380000000000"';
+                    break;
+                default:
+                    textResult = 'Невірний формат воду';
+            }
+
+            return textResult;
+        };
+
         const checkAllInputs = (target) => {
             let allInputsValid = true;
 
@@ -64,6 +86,12 @@ export default class FormsActionsClass {
 
                 const isValid = this.validateField(input.name, input.value);
 
+                // eslint-disable-next-line no-shadow
+                const notValidTextParagraph =
+                    inputContainer.querySelector('.js-not-valid-text');
+
+                notValidTextParagraph && notValidTextParagraph.remove();
+
                 if (isValid) {
                     input && input.classList.add('valid');
                     input && input.classList.remove('not-valid');
@@ -71,6 +99,13 @@ export default class FormsActionsClass {
                     inputContainer &&
                         inputContainer.classList.remove('not-valid');
                 } else {
+                    const p = document.createElement('p');
+                    p.classList.add('js-not-valid-text');
+                    p.classList.add('not-valid-text');
+                    p.innerText = notValidText(input.name);
+
+                    inputContainer.appendChild(p);
+
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
                     inputContainer && inputContainer.classList.add('not-valid');

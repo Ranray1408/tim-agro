@@ -65,13 +65,13 @@ $login_form = '<form method="post" class="login-form js-login-form" action="' . 
                         ' . $forgor_pass_subtitle_text . '
                     </div>
                     <div class="inputs-wrapper">
-                        <label class="input-label">
+                        <label class="input-label js-inner-input-wrapper">
                             <span class="input-text body-type-5 weight400">
                             ' . $forgor_pass_logint_email_text . '
                             </span>
                             <input type="text" name="user-name-email">
                         </label>
-                        <label class="input-label">
+                        <label class="input-label js-inner-input-wrapper">
                             <span class="input-text body-type-5 weight400">
                             ' . $forgor_pass_password_text . '
                             </span>
