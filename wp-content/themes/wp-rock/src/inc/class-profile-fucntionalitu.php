@@ -289,7 +289,7 @@ class profile_functionality {
      */
     private function register_user($email, $name, $phone) {
         $userdata = array(
-            'user_login' => $name,
+            'user_login' => $email,
             'user_email' => $email,
             'user_pass' => wp_generate_password(),
             'first_name' => $name,
@@ -298,6 +298,7 @@ class profile_functionality {
         $user_id = wp_insert_user($userdata);
 
         if (is_wp_error($user_id)) {
+            $error_message = $user_id->get_error_message();
             return false;
         }
 
