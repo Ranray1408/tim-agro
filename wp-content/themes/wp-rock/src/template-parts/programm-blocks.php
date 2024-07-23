@@ -44,6 +44,8 @@ if(!empty($video_files)) {
     }
 }
 
+$args = array('sort' => 'date', 'direction' => 'asc');
+
 if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
@@ -51,7 +53,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
             if ($block['type'] === 'video') continue;
 
             if (empty($block['folder']['uri'])) continue;
-            $videos = $client->request($block['folder']['uri'] . '/videos', array(), 'GET');
+            $videos = $client->request($block['folder']['uri'] . '/videos', $args, 'GET');
             $block_title = $block['folder']['name'];
 
             if (empty($videos)) continue;
