@@ -33,6 +33,7 @@ $user_programms_array = get_field(get_post_type($post_id), 'user_' . get_current
 $is_user_have_programm = $profile_functionality->is_user_have_programm($user_programms_array, $post_id);
 
 $user_email = is_user_logged_in() ? wp_get_current_user()->user_email : null;
+$is_programm_access_expire = $profile_functionality->is_programm_access_expire(get_current_user_id(), $post_id);
 ?>
 <div class="price-cta js-anim-activate <?php echo $link_class; ?>">
     <div class="container d-flex flex-column">
@@ -63,13 +64,21 @@ $user_email = is_user_logged_in() ? wp_get_current_user()->user_email : null;
         if (is_user_logged_in()) {
             // If user loggedin and have programm
             if (!empty($cta_button) && $is_user_have_programm !== false) {
-                echo '<a href="#continue-access-popup" class="price-cta__cta-button green-transparent from-left js-open-popup-activator">
-                            ' . esc_html($cta_button) . '
-                        </a>';
+                if ($is_programm_access_expire) {
+                    // If user have programm and programm access expire
+                    echo '<a href="#continue-access-popup" class="price-cta__cta-button green-transparent from-left js-open-popup-activator">
+                    ' . esc_html($cta_button) . '
+                    </a>';
+                } else {
+                    // If user have programm access not expire
+                    echo '<a href="#have-access-popup" class="price-cta__cta-button green-transparent from-left js-open-popup-activator">
+                                ' . esc_html($cta_button) . '
+                            </a>';
+                }
             } else {
                 // If user loggedin and don't have programm
                 if (!empty($cta_button)) {
-                    if(get_post_type($post_id) === 'courses') {
+                    if (get_post_type($post_id) === 'courses') {
                         echo '<a href="#buy-programm-popup" class="price-cta__cta-button green-transparent from-left js-open-popup-activator">
                                 ' . esc_html($cta_button) . '
                             </a>';
@@ -83,7 +92,6 @@ $user_email = is_user_logged_in() ? wp_get_current_user()->user_email : null;
                                 <div class="js-response-container response-container"></div>
                                 </form>';
                     }
-
                 }
             }
         } else {
@@ -124,6 +132,8 @@ echo get_template_part('src/template-parts/pay-success-response', null, array(
 echo get_template_part('src/template-parts/continue-access-popup', null, array(
     'post_id' => get_the_ID()
 ));
+
+echo get_template_part('src/template-parts/have-access-popup', null, array());
 
 echo get_template_part('src/template-parts/buy-programm-popup', null, array(
     'post_id' => get_the_ID(),

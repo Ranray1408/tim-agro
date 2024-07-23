@@ -7,9 +7,10 @@
  */
 class profile_functionality {
     private $monobank;
+    private $global_options;
 
-    public function __construct($monobank) {
-        $this->monobank = $monobank;
+    public function __construct($global_options) {
+        $this->global_options = $global_options;
     }
     /**
      * Initializes the class by adding action hooks.
@@ -21,7 +22,6 @@ class profile_functionality {
      * Adds necessary WordPress action hooks.
      */
     private function addActions() {
-        global $monobank;
         // Save video data
         add_action('wp_ajax_save_video_data', array($this, 'add_json_video_data_action'));
         // Update user data
@@ -169,7 +169,7 @@ class profile_functionality {
             if (!$user) {
                 wp_send_json_error(__('Користувач з даним email не знайдений.', 'wp-rock'));
             } else {
-                $email_sent = $this->send_reset_user_password($user, $forgot_password_page);
+                $email_sent = $this->send_reset_password_registered_info($user, $forgot_password_page);
 
                 if ($email_sent) {
                     wp_send_json_success(__('Посилання для скидання пароля відправлено на ваш email.', 'wp-rock'));
@@ -206,7 +206,7 @@ class profile_functionality {
             $result = $this->monobank->generate_promocode(180);
 
             // After registering user send to email generated password
-            $email_sent = $this->send_reset_user_password($user_data['user'], $forgot_password_page, $user_data['user_pass'], $result['promocode']);
+            $email_sent = $this->send_reset_password_registered_info($user_data['user'], $forgot_password_page, $user_data['user_pass'], $result['promocode']);
 
             if (!$email_sent) {
                 wp_send_json_error(__('Електронний лист не було надіслано.', 'wp-rock'));
@@ -343,7 +343,7 @@ class profile_functionality {
         return false;
     }
 
-    private function send_reset_user_password($user, $forgot_password_page, $generate_pass = '', $promocode = '') {
+    private function send_reset_password_registered_info($user, $forgot_password_page, $generate_pass = '', $promocode = '') {
         if (empty($user) || empty($forgot_password_page)) return;
 
         $hash = md5($user->user_email);
@@ -393,5 +393,38 @@ class profile_functionality {
         wp_set_password($user_new_password, $user->ID);
 
         wp_send_json_success(__('Пароль оновлено.', 'wp-rock'));
+    }
+
+    public function is_programm_access_expire($user_id, $post_id) {
+        if (!$post_id && !$user_id) {
+            return new WP_Error('No data');
+        }
+
+        $start_date = new DateTime();
+        $expire_date = clone $start_date;
+        $post_type = get_post_type($post_id);
+        $user_fields = get_field($post_type, 'user_' . $user_id);
+
+        $curren_post_expire = null;
+
+        if ($user_fields) {
+            foreach ($user_fields as $post) {
+                if ($post['post_id'] === $post_id) {
+                    $curren_post_expire = $post['expire_access_date'];
+                }
+            }
+        }
+
+        if (!$curren_post_expire) {
+            return new WP_Error('No post found');
+        }
+
+        $expire_date = DateTime::createFromFormat('d.m.Y', $curren_post_expire);
+
+        if (!$expire_date || $start_date->format('Y-m-d') > $expire_date->format('Y-m-d')) {
+            return true;
+        }
+
+        return false;
     }
 }

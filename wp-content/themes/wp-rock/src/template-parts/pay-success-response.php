@@ -4,6 +4,7 @@ global $profile_functionality;
 
 $payment = !empty($args['payment']) ? $args['payment'] : false;
 $post_id = !empty($args['post_id']) ? $args['post_id'] : 0;
+$additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
 
 if (is_array($payment)) {
     // Response form
@@ -24,7 +25,7 @@ if (is_array($payment)) {
 
 
     echo do_shortcode(
-        '[popup_box box_id="pay-success-response"]
+        '[popup_box box_id="pay-success-response" box_class="' . $additional_class . '"]
         <div class="pay-success-response">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
                 <g clip-path="url(#clip0_2087_37696)">
@@ -47,5 +48,3 @@ if (is_array($payment)) {
         [/popup_box]'
     );
 }
-
-

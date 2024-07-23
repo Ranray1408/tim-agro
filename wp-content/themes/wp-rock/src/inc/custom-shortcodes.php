@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Custom shortcodes
  *
@@ -8,7 +9,7 @@
 /*
  *  BR SHORTCODE
  */
-if ( ! function_exists( 'br_shortcode' ) ) {
+if (!function_exists('br_shortcode')) {
 
     /**
      * Shortcode for "br"
@@ -18,7 +19,7 @@ if ( ! function_exists( 'br_shortcode' ) ) {
      *
      * @return string
      */
-    function br_shortcode( $atts, $content = null ) {
+    function br_shortcode($atts, $content = null) {
         extract(
             shortcode_atts(
                 array(
@@ -33,15 +34,14 @@ if ( ! function_exists( 'br_shortcode' ) ) {
         return $output;
     }
 
-    add_shortcode( 'br', 'br_shortcode' );
-
+    add_shortcode('br', 'br_shortcode');
 }
 
 /*
  *  CURRENT YEAR SHORTCODE
  */
 
-if ( ! function_exists( 'current_year_shortcode' ) ) {
+if (!function_exists('current_year_shortcode')) {
 
     /**
      * Shortcode for "current year"
@@ -49,12 +49,11 @@ if ( ! function_exists( 'current_year_shortcode' ) ) {
      * @return string
      */
     function current_year_shortcode() {
-        $output = '<span>' . gmdate( 'Y' ) . '</span>';
+        $output = '<span>' . gmdate('Y') . '</span>';
         return $output;
     }
 
-    add_shortcode( 'current-year', 'current_year_shortcode' );
-
+    add_shortcode('current-year', 'current_year_shortcode');
 }
 
 /*
@@ -62,7 +61,7 @@ if ( ! function_exists( 'current_year_shortcode' ) ) {
  * but you don't want to display this info in front area
  */
 
-if ( ! function_exists( 'admin_notes_shortcode' ) ) {
+if (!function_exists('admin_notes_shortcode')) {
 
     /**
      * Shortcode for "Admin notes inside editor page in admin dashboard".
@@ -72,19 +71,18 @@ if ( ! function_exists( 'admin_notes_shortcode' ) ) {
      *
      * @return string
      */
-    function admin_notes_shortcode( $atts, $content = null ) {
+    function admin_notes_shortcode($atts, $content = null) {
         return '';
     }
 
-    add_shortcode( 'admin_notes', 'admin_notes_shortcode' );
-
+    add_shortcode('admin_notes', 'admin_notes_shortcode');
 }
 
 /*
  * Content for logged user shortcode
  */
 
-if ( ! function_exists( 'logged_user_shortcode' ) ) {
+if (!function_exists('logged_user_shortcode')) {
 
     /**
      * Shortcode for "Logged user". It means that content will be shown only for logged users.
@@ -94,22 +92,22 @@ if ( ! function_exists( 'logged_user_shortcode' ) ) {
      *
      * @return string
      */
-    function logged_user_shortcode( $atts, $content = null ) {
-        if ( is_user_logged_in() ) {
-            return do_shortcode( $content );
+    function logged_user_shortcode($atts, $content = null) {
+        if (is_user_logged_in()) {
+            return do_shortcode($content);
         }
 
         return '';
     }
 
-    add_shortcode( 'logged_user', 'logged_user_shortcode' );
+    add_shortcode('logged_user', 'logged_user_shortcode');
 }
 
 /*
  *  Popup box shortcode
  */
 
-if ( ! function_exists( 'shortcode__boxpopup' ) ) {
+if (!function_exists('shortcode__boxpopup')) {
     /**
      * Shortcode for "Popup box".
      *
@@ -118,10 +116,11 @@ if ( ! function_exists( 'shortcode__boxpopup' ) ) {
      *
      * @return string
      */
-    function shortcode_popup_box( $atts, $content = null ) {
+    function shortcode_popup_box($atts, $content = null) {
         extract(
             shortcode_atts(
                 array(
+                    'box_class'      => '',
                     'box_id'      => '',
                     'box_caption' => '',
                     'put_svg'     => 'false',
@@ -131,18 +130,18 @@ if ( ! function_exists( 'shortcode__boxpopup' ) ) {
             )
         );
 
-        $output  = '<div id="' . $box_id . '" class="popup">';
+        $output  = '<div id="' . $box_id . '" class="popup ' . $box_class . '">';
         $output .= '<div class="my_overlay js-popup-close"></div>';
 
         $output .= '<div class="popup-wrapper-inner">';
 
         $output .= '<div class="in text-center js-popup-inner">';
 
-        if ( ! empty( $box_caption ) ) {
+        if (!empty($box_caption)) {
             $output .= '<p class="box-caption">' . $box_caption . '</p>';
         }
 
-        $output .= do_shortcode( $content );
+        $output .= do_shortcode($content);
         $output .= '</div>';
         $output .= '<button
                         data-role="login-close"
@@ -153,17 +152,14 @@ if ( ! function_exists( 'shortcode__boxpopup' ) ) {
         $output .= '</div>';
 
         return $output;
-
     }
 
-    add_shortcode( 'popup_box', 'shortcode_popup_box' );
-
+    add_shortcode('popup_box', 'shortcode_popup_box');
 }
 
 
-if ( ! function_exists( 'custom_checkbox_shortcode' ) ) {
-    function custom_checkbox_shortcode($atts)
-    {
+if (!function_exists('custom_checkbox_shortcode')) {
+    function custom_checkbox_shortcode($atts) {
         $atts = shortcode_atts(
             array(
                 'text' => '',
@@ -186,7 +182,7 @@ if ( ! function_exists( 'custom_checkbox_shortcode' ) ) {
 
 
 // Webinar box shortcode. Use it for single webinar page
-if ( ! function_exists( 'webinar_box_shortcode' ) ) {
+if (!function_exists('webinar_box_shortcode')) {
     /**
      * Shortcode for "Webinar box".
      *
@@ -195,8 +191,7 @@ if ( ! function_exists( 'webinar_box_shortcode' ) ) {
      *
      * @return string
      */
-    function webinar_box_shortcode($atts, $content = null)
-    {
+    function webinar_box_shortcode($atts, $content = null) {
         extract(
             shortcode_atts(
                 array(
@@ -206,8 +201,8 @@ if ( ! function_exists( 'webinar_box_shortcode' ) ) {
             )
         );
 
-        return '<div class="webinar-box'.$class.'">
-                    '.do_shortcode($content).'
+        return '<div class="webinar-box' . $class . '">
+                    ' . do_shortcode($content) . '
                 </div>';
     }
 

@@ -69,9 +69,12 @@ svg {
     list-style: none;
 }
 
+input,
 button {
     border-radius: 0;
     transition: color 0.3s, backgroun-color 0.3s, border-color 0.3s;
+    border-radius: 0;
+    appearance: none;
 }
 
 img {

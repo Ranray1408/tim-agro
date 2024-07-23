@@ -41,7 +41,7 @@ $get_access_form = '
             <input type="hidden" name="registration" value="1">
             <input type="hidden" name="post-id" value="' . $post_id . '">
             <input type="hidden" name="forgot_password_page" value="' . get_permalink($forgot_password_page_id) . '">
-            <input type="submit" class="green-transparent" value="Оплатити">
+            <input type="submit" class="green-filled" value="Оплатити">
         </div>
         <div class="js-response-container response-container"></div>
     </form>

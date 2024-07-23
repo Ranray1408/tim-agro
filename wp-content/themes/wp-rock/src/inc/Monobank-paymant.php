@@ -6,12 +6,14 @@ class MonobankPayment {
     private $cms = "Wordpress";
     private $cmsVersion;
     private $public_key;
+    private $global_options;
 
-    public function __construct($token) {
+    public function __construct($token, $global_options) {
         global $wp_version;
         $this->cmsVersion = $wp_version;
         $this->token = $token;
         $this->public_key = $this->get_public_key();
+        $this->global_options = $global_options;
     }
 
     public function init() {
@@ -128,6 +130,13 @@ class MonobankPayment {
         $result = $this->createPayment('1111-1111-1111-1111', $result['price'], $currency, $current_url, $current_url . $params);
 
         if ($result['success']) {
+            // Sending to admin emails information about bought programm
+            $user = get_user_by('email', $user_email);
+            if (!is_wp_error($user)) {
+                $this->send_mail_to_admin($user, $post_id, date('d.m.Y'));
+                $this->send_mail_to_user($user, $post_id, date('d.m.Y'));
+            }
+
             set_transient($user_email . '_payment', $result['data']['invoiceId']);
             wp_send_json_success($result['data']);
         } else {
@@ -354,5 +363,44 @@ class MonobankPayment {
         }
 
         return $response['body']['errCode'] ?? 0;
+    }
+
+    private function send_mail_to_admin($user, $post_id, $current_date) {
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        $programm_title = get_the_title($post_id);
+        $result = true;
+
+        $body = "<p>" . __('Користувач: ' . $user->first_name . ' - ' . $user->user_email, 'wp-rock') . "</p>
+                <p>" . __('Придбав курс ' . $programm_title . ', дата покупки ' . $current_date, 'wp-rock') . "</p>";
+
+
+        $email_title = 'TimAgro - User buying proramm';
+
+        // Send email for buying programm by user to all emails in array
+        $emails_to_send_programm_sells = get_field_value($this->global_options, 'emails_to_send_programm_sells');
+        if (!empty($emails_to_send_programm_sells)) {
+            foreach ($emails_to_send_programm_sells as $item) {
+                $result = wp_mail($item['email'], $email_title, $body, $headers);
+            }
+        }
+
+        return $result;
+    }
+
+    private function send_mail_to_user($user, $post_id, $current_date) {
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        $programm_title = get_the_title($post_id);
+        $result = true;
+
+        $body = "<p>" . __('Дякую за вашу покупку. Ви придбали курс ' . $programm_title . ' ' . $current_date, 'wp-rock') . "</p>";
+
+
+        $email_title = 'TimAgro - Buying proramm';
+
+
+        $result = wp_mail($user->user_email, $email_title, $body, $headers);
+
+
+        return $result;
     }
 }

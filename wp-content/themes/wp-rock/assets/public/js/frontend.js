@@ -2015,6 +2015,11 @@ function ready() {
   var paySuccessResponse = document.querySelector('#pay-success-response');
   if (paySuccessResponse) {
     popupInstance.openOnePopup('#pay-success-response');
+    if (paySuccessResponse.classList.contains('profile-page')) {
+      setTimeout(function () {
+        window.location.reload();
+      }, 3000);
+    }
   }
   (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', function () {
     siteHeader && siteHeader.classList.remove('menu-opened');

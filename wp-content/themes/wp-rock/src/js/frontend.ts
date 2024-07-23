@@ -27,6 +27,11 @@ function ready() {
 
     if (paySuccessResponse) {
         popupInstance.openOnePopup('#pay-success-response');
+        if (paySuccessResponse.classList.contains('profile-page')) {
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }
     }
 
     anchorLinkScroll(

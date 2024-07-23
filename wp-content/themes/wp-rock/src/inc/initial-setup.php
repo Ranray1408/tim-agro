@@ -54,13 +54,14 @@ function get_field_value($data_arr, $key) {
 
 // Monobank payment
 global $monobank;
+global $global_options;
 $monobank_token = get_field_value($global_options, 'monobank_token');
-$monobank = new MonobankPayment($monobank_token);
+$monobank = new MonobankPayment($monobank_token, $global_options);
 $monobank->init($monobank_token);
 
 
 global $profile_functionality;
-$profile_functionality = new profile_functionality($monobank);
+$profile_functionality = new profile_functionality($monobank, $global_options);
 $profile_functionality->init();
 
 // Vimeo SDK
@@ -68,7 +69,7 @@ require get_template_directory() . '/vendor/autoload.php';
 
 use Vimeo\Vimeo;
 
-global $global_options;
+
 $client_id = get_field_value($global_options, 'client_id');
 $client_secret = get_field_value($global_options, 'client_secret');
 $client_token = get_field_value($global_options, 'client_token');

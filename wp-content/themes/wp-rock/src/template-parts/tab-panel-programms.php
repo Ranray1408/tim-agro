@@ -47,7 +47,8 @@ $payment = $monobank->check_payment();
 
                         echo get_template_part('src/template-parts/pay-success-response', null, array(
                             'payment' => $payment,
-                            'post_id' => $user_programm_item['post_id']
+                            'post_id' => $user_programm_item['post_id'],
+                            'additional_class' => 'profile-page',
                         ));
 
                         echo get_template_part('src/template-parts/continue-access-popup', null, array(

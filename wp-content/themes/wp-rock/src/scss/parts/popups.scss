@@ -2,6 +2,7 @@
 #pay-success-response,
 #buy-programm-popup,
 #forgot-password-popup,
+#have-access-popup,
 #login-popup,
 #get-access-popup,
 #get-consultation-popup {
@@ -90,8 +91,10 @@
             }
         }
 
+        .popup-button,
         input[type="submit"],
         .wpcf7-submit {
+            text-align: center;
             color: var(--color-type-dark-1);
         }
 
@@ -440,5 +443,12 @@
                 }
             }
         }
+    }
+}
+
+
+#have-access-popup {
+    .popup-title {
+        margin-bottom: 27px;
     }
 }
