@@ -9,8 +9,9 @@ class profile_functionality {
     private $monobank;
     private $global_options;
 
-    public function __construct($global_options) {
+    public function __construct($monobank, $global_options) {
         $this->global_options = $global_options;
+        $this->monobank = $monobank;
     }
     /**
      * Initializes the class by adding action hooks.
