@@ -1,0 +1,52 @@
+.short-hero {
+    background-color: #242A2E;
+    min-height: 322px;
+    padding-top: 244px;
+}
+
+.short-hero-content {
+    padding-top: 87px;
+    padding-bottom: 111px;
+
+    h1, h2 {
+        color: #151A1D;
+        position: relative;
+        margin-bottom: 33px;
+
+        br {
+            display: none;
+        }
+    }
+
+    h5 {
+        color: #151A1D;
+        font-family: Mulish, sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-bottom: 28px;
+    }
+
+    ul {
+        margin-bottom: 20px;
+
+        li {
+            color: #151A1D;
+            font-family: Mulish, sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            list-style: none;
+            position: relative;
+
+            &:before {
+                content: '-';
+                position: relative;
+                margin-right: 6px;
+                display: inline-block;
+            }
+        }
+    }
+}
