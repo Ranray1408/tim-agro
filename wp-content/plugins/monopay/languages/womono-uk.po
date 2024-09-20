@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wo_mono_ua\n"
+"POT-Creation-Date: 2021-12-26 20:02+0200\n"
+"PO-Revision-Date: 2023-10-06 11:38+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || "
+"n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Refunded %1$s - Refund ID: %2$s"
+msgstr "Повернено %1$s – Iдентифікатор повернення: %2$s"
+
+msgid "Hold finalization amount %1$s UAH"
+msgstr "Фіналізовано холд на суму %1$s UAH"
+
+msgid "Payment failed, reason — %1$s"
+msgstr "Оплата не пройшла, причина — %1$s"
+
+msgid "Internal error! Got unexpected status in webhook — %1$s"
+msgstr "Внутрішня помилка! Отримали неочікуваний статус інвойсу в вебхуці — %1$s"
+
+msgid "Refund is in progress"
+msgstr "Скасування знаходиться в процесі обробки"
+
+msgid "Failed to refund %1$s"
+msgstr "Під час скасування оплати виникла помилка %1$s"
+
+msgid "Refunded %1$s UAH"
+msgstr "Повернено %1$s UAH"
+
+msgid "Hold Settings"
+msgstr "Налаштування холду"
+
+msgid "Finalize"
+msgstr "Фіналізувати холд"
+
+msgid "Cancel hold"
+msgstr "Скасувати холд"
+
+msgid "Enter amount"
+msgstr "Введіть суму"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Failed to finalize invoice: "
+msgstr "Помилка при спробі фіналізації холду: "
+
+msgid "Hold cancellation error: "
+msgstr "Помилка при спробі скасування: "
+
+msgid "Accept card payments on your website via monobank payment gateway."
+msgstr "Приймате платежі карткою на вашому сайті, використовуючи еквайринг від monobank."
+
+msgid "Enable/Disable"
+msgstr "Увімкнути або вимкнути"
+
+msgid "Enable plata by mono"
+msgstr "Увімкнути plata by mono"
+
+msgid "This controls the title which the user sees during checkout."
+msgstr "Назва платіжного засобу, яка відображається користувачам під час оплати."
+
+msgid "This controls the description which user sees during checkout."
+msgstr "Додатковий коментар про цей метод оплати, який може прочитати користувач під час оплати."
+
+msgid "You can get your X-Token by the link: "
+msgstr "Токен для активації цього модуля можна отримати за посиланням: "
+
+msgid "Destination"
+msgstr "Призначення платежу"
+
+msgid "Redirect URL"
+msgstr "Посилання на сторінку, куди буде потрапляти користувач після оплати"
+
+msgid "You can do this by configuring a setting called the WordPress Address (URL) in Settings -> General."
+msgstr "Посилання можна налаштувати в Адреса WordPress (URL) в розділі Налаштування -> Загальне."
+
+msgid "Title"
+msgstr "Назва платіжного методу"
+
+msgid "Description"
+msgstr "Опис платіжного методу"
+
+msgid "Api token"
+msgstr "Токен для інтеграції"
+
+msgid "Enable holds"
+msgstr "Увімкнути режим холдів"
+
+msgid "Pay online via monobank payment gateway"
+msgstr "Оплата онлайн через платіжний модуль monobank"
+
+msgid "Plata payment status refresh"
+msgstr "Оновити статус оплати з plata"
+
+msgid "Invoice expired"
+msgstr "Оплату протерміновано"
+
+msgid "Request payment status update"
+msgstr "Запросити оновлення статусу оплати"
+
+msgid "WooCommerce is not installed. Please install WooCommerce before activating this plugin"
+msgstr "WooCommerce не встановлено. Будь ласка, встановіть WooCommerce перед активацією цього плагіна"
+
+msgid "Pay with card, Apple Pay, Google Pay"
+msgstr "Оплата карткою, Apple Pay, Google Pay"
+
+msgid "Payment failed"
+msgstr "Оплату не здійснено. Зверніться до продавця"
+
+msgid "Shipping"
+msgstr "Доставка"
