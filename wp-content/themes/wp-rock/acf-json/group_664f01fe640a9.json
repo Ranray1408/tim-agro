@@ -68,28 +68,6 @@
             "append": ""
         },
         {
-            "key": "field_668d0c0340b6a",
-            "label": "Price",
-            "name": "price",
-            "aria-label": "",
-            "type": "number",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "min": "",
-            "max": "",
-            "placeholder": "",
-            "step": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_6697fef6765a5",
             "label": "Videos embed files",
             "name": "videos_embed_files",
@@ -225,7 +203,7 @@
                 {
                     "key": "field_669564d04829b",
                     "label": "Period",
-                    "name": "period",
+                    "name": "§",
                     "aria-label": "",
                     "type": "number",
                     "instructions": "",
@@ -288,6 +266,118 @@
                     "parent_repeater": "field_6694fd91ce7b5"
                 }
             ]
+        },
+        {
+            "key": "field_66b1e23346bc6",
+            "label": "Content",
+            "name": "content",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_66b1e24f46bc7",
+                    "label": "Block title",
+                    "name": "block_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_66b1e23346bc6"
+                },
+                {
+                    "key": "field_66b1e26446bc8",
+                    "label": "Videos",
+                    "name": "videos",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add Row",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_66b1e29246bc9",
+                            "label": "Video id",
+                            "name": "video_id",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_66b1e26446bc8"
+                        },
+                        {
+                            "key": "field_66b1e422c9935",
+                            "label": "Video name",
+                            "name": "video_name",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_66b1e26446bc8"
+                        }
+                    ],
+                    "parent_repeater": "field_66b1e23346bc6"
+                }
+            ]
         }
     ],
     "location": [
@@ -315,5 +405,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721396660
+    "modified": 1726129496
 }

@@ -23,7 +23,7 @@ $svg_promo = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns=
 
 $html = '<div class="get-access-popup">
             <form class="get-access-form js-buy-programm-form">
-                <h2 class="popup-title">Вартість курсу <span>' . $price . '</span></h2>
+                <h2 class="popup-title">Вартість курсу <span>' . $price . ' '.get_woocommerce_currency().'</span></h2>
                 <div class="popup-subtitle body-type-2 weight500">
                     ' . __('Якщо у вас є промокод, введіть його, щоб отримати знижку', 'wp-rock') . '
                 </div>
@@ -41,6 +41,7 @@ $html = '<div class="get-access-popup">
                     </label>
                     <input type="hidden" name="email" value="' . $user_email . '">
                     <input type="hidden" name="redirect-page" value="' . get_the_permalink() . '">
+                    <input type="hidden" name="amount" value="' . $price . '">
                     <input type="hidden" name="post-id" value="' . $post_id . '">
                     <input type="submit" class="green-transparent" value="Оплатити">
                 </div>

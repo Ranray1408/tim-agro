@@ -199,14 +199,12 @@
                 "id": ""
             },
             "post_type": [
-                "page",
-                "courses",
-                "lectures"
+                "product"
             ],
             "taxonomy": "",
-            "allow_null": 0,
-            "multiple": 0,
             "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0,
             "ui": 1
         }
     ],
@@ -228,5 +226,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721309419
+    "modified": 1726557800
 }

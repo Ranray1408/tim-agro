@@ -66,8 +66,12 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Intro Regular Alt', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: var(--color-type-primary-white);
+}
+
+h1 {
+    font-weight: 600;
 }
 
 [class^="icon-"]:before,

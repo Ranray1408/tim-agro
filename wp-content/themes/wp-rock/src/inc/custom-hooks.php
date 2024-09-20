@@ -13,8 +13,7 @@
  *
  * @return array|string|string[]
  */
-function remove_lsep($html): array|string
-{
+function remove_lsep($html): array|string {
     $pattern = '/\x{2028}/u';
 
     return preg_replace($pattern, '', $html);
@@ -27,8 +26,7 @@ function remove_lsep($html): array|string
  * @param {string} $content - Text content.
  * @return string|string[]
  */
-function remove_windows_lsep_from_content($content): array|string
-{
+function remove_windows_lsep_from_content($content): array|string {
     return str_replace("\r\n", '', $content);
 }
 add_filter('the_content', 'remove_windows_lsep_from_content');
@@ -60,8 +58,7 @@ add_filter('wpcf7_autop_or_not', '__return_false');
  *
  * @return void
  */
-function wp_rock_color_panel(): void
-{
+function wp_rock_color_panel(): void {
     global $global_options;
 
     // Get main colours set from theme options
@@ -71,22 +68,163 @@ function wp_rock_color_panel(): void
     $colours_variable = array();
 
     // Generate CSS variable declarations for each main tag color
-    if ( !empty($colours_set) ) {
+    if (!empty($colours_set)) {
         foreach ($colours_set as $single_color) {
             $color_type = $single_color['name_of_color_type'];
             $color_code = $single_color['color_code'];
-            $colours_variable[] = '--color-type-'.$color_type.':'.$color_code.';';
+            $colours_variable[] = '--color-type-' . $color_type . ':' . $color_code . ';';
         }
     }
 
     // Output CSS styles with the generated CSS variables
-    ?>
+?>
     <style>
         :root {
-        <?php echo implode('', $colours_variable); ?>
+            <?php echo implode('', $colours_variable); ?>
         }
     </style>
-    <?php
+<?php
 }
 add_action('wp_head', 'wp_rock_color_panel');
 
+
+
+
+
+
+
+
+// Hande chage order status
+add_action('woocommerce_order_status_completed', 'add_program_on_order_complete', 10, 1);
+
+function add_program_on_order_complete($order_id) {
+	global $profile_functionality;
+
+	$order = wc_get_order($order_id);
+
+	if (!$order) {
+		return;
+	}
+
+	$user_id = $order->get_user_id();
+	$access_period = get_post_meta($order->get_id(), 'access_period', true);
+
+	foreach ($order->get_items() as $item_id => $item) {
+		$product_id = $item['product_id'];
+
+		$product_fields = get_fields($product_id);
+		$programm_id = get_field_value($product_fields, 'attached_post');
+
+		if ($programm_id) {
+			$profile_functionality->add_update_user_programm($programm_id, $user_id, $access_period);
+			break;
+		}
+	}
+}
+
+
+// Filling additionals order fields
+$cookie_data = isset($_COOKIE['creating_order']) ? stripslashes($_COOKIE['creating_order']) : '';
+
+add_action('woocommerce_new_order', function($order_id) use ($cookie_data) {
+	if ($cookie_data) {
+		$cookie_data = json_decode($cookie_data);
+		// Get fields form cookie
+		$user_email = $cookie_data->userEmail ?? null;
+		$user_phone = $cookie_data->userPhone ?? null;
+		$user_registration = $cookie_data->userRegistration ?? false;
+		$continue_period = $cookie_data->continuePeriod ?? 90;
+	}
+	else {
+		error_log('$cookie_data = nodata');
+		$user_email = null;
+		$user_phone = null;
+		$user_registration = false;
+		$continue_period = 90;
+	}
+
+	// Add order inforation
+	$order = wc_get_order($order_id);
+
+	$order->set_billing_email($user_email);
+	$order->set_billing_phone($user_phone);
+
+	$user = get_user_by('email', $user_email);
+	if ($user) {
+		$order->set_customer_id($user->ID);
+	}
+
+	update_post_meta($order_id, 'user_just_registered', $user_registration);
+	update_post_meta($order_id, 'access_period', $continue_period);
+
+	$order->save();
+}, 90, 1);
+
+/*function filling_in_the_order_fields($order_id) {
+
+	$cookie_data = stripslashes($_COOKIE['creating_order']);
+
+	error_log('$cookie_data1 ='. $_COOKIE['creating_order']);
+
+    if (!$cookie_data) {
+
+		error_log('$cookie_data1 ='. $cookie_data);
+
+		$cookie_data = json_decode($cookie_data);
+
+        error_log('$cookie_data2 ='. $cookie_data);
+
+		// Get fields form cookie
+		$user_email = $cookie_data->userEmail ?? null;
+		$user_phone = $cookie_data->userPhone ?? null;
+		$user_registration = $cookie_data->userRegistration ?? false;
+		$continue_period = $cookie_data->continuePeriod ?? 90;
+    }
+	else {
+		error_log('$cookie_data = nodata');
+		$user_email = null;
+		$user_phone = null;
+		$user_registration = false;
+		$continue_period = 90;
+    }
+
+
+
+	// Add order inforation
+	$order = wc_get_order($order_id);
+
+	$order->set_billing_email($user_email);
+	$order->set_billing_phone($user_phone);
+
+	$user = get_user_by('email', $user_email);
+	if ($user) {
+		$order->set_customer_id($user->ID);
+	}
+
+	update_post_meta($order_id, 'user_just_registered', $user_registration);
+	update_post_meta($order_id, 'access_period', $continue_period);
+
+	$order->save();
+
+	//setcookie('creating_order', '', time() - 3600, '/');
+}*/
+
+// Display fields in woocommercer order
+add_action('woocommerce_admin_order_data_after_order_details', 'display_custom_order_fields');
+
+function display_custom_order_fields($order) {
+	$user_just_registered = get_post_meta($order->get_id(), 'user_just_registered', true);
+	$access_period = get_post_meta($order->get_id(), 'access_period', true);
+	//$redirect_page = get_post_meta($order->get_id(), 'redirect_page', true);
+
+	//echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('Attached Post', 'wp-rock') . ':</strong> ' . esc_html($redirect_page) . '</p>';
+	echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('User Just Registered', 'wp-rock') . ':</strong> ' . ($user_just_registered ? 'Yes' : 'No') . '</p>';
+	echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('Access Period', 'wp-rock') . ':</strong> ' . esc_html($access_period) . ' days</p>';
+}
+
+
+function force_redirect_to_user_profile_after_success_payment ($order_id){
+    wp_redirect(home_url('/profile-page?order='.$order_id));
+	exit;
+}
+add_action('woocommerce_thankyou', 'force_redirect_to_user_profile_after_success_payment', 99 );

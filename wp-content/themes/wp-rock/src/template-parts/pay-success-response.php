@@ -1,20 +1,20 @@
-
 <?php
-global $profile_functionality;
+/*global $profile_functionality;
 
+// OLD CODE
 $payment = !empty($args['payment']) ? $args['payment'] : false;
 $post_id = !empty($args['post_id']) ? $args['post_id'] : 0;
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
 
-if (is_array($payment)) {
+if (!empty($payment['text'])) {
     // Response form
     $pay_success_title = $payment['success'] ? __('Оплата пройшла успішно', 'wp-rock') : '';
     $pay_success_description = $payment['text'];
 
 
     if ($payment['success'] && $post_id) {
-        $access_period = isset($_GET['access_period']) ? $_GET['access_period'] : 0;
-        $result = $profile_functionality->add_update_user_programm($post_id, get_current_user_id(), $access_period);
+        $access_period = $_GET['access_period'] ?? 0;
+        //$result = $profile_functionality->add_update_user_programm($post_id, get_current_user_id(), $access_period);
 
         $pay_success_description = $result['text'];
     }
@@ -47,4 +47,4 @@ if (is_array($payment)) {
         </div>
         [/popup_box]'
     );
-}
+}*/

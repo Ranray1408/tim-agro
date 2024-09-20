@@ -53,7 +53,7 @@ function progress_bar($blocks_passed, $blocks_count) {
         $block_width = $total_width / $blocks_count;
     }
 
-    $svg = '<svg class="progress-bar js-progress-bar" xmlns="http://www.w3.org/2000/svg" width="161" height="5" viewBox="0 0 161 5" fill="none">
+    $svg = '<svg class="progress-bar" xmlns="http://www.w3.org/2000/svg" width="161" height="5" viewBox="0 0 161 5" fill="none">
         <rect width="161" height="5" transform="matrix(1 0 0 -1 0 5)" fill="#131614" />';
 
     for ($i = 0; $i < $blocks_passed; $i++) {

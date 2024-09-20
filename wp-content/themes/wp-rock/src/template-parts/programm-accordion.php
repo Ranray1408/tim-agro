@@ -21,13 +21,13 @@ $text_continue_access = __('Продовжити доступ ', 'wp-rock');
 
 global $client;
 global $global_options;
-global $client;
+global $profile_functionality;
 
 $user_programm_item = !empty($args['user_programm_item']) ? $args['user_programm_item'] : 0;
 $additional_class = !empty($args['additional_class']) ? $args['additional_class'] : '';
 $current_user = !empty($args['current_user']) ? $args['current_user'] : '';
 
-if (empty($user_programm_item['post_id']) || empty($client)) return;
+if (empty($user_programm_item['post_id'])) return;
 
 //Post ID of main programm
 $post_id = $user_programm_item['post_id'];
@@ -42,13 +42,10 @@ $expire_access_date = !empty($user_programm_item['expire_access_date']) ? $user_
 $user_id = get_field_value($global_options, 'user_id');
 $vimeo_blocks_folder = get_field_value($post_fields, 'vimeo_blocks_folder');
 
+$content = get_field('content', $post_id);
 
-$args = array('sort' => 'date', 'direction' => 'asc');
-
-//API to load video from vimeo
-$blocks_folder = $client->request("/users/$user_id/projects/$vimeo_blocks_folder/items", $args, 'GET');
-
-$blocks_count = !empty($blocks_folder['body']['total']) ? $blocks_folder['body']['total'] : 0;
+$blocks_folder = $content;
+$blocks_count = !empty($content) && is_array($content) ? count($content) : 0;
 
 $access_status = access_status($expire_access_date);
 
@@ -84,7 +81,7 @@ if (!empty($programm_data->blocks)) {
                         <div class="passed-block body-type-5 weight600">
                             <?php
 
-                            if ($passed_blocks_count === $blocks_count) {
+                            if ($passed_blocks_count !== 0 && $blocks_count !== 0 && $passed_blocks_count === $blocks_count) {
                                 echo '<div class="passed-block-done">';
                                 echo $stairs_svg;
                                 echo '<span>' . __('Курс пройдено', 'wp-rock') . '</span>';

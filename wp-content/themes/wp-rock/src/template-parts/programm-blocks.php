@@ -5,8 +5,7 @@ $post_id = !empty($args['post_id']) ? $args['post_id'] : '';
 $programm_data = !empty($args['programm_data']) ? $args['programm_data'] : '';
 global $client;
 
-// $blocks_folder = !empty($args['blocks_folder']) ? $args['blocks_folder'] : null;
-$blocks_folder = !empty($args['blocks_folder']['body']['data']) ? $args['blocks_folder']['body']['data'] : null;
+$blocks_folder = !empty($args['blocks_folder']) ? $args['blocks_folder'] : null;
 
 
 $text_block_status = array(
@@ -38,28 +37,23 @@ $video_files = get_field('videos_embed_files', $post_id);
 
 $video_files_array = array();
 
-if(!empty($video_files)) {
+if (!empty($video_files)) {
     foreach ($video_files as $item) {
         $video_files_array[$item['video_id']] = $item['files'];
     }
 }
 
-$args = array('sort' => 'date', 'direction' => 'asc');
-
 if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
     <div class="programm__content js-wrock-accordion__content js-inner-accordion">
         <?php
-        foreach ($blocks_folder as $block) :
-            if ($block['type'] === 'video') continue;
-
-            if (empty($block['folder']['uri'])) continue;
-            $videos = $client->request($block['folder']['uri'] . '/videos', $args, 'GET');
-            $block_title = $block['folder']['name'];
+        foreach ($blocks_folder as $key => $block) :
+            $videos = $block['videos'];
+            $block_title = $block['block_title'];
+            $block_index = $key + 1;
 
             if (empty($videos)) continue;
 
-            $sanitize_block_title = sanitize_title($block_title);
-
+            $sanitize_block_title = 'block-' . $block_index;
             $block_status = 'not-passed';
             $passed_blocks_count = 0;
 
@@ -82,9 +76,9 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
             $saved_video_data = null;
 
             // Default value for playing first video in list
-            $first_video = !empty($videos['body']['data'][0]) ? $videos['body']['data'][0] : null;
-            $clear_video_id = str_replace('/videos/', '', $videos['body']['data'][0]['uri']);
-            $first_video_title = !empty($first_video['name']) ? do_shortcode($first_video['name']) : '...';
+            $first_video = !empty($videos[0]) ? $videos[0] : null;
+            $clear_video_id = $first_video['video_id'];
+            $first_video_title = !empty($first_video['video_name']) ? do_shortcode($first_video['video_name']) : '...';
             $first_video_files = !empty($video_files_array[$clear_video_id]) ? $video_files_array[$clear_video_id] : null;
         ?>
             <div data-block_id="<?php echo $video_container_id; ?>" data-block_status="<?php echo $block_status ?>" class="programm__block js-programm-block js-inner-accordion__content">
@@ -113,7 +107,7 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
 
                         <?php
                         if ($first_video) {
-                            $video_clear_id = str_replace('/videos/', '', $first_video['uri']);
+                            $video_clear_id = $first_video['video_id'];
                             echo '<div data-video_id="' . $video_clear_id . '"
                                     data-video_container_id="' . $video_container_id . '"></div>';
                         }
@@ -124,16 +118,16 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                             <div class="video-name js-video-title body-type-2 weight600">
                                 <?php echo $first_video_title; ?>
                             </div>
-                            <?php if (!empty($first_video_files)) {
-                                echo '<div class="video-embed-files js-video-embed-files">';
-                                foreach ($first_video_files as $file) {
-                                    echo '<a target="_blank" class="green-transparent" href="' . $file['file'] . '">
+                            <div class="video-embed-files js-video-embed-files">
+                                <?php if (!empty($first_video_files)) {
+                                    foreach ($first_video_files as $file) {
+                                        echo '<a target="_blank" class="green-transparent" href="' . $file['file'] . '">
                                             ' . $svg_pdf . '
                                             <span>' . $file['file_name'] . '</span>
                                         </a>';
-                                }
-                                echo '</div>';
-                            } ?>
+                                    }
+                                } ?>
+                            </div>
                             <button class="next-video-btn js-next-video-btn">
                                 <?php echo $text_next_video; ?>
                             </button>
@@ -141,15 +135,14 @@ if (!empty($blocks_folder) && $access_status !== 'access-expired') : ?>
                     </div>
                     <!-- ************ Video list ************ -->
                     <?php
-                    if (!empty($videos['body']['data'])) :
+                    if (!empty($videos)) :
                         echo '<div class="programm__block-videos-list">';
-                        foreach ($videos['body']['data'] as $key => $video) :
+                        foreach ($videos as $key => $video) :
 
-                            $video_title = !empty($video['name']) ? $video['name'] : '';
-                            $video_duration = !empty($video['duration']) ? $video['duration'] : '';
+                            $video_title = !empty($video['video_name']) ? $video['video_name'] : '';
 
                             $active_class = $key === 0 ? 'playing-video' : '';
-                            $clear_video_id = str_replace('/videos/', '', $video['uri']);
+                            $clear_video_id = !empty($video['video_id']) ? $video['video_id'] : null;
                             $save_video_data = $saved_block_data->videos->{$clear_video_id} ?? '';
                             $video_pause_time = $save_video_data->videoPauseTime ?? 0;
                             $video_is_viewed = $save_video_data->isVideoViewed ?? '';

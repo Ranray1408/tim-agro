@@ -14,13 +14,15 @@ define('STYLE_DIR', get_stylesheet_directory());
 define('ASSETS_CSS', THEME_URI . '/assets/public/css/');
 define('ASSETS_JS', THEME_URI . '/assets/public/js/');
 
+require THEME_DIR . '/src/inc/class-woocommerce-actions.php';
+require THEME_DIR . '/src/inc/class-profile-functionality.php';
+require THEME_DIR . '/src/inc/Monobank-paymant.php';
+
 // required files.
 require THEME_DIR . '/src/inc/custom-posts-type.php';
 require THEME_DIR . '/src/inc/custom-taxonomies.php';
-require THEME_DIR . '/src/inc/class-profile-fucntionalitu.php';
 require THEME_DIR . '/src/inc/class-wp-rock.php';
 require THEME_DIR . '/src/inc/class-wp-rock-blocks.php';
-require THEME_DIR . '/src/inc/Monobank-paymant.php';
 require THEME_DIR . '/src/inc/initial-setup.php';
 require THEME_DIR . '/src/inc/enqueue-scripts.php';
 require THEME_DIR . '/src/inc/wpeditor-formats-options.php';

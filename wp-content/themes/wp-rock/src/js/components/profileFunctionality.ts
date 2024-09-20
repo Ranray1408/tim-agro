@@ -112,6 +112,7 @@ export default class ProfileFunctionality {
         }
 
         const videoFiles = JSON.parse(playBtnData.dataset.video_files);
+        const parentBlock = playBtnData.closest('.js-programm-block');
 
         let html = '';
 
@@ -129,9 +130,10 @@ export default class ProfileFunctionality {
                     </a>`;
             });
 
-        const videoembedFiles = document.querySelector('.js-video-embed-files') as HTMLElement;
-
-        videoembedFiles.innerHTML = html;
+        if (parentBlock) {
+            const videoembedFiles = parentBlock.querySelector('.js-video-embed-files') as HTMLElement;
+            videoembedFiles.innerHTML = html;
+        }
     }
 
     playVideoByClickInit() {
@@ -181,8 +183,6 @@ export default class ProfileFunctionality {
             videoPauseTime,
             isVideoViewed: viewed,
         };
-
-        console.log('related profileData', this.profileData);
 
         this.changeBlockStatus(currentBlockPath);
         this.changePassedBlocksCount(currentProgrammPath);
@@ -249,8 +249,6 @@ export default class ProfileFunctionality {
                     isVideoViewed: videoIsViewed || '',
                 };
             });
-
-        console.log('created profileData', this.profileData);
     }
 
     changeBlockStatus(currentBlockObject) {
@@ -280,7 +278,6 @@ export default class ProfileFunctionality {
         const blockElem = document.querySelector(queryStr) as HTMLElement;
 
         if (blockElem) {
-            console.log('blockElem', blockElem);
             blockElem.dataset.block_status = status;
             const statusContainer = blockElem.querySelector('.js-block-status');
             if (statusContainer) {
@@ -417,7 +414,6 @@ export default class ProfileFunctionality {
                 })
                     .then((res) => res.json())
                     .then((res) => {
-                        console.log(res.data);
                         const respContainer = form.querySelector('.js-response-container');
                         const additionalClass = res.success ? 'success' : 'error';
 

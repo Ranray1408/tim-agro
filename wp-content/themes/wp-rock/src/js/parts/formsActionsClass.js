@@ -1,3 +1,5 @@
+import { setCookie } from './helpers';
+
 export default class FormsActionsClass {
     constructor(popupInstance, validateField) {
         this.popupInstance = popupInstance;
@@ -88,6 +90,7 @@ export default class FormsActionsClass {
 
                 // eslint-disable-next-line no-shadow
                 const notValidTextParagraph =
+                    inputContainer &&
                     inputContainer.querySelector('.js-not-valid-text');
 
                 notValidTextParagraph && notValidTextParagraph.remove();
@@ -104,7 +107,7 @@ export default class FormsActionsClass {
                     p.classList.add('not-valid-text');
                     p.innerText = notValidText(input.name);
 
-                    inputContainer.appendChild(p);
+                    inputContainer && inputContainer.appendChild(p);
 
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
@@ -183,21 +186,24 @@ export default class FormsActionsClass {
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                // Regsiter and login user
+                // Set user data for regitering
                 const res = await this.fetchToAction(
                     getAccessForm,
                     'register_login_user'
                 );
+                this.setOrderCookieInfo(e.target);
                 if (res.success) {
-                    const payRes = await this.fetchToAction(
-                        getAccessForm,
-                        'create_payment_action'
-                    );
-                    // FETCH TO MONO PAY SYSTEM
-                    if (payRes.success) {
-                        window.location.href = payRes.data.pageUrl;
+                    const payRes = await this.fetchToActionPayload({
+                        product_id: e.target['post-id'].value,
+                        variation_id: 0,
+                        amount: e.target.amount.value,
+                        quantity: '1',
+                    });
+                    if (payRes) {
+                        // If success return to pay page
+                        window.location.href = payRes;
                     } else {
-                        this.setDataToRespContainer(res, getAccessForm);
+                        this.setDataToRespContainer(payRes, getAccessForm);
                     }
                 } else {
                     this.setDataToRespContainer(res, getAccessForm);
@@ -217,6 +223,34 @@ export default class FormsActionsClass {
         );
 
         const res = await resJSON.json();
+        return res;
+    }
+
+    async fetchToActionPayload(productData) {
+        const bodyString = `action=mrkv_monopay_product&product=${encodeURIComponent(
+            JSON.stringify(productData)
+        )}`;
+
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}`,
+            {
+                headers: {
+                    Accept: '/',
+                    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                    'Cache-Control': 'no-cache',
+                    'Content-Type':
+                        'application/x-www-form-urlencoded; charset=UTF-8',
+                },
+                // referrer: window.location.href,
+                // referrerPolicy: 'strict-origin-when-cross-origin',
+                body: bodyString,
+                method: 'POST', // Метод запроса (POST)
+                mode: 'cors', // Режим CORS для запросов к другим доменам
+                credentials: 'include',
+            }
+        );
+        const res = await resJSON.text();
         return res;
     }
 
@@ -254,18 +288,50 @@ export default class FormsActionsClass {
                     form.addEventListener('submit', async (e) => {
                         e.preventDefault();
 
-                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
-                        const res = await this.fetchToAction(
-                            form,
-                            'create_payment_action'
-                        );
+                        const submitBtnWrapper =
+                            e.target.querySelector('.bottom-wrapper');
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.add('loading');
 
-                        if (res.success) {
-                            // If success return to pay page
-                            window.location.href = res.data.pageUrl;
-                        } else {
-                            this.setDataToRespContainer(res, form);
+                        const enteredPromocode = e.target?.promocode?.value;
+
+                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                        let periodAmount = [];
+                        let amount = null;
+                        if (
+                            e.target?.['period-amount']?.value &&
+                            !e.target?.amount?.value
+                        ) {
+                            periodAmount = e.target?.['period-amount']?.value
+                                ? e.target['period-amount'].value.split('|')
+                                : [];
                         }
+
+                        if (periodAmount) {
+                            // eslint-disable-next-line prefer-destructuring
+                            amount = periodAmount[1];
+                        } else {
+                            amount = e.target?.amount?.value;
+                        }
+
+                        const payRes = await this.fetchToActionPayload({
+                            product_id: e.target['post-id'].value,
+                            variation_id: 0,
+                            amount,
+                            forcePrice: amount,
+                            discount: enteredPromocode,
+                            quantity: '1',
+                        });
+                        if (payRes) {
+                            this.setOrderCookieInfo(form);
+                            // If success return to pay page
+                            window.location.href = payRes;
+                        } else {
+                            this.setDataToRespContainer(payRes, form);
+                        }
+
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.remove('loading');
                     });
             });
     }
@@ -284,5 +350,26 @@ export default class FormsActionsClass {
         paragrahp.innerText = res.data;
         respContainer.innerHTML = '';
         respContainer.appendChild(paragrahp);
+    }
+
+    setOrderCookieInfo(form) {
+        const formData = new FormData(form);
+        let data = {
+            userEmail: formData.get('email'),
+            userPhone: formData.get('phone'),
+            userFullName: formData.get('user_full_name'),
+            redirectPage: formData.get('redirect-page'),
+            userRegistration: formData.get('registration'),
+            continuePeriod: formData.get('continue-period'),
+        };
+
+        const periodAmount = formData.get('period-amount');
+        if (periodAmount) {
+            data = {
+                ...data,
+                continuePeriod: periodAmount.split('|')[0],
+            };
+        }
+        setCookie(`creating_order`, JSON.stringify(data), 3);
     }
 }

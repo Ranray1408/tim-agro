@@ -180,13 +180,16 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         return;
       }
       var videoFiles = JSON.parse(playBtnData.dataset.video_files);
+      var parentBlock = playBtnData.closest('.js-programm-block');
       var html = '';
       videoFiles && videoFiles.forEach(function (item) {
         if (!item.file && !item.file) return;
         html += "<a target=\"_blank\" href=\"".concat(item.file, "\" class=\"green-transparent\">\n                        <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z\" fill=\"white\"/>\n                            <path d=\"M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z\" fill=\"white\"/>\n                            <path d=\"M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z\" fill=\"white\"/>\n                        </svg>\n                        ").concat(item.file_name, "\n                    </a>");
       });
-      var videoembedFiles = document.querySelector('.js-video-embed-files');
-      videoembedFiles.innerHTML = html;
+      if (parentBlock) {
+        var videoembedFiles = parentBlock.querySelector('.js-video-embed-files');
+        videoembedFiles.innerHTML = html;
+      }
     }
   }, {
     key: "playVideoByClickInit",
@@ -231,7 +234,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         videoPauseTime: videoPauseTime,
         isVideoViewed: viewed
       });
-      console.log('related profileData', this.profileData);
       this.changeBlockStatus(currentBlockPath);
       this.changePassedBlocksCount(currentProgrammPath);
       this.fetchDataToBackend(this.profileData);
@@ -281,7 +283,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
           isVideoViewed: videoIsViewed || ''
         };
       });
-      console.log('created profileData', this.profileData);
     }
   }, {
     key: "changeBlockStatus",
@@ -311,7 +312,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
       var queryStr = ".js-programm-block[data-block_id=\"".concat(blockContainerId, "\"]");
       var blockElem = document.querySelector(queryStr);
       if (blockElem) {
-        console.log('blockElem', blockElem);
         blockElem.dataset.block_status = status;
         var statusContainer = blockElem.querySelector('.js-block-status');
         if (statusContainer) {
@@ -425,7 +425,6 @@ var ProfileFunctionality = /*#__PURE__*/function () {
         }).then(function (res) {
           return res.json();
         }).then(function (res) {
-          console.log(res.data);
           var respContainer = form.querySelector('.js-response-container');
           var additionalClass = res.success ? 'success' : 'error';
           if (respContainer) {
@@ -977,6 +976,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ FormsActionsClass; }
 /* harmony export */ });
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers */ "./src/js/parts/helpers.js");
+
+
 class FormsActionsClass {
     constructor(popupInstance, validateField) {
         this.popupInstance = popupInstance;
@@ -1067,6 +1069,7 @@ class FormsActionsClass {
 
                 // eslint-disable-next-line no-shadow
                 const notValidTextParagraph =
+                    inputContainer &&
                     inputContainer.querySelector('.js-not-valid-text');
 
                 notValidTextParagraph && notValidTextParagraph.remove();
@@ -1083,7 +1086,7 @@ class FormsActionsClass {
                     p.classList.add('not-valid-text');
                     p.innerText = notValidText(input.name);
 
-                    inputContainer.appendChild(p);
+                    inputContainer && inputContainer.appendChild(p);
 
                     input && input.classList.add('not-valid');
                     input && input.classList.remove('valid');
@@ -1162,21 +1165,24 @@ class FormsActionsClass {
             getAccessForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                // Regsiter and login user
+                // Set user data for regitering
                 const res = await this.fetchToAction(
                     getAccessForm,
                     'register_login_user'
                 );
+                this.setOrderCookieInfo(e.target);
                 if (res.success) {
-                    const payRes = await this.fetchToAction(
-                        getAccessForm,
-                        'create_payment_action'
-                    );
-                    // FETCH TO MONO PAY SYSTEM
-                    if (payRes.success) {
-                        window.location.href = payRes.data.pageUrl;
+                    const payRes = await this.fetchToActionPayload({
+                        product_id: e.target['post-id'].value,
+                        variation_id: 0,
+                        amount: e.target.amount.value,
+                        quantity: '1',
+                    });
+                    if (payRes) {
+                        // If success return to pay page
+                        window.location.href = payRes;
                     } else {
-                        this.setDataToRespContainer(res, getAccessForm);
+                        this.setDataToRespContainer(payRes, getAccessForm);
                     }
                 } else {
                     this.setDataToRespContainer(res, getAccessForm);
@@ -1196,6 +1202,34 @@ class FormsActionsClass {
         );
 
         const res = await resJSON.json();
+        return res;
+    }
+
+    async fetchToActionPayload(productData) {
+        const bodyString = `action=mrkv_monopay_product&product=${encodeURIComponent(
+            JSON.stringify(productData)
+        )}`;
+
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}`,
+            {
+                headers: {
+                    Accept: '/',
+                    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                    'Cache-Control': 'no-cache',
+                    'Content-Type':
+                        'application/x-www-form-urlencoded; charset=UTF-8',
+                },
+                // referrer: window.location.href,
+                // referrerPolicy: 'strict-origin-when-cross-origin',
+                body: bodyString,
+                method: 'POST', // Метод запроса (POST)
+                mode: 'cors', // Режим CORS для запросов к другим доменам
+                credentials: 'include',
+            }
+        );
+        const res = await resJSON.text();
         return res;
     }
 
@@ -1233,18 +1267,50 @@ class FormsActionsClass {
                     form.addEventListener('submit', async (e) => {
                         e.preventDefault();
 
-                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
-                        const res = await this.fetchToAction(
-                            form,
-                            'create_payment_action'
-                        );
+                        const submitBtnWrapper =
+                            e.target.querySelector('.bottom-wrapper');
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.add('loading');
 
-                        if (res.success) {
-                            // If success return to pay page
-                            window.location.href = res.data.pageUrl;
-                        } else {
-                            this.setDataToRespContainer(res, form);
+                        const enteredPromocode = e.target?.promocode?.value;
+
+                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                        let periodAmount = [];
+                        let amount = null;
+                        if (
+                            e.target?.['period-amount']?.value &&
+                            !e.target?.amount?.value
+                        ) {
+                            periodAmount = e.target?.['period-amount']?.value
+                                ? e.target['period-amount'].value.split('|')
+                                : [];
                         }
+
+                        if (periodAmount) {
+                            // eslint-disable-next-line prefer-destructuring
+                            amount = periodAmount[1];
+                        } else {
+                            amount = e.target?.amount?.value;
+                        }
+
+                        const payRes = await this.fetchToActionPayload({
+                            product_id: e.target['post-id'].value,
+                            variation_id: 0,
+                            amount,
+                            forcePrice: amount,
+                            discount: enteredPromocode,
+                            quantity: '1',
+                        });
+                        if (payRes) {
+                            this.setOrderCookieInfo(form);
+                            // If success return to pay page
+                            window.location.href = payRes;
+                        } else {
+                            this.setDataToRespContainer(payRes, form);
+                        }
+
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.remove('loading');
                     });
             });
     }
@@ -1263,6 +1329,27 @@ class FormsActionsClass {
         paragrahp.innerText = res.data;
         respContainer.innerHTML = '';
         respContainer.appendChild(paragrahp);
+    }
+
+    setOrderCookieInfo(form) {
+        const formData = new FormData(form);
+        let data = {
+            userEmail: formData.get('email'),
+            userPhone: formData.get('phone'),
+            userFullName: formData.get('user_full_name'),
+            redirectPage: formData.get('redirect-page'),
+            userRegistration: formData.get('registration'),
+            continuePeriod: formData.get('continue-period'),
+        };
+
+        const periodAmount = formData.get('period-amount');
+        if (periodAmount) {
+            data = {
+                ...data,
+                continuePeriod: periodAmount.split('|')[0],
+            };
+        }
+        (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.setCookie)(`creating_order`, JSON.stringify(data), 3);
     }
 }
 
@@ -1285,8 +1372,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   equalHeights: function() { return /* binding */ equalHeights; },
 /* harmony export */   fadeIn: function() { return /* binding */ fadeIn; },
 /* harmony export */   fadeOut: function() { return /* binding */ fadeOut; },
+/* harmony export */   getCookie: function() { return /* binding */ getCookie; },
 /* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
 /* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
+/* harmony export */   setCookie: function() { return /* binding */ setCookie; },
 /* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
 /* harmony export */   throttle: function() { return /* binding */ throttle; },
 /* harmony export */   trimParagraph: function() { return /* binding */ trimParagraph; },
@@ -1663,7 +1752,7 @@ function anchorLinkScroll(
                         top: ANCHOR_ELEMENT.offsetTop + offset,
                     });
 
-                if (callback) callback();
+                if (callback) callback(event);
             });
         });
 }
@@ -1691,6 +1780,31 @@ const loadFileName = () => {
                 spanText.innerText = inputFile.files[0].name;
             }
         });
+};
+
+const setCookie = (name, value, hours) => {
+    let expires = '';
+    if (hours) {
+        const date = new Date();
+        date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+        expires = `expires=${date.toUTCString()}`;
+    }
+    document.cookie = `${name}=${value || ''};${expires};path=/`;
+};
+
+const getCookie = (name) => {
+    const nameEQ = `${name}=`;
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;
 };
 
 
@@ -2009,22 +2123,6 @@ function ready() {
   var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__["default"]();
   var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__["default"]();
   var formsActionClass = new _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__["default"](popupInstance, _parts_helpers__WEBPACK_IMPORTED_MODULE_5__.validateField);
-  var headerAnchor = document.querySelectorAll('li.js-anchor-link a');
-  if (headerAnchor) {
-    headerAnchor.forEach(function (item) {
-      item.addEventListener('click', function (event) {
-        var _a;
-        var currentUrl = window.location.href;
-        var cleanUrl = currentUrl.split('#')[0];
-        var siteUrl = "".concat(var_from_php.site_url, "/");
-        var linkUrl = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.getAttribute('href');
-        var anchorBlock = document.querySelector(linkUrl);
-        if (siteUrl !== cleanUrl && !anchorBlock) {
-          window.location.href = "".concat(siteUrl).concat(linkUrl);
-        }
-      });
-    });
-  }
   popupInstance.init();
   profileFunctionality.init();
   formsActionClass.init();
@@ -2037,6 +2135,20 @@ function ready() {
       }, 3000);
     }
   }
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', function (event) {
+    var _a;
+    var currentUrl = window.location.href;
+    var cleanUrl = currentUrl.split('#')[0];
+    var siteUrl = "".concat(var_from_php.site_url, "/");
+    var linkUrl = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.getAttribute('href');
+    var anchorBlock = document.querySelector(linkUrl);
+    siteHeader && siteHeader.classList.remove('menu-opened');
+    document.body.classList.remove('popup-opened');
+    popupInstance.closePopup();
+    if (siteUrl !== cleanUrl && !anchorBlock) {
+      window.location.href = "".concat(siteUrl).concat(linkUrl);
+    }
+  }, -70);
   (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();

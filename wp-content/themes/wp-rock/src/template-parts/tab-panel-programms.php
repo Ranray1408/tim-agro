@@ -24,7 +24,7 @@ $user_fields = get_fields('user_' . $current_user->ID);
 //Information from saved user data
 $user_programm = get_field_value($user_fields, $programm_type);
 
-$payment = $monobank->check_payment();
+global $wpdb;
 ?>
 
 <div id="<?php echo $programm_type; ?>" class="profile__panel js-programm js-tab-panel <?php echo $additional_class; ?>" data-programm_type="<?php echo $programm_type; ?>" data-user_id="<?php echo $current_user->ID; ?>">
@@ -39,6 +39,15 @@ $payment = $monobank->check_payment();
                     foreach ($user_programm as $user_programm_item) :
                         if (empty($user_programm_item['post_id'])) continue;
 
+						$product_id = $wpdb->get_var( $wpdb->prepare(
+							"SELECT post_id
+                                 FROM {$wpdb->postmeta}
+                                 WHERE meta_key = 'attached_post' 
+                                 AND meta_value = %d",
+							$user_programm_item['post_id'])
+						);
+
+
                         echo get_template_part('src/template-parts/programm', 'accordion', array(
                             'user_programm_item' => $user_programm_item,
                             'additional_class' => $additional_class,
@@ -46,13 +55,13 @@ $payment = $monobank->check_payment();
                         ));
 
                         echo get_template_part('src/template-parts/pay-success-response', null, array(
-                            'payment' => $payment,
                             'post_id' => $user_programm_item['post_id'],
                             'additional_class' => 'profile-page',
                         ));
 
                         echo get_template_part('src/template-parts/continue-access-popup', null, array(
-                            'post_id' => $user_programm_item['post_id']
+                            'post_id' => $user_programm_item['post_id'],
+                            'product_id' => $product_id,
                         ));
                     endforeach;
                     ?>

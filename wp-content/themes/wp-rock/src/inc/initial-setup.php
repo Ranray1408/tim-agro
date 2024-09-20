@@ -55,14 +55,20 @@ function get_field_value($data_arr, $key) {
 // Monobank payment
 global $monobank;
 global $global_options;
-$monobank_token = get_field_value($global_options, 'monobank_token');
-$monobank = new MonobankPayment($monobank_token, $global_options);
-$monobank->init($monobank_token);
+global $client;
+global $woocommerce_actions;
+
+//$monobank_token = get_field_value($global_options, 'monobank_token');
+//$monobank = new MonobankPayment($monobank_token, $global_options);
+//$monobank->init();
 
 
 global $profile_functionality;
-$profile_functionality = new profile_functionality($monobank, $global_options);
+$profile_functionality = new Profile_Functionality($monobank, $global_options, $client);
 $profile_functionality->init();
+
+$woocommerce_actions = new Woocommerce_actions();
+$woocommerce_actions->init();
 
 // Vimeo SDK
 require get_template_directory() . '/vendor/autoload.php';
@@ -95,3 +101,24 @@ function log_data($data) {
     $log_entry = date('[Y-m-d H:i:s]') . ' ' . json_encode($data) . PHP_EOL;
     file_put_contents($log_file, $log_entry, FILE_APPEND);
 }
+
+// Loading data from vimeo by saving post
+function save_vimeo_data($post_id) {
+    global $profile_functionality;
+    global $global_options;
+    global $client;
+
+    $included_cpts = array('courses', 'lectures');
+    $vimeo_blocks_folder = get_field('vimeo_blocks_folder', $post_id);
+    $user_id = get_field_value($global_options, 'user_id');
+    $content = get_field('content', $post_id);
+
+    if(empty($content) && !empty($vimeo_blocks_folder)) {
+        if (in_array(get_post_type($post_id), $included_cpts)) {
+            $loaded_array = $profile_functionality->load_programm_content($user_id, $vimeo_blocks_folder, $client);
+            $profile_functionality->set_loaded_data_to_acf($loaded_array, $post_id);
+        }
+    }
+}
+
+add_action('save_post', 'save_vimeo_data');

@@ -55,9 +55,30 @@ class MonobankPayment {
         ];
     }
 
-    public function createPayment($cardToken, $amount, $currency = 980, $webHookUrl = '', $redirectUrl = '', $initiationKind = 'client') {
+    public function createPayment($cardToken, $amount, $currency = 980, $webHookUrl = '', $redirectUrl = '', $initiationKind = 'client', $post_id = 0) {
         $webHookUrl = $webHookUrl ? $webHookUrl : get_site_url();
         $redirectUrl = $redirectUrl ? $redirectUrl : get_site_url();
+
+        if ($post_id !== 0) {
+            $title = get_the_title($post_id);
+            if ($title) {
+                $basketOrder = [
+                    [
+                        'name' => $title,
+                        'qty' => 1,
+                        'sum' => $amount,
+                        'code' => $title . '-' . $post_id
+                    ]
+                ];
+            }
+        }
+
+        if (empty($basketOrder)) {
+            return [
+                'success' => false,
+                'error' => 'Basket order cannot be empty'
+            ];
+        }
 
         $data = [
             'cardToken' => $cardToken,
@@ -65,7 +86,10 @@ class MonobankPayment {
             'ccy' => $currency,
             'redirectUrl' =>  $redirectUrl,
             'webHookUrl' => $webHookUrl,
-            'initiationKind' => $initiationKind
+            'initiationKind' => $initiationKind,
+            'merchantPaymInfo' => [
+                'basketOrder' => $basketOrder
+            ],
         ];
 
         $response = $this->request($this->apiUrl, 'POST', $data);
@@ -99,6 +123,7 @@ class MonobankPayment {
         $post_fields = get_fields($post_id);
         $price = get_field_value($post_fields, 'price');
         $continue_checkboxes = get_field_value($post_fields, 'continue_checkboxes');
+        $card = get_field_value($this->global_options, 'card_number');
         $continue_price = $continue_checkboxes[$current_period_index - 1]['price'] ?? null;
         $access_period = $continue_checkboxes[$current_period_index - 1]['period'] ?? 90;
         $continue_price = (int)preg_replace('/\D/', '', $continue_price);
@@ -112,9 +137,9 @@ class MonobankPayment {
         }
 
         if (!empty($params)) {
-            $params .= '&access_period=' . $access_period;
+            $params .= '&access_period=' . $access_period . '&user_email=' . $user_email;
         } else {
-            $params = '?access_period=' . $access_period;
+            $params = '?access_period=' . $access_period . '&user_email=' . $user_email;
         }
 
         $currency = 980;
@@ -127,15 +152,11 @@ class MonobankPayment {
             wp_send_json_error($result['text']);
         }
 
-        $result = $this->createPayment('1111-1111-1111-1111', $result['price'], $currency, $current_url, $current_url . $params);
+        $result = $this->createPayment($card, $result['price'], $currency, $current_url, $current_url . $params, 'client', $post_id);
 
         if ($result['success']) {
             // Sending to admin emails information about bought programm
             $user = get_user_by('email', $user_email);
-            if (!is_wp_error($user)) {
-                $this->send_mail_to_admin($user, $post_id, date('d.m.Y'));
-                $this->send_mail_to_user($user, $post_id, date('d.m.Y'));
-            }
 
             set_transient($user_email . '_payment', $result['data']['invoiceId']);
             wp_send_json_success($result['data']);
@@ -256,6 +277,7 @@ class MonobankPayment {
         $result['success'] = true;
         $result['text'] = __('Промокод створенний.', 'wp-rock');
         $result['promocode'] = $promocode_value;
+        $result['promocode_expire_date'] = $expire_date->format('d.m.Y');
 
         return $result;
     }
@@ -299,6 +321,11 @@ class MonobankPayment {
     }
 
     public function check_payment() {
+        $result = array(
+            'success' => false,
+            'text' => '',
+        );
+
         if (is_user_logged_in()) {
             $user_data = wp_get_current_user();
             $user_email = $user_data->user_email;
@@ -307,10 +334,7 @@ class MonobankPayment {
 
             if ($user_payment) {
                 $data = json_decode(get_transient($user_payment), true);
-                $result = array(
-                    'success' => false,
-                    'text' => '',
-                );
+
 
                 $status = isset($data['status']) ? $data['status'] : '';
 
@@ -318,6 +342,8 @@ class MonobankPayment {
                     case 'created':
                         $link = '<a href="https://pay.mbnk.biz/' . $user_payment . '">' . __('Сплатити', 'wp-rock') . '</a>';
                         $result['text'] = __('Рахунок створено успішно, очікується оплата. ', 'wp-rock') . $link;
+                        delete_transient($user_payment);
+                        delete_transient($user_email . '_payment');
                         break;
                     case 'processing':
                         $result['text'] = __('Платіж обробляється', 'wp-rock');
@@ -345,14 +371,9 @@ class MonobankPayment {
                         delete_transient($user_email . '_payment');
                         break;
                 }
-
-                if (empty($result['text'])) {
-                    return false;
-                }
-                return $result;
             }
         }
-        return false;
+        return $result;
     }
 
     private function get_public_key() {
@@ -363,44 +384,5 @@ class MonobankPayment {
         }
 
         return $response['body']['errCode'] ?? 0;
-    }
-
-    private function send_mail_to_admin($user, $post_id, $current_date) {
-        $headers = array('Content-Type: text/html; charset=UTF-8');
-        $programm_title = get_the_title($post_id);
-        $result = true;
-
-        $body = "<p>" . __('Користувач: ' . $user->first_name . ' - ' . $user->user_email, 'wp-rock') . "</p>
-                <p>" . __('Придбав курс ' . $programm_title . ', дата покупки ' . $current_date, 'wp-rock') . "</p>";
-
-
-        $email_title = 'TimAgro - User buying proramm';
-
-        // Send email for buying programm by user to all emails in array
-        $emails_to_send_programm_sells = get_field_value($this->global_options, 'emails_to_send_programm_sells');
-        if (!empty($emails_to_send_programm_sells)) {
-            foreach ($emails_to_send_programm_sells as $item) {
-                $result = wp_mail($item['email'], $email_title, $body, $headers);
-            }
-        }
-
-        return $result;
-    }
-
-    private function send_mail_to_user($user, $post_id, $current_date) {
-        $headers = array('Content-Type: text/html; charset=UTF-8');
-        $programm_title = get_the_title($post_id);
-        $result = true;
-
-        $body = "<p>" . __('Дякую за вашу покупку. Ви придбали курс ' . $programm_title . ' ' . $current_date, 'wp-rock') . "</p>";
-
-
-        $email_title = 'TimAgro - Buying proramm';
-
-
-        $result = wp_mail($user->user_email, $email_title, $body, $headers);
-
-
-        return $result;
     }
 }

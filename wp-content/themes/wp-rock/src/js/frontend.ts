@@ -9,7 +9,7 @@ import ProfileFunctionality from './components/profileFunctionality';
  * JavaScript
  */
 import FormsActionsClass from './parts/formsActionsClass';
-import { isInViewport, loadFileName, validateField } from './parts/helpers';
+import { anchorLinkScroll, isInViewport, loadFileName, validateField } from './parts/helpers';
 import tabsNavigation from './parts/navi-tabs';
 import Popup from './parts/popup-window';
 
@@ -19,24 +19,6 @@ function ready() {
     const popupInstance = new Popup();
     const profileFunctionality = new ProfileFunctionality();
     const formsActionClass = new FormsActionsClass(popupInstance, validateField);
-    const headerAnchor = document.querySelectorAll('li.js-anchor-link a');
-
-    if (headerAnchor) {
-        headerAnchor.forEach((item) => {
-            item.addEventListener('click', (event) => {
-                const currentUrl = window.location.href;
-                const cleanUrl = currentUrl.split('#')[0];
-                // @ts-ignore
-                const siteUrl = `${var_from_php.site_url}/`;
-                // @ts-ignore
-                const linkUrl = event?.target?.getAttribute('href');
-                const anchorBlock = document.querySelector(linkUrl);
-                if (siteUrl !== cleanUrl && !anchorBlock) {
-                    window.location.href = `${siteUrl}${linkUrl}`;
-                }
-            });
-        });
-    }
 
     popupInstance.init();
     profileFunctionality.init();
@@ -53,15 +35,27 @@ function ready() {
         }
     }
 
-    /* anchorLinkScroll(
+    anchorLinkScroll(
         'a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)',
-        () => {
+        (event) => {
+            const currentUrl = window.location.href;
+            const cleanUrl = currentUrl.split('#')[0];
+            // @ts-ignore
+            const siteUrl = `${var_from_php.site_url}/`;
+            // @ts-ignore
+            const linkUrl = event?.target?.getAttribute('href');
+            const anchorBlock = document.querySelector(linkUrl);
+
             siteHeader && siteHeader.classList.remove('menu-opened');
             document.body.classList.remove('popup-opened');
             popupInstance.closePopup();
+
+            if (siteUrl !== cleanUrl && !anchorBlock) {
+                window.location.href = `${siteUrl}${linkUrl}`;
+            }
         },
         -70
-    ); */
+    );
 
     hoverClickEvent();
     initAccordion();

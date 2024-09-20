@@ -4,7 +4,7 @@ global $global_options;
 $profile_page = get_field_value($global_options, 'profile_page');
 $forgot_password_page_id = get_field_value($global_options, 'forgot_password_page');
 
-$post_id = !empty($args['post_id']) ? $args['post_id'] : 0;
+$product_id = !empty($args['product_id']) ? $args['product_id'] : 0;
 $price = !empty($args['price']) ? $args['price'] : '??';
 $redirect_page = !empty($args['redirect_page']) ? $args['redirect_page'] : get_site_url();
 
@@ -12,7 +12,7 @@ $redirect_page = !empty($args['redirect_page']) ? $args['redirect_page'] : get_s
 $get_access_form = '
 <div class="get-access-popup">
     <form class="get-access-form js-get-access-form" data-profile_page="' . get_permalink($profile_page) . '">
-        <h2 class="popup-title">Вартість курсу <span>' . $price . '</span></h2>
+        <h2 class="popup-title">Вартість курсу <span>' . $price . ' '.get_woocommerce_currency().'</span></h2>
         <div class="popup-subtitle body-type-2 weight500">
             ' . __('Щоб отримати доступ, заповніть форму і натисніть кнопку', 'wp-rock') . '
         </div>
@@ -37,10 +37,12 @@ $get_access_form = '
                 <input checked type="checkbox" required>
                 <span>' . __('Надсилаючи данні, я приймаю умови Публічної оферти та Політики конфіденційності*', 'wp-rock') . '</span>
             </label>
+            <input type="hidden" name="profile-page" value="' . get_permalink($profile_page) . '">
             <input type="hidden" name="redirect-page" value="' . $redirect_page . '">
             <input type="hidden" name="registration" value="1">
-            <input type="hidden" name="post-id" value="' . $post_id . '">
-            <input type="hidden" name="forgot_password_page" value="' . get_permalink($forgot_password_page_id) . '">
+            <input type="hidden" name="amount" value="1">
+            <input type="hidden" name="post-id" value="' . $product_id . '">
+            <input type="hidden" name="forgot-password-page" value="' . get_permalink($forgot_password_page_id) . '">
             <input type="submit" class="green-filled" value="Оплатити">
         </div>
         <div class="js-response-container response-container"></div>
