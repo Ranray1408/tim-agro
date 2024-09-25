@@ -39,7 +39,7 @@ if (!class_exists('MrkvMonoCheckoutCallback'))
 
 	        # Check callback data
 	        if($mrkv_mono_callback){
-	        	if(isset($mrkv_mono_callback['orderId'])){
+	        	if(isset($mrkv_mono_callback['invoiceId'])){
 	        		# Get order object
 	        		$order = wc_get_orders( array(
 					    'limit'        => 1, 
@@ -47,156 +47,30 @@ if (!class_exists('MrkvMonoCheckoutCallback'))
 					    'order'        => 'DESC',
 					    'meta_key'     => '_order_mono_ref', 
 					    'meta_compare' => '==',
-					    'meta_value'   => $mrkv_mono_callback['orderId'],
+					    'meta_value'   => $mrkv_mono_callback['invoiceId'],
 					));
 	        		# Get order
 					$order_main = $order[0];
 					# Add data to order
 					$order_main->add_order_note(print_r($mrkv_mono_callback, 1) , $is_customer_note = 0, $added_by_user = false);
 
-					global $woocommerce;
-
 					$wc_gateways      = new WC_Payment_Gateways();
 		    		$payment_gateways = $wc_gateways->get_available_payment_gateways();
-		    		$mono_payment_gateway = $payment_gateways['morkva-monopay'];
 
-					if(isset($mrkv_mono_callback['payment_method'])){
-						$mono_payment_gateway_method = '';
-
-						switch($mrkv_mono_callback['payment_method']){
-							case 'card':
-								$mono_payment_gateway_method = $payment_gateways['morkva-monopay'];
-							break;
-							case 'payment_on_delivery':
-								$mono_payment_gateway_method = $payment_gateways['cod'];
-							break;
-							case 'part_purchase':
-								$mono_payment_gateway_method = $payment_gateways['morkva-monopay'];
-							break;
-						}
-
-						$order_main->set_payment_method($mono_payment_gateway_method);
+					if(isset($mrkv_mono_callback['paymentInfo']['paymentMethod'])){
+						$order_main->set_payment_method($payment_gateways['morkva-monopay']);
 					}
 
-					if(isset($mrkv_mono_callback['generalStatus']))
+					if(isset($mrkv_mono_callback['status']))
 					{
-						$order_main->update_meta_data( 'mrkv_mopay_checkout_status', $mrkv_mono_callback['generalStatus']);
-		                update_post_meta( $order_main->get_id(), 'mrkv_mopay_checkout_status', $mrkv_mono_callback['generalStatus'] );
+						$order_main->update_meta_data( 'mrkv_mopay_checkout_status', $mrkv_mono_callback['status']);
+		                update_post_meta( $order_main->get_id(), 'mrkv_mopay_checkout_status', $mrkv_mono_callback['status'] );
 		                $order_main->save();
 					}
 
-					if(isset($mrkv_mono_callback['payment_status']) && $mrkv_mono_callback['payment_status'] == 'success'){
+					if(isset($mrkv_mono_callback['status']) && $mrkv_mono_callback['status'] == 'success'){
 						# Set payment complete
-						$order_main->payment_complete($mrkv_mono_callback['payment_status']);
-					}
-
-					# Check mono first name
-					if(isset($mrkv_mono_callback['deliveryRecipientInfo']['first_name'])){
-						# Set billing first name field
-						$order_main->set_billing_first_name($mrkv_mono_callback['deliveryRecipientInfo']['first_name']);	
-					}
-					
-					# Check mono last name
-					if(isset($mrkv_mono_callback['deliveryRecipientInfo']['last_name'])){
-						# Set billing last name field
-						$order_main->set_billing_last_name($mrkv_mono_callback['deliveryRecipientInfo']['last_name']);	
-					}
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryRecipientInfo']['phoneNumber'])){
-						# Set billing phone
-						$order_main->set_billing_phone($mrkv_mono_callback['deliveryRecipientInfo']['phoneNumber']);	
-					}
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryAddressInfo']['cityName'])){
-						# Set billing phone field
-						$order_main->set_billing_city($mrkv_mono_callback['deliveryAddressInfo']['cityName']);		
-					}	
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryAddressInfo']['cityRef'])){
-						# Set billing city ref field
-						$order_main->update_meta_data('np_city_ref', $mrkv_mono_callback['deliveryAddressInfo']['cityRef']);
-						# Set billing city ref field
-						$order_main->update_meta_data('_billing_nova_poshta_city', $mrkv_mono_callback['deliveryAddressInfo']['cityRef']);	
-					}
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryAddressInfo']['areaName'])){
-						# Set billing phone field
-						$order_main->set_billing_state($mrkv_mono_callback['deliveryAddressInfo']['areaName']);	
-					}
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryAddressInfo']['areaRef'])){
-						# Set billing phone field
-						$order_main->update_meta_data('billing_nova_poshta_region', $mrkv_mono_callback['deliveryAddressInfo']['areaRef']);	
-					}	
-
-					# Check mono phone
-					if(isset($mrkv_mono_callback['deliveryRecipientInfo']['phoneNumber'])){
-						# Set billing phone field
-						$order_main->set_billing_phone($mrkv_mono_callback['deliveryRecipientInfo']['phoneNumber']);	
-					}	
-
-					# Check mono email
-					if(isset($mrkv_mono_callback['mainClientInfo']['email'])){
-						# Set billing email field
-						$order_main->set_billing_email($mrkv_mono_callback['mainClientInfo']['email']);	
-					}	
-
-					# Check mono address
-					if(isset($mrkv_mono_callback['delivery_branch_address'])){
-						# Set billing address field
-						$order_main->set_billing_address_1($mrkv_mono_callback['delivery_branch_address']);	
-						# Set shipping address field
-						$order_main->set_shipping_address_1($mrkv_mono_callback['delivery_branch_address']);	
-						# Add to meta
-						$order_main->update_meta_data( 'mono_delivery_branch_address', $mrkv_mono_callback['delivery_branch_address'] );
-					}	
-
-					# Add to meta delivery method
-					if(isset($mrkv_mono_callback['delivery_method'])){
-						# Add to meta
-						$order_main->update_meta_data( 'mono_delivery_method', $mrkv_mono_callback['delivery_method'] );
-					}	
-
-					# Add to meta delivery method desc
-					if(isset($mrkv_mono_callback['delivery_method_desc'])){
-						# Add to meta
-						$order_main->update_meta_data( 'mono_delivery_method_desc', $mrkv_mono_callback['delivery_method_desc'] );
-					}
-
-					# Add to meta delivery_branch_id
-					if(isset($mrkv_mono_callback['delivery_branch_id'])){
-						# Add to meta
-						$order_main->update_meta_data( 'mono_delivery_branch_id', $mrkv_mono_callback['delivery_branch_id'] );
-					}
-
-					if(isset($mrkv_mono_callback['delivery_method']) && isset($mrkv_mono_callback['delivery_method_desc'])){
-						# Get country code
-						$country_code = $order_main->get_shipping_country();
-
-						$calculate_tax_for = array(
-						    'country' => $country_code,
-						    'state' => '', 
-						    'postcode' => '', 
-						    'city' => '', 
-						);
-
-						# Add shipping method to order
-						$item = new WC_Order_Item_Shipping();
-						$item->set_method_title( $mrkv_mono_callback['delivery_method_desc'] );
-						if($mono_payment_gateway->get_option('mono_delivery_methods_' . $mrkv_mono_callback['delivery_method']) &&
-						$mono_payment_gateway->get_option('mono_delivery_methods_' . $mrkv_mono_callback['delivery_method']) != 'none'){
-							$item->set_method_id($mono_payment_gateway->get_option('mono_delivery_methods_' . $mrkv_mono_callback['delivery_method'])); 
-						}
-						$item->set_total( 0 ); 
-						$item->calculate_taxes($calculate_tax_for);
-
-						$order_main->add_item( $item );
-						$order_main->calculate_totals();
+						$order_main->payment_complete($mrkv_mono_callback['paymentInfo']['tranId']);
 					}
 
 					# Save order data

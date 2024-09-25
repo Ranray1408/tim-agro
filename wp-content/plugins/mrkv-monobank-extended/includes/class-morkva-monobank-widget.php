@@ -10,7 +10,8 @@ if (!class_exists('MorkvaMonopayWidget'))
 		/**
 	     * @var string Api url
 	     * */
-	    const MRKV_MONO_API_URL = "https://api.monobank.ua/personal/checkout/order/";
+	    // const MRKV_MONO_API_URL = "https://api.monobank.ua/personal/checkout/order/";
+	    const MRKV_MONO_API_URL = "https://api.monobank.ua/api/merchant/invoice/create";
 
 	    /**
 	     * @var string Order id message
@@ -207,10 +208,10 @@ if (!class_exists('MorkvaMonopayWidget'))
 					}
 
 	    			$product_result[] = array(
-	    				'id' => $product->product_id,
 	    				'name' => $product_main->get_title(),
-	    				'cnt' => $product->quantity,
-	    				'price' => $final_price
+	    				'qty' => (int)$product->quantity,
+	    				'sum' => (int)$final_price,
+						'code' => $product->product_id,
 	    			);
 
 	    			$amount = $product->quantity * ($final_price);
@@ -241,6 +242,13 @@ if (!class_exists('MorkvaMonopayWidget'))
 	    		}
 
 	    		$url = $this->mrkv_monopay_create_checkout($params);
+				$url_body = '';
+				if ( isset($url['body']) ) {
+					$url_body = json_decode($url['body']);
+				}
+
+				$invoiceId = ( is_object($url_body) && isset($url_body->invoiceId) ) ? $url_body->invoiceId : null;
+				$pageUrl = ( is_object($url_body) && isset($url_body->pageUrl) ) ? $url_body->pageUrl : null;
 
 	    		$order->update_meta_data( 'mrkv_mopay_payment_method', 'morkva-monopay-checkout');
                 update_post_meta( $order->get_id(), 'mrkv_mopay_payment_method', 'morkva-monopay-checkout' );
@@ -254,17 +262,17 @@ if (!class_exists('MorkvaMonopayWidget'))
 	                update_post_meta( $order->get_id(), 'mrkv_mopay_checkout_status_message', $url['error'] );
 	    		}
 
-	    		if(isset($url['order_id'])){
-	    			$order->add_order_note(__('MonoCheckout order id: ', 'mrkv-monobank-extended') . ' ' . $url['order_id'] , $is_customer_note = 0, $added_by_user = false);
-	    			$order->update_meta_data( '_order_mono_ref',  $url['order_id']);
+	    		if ( $invoiceId ){
+	    			$order->add_order_note(__('MonoPay invoice ID: ', 'mrkv-monobank-extended') . ' ' . $invoiceId , $is_customer_note = 0, $added_by_user = false);
+	    			$order->update_meta_data( '_order_mono_ref',  $invoiceId);
 
 	    			$order->update_meta_data( 'mrkv_mopay_checkout_status', 'sent_to_checkout');
 	                update_post_meta( $order->get_id(), 'mrkv_mopay_checkout_status', 'sent_to_checkout' );
 	                $order->save();
 	    		}
 
-	    		if(isset($url['redirect_url'])){
-					echo $url['redirect_url'];
+	    		if($pageUrl){
+					echo $pageUrl;
 	    		}
 
 			}
@@ -429,10 +437,8 @@ if (!class_exists('MorkvaMonopayWidget'))
 		 * 
 		 * @return array Params
 		 * */
-		public function mrkv_monopay_create_params($products, $amount, $count, $currency, $order){
+			public function mrkv_monopay_create_params($products, $amount, $count, $currency, $order){
 
-			# Create array of products
-			$product_list = array();
 			# Set Iso code
         	$iso_code = '';
 
@@ -454,38 +460,26 @@ if (!class_exists('MorkvaMonopayWidget'))
 	                $iso_code = "980";
 	        }
 
-			foreach($products as $product){
-				$product_list[] = array(
-					'code_product' => $product['id'],
-					'name' => $product['name'],
-					'cnt' => $product['cnt'],
-					'price' => $product['price']
-				);
-			}
+
+			$user_info = get_userdata(get_current_user_id());
+			$user_email = $user_info->user_email;
 
 			$web_url = get_site_url();
 
-			$wc_gateways      = new WC_Payment_Gateways();
-    		$payment_gateways = $wc_gateways->get_available_payment_gateways();
-    		$mono_payment_gateway = $payment_gateways['morkva-monopay'];
-
-    		$mono_payments = array();
-
-    		if($mono_payment_gateway->get_option('mono_payment_methods'))
-    		{
-    			$mono_payments = $mono_payment_gateway->get_option('mono_payment_methods');
-    		}
-
 			$params = array(
-    			'order_ref' => $order->get_id(),
-    			'amount' => $amount,
-    			'products' => $product_list,
-    			'count' => $count,
-    			'ccy' => $iso_code,
-    			'payment_method_list' => $mono_payments,
-    			'callback_url' => $web_url . '/?wc-api=morkva-monopay-checkout',
-    			'return_url' => wc_get_checkout_url() . 'order-received/' . $order->get_id() . '/?key=' . $order->get_order_key()
-    		);
+				"amount" => (int)$amount,
+				"ccy"    => 980,
+				"merchantPaymInfo"  => array(
+					//"reference"      => $order->get_id(),
+					"customerEmails" => array($user_email),
+					"basketOrder"    => $products,
+				),
+				"redirectUrl" => wc_get_checkout_url() . 'order-received/' . $order->get_id() . '/?key=' . $order->get_order_key(),
+				"webHookUrl" => $web_url . '/?wc-api=morkva-monopay-checkout',
+				"validity" => 3600,
+				"paymentType" => "debit",
+			);
+
 
     		return $params;
 		}
@@ -508,7 +502,7 @@ if (!class_exists('MorkvaMonopayWidget'))
 	        $mrkv_mono_headers = array(
 	            'Content-type'  => 'application/json',
 	            'X-Token' => $mrkv_mono_token,
-	            'X-Cms' => 'morkva'
+	            'X-Cms' => 'Wordpress'
 	        );
 
 	        # Create request args

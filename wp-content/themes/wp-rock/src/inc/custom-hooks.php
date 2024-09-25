@@ -160,54 +160,6 @@ add_action('woocommerce_new_order', function($order_id) use ($cookie_data) {
 	$order->save();
 }, 90, 1);
 
-/*function filling_in_the_order_fields($order_id) {
-
-	$cookie_data = stripslashes($_COOKIE['creating_order']);
-
-	error_log('$cookie_data1 ='. $_COOKIE['creating_order']);
-
-    if (!$cookie_data) {
-
-		error_log('$cookie_data1 ='. $cookie_data);
-
-		$cookie_data = json_decode($cookie_data);
-
-        error_log('$cookie_data2 ='. $cookie_data);
-
-		// Get fields form cookie
-		$user_email = $cookie_data->userEmail ?? null;
-		$user_phone = $cookie_data->userPhone ?? null;
-		$user_registration = $cookie_data->userRegistration ?? false;
-		$continue_period = $cookie_data->continuePeriod ?? 90;
-    }
-	else {
-		error_log('$cookie_data = nodata');
-		$user_email = null;
-		$user_phone = null;
-		$user_registration = false;
-		$continue_period = 90;
-    }
-
-
-
-	// Add order inforation
-	$order = wc_get_order($order_id);
-
-	$order->set_billing_email($user_email);
-	$order->set_billing_phone($user_phone);
-
-	$user = get_user_by('email', $user_email);
-	if ($user) {
-		$order->set_customer_id($user->ID);
-	}
-
-	update_post_meta($order_id, 'user_just_registered', $user_registration);
-	update_post_meta($order_id, 'access_period', $continue_period);
-
-	$order->save();
-
-	//setcookie('creating_order', '', time() - 3600, '/');
-}*/
 
 // Display fields in woocommercer order
 add_action('woocommerce_admin_order_data_after_order_details', 'display_custom_order_fields');
@@ -215,9 +167,7 @@ add_action('woocommerce_admin_order_data_after_order_details', 'display_custom_o
 function display_custom_order_fields($order) {
 	$user_just_registered = get_post_meta($order->get_id(), 'user_just_registered', true);
 	$access_period = get_post_meta($order->get_id(), 'access_period', true);
-	//$redirect_page = get_post_meta($order->get_id(), 'redirect_page', true);
 
-	//echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('Attached Post', 'wp-rock') . ':</strong> ' . esc_html($redirect_page) . '</p>';
 	echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('User Just Registered', 'wp-rock') . ':</strong> ' . ($user_just_registered ? 'Yes' : 'No') . '</p>';
 	echo '<p class="form-field form-field-wide wc-customer-user"><strong>' . __('Access Period', 'wp-rock') . ':</strong> ' . esc_html($access_period) . ' days</p>';
 }
@@ -228,3 +178,10 @@ function force_redirect_to_user_profile_after_success_payment ($order_id){
 	exit;
 }
 add_action('woocommerce_thankyou', 'force_redirect_to_user_profile_after_success_payment', 99 );
+
+
+function order_statuses_for_payment_complete($statuses) {
+	$statuses[] = 'processing';
+    return $statuses;
+}
+add_filter( 'woocommerce_valid_order_statuses_for_payment_complete', 'order_statuses_for_payment_complete', 30, 1 );

@@ -534,18 +534,25 @@ class WC_Gateway_Morkva_Mono extends WC_Payment_Gateway
 			if ( $paid_order_id ) {
 				$mrkv_mono_order = new WC_Order( $paid_order_id );
 
-				$mrkv_mono_order->update_meta_data( 'mrkv_mopay_payment_method', 'morkva-monopay');
+				//$mrkv_mono_order->update_meta_data( 'mrkv_mopay_payment_method', 'morkva-monopay');
 				update_post_meta( $paid_order_id, 'mrkv_mopay_payment_method', 'morkva-monopay' );
 
-				$mrkv_mono_order->update_meta_data( 'mrkv_mopay_accuiring_status',  'paid');
+				//$mrkv_mono_order->update_meta_data( 'mrkv_mopay_accuiring_status',  'paid');
 				update_post_meta( $paid_order_id, 'mrkv_mopay_accuiring_status',  'paid' );
 
 				$woocommerce->cart->empty_cart();
 
 				$new_order_status = ($this->get_option( 'monopay_order_status' ) && $this->get_option( 'monopay_order_status' ) != '') ? $this->get_option( 'monopay_order_status' ) : 'processing';
 
+				// mrkv_mopay_checkout_status
+				$order_paid_status = get_post_meta( $paid_order_id, 'mrkv_mopay_checkout_status', true );
+
+				if ( $order_paid_status === 'success' ) {
+					$mrkv_mono_order->update_status('completed');
+				}
+
 				# Update order status
-				$mrkv_mono_order->update_status($new_order_status);
+				//$mrkv_mono_order->update_status($new_order_status);
 
 				$mrkv_mono_order->save();
 			}
