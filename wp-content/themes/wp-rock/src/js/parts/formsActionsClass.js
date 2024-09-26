@@ -6,7 +6,7 @@ export default class FormsActionsClass {
         this.validateField = validateField; // function
     }
 
-    async init() {
+    init() {
         this.checkFormFields();
 
         this.loginFormFetch();
@@ -314,6 +314,8 @@ export default class FormsActionsClass {
                             amount = e.target?.amount?.value;
                         }
 
+                        this.setOrderCookieInfo(form);
+
                         const payRes = await this.fetchToActionPayload({
                             product_id: e.target['post-id'].value,
                             variation_id: 0,
@@ -322,8 +324,8 @@ export default class FormsActionsClass {
                             discount: enteredPromocode,
                             quantity: '1',
                         });
+
                         if (payRes) {
-                            this.setOrderCookieInfo(form);
                             // If success return to pay page
                             window.location.href = payRes;
                         } else {
@@ -370,6 +372,6 @@ export default class FormsActionsClass {
                 continuePeriod: periodAmount.split('|')[0],
             };
         }
-        setCookie(`creating_order`, JSON.stringify(data), 3);
+        setCookie(`creating_order`, JSON.stringify(data), 1);
     }
 }

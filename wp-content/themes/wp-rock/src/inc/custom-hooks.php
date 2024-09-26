@@ -124,11 +124,11 @@ function add_program_on_order_complete($order_id) {
 
 
 // Filling additionals order fields
-$cookie_data = isset($_COOKIE['creating_order']) ? stripslashes($_COOKIE['creating_order']) : '';
+add_action('woocommerce_new_order', function($order_id) {
+	$cookie_data = isset($_COOKIE['creating_order']) ? stripslashes($_COOKIE['creating_order']) : '';
 
-add_action('woocommerce_new_order', function($order_id) use ($cookie_data) {
 	if ($cookie_data) {
-		$cookie_data = json_decode($cookie_data);
+        $cookie_data = json_decode($cookie_data);
 		// Get fields form cookie
 		$user_email = $cookie_data->userEmail ?? null;
 		$user_phone = $cookie_data->userPhone ?? null;

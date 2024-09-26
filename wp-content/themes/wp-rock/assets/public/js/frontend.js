@@ -1,7 +1,534 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 523:
+/***/ "./src/js/components/accordion.ts":
+/*!****************************************!*\
+  !*** ./src/js/components/accordion.ts ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initInnerAccordion: function() { return /* binding */ initInnerAccordion; }
+/* harmony export */ });
+var initAccordion = function initAccordion() {
+  var accordions = document.querySelectorAll('.js-wrock-accordion');
+  accordions && accordions.forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var target = event.target;
+      var btn = target.closest('.js-wrock-accordion__btn');
+      if (!btn) return;
+      var element = btn.parentElement;
+      var content = element.querySelector('.js-wrock-accordion__content');
+      var openItem = item.querySelector('.js-wrock-accordion__item.open');
+      element.classList.toggle('open');
+    });
+  });
+};
+var initInnerAccordion = function initInnerAccordion() {
+  var innerAccordions = document.querySelectorAll('.js-inner-accordion');
+  innerAccordions && innerAccordions.forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var target = event.target;
+      var btn = target.closest('.js-inner-accordion__btn');
+      if (!btn) return;
+      var element = btn.parentElement;
+      var content = element.querySelector('.js-inner-accordion__content');
+      var openItem = item.querySelector('.js-inner-accordion__item.open');
+      element.classList.toggle('open');
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (initAccordion);
+
+/***/ }),
+
+/***/ "./src/js/components/menuActions.ts":
+/*!******************************************!*\
+  !*** ./src/js/components/menuActions.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var hoverClickEvent = function hoverClickEvent() {
+  var menuItems = document.querySelectorAll('ul > .menu-item');
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  if (canHover) {
+    menuItems.forEach(function (item) {
+      var subMenu = item.querySelector('.sub-menu');
+      if (subMenu) {
+        var bounding = subMenu.getBoundingClientRect();
+        var offset = 10;
+        if (bounding.right > window.innerWidth) {
+          var overflow = bounding.right - window.innerWidth;
+          subMenu.style.left = "-".concat(overflow + offset, "px");
+        } else {
+          subMenu.style.left = '0px';
+        }
+      }
+      item.addEventListener('mouseenter', function () {
+        item.classList.add('hovered');
+      });
+      item.addEventListener('mouseleave', function () {
+        item.classList.remove('hovered');
+      });
+    });
+  } else {
+    menuItems.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.stopImmediatePropagation();
+        var subMenu = item.querySelector('.sub-menu');
+        if (item.classList.contains('hovered')) {
+          item.classList.remove('hovered');
+        } else {
+          item.classList.add('hovered');
+        }
+        if (subMenu) {
+          var bounding = subMenu.getBoundingClientRect();
+          var offset = 20;
+          subMenu.style.left = '50%';
+          if (bounding.right > window.innerWidth) {
+            var overflow = bounding.right - window.innerWidth;
+            subMenu.style.left = "-".concat(overflow + offset, "px");
+          }
+          subMenu.addEventListener('click', function (event) {
+            event.stopPropagation();
+          });
+        }
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (hoverClickEvent);
+
+/***/ }),
+
+/***/ "./src/js/components/profileFunctionality.ts":
+/*!***************************************************!*\
+  !*** ./src/js/components/profileFunctionality.ts ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ProfileFunctionality; }
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var ProfileFunctionality = /*#__PURE__*/function () {
+  function ProfileFunctionality() {
+    _classCallCheck(this, ProfileFunctionality);
+    this.profileData = {
+      userId: 0,
+      courses: {
+        programmType: 'courses',
+        programms: {}
+      },
+      lectures: {
+        programmType: 'lectures',
+        programms: {}
+      }
+    };
+    this.initedPlayer = null;
+  }
+  _createClass(ProfileFunctionality, [{
+    key: "init",
+    value: function init() {
+      this.playVideoByClickInit();
+      this.createProfileVideoData('courses');
+      this.createProfileVideoData('lectures');
+      this.playNextVideo();
+      this.editFormFieldAddEvent();
+      this.addEventfetchUserDataForm();
+      this.initPlayerOnOpenBlock();
+    }
+  }, {
+    key: "loadDataAndPlayVideo",
+    value: function loadDataAndPlayVideo(playBtnData) {
+      var _a, _b, _c, _d, _e;
+      if (!playBtnData) return;
+      var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
+      var videoTitle = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_title;
+      var videoId = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_id;
+      var videoPauseTime = (_e = parseFloat((_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_pause_time)) !== null && _e !== void 0 ? _e : null;
+      var videoContainer = document.querySelector("[data-video_container_id=\"".concat(containerId, "\"]"));
+      var blockVideoWrapper = videoContainer.closest('.js-block-video');
+      var videoTitleContainer = blockVideoWrapper === null || blockVideoWrapper === void 0 ? void 0 : blockVideoWrapper.querySelector('.js-video-title');
+      if (videoTitleContainer) {
+        videoTitleContainer.innerText = "".concat(videoTitle);
+      }
+      if (!videoContainer) return;
+      videoContainer.dataset.video_id = playBtnData.dataset.video_id;
+      this.loadPDFButtons(playBtnData);
+      var onPauseCallback = function onPauseCallback(pauseInfo) {
+        playBtnData.dataset.video_pause_time = pauseInfo.seconds;
+      };
+      this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
+    }
+  }, {
+    key: "loadPDFButtons",
+    value: function loadPDFButtons(playBtnData) {
+      if (!playBtnData || !playBtnData.dataset || !playBtnData.dataset.video_files) {
+        console.error('Video files data is missing.');
+        return;
+      }
+      var videoFiles = JSON.parse(playBtnData.dataset.video_files);
+      var parentBlock = playBtnData.closest('.js-programm-block');
+      var html = '';
+      videoFiles && videoFiles.forEach(function (item) {
+        if (!item.file && !item.file) return;
+        html += "<a target=\"_blank\" href=\"".concat(item.file, "\" class=\"green-transparent\">\n                        <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z\" fill=\"white\"/>\n                            <path d=\"M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z\" fill=\"white\"/>\n                            <path d=\"M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z\" fill=\"white\"/>\n                        </svg>\n                        ").concat(item.file_name, "\n                    </a>");
+      });
+      if (parentBlock) {
+        var videoembedFiles = parentBlock.querySelector('.js-video-embed-files');
+        videoembedFiles.innerHTML = html;
+      }
+    }
+  }, {
+    key: "playVideoByClickInit",
+    value: function playVideoByClickInit() {
+      var _this = this;
+      var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
+      if (!playVideoBtns) return;
+      var removeAllActiveBtns = function removeAllActiveBtns() {
+        playVideoBtns.forEach(function (el) {
+          return el.classList.remove('playing-video');
+        });
+      };
+      playVideoBtns.forEach(function (el) {
+        var button = el;
+        button.addEventListener('click', function (e) {
+          e.stopPropagation();
+          removeAllActiveBtns();
+          button.classList.add('playing-video');
+          _this.loadDataAndPlayVideo(button);
+        });
+      });
+    }
+  }, {
+    key: "saveVideoTimeData",
+    value: function saveVideoTimeData(videoContainer, videoParams, learninMaterialType) {
+      var _a, _b;
+      if (!videoContainer && !videoParams && !learninMaterialType) return;
+      var videoDuration = videoParams.duration;
+      var videoPauseTime = videoParams.seconds;
+      var programmId = (_a = videoContainer.dataset.video_container_id) === null || _a === void 0 ? void 0 : _a.split('_')[0];
+      var shortBlockId = (_b = videoContainer.dataset.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[1];
+      var videoId = videoContainer.dataset.video_id;
+      var viewed = false;
+      if (videoParams.percent) {
+        viewed = videoParams.percent >= 0.9;
+      }
+      var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
+      var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[shortBlockId];
+      currentBlockPath.fullBlockId = videoContainer.dataset.video_container_id;
+      currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
+        videoDuration: videoDuration,
+        videoPauseTime: videoPauseTime,
+        isVideoViewed: viewed
+      });
+      this.changeBlockStatus(currentBlockPath);
+      this.changePassedBlocksCount(currentProgrammPath);
+      this.fetchDataToBackend(this.profileData);
+      this.visualUpdateProgressBar(videoContainer, learninMaterialType);
+    }
+  }, {
+    key: "createProfileVideoData",
+    value: function createProfileVideoData(learninMaterialType) {
+      var _this2 = this;
+      var mainContainer = document.querySelector("#".concat(learninMaterialType));
+      if (!mainContainer) return;
+      var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
+      if (mainContainer && mainContainer.dataset.user_id) {
+        this.profileData.userId = +mainContainer.dataset.user_id;
+      }
+      playVideoBtns && playVideoBtns.forEach(function (el) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        var button = el;
+        var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
+        var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_container_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
+        var videoId = (_e = button.dataset) === null || _e === void 0 ? void 0 : _e.video_id;
+        var videoDuration = (_f = button.dataset) === null || _f === void 0 ? void 0 : _f.video_duration;
+        var videoPauseTime = (_g = button.dataset) === null || _g === void 0 ? void 0 : _g.video_pause_time;
+        var videoIsViewed = (_h = button.dataset) === null || _h === void 0 ? void 0 : _h.video_viewed;
+        var blocksPassedCount = (_j = button.dataset) === null || _j === void 0 ? void 0 : _j.passed_blocks_count;
+        if (!programmId || !blockId || !videoId) return;
+        if (!_this2.profileData[learninMaterialType].programms[programmId]) {
+          _this2.profileData[learninMaterialType].programms[programmId] = {
+            programmId: +programmId.split('-')[1] || null,
+            blocksPassed: blocksPassedCount,
+            blocks: {}
+          };
+        }
+        if (!_this2.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
+          var currentBlock = _this2.getCurrentBlock(programmId, blockId);
+          _this2.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
+            blockStatus: ((_k = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _k === void 0 ? void 0 : _k.block_status) || null,
+            videos: {}
+          };
+        }
+        var currentProgrammPath = _this2.profileData[learninMaterialType].programms[programmId];
+        var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
+        currentBlockPath.videos[videoId] = {
+          videoId: videoId || null,
+          videoDuration: videoDuration || null,
+          videoPauseTime: videoPauseTime || null,
+          isVideoViewed: videoIsViewed || ''
+        };
+      });
+    }
+  }, {
+    key: "changeBlockStatus",
+    value: function changeBlockStatus(currentBlockObject) {
+      if (!currentBlockObject) return;
+      var status = '';
+      var videosArray = Object.values(currentBlockObject.videos);
+      var isBlockPassed = videosArray.every(function (video) {
+        return video.isVideoViewed;
+      });
+      var isBlockNotPassed = videosArray.every(function (video) {
+        return !video.isVideoViewed;
+      });
+      if (isBlockPassed) {
+        status = 'passed';
+      } else if (isBlockNotPassed) {
+        status = 'not-passed';
+      } else {
+        status = 'in-progress';
+      }
+      currentBlockObject.blockStatus = status;
+      this.visualUpdateBlockStatus(currentBlockObject.fullBlockId, status);
+    }
+  }, {
+    key: "visualUpdateBlockStatus",
+    value: function visualUpdateBlockStatus(blockContainerId, status) {
+      var queryStr = ".js-programm-block[data-block_id=\"".concat(blockContainerId, "\"]");
+      var blockElem = document.querySelector(queryStr);
+      if (blockElem) {
+        blockElem.dataset.block_status = status;
+        var statusContainer = blockElem.querySelector('.js-block-status');
+        if (statusContainer) {
+          statusContainer.classList.remove('passed');
+          statusContainer.classList.remove('not-passed');
+          statusContainer.classList.remove('in-progress');
+          statusContainer.classList.add(status);
+        }
+      }
+    }
+  }, {
+    key: "visualUpdateProgressBar",
+    value: function visualUpdateProgressBar(videoContainer, learninMaterialType) {
+      var programmIdStr = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.dataset.video_container_id.split('_')[0];
+      var programmItem = document.querySelector("[data-programm_id=\"".concat(programmIdStr, "\"]"));
+      var progressBarWrap = programmItem.querySelector('.js-progress-info');
+      if (!this.profileData[learninMaterialType].programms) return;
+      var programmsData = this.profileData[learninMaterialType].programms;
+      if (!programmsData[programmIdStr].blocks) return;
+      var blocksData = programmsData[programmIdStr].blocks;
+      var blocksCount = Object.keys(blocksData).length;
+      var passedBlocksCount = programmsData[programmIdStr].blocksPassed;
+      var passedBlocksSpan = progressBarWrap.querySelector('.js-passed-blocks-span');
+      var progressBar = progressBarWrap.querySelector('.js-progress-bar');
+      if (progressBar) {
+        progressBar.innerHTML = this.generateProgressBar(161, blocksCount, passedBlocksCount);
+      }
+      if (passedBlocksSpan) {
+        passedBlocksSpan.innerText = "".concat(passedBlocksCount);
+      }
+    }
+  }, {
+    key: "generateProgressBar",
+    value: function generateProgressBar(totalWidth, blocksCount, blocksPassed) {
+      var blockWidth = 0;
+      if (blocksCount !== 0) {
+        blockWidth = totalWidth / blocksCount;
+      }
+      var svg = '';
+      svg += "<rect width=\"".concat(totalWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 0 5)\" fill=\"#131614\" />");
+      for (var i = 0; i < blocksPassed; i++) {
+        var xPosition = i * blockWidth;
+        svg += "<rect width=\"".concat(blockWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 ").concat(xPosition, " 5)\" fill=\"#53F07F\" />");
+      }
+      return svg;
+    }
+  }, {
+    key: "changePassedBlocksCount",
+    value: function changePassedBlocksCount(currentProgrammObject) {
+      if (!currentProgrammObject) return;
+      var blocksArray = Object.values(currentProgrammObject.blocks);
+      var countOfPassedBlocks = blocksArray.filter(function (block) {
+        return block.blockStatus === 'passed';
+      });
+      currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
+    }
+  }, {
+    key: "playNextVideo",
+    value: function playNextVideo() {
+      var _this3 = this;
+      var playNextBtns = document.querySelectorAll('.js-next-video-btn');
+      playNextBtns && playNextBtns.forEach(function (el) {
+        var btn = el;
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var videoBlock = btn.closest('.js-programm-block');
+          var playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
+          var playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
+          var nextPLayBtn = playVideoBtn === null || playVideoBtn === void 0 ? void 0 : playVideoBtn.nextSibling;
+          if (nextPLayBtn) {
+            playVideoBtns && playVideoBtns.forEach(function (el2) {
+              var btn2 = el2;
+              btn2.classList.remove('playing-video');
+            });
+            nextPLayBtn.classList.add('playing-video');
+            _this3.loadDataAndPlayVideo(nextPLayBtn);
+          }
+        });
+      });
+    }
+  }, {
+    key: "fetchDataToBackend",
+    value: function fetchDataToBackend(profileDataParams) {
+      if (!profileDataParams) return;
+      fetch("".concat(var_from_php.ajax_url, "?action=save_video_data"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(profileDataParams)
+      });
+    }
+  }, {
+    key: "getCurrentBlock",
+    value: function getCurrentBlock(programmId, blockId) {
+      var blockIdstring = "".concat(programmId, "_").concat(blockId);
+      var currentBlock = document.querySelector("[data-block_id=\"".concat(blockIdstring, "\"]"));
+      return currentBlock || null;
+    }
+  }, {
+    key: "addEventfetchUserDataForm",
+    value: function addEventfetchUserDataForm() {
+      var form = document.querySelector('.js-user-info-form');
+      if (!form) return;
+      form && form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var formData = new FormData(form);
+        fetch("".concat(var_from_php.ajax_url, "?action=update_user_data"), {
+          method: 'POST',
+          body: formData
+        }).then(function (res) {
+          return res.json();
+        }).then(function (res) {
+          var respContainer = form.querySelector('.js-response-container');
+          var additionalClass = res.success ? 'success' : 'error';
+          if (respContainer) {
+            var paragrahp = document.createElement('p');
+            paragrahp.classList.add(additionalClass);
+            paragrahp.innerText = res.data;
+            respContainer.appendChild(paragrahp);
+          }
+        });
+      });
+    }
+  }, {
+    key: "editFormFieldAddEvent",
+    value: function editFormFieldAddEvent() {
+      var editBtns = document.querySelectorAll('.js-edit-btn');
+      var inpus = document.querySelectorAll('input[type="text"]');
+      var setInputDefaultState = function setInputDefaultState(el) {
+        var input = el;
+        input.classList.remove('focus');
+      };
+      editBtns && editBtns.forEach(function (el) {
+        var btn = el;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          inpus && inpus.forEach(function (el2) {
+            return setInputDefaultState(el2);
+          });
+          var parentWrapper = btn.closest('.js-inner-input-wrapper');
+          var input = parentWrapper === null || parentWrapper === void 0 ? void 0 : parentWrapper.querySelector('input[type="text"]');
+          input.classList.add('focus');
+        });
+      });
+    }
+  }, {
+    key: "initVimeoPlayer",
+    value: function initVimeoPlayer(playerEl, videoId) {
+      var loadVideo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var start = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var cb = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function (pauseInfo) {};
+      var player;
+      if (!loadVideo) {
+        player = new Vimeo.Player(playerEl, {
+          id: videoId
+        });
+        start && player.setCurrentTime(start);
+      } else {
+        player = playerEl;
+        player.loadVideo(videoId).then(function () {
+          start && player.setCurrentTime(start);
+        });
+      }
+      player.off('pause', cb);
+      player.on('pause', cb);
+      return player;
+    }
+  }, {
+    key: "initPlayerOnOpenBlock",
+    value: function initPlayerOnOpenBlock() {
+      var _this4 = this;
+      var blocks = document.querySelectorAll('.js-programm-block');
+      blocks && blocks.forEach(function (el) {
+        var block = el;
+        block.addEventListener('click', function () {
+          var player = block.querySelector("[data-video_container_id=\"".concat(block.dataset.block_id, "\"]"));
+          var firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn');
+          var videoStartTime = (firstPlayBtnInBlcok === null || firstPlayBtnInBlcok === void 0 ? void 0 : firstPlayBtnInBlcok.dataset.video_pause_time) ? +firstPlayBtnInBlcok.dataset.video_pause_time : 0;
+          if (!player || !firstPlayBtnInBlcok) return;
+          firstPlayBtnInBlcok.classList.add('playing-video');
+          var onPauseCallback = function onPauseCallback(pauseInfo) {
+            var parentProgramm = block.closest('.js-programm');
+            var playVideoBtn = block.querySelector("#video-btn-".concat(player.dataset.video_id));
+            if (playVideoBtn) {
+              playVideoBtn.dataset.video_pause_time = "".concat(pauseInfo.seconds);
+            }
+            _this4.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
+          };
+          _this4.initedPlayer = _this4.initVimeoPlayer(player, player.dataset.video_id, false, videoStartTime, onPauseCallback);
+        });
+      });
+    }
+  }]);
+  return ProfileFunctionality;
+}();
+
+
+/***/ }),
+
+/***/ "./src/scss/frontend.scss":
+/*!********************************!*\
+  !*** ./src/scss/frontend.scss ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./node_modules/smoothscroll-polyfill/dist/smoothscroll.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/smoothscroll-polyfill/dist/smoothscroll.js ***!
+  \*****************************************************************/
 /***/ (function(module) {
 
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
@@ -436,553 +963,432 @@
 }());
 
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-!function() {
+/***/ "./src/js/parts/formsActionsClass.js":
+/*!*******************************************!*\
+  !*** ./src/js/parts/formsActionsClass.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ FormsActionsClass; }
+/* harmony export */ });
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers */ "./src/js/parts/helpers.js");
 
-;// CONCATENATED MODULE: ./src/js/components/accordion.ts
-var initAccordion = function initAccordion() {
-  var accordions = document.querySelectorAll('.js-wrock-accordion');
-  accordions && accordions.forEach(function (item) {
-    item.addEventListener('click', function (event) {
-      var target = event.target;
-      var btn = target.closest('.js-wrock-accordion__btn');
-      if (!btn) return;
-      var element = btn.parentElement;
-      var content = element.querySelector('.js-wrock-accordion__content');
-      var openItem = item.querySelector('.js-wrock-accordion__item.open');
-      element.classList.toggle('open');
-    });
-  });
-};
-var initInnerAccordion = function initInnerAccordion() {
-  var innerAccordions = document.querySelectorAll('.js-inner-accordion');
-  innerAccordions && innerAccordions.forEach(function (item) {
-    item.addEventListener('click', function (event) {
-      var target = event.target;
-      var btn = target.closest('.js-inner-accordion__btn');
-      if (!btn) return;
-      var element = btn.parentElement;
-      var content = element.querySelector('.js-inner-accordion__content');
-      var openItem = item.querySelector('.js-inner-accordion__item.open');
-      element.classList.toggle('open');
-    });
-  });
-};
-/* harmony default export */ var accordion = (initAccordion);
-;// CONCATENATED MODULE: ./src/js/components/menuActions.ts
-var hoverClickEvent = function hoverClickEvent() {
-  var menuItems = document.querySelectorAll('ul > .menu-item');
-  var canHover = window.matchMedia('(hover: hover)').matches;
-  if (canHover) {
-    menuItems.forEach(function (item) {
-      var subMenu = item.querySelector('.sub-menu');
-      if (subMenu) {
-        var bounding = subMenu.getBoundingClientRect();
-        var offset = 10;
-        if (bounding.right > window.innerWidth) {
-          var overflow = bounding.right - window.innerWidth;
-          subMenu.style.left = "-".concat(overflow + offset, "px");
-        } else {
-          subMenu.style.left = '0px';
-        }
-      }
-      item.addEventListener('mouseenter', function () {
-        item.classList.add('hovered');
-      });
-      item.addEventListener('mouseleave', function () {
-        item.classList.remove('hovered');
-      });
-    });
-  } else {
-    menuItems.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        e.stopImmediatePropagation();
-        var subMenu = item.querySelector('.sub-menu');
-        if (item.classList.contains('hovered')) {
-          item.classList.remove('hovered');
-        } else {
-          item.classList.add('hovered');
-        }
-        if (subMenu) {
-          var bounding = subMenu.getBoundingClientRect();
-          var offset = 20;
-          subMenu.style.left = '50%';
-          if (bounding.right > window.innerWidth) {
-            var overflow = bounding.right - window.innerWidth;
-            subMenu.style.left = "-".concat(overflow + offset, "px");
-          }
-          subMenu.addEventListener('click', function (event) {
-            event.stopPropagation();
-          });
-        }
-      });
-    });
-  }
-};
-/* harmony default export */ var menuActions = (hoverClickEvent);
-;// CONCATENATED MODULE: ./src/js/components/profileFunctionality.ts
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var ProfileFunctionality = /*#__PURE__*/function () {
-  function ProfileFunctionality() {
-    _classCallCheck(this, ProfileFunctionality);
-    this.profileData = {
-      userId: 0,
-      courses: {
-        programmType: 'courses',
-        programms: {}
-      },
-      lectures: {
-        programmType: 'lectures',
-        programms: {}
-      }
-    };
-    this.initedPlayer = null;
-  }
-  _createClass(ProfileFunctionality, [{
-    key: "init",
-    value: function init() {
-      this.playVideoByClickInit();
-      this.createProfileVideoData('courses');
-      this.createProfileVideoData('lectures');
-      this.playNextVideo();
-      this.editFormFieldAddEvent();
-      this.addEventfetchUserDataForm();
-      this.initPlayerOnOpenBlock();
+
+class FormsActionsClass {
+    constructor(popupInstance, validateField) {
+        this.popupInstance = popupInstance;
+        this.validateField = validateField; // function
     }
-  }, {
-    key: "loadDataAndPlayVideo",
-    value: function loadDataAndPlayVideo(playBtnData) {
-      var _a, _b, _c, _d, _e;
-      if (!playBtnData) return;
-      var containerId = (_a = playBtnData.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id;
-      var videoTitle = (_b = playBtnData.dataset) === null || _b === void 0 ? void 0 : _b.video_title;
-      var videoId = (_c = playBtnData.dataset) === null || _c === void 0 ? void 0 : _c.video_id;
-      var videoPauseTime = (_e = parseFloat((_d = playBtnData.dataset) === null || _d === void 0 ? void 0 : _d.video_pause_time)) !== null && _e !== void 0 ? _e : null;
-      var videoContainer = document.querySelector("[data-video_container_id=\"".concat(containerId, "\"]"));
-      var blockVideoWrapper = videoContainer.closest('.js-block-video');
-      var videoTitleContainer = blockVideoWrapper === null || blockVideoWrapper === void 0 ? void 0 : blockVideoWrapper.querySelector('.js-video-title');
-      if (videoTitleContainer) {
-        videoTitleContainer.innerText = "".concat(videoTitle);
-      }
-      if (!videoContainer) return;
-      videoContainer.dataset.video_id = playBtnData.dataset.video_id;
-      this.loadPDFButtons(playBtnData);
-      var onPauseCallback = function onPauseCallback(pauseInfo) {
-        playBtnData.dataset.video_pause_time = pauseInfo.seconds;
-      };
-      this.initVimeoPlayer(this.initedPlayer, videoId, true, videoPauseTime, onPauseCallback);
+
+    init() {
+        this.checkFormFields();
+
+        this.loginFormFetch();
+        this.restorePasswordFormFetch();
+        this.getAccessFormFetch();
+        this.setNewPasswordFormFetch();
+        this.buyProgrammFormFetch();
     }
-  }, {
-    key: "loadPDFButtons",
-    value: function loadPDFButtons(playBtnData) {
-      if (!playBtnData || !playBtnData.dataset || !playBtnData.dataset.video_files) {
-        console.error('Video files data is missing.');
-        return;
-      }
-      var videoFiles = JSON.parse(playBtnData.dataset.video_files);
-      var parentBlock = playBtnData.closest('.js-programm-block');
-      var html = '';
-      videoFiles && videoFiles.forEach(function (item) {
-        if (!item.file && !item.file) return;
-        html += "<a target=\"_blank\" href=\"".concat(item.file, "\" class=\"green-transparent\">\n                        <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M7.06973 15.441C7.06973 15.0424 6.79316 14.8047 6.30519 14.8047C6.10592 14.8047 5.97098 14.8244 5.90039 14.8432V16.122C5.98397 16.1408 6.08671 16.1471 6.22833 16.1471C6.74846 16.1471 7.06973 15.8843 7.06973 15.441Z\" fill=\"white\"/>\n                            <path d=\"M10.0907 14.8179C9.87221 14.8179 9.73099 14.8367 9.64746 14.8563V17.6885C9.73104 17.7081 9.86599 17.7081 9.98799 17.7081C10.8745 17.7144 11.4527 17.2264 11.4527 16.1924C11.4589 15.2933 10.9321 14.8179 10.0907 14.8179Z\" fill=\"white\"/>\n                            <path d=\"M15.703 0H6.06363C4.65541 0 3.50927 1.14694 3.50927 2.55436V12H3.25978C2.69141 12 2.23047 12.4604 2.23047 13.0293V19.2717C2.23047 19.8405 2.69136 20.3009 3.25978 20.3009H3.50927V21.4456C3.50927 22.8546 4.65541 24 6.06363 24H19.2161C20.6235 24 21.7698 22.8545 21.7698 21.4456V6.0455L15.703 0ZM4.93078 14.1558C5.23243 14.1049 5.65644 14.0664 6.25383 14.0664C6.85754 14.0664 7.28782 14.1817 7.57693 14.4131C7.8531 14.6313 8.03947 14.9913 8.03947 15.415C8.03947 15.8386 7.89825 16.1988 7.6413 16.4427C7.30709 16.7573 6.81284 16.8986 6.23467 16.8986C6.10599 16.8986 5.99065 16.8922 5.90046 16.8797V18.4276H4.93078V14.1558ZM19.2161 22.4356H6.06363C5.51836 22.4356 5.07434 21.9916 5.07434 21.4456V20.3009H17.3352C17.9036 20.3009 18.3645 19.8405 18.3645 19.2717V13.0293C18.3645 12.4604 17.9036 12 17.3352 12H5.07434V2.55436C5.07434 2.00989 5.51841 1.56587 6.06363 1.56587L15.1178 1.55641V4.90314C15.1178 5.88068 15.9109 6.67459 16.8892 6.67459L20.1677 6.66518L20.2046 21.4455C20.2046 21.9916 19.7614 22.4356 19.2161 22.4356ZM8.66473 18.408V14.1558C9.02438 14.0986 9.49314 14.0664 9.98783 14.0664C10.81 14.0664 11.3431 14.2139 11.7608 14.5285C12.2104 14.8627 12.4928 15.3954 12.4928 16.1603C12.4928 16.9887 12.1911 17.5607 11.7733 17.9136C11.3175 18.2925 10.6236 18.4722 9.77598 18.4722C9.26834 18.4722 8.90869 18.4401 8.66473 18.408ZM15.6748 15.8905V16.6867H14.1203V18.4276H13.1376V14.0986H15.7838V14.9011H14.1203V15.8905H15.6748Z\" fill=\"white\"/>\n                        </svg>\n                        ").concat(item.file_name, "\n                    </a>");
-      });
-      if (parentBlock) {
-        var videoembedFiles = parentBlock.querySelector('.js-video-embed-files');
-        videoembedFiles.innerHTML = html;
-      }
-    }
-  }, {
-    key: "playVideoByClickInit",
-    value: function playVideoByClickInit() {
-      var _this = this;
-      var playVideoBtns = document.querySelectorAll('.js-play-video-btn');
-      if (!playVideoBtns) return;
-      var removeAllActiveBtns = function removeAllActiveBtns() {
-        playVideoBtns.forEach(function (el) {
-          return el.classList.remove('playing-video');
-        });
-      };
-      playVideoBtns.forEach(function (el) {
-        var button = el;
-        button.addEventListener('click', function (e) {
-          e.stopPropagation();
-          removeAllActiveBtns();
-          button.classList.add('playing-video');
-          _this.loadDataAndPlayVideo(button);
-        });
-      });
-    }
-  }, {
-    key: "saveVideoTimeData",
-    value: function saveVideoTimeData(videoContainer, videoParams, learninMaterialType) {
-      var _a, _b;
-      if (!videoContainer && !videoParams && !learninMaterialType) return;
-      var videoDuration = videoParams.duration;
-      var videoPauseTime = videoParams.seconds;
-      var programmId = (_a = videoContainer.dataset.video_container_id) === null || _a === void 0 ? void 0 : _a.split('_')[0];
-      var shortBlockId = (_b = videoContainer.dataset.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[1];
-      var videoId = videoContainer.dataset.video_id;
-      var viewed = false;
-      if (videoParams.percent) {
-        viewed = videoParams.percent >= 0.9;
-      }
-      var currentProgrammPath = this.profileData[learninMaterialType].programms[programmId];
-      var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[shortBlockId];
-      currentBlockPath.fullBlockId = videoContainer.dataset.video_container_id;
-      currentBlockPath.videos[videoId] = Object.assign(Object.assign({}, currentBlockPath.videos[videoId]), {
-        videoDuration: videoDuration,
-        videoPauseTime: videoPauseTime,
-        isVideoViewed: viewed
-      });
-      this.changeBlockStatus(currentBlockPath);
-      this.changePassedBlocksCount(currentProgrammPath);
-      this.fetchDataToBackend(this.profileData);
-      this.visualUpdateProgressBar(videoContainer, learninMaterialType);
-    }
-  }, {
-    key: "createProfileVideoData",
-    value: function createProfileVideoData(learninMaterialType) {
-      var _this2 = this;
-      var mainContainer = document.querySelector("#".concat(learninMaterialType));
-      if (!mainContainer) return;
-      var playVideoBtns = mainContainer.querySelectorAll('.js-play-video-btn');
-      if (mainContainer && mainContainer.dataset.user_id) {
-        this.profileData.userId = +mainContainer.dataset.user_id;
-      }
-      playVideoBtns && playVideoBtns.forEach(function (el) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
-        var button = el;
-        var programmId = (_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.video_container_id) === null || _b === void 0 ? void 0 : _b.split('_')[0];
-        var blockId = (_d = (_c = button.dataset) === null || _c === void 0 ? void 0 : _c.video_container_id) === null || _d === void 0 ? void 0 : _d.split('_')[1];
-        var videoId = (_e = button.dataset) === null || _e === void 0 ? void 0 : _e.video_id;
-        var videoDuration = (_f = button.dataset) === null || _f === void 0 ? void 0 : _f.video_duration;
-        var videoPauseTime = (_g = button.dataset) === null || _g === void 0 ? void 0 : _g.video_pause_time;
-        var videoIsViewed = (_h = button.dataset) === null || _h === void 0 ? void 0 : _h.video_viewed;
-        var blocksPassedCount = (_j = button.dataset) === null || _j === void 0 ? void 0 : _j.passed_blocks_count;
-        if (!programmId || !blockId || !videoId) return;
-        if (!_this2.profileData[learninMaterialType].programms[programmId]) {
-          _this2.profileData[learninMaterialType].programms[programmId] = {
-            programmId: +programmId.split('-')[1] || null,
-            blocksPassed: blocksPassedCount,
-            blocks: {}
-          };
-        }
-        if (!_this2.profileData[learninMaterialType].programms[programmId].blocks[blockId]) {
-          var currentBlock = _this2.getCurrentBlock(programmId, blockId);
-          _this2.profileData[learninMaterialType].programms[programmId].blocks[blockId] = {
-            blockStatus: ((_k = currentBlock === null || currentBlock === void 0 ? void 0 : currentBlock.dataset) === null || _k === void 0 ? void 0 : _k.block_status) || null,
-            videos: {}
-          };
-        }
-        var currentProgrammPath = _this2.profileData[learninMaterialType].programms[programmId];
-        var currentBlockPath = currentProgrammPath === null || currentProgrammPath === void 0 ? void 0 : currentProgrammPath.blocks[blockId];
-        currentBlockPath.videos[videoId] = {
-          videoId: videoId || null,
-          videoDuration: videoDuration || null,
-          videoPauseTime: videoPauseTime || null,
-          isVideoViewed: videoIsViewed || ''
-        };
-      });
-    }
-  }, {
-    key: "changeBlockStatus",
-    value: function changeBlockStatus(currentBlockObject) {
-      if (!currentBlockObject) return;
-      var status = '';
-      var videosArray = Object.values(currentBlockObject.videos);
-      var isBlockPassed = videosArray.every(function (video) {
-        return video.isVideoViewed;
-      });
-      var isBlockNotPassed = videosArray.every(function (video) {
-        return !video.isVideoViewed;
-      });
-      if (isBlockPassed) {
-        status = 'passed';
-      } else if (isBlockNotPassed) {
-        status = 'not-passed';
-      } else {
-        status = 'in-progress';
-      }
-      currentBlockObject.blockStatus = status;
-      this.visualUpdateBlockStatus(currentBlockObject.fullBlockId, status);
-    }
-  }, {
-    key: "visualUpdateBlockStatus",
-    value: function visualUpdateBlockStatus(blockContainerId, status) {
-      var queryStr = ".js-programm-block[data-block_id=\"".concat(blockContainerId, "\"]");
-      var blockElem = document.querySelector(queryStr);
-      if (blockElem) {
-        blockElem.dataset.block_status = status;
-        var statusContainer = blockElem.querySelector('.js-block-status');
-        if (statusContainer) {
-          statusContainer.classList.remove('passed');
-          statusContainer.classList.remove('not-passed');
-          statusContainer.classList.remove('in-progress');
-          statusContainer.classList.add(status);
-        }
-      }
-    }
-  }, {
-    key: "visualUpdateProgressBar",
-    value: function visualUpdateProgressBar(videoContainer, learninMaterialType) {
-      var programmIdStr = videoContainer === null || videoContainer === void 0 ? void 0 : videoContainer.dataset.video_container_id.split('_')[0];
-      var programmItem = document.querySelector("[data-programm_id=\"".concat(programmIdStr, "\"]"));
-      var progressBarWrap = programmItem.querySelector('.js-progress-info');
-      if (!this.profileData[learninMaterialType].programms) return;
-      var programmsData = this.profileData[learninMaterialType].programms;
-      if (!programmsData[programmIdStr].blocks) return;
-      var blocksData = programmsData[programmIdStr].blocks;
-      var blocksCount = Object.keys(blocksData).length;
-      var passedBlocksCount = programmsData[programmIdStr].blocksPassed;
-      var passedBlocksSpan = progressBarWrap.querySelector('.js-passed-blocks-span');
-      var progressBar = progressBarWrap.querySelector('.js-progress-bar');
-      if (progressBar) {
-        progressBar.innerHTML = this.generateProgressBar(161, blocksCount, passedBlocksCount);
-      }
-      if (passedBlocksSpan) {
-        passedBlocksSpan.innerText = "".concat(passedBlocksCount);
-      }
-    }
-  }, {
-    key: "generateProgressBar",
-    value: function generateProgressBar(totalWidth, blocksCount, blocksPassed) {
-      var blockWidth = 0;
-      if (blocksCount !== 0) {
-        blockWidth = totalWidth / blocksCount;
-      }
-      var svg = '';
-      svg += "<rect width=\"".concat(totalWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 0 5)\" fill=\"#131614\" />");
-      for (var i = 0; i < blocksPassed; i++) {
-        var xPosition = i * blockWidth;
-        svg += "<rect width=\"".concat(blockWidth, "\" height=\"5\" transform=\"matrix(1 0 0 -1 ").concat(xPosition, " 5)\" fill=\"#53F07F\" />");
-      }
-      return svg;
-    }
-  }, {
-    key: "changePassedBlocksCount",
-    value: function changePassedBlocksCount(currentProgrammObject) {
-      if (!currentProgrammObject) return;
-      var blocksArray = Object.values(currentProgrammObject.blocks);
-      var countOfPassedBlocks = blocksArray.filter(function (block) {
-        return block.blockStatus === 'passed';
-      });
-      currentProgrammObject.blocksPassed = countOfPassedBlocks.length;
-    }
-  }, {
-    key: "playNextVideo",
-    value: function playNextVideo() {
-      var _this3 = this;
-      var playNextBtns = document.querySelectorAll('.js-next-video-btn');
-      playNextBtns && playNextBtns.forEach(function (el) {
-        var btn = el;
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          var videoBlock = btn.closest('.js-programm-block');
-          var playVideoBtns = videoBlock.querySelectorAll('.js-play-video-btn');
-          var playVideoBtn = videoBlock.querySelector('.js-play-video-btn.playing-video');
-          var nextPLayBtn = playVideoBtn === null || playVideoBtn === void 0 ? void 0 : playVideoBtn.nextSibling;
-          if (nextPLayBtn) {
-            playVideoBtns && playVideoBtns.forEach(function (el2) {
-              var btn2 = el2;
-              btn2.classList.remove('playing-video');
+
+    loginFormFetch() {
+        const loginForm = document.querySelector('.js-login-form');
+        if (!loginForm) return;
+
+        loginForm &&
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                // @ts-ignore
+                const res = await this.fetchToAction(
+                    loginForm,
+                    'user_login_ajax'
+                );
+
+                this.setDataToRespContainer(res, loginForm);
+                if (res.success) {
+                    window.location.reload();
+                }
             });
-            nextPLayBtn.classList.add('playing-video');
-            _this3.loadDataAndPlayVideo(nextPLayBtn);
-          }
-        });
-      });
     }
-  }, {
-    key: "fetchDataToBackend",
-    value: function fetchDataToBackend(profileDataParams) {
-      if (!profileDataParams) return;
-      fetch("".concat(var_from_php.ajax_url, "?action=save_video_data"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(profileDataParams)
-      });
-    }
-  }, {
-    key: "getCurrentBlock",
-    value: function getCurrentBlock(programmId, blockId) {
-      var blockIdstring = "".concat(programmId, "_").concat(blockId);
-      var currentBlock = document.querySelector("[data-block_id=\"".concat(blockIdstring, "\"]"));
-      return currentBlock || null;
-    }
-  }, {
-    key: "addEventfetchUserDataForm",
-    value: function addEventfetchUserDataForm() {
-      var form = document.querySelector('.js-user-info-form');
-      if (!form) return;
-      form && form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var formData = new FormData(form);
-        fetch("".concat(var_from_php.ajax_url, "?action=update_user_data"), {
-          method: 'POST',
-          body: formData
-        }).then(function (res) {
-          return res.json();
-        }).then(function (res) {
-          var respContainer = form.querySelector('.js-response-container');
-          var additionalClass = res.success ? 'success' : 'error';
-          if (respContainer) {
-            var paragrahp = document.createElement('p');
-            paragrahp.classList.add(additionalClass);
-            paragrahp.innerText = res.data;
-            respContainer.appendChild(paragrahp);
-          }
-        });
-      });
-    }
-  }, {
-    key: "editFormFieldAddEvent",
-    value: function editFormFieldAddEvent() {
-      var editBtns = document.querySelectorAll('.js-edit-btn');
-      var inpus = document.querySelectorAll('input[type="text"]');
-      var setInputDefaultState = function setInputDefaultState(el) {
-        var input = el;
-        input.classList.remove('focus');
-      };
-      editBtns && editBtns.forEach(function (el) {
-        var btn = el;
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          inpus && inpus.forEach(function (el2) {
-            return setInputDefaultState(el2);
-          });
-          var parentWrapper = btn.closest('.js-inner-input-wrapper');
-          var input = parentWrapper === null || parentWrapper === void 0 ? void 0 : parentWrapper.querySelector('input[type="text"]');
-          input.classList.add('focus');
-        });
-      });
-    }
-  }, {
-    key: "initVimeoPlayer",
-    value: function initVimeoPlayer(playerEl, videoId) {
-      var loadVideo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-      var start = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-      var cb = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function (pauseInfo) {};
-      var player;
-      if (!loadVideo) {
-        player = new Vimeo.Player(playerEl, {
-          id: videoId
-        });
-        start && player.setCurrentTime(start);
-      } else {
-        player = playerEl;
-        player.loadVideo(videoId).then(function () {
-          start && player.setCurrentTime(start);
-        });
-      }
-      player.off('pause', cb);
-      player.on('pause', cb);
-      return player;
-    }
-  }, {
-    key: "initPlayerOnOpenBlock",
-    value: function initPlayerOnOpenBlock() {
-      var _this4 = this;
-      var blocks = document.querySelectorAll('.js-programm-block');
-      blocks && blocks.forEach(function (el) {
-        var block = el;
-        block.addEventListener('click', function () {
-          var player = block.querySelector("[data-video_container_id=\"".concat(block.dataset.block_id, "\"]"));
-          var firstPlayBtnInBlcok = block.querySelector('.js-play-video-btn');
-          var videoStartTime = (firstPlayBtnInBlcok === null || firstPlayBtnInBlcok === void 0 ? void 0 : firstPlayBtnInBlcok.dataset.video_pause_time) ? +firstPlayBtnInBlcok.dataset.video_pause_time : 0;
-          if (!player || !firstPlayBtnInBlcok) return;
-          firstPlayBtnInBlcok.classList.add('playing-video');
-          var onPauseCallback = function onPauseCallback(pauseInfo) {
-            var parentProgramm = block.closest('.js-programm');
-            var playVideoBtn = block.querySelector("#video-btn-".concat(player.dataset.video_id));
-            if (playVideoBtn) {
-              playVideoBtn.dataset.video_pause_time = "".concat(pauseInfo.seconds);
-            }
-            _this4.saveVideoTimeData(player, pauseInfo, parentProgramm.id);
-          };
-          _this4.initedPlayer = _this4.initVimeoPlayer(player, player.dataset.video_id, false, videoStartTime, onPauseCallback);
-        });
-      });
-    }
-  }]);
-  return ProfileFunctionality;
-}();
 
-// EXTERNAL MODULE: ./node_modules/smoothscroll-polyfill/dist/smoothscroll.js
-var smoothscroll = __webpack_require__(523);
-var smoothscroll_default = /*#__PURE__*/__webpack_require__.n(smoothscroll);
-;// CONCATENATED MODULE: ./src/js/parts/helpers.js
+    checkFormFields() {
+        const formInputs = document.querySelectorAll('input');
+        if (!formInputs) return;
+        let repeatPassword = '';
+
+        const notValidText = (inputName) => {
+            let textResult = '';
+
+            switch (inputName) {
+                case 'name':
+                    textResult =
+                        'Ведіть данні у форматі "First name" "Second name" або "First name"';
+                    break;
+                case 'email':
+                    textResult = 'Невірний формат воду email';
+                    break;
+                case 'phone':
+                    textResult =
+                        'Невірний формат воду телефону "+380000000000"';
+                    break;
+                default:
+                    textResult = 'Невірний формат воду';
+            }
+
+            return textResult;
+        };
+
+        const checkAllInputs = (target) => {
+            let allInputsValid = true;
+
+            const parentForm = target.closest('form');
+
+            if (!parentForm) return;
+
+            const allInnerInputs = parentForm.querySelectorAll('input');
+            const formSubmit = parentForm.querySelector('input[type="submit"]');
+
+            allInnerInputs.forEach((input) => {
+                const inputContainer =
+                    input.closest('.js-inner-input-wrapper') ?? null;
+
+                if (
+                    !input.name ||
+                    !input.value ||
+                    input.type === 'hidden' ||
+                    input.name === 'password' ||
+                    input.name === 'password-repeat'
+                )
+                    return;
+
+                const isValid = this.validateField(input.name, input.value);
+
+                // eslint-disable-next-line no-shadow
+                const notValidTextParagraph =
+                    inputContainer &&
+                    inputContainer.querySelector('.js-not-valid-text');
+
+                notValidTextParagraph && notValidTextParagraph.remove();
+
+                if (isValid) {
+                    input && input.classList.add('valid');
+                    input && input.classList.remove('not-valid');
+                    inputContainer && inputContainer.classList.add('valid');
+                    inputContainer &&
+                        inputContainer.classList.remove('not-valid');
+                } else {
+                    const p = document.createElement('p');
+                    p.classList.add('js-not-valid-text');
+                    p.classList.add('not-valid-text');
+                    p.innerText = notValidText(input.name);
+
+                    inputContainer && inputContainer.appendChild(p);
+
+                    input && input.classList.add('not-valid');
+                    input && input.classList.remove('valid');
+                    inputContainer && inputContainer.classList.add('not-valid');
+                    inputContainer && inputContainer.classList.remove('valid');
+                    allInputsValid = false;
+                }
+            });
+            if (formSubmit) {
+                formSubmit.disabled = !allInputsValid;
+            }
+        };
+
+        const checkPasswordMatch = (target) => {
+            const parentForm = target.closest('form');
+            if (!parentForm) return;
+
+            if (target.name === 'password-repeat') {
+                repeatPassword = target.value;
+
+                const passwordInput = parentForm.querySelector(
+                    'input[name="password"]'
+                );
+                if (!passwordInput || target.name === 'password') return;
+
+                const passwordsMatch = passwordInput.value === repeatPassword;
+
+                target.classList.toggle('valid', passwordsMatch);
+                target.classList.toggle('not-valid', !passwordsMatch);
+
+                const formSubmit = parentForm.querySelector(
+                    'input[type="submit"]'
+                );
+                formSubmit && (formSubmit.disabled = !passwordsMatch);
+            }
+        };
+
+        formInputs &&
+            formInputs.forEach((input) => {
+                input.addEventListener('change', (e) => {
+                    checkAllInputs(e.target);
+                    checkPasswordMatch(e.target);
+                });
+            });
+    }
+
+    restorePasswordFormFetch() {
+        const forgotPasswordForm = document.querySelector(
+            '.js-forgot-password-form'
+        );
+
+        if (!forgotPasswordForm) return;
+
+        forgotPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const res = await this.fetchToAction(
+                forgotPasswordForm,
+                'forgot_password'
+            );
+
+            if (!res.success) {
+                this.setDataToRespContainer(res, forgotPasswordForm);
+            } else {
+                this.popupInstance.openOnePopup('#forgot-password-popup');
+            }
+        });
+    }
+
+    getAccessFormFetch() {
+        const getAccessForm = document.querySelector('.js-get-access-form');
+
+        if (!getAccessForm) return;
+
+        // Get access to programm: registering user and buying programm
+        getAccessForm &&
+            getAccessForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Set user data for regitering
+                const res = await this.fetchToAction(
+                    getAccessForm,
+                    'register_login_user'
+                );
+                this.setOrderCookieInfo(e.target);
+                if (res.success) {
+                    const payRes = await this.fetchToActionPayload({
+                        product_id: e.target['post-id'].value,
+                        variation_id: 0,
+                        amount: e.target.amount.value,
+                        quantity: '1',
+                    });
+                    if (payRes) {
+                        // If success return to pay page
+                        window.location.href = payRes;
+                    } else {
+                        this.setDataToRespContainer(payRes, getAccessForm);
+                    }
+                } else {
+                    this.setDataToRespContainer(res, getAccessForm);
+                }
+            });
+    }
+
+    async fetchToAction(form, actionName) {
+        const formData = new FormData(form);
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}?action=${actionName}`,
+            {
+                method: 'POST',
+                body: formData,
+            }
+        );
+
+        const res = await resJSON.json();
+        return res;
+    }
+
+    async fetchToActionPayload(productData) {
+        const bodyString = `action=mrkv_monopay_product&product=${encodeURIComponent(
+            JSON.stringify(productData)
+        )}`;
+
+        const resJSON = await fetch(
+            // eslint-disable-next-line no-undef
+            `${var_from_php.ajax_url}`,
+            {
+                headers: {
+                    Accept: '/',
+                    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                    'Cache-Control': 'no-cache',
+                    'Content-Type':
+                        'application/x-www-form-urlencoded; charset=UTF-8',
+                },
+                // referrer: window.location.href,
+                // referrerPolicy: 'strict-origin-when-cross-origin',
+                body: bodyString,
+                method: 'POST', // Метод запроса (POST)
+                mode: 'cors', // Режим CORS для запросов к другим доменам
+                credentials: 'include',
+            }
+        );
+        const res = await resJSON.text();
+        return res;
+    }
+
+    setNewPasswordFormFetch() {
+        const newPasswordForm = document.querySelector(
+            '.js-set-new-password-form'
+        );
+
+        if (!newPasswordForm) return;
+
+        newPasswordForm &&
+            newPasswordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const res = await this.fetchToAction(
+                    newPasswordForm,
+                    'set_new_password'
+                );
+
+                this.setDataToRespContainer(res, newPasswordForm);
+            });
+    }
+
+    buyProgrammFormFetch() {
+        const buyProgrammForm = document.querySelectorAll(
+            '.js-buy-programm-form'
+        );
+
+        if (!buyProgrammForm) return;
+
+        buyProgrammForm &&
+            buyProgrammForm.forEach((form) => {
+                // Buy programm by registered user
+                form &&
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+
+                        const submitBtnWrapper =
+                            e.target.querySelector('.bottom-wrapper');
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.add('loading');
+
+                        const enteredPromocode = e.target?.promocode?.value;
+
+                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
+                        let periodAmount = [];
+                        let amount = null;
+                        if (
+                            e.target?.['period-amount']?.value &&
+                            !e.target?.amount?.value
+                        ) {
+                            periodAmount = e.target?.['period-amount']?.value
+                                ? e.target['period-amount'].value.split('|')
+                                : [];
+                        }
+
+                        if (periodAmount) {
+                            // eslint-disable-next-line prefer-destructuring
+                            amount = periodAmount[1];
+                        } else {
+                            amount = e.target?.amount?.value;
+                        }
+
+                        this.setOrderCookieInfo(form);
+
+                        const payRes = await this.fetchToActionPayload({
+                            product_id: e.target['post-id'].value,
+                            variation_id: 0,
+                            amount,
+                            forcePrice: amount,
+                            discount: enteredPromocode,
+                            quantity: '1',
+                        });
+
+                        if (payRes) {
+                            // If success return to pay page
+                            window.location.href = payRes;
+                        } else {
+                            this.setDataToRespContainer(payRes, form);
+                        }
+
+                        submitBtnWrapper &&
+                            submitBtnWrapper.classList.remove('loading');
+                    });
+            });
+    }
+
+    setDataToRespContainer(res, parentForm) {
+        if (!parentForm || !res) return;
+
+        const respContainer = parentForm.querySelector(
+            '.js-response-container'
+        );
+        if (!respContainer) return;
+
+        const additionalClass = res.success ? 'success' : 'error';
+        const paragrahp = document.createElement('p');
+        paragrahp.classList.add(additionalClass);
+        paragrahp.innerText = res.data;
+        respContainer.innerHTML = '';
+        respContainer.appendChild(paragrahp);
+    }
+
+    setOrderCookieInfo(form) {
+        const formData = new FormData(form);
+        let data = {
+            userEmail: formData.get('email'),
+            userPhone: formData.get('phone'),
+            userFullName: formData.get('user_full_name'),
+            redirectPage: formData.get('redirect-page'),
+            userRegistration: formData.get('registration'),
+            continuePeriod: formData.get('continue-period'),
+        };
+
+        const periodAmount = formData.get('period-amount');
+        if (periodAmount) {
+            data = {
+                ...data,
+                continuePeriod: periodAmount.split('|')[0],
+            };
+        }
+        (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.setCookie)(`creating_order`, JSON.stringify(data), 1);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/js/parts/helpers.js":
+/*!*********************************!*\
+  !*** ./src/js/parts/helpers.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   anchorLinkScroll: function() { return /* binding */ anchorLinkScroll; },
+/* harmony export */   closestPolyfill: function() { return /* binding */ closestPolyfill; },
+/* harmony export */   copyToClipboard: function() { return /* binding */ copyToClipboard; },
+/* harmony export */   debounce: function() { return /* binding */ debounce; },
+/* harmony export */   equalHeights: function() { return /* binding */ equalHeights; },
+/* harmony export */   fadeIn: function() { return /* binding */ fadeIn; },
+/* harmony export */   fadeOut: function() { return /* binding */ fadeOut; },
+/* harmony export */   getCookie: function() { return /* binding */ getCookie; },
+/* harmony export */   isInViewport: function() { return /* binding */ isInViewport; },
+/* harmony export */   loadFileName: function() { return /* binding */ loadFileName; },
+/* harmony export */   setCookie: function() { return /* binding */ setCookie; },
+/* harmony export */   setHeightEqualToWidth: function() { return /* binding */ setHeightEqualToWidth; },
+/* harmony export */   throttle: function() { return /* binding */ throttle; },
+/* harmony export */   trimParagraph: function() { return /* binding */ trimParagraph; },
+/* harmony export */   validateField: function() { return /* binding */ validateField; }
+/* harmony export */ });
+/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! smoothscroll-polyfill */ "./node_modules/smoothscroll-polyfill/dist/smoothscroll.js");
+/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0__);
 
 
 // kick off the polyfill!
-smoothscroll_default().polyfill();
+smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0___default().polyfill();
 
 /**
  * Fade Out method
@@ -1403,384 +1809,17 @@ const getCookie = (name) => {
     return null;
 };
 
-;// CONCATENATED MODULE: ./src/js/parts/formsActionsClass.js
 
+/***/ }),
 
-class FormsActionsClass {
-    constructor(popupInstance, validateField) {
-        this.popupInstance = popupInstance;
-        this.validateField = validateField; // function
-    }
+/***/ "./src/js/parts/navi-tabs.js":
+/*!***********************************!*\
+  !*** ./src/js/parts/navi-tabs.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-    async init() {
-        this.checkFormFields();
-
-        this.loginFormFetch();
-        this.restorePasswordFormFetch();
-        this.getAccessFormFetch();
-        this.setNewPasswordFormFetch();
-        this.buyProgrammFormFetch();
-    }
-
-    loginFormFetch() {
-        const loginForm = document.querySelector('.js-login-form');
-        if (!loginForm) return;
-
-        loginForm &&
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                // @ts-ignore
-                const res = await this.fetchToAction(
-                    loginForm,
-                    'user_login_ajax'
-                );
-
-                this.setDataToRespContainer(res, loginForm);
-                if (res.success) {
-                    window.location.reload();
-                }
-            });
-    }
-
-    checkFormFields() {
-        const formInputs = document.querySelectorAll('input');
-        if (!formInputs) return;
-        let repeatPassword = '';
-
-        const notValidText = (inputName) => {
-            let textResult = '';
-
-            switch (inputName) {
-                case 'name':
-                    textResult =
-                        'Ведіть данні у форматі "First name" "Second name" або "First name"';
-                    break;
-                case 'email':
-                    textResult = 'Невірний формат воду email';
-                    break;
-                case 'phone':
-                    textResult =
-                        'Невірний формат воду телефону "+380000000000"';
-                    break;
-                default:
-                    textResult = 'Невірний формат воду';
-            }
-
-            return textResult;
-        };
-
-        const checkAllInputs = (target) => {
-            let allInputsValid = true;
-
-            const parentForm = target.closest('form');
-
-            if (!parentForm) return;
-
-            const allInnerInputs = parentForm.querySelectorAll('input');
-            const formSubmit = parentForm.querySelector('input[type="submit"]');
-
-            allInnerInputs.forEach((input) => {
-                const inputContainer =
-                    input.closest('.js-inner-input-wrapper') ?? null;
-
-                if (
-                    !input.name ||
-                    !input.value ||
-                    input.type === 'hidden' ||
-                    input.name === 'password' ||
-                    input.name === 'password-repeat'
-                )
-                    return;
-
-                const isValid = this.validateField(input.name, input.value);
-
-                // eslint-disable-next-line no-shadow
-                const notValidTextParagraph =
-                    inputContainer &&
-                    inputContainer.querySelector('.js-not-valid-text');
-
-                notValidTextParagraph && notValidTextParagraph.remove();
-
-                if (isValid) {
-                    input && input.classList.add('valid');
-                    input && input.classList.remove('not-valid');
-                    inputContainer && inputContainer.classList.add('valid');
-                    inputContainer &&
-                        inputContainer.classList.remove('not-valid');
-                } else {
-                    const p = document.createElement('p');
-                    p.classList.add('js-not-valid-text');
-                    p.classList.add('not-valid-text');
-                    p.innerText = notValidText(input.name);
-
-                    inputContainer && inputContainer.appendChild(p);
-
-                    input && input.classList.add('not-valid');
-                    input && input.classList.remove('valid');
-                    inputContainer && inputContainer.classList.add('not-valid');
-                    inputContainer && inputContainer.classList.remove('valid');
-                    allInputsValid = false;
-                }
-            });
-            if (formSubmit) {
-                formSubmit.disabled = !allInputsValid;
-            }
-        };
-
-        const checkPasswordMatch = (target) => {
-            const parentForm = target.closest('form');
-            if (!parentForm) return;
-
-            if (target.name === 'password-repeat') {
-                repeatPassword = target.value;
-
-                const passwordInput = parentForm.querySelector(
-                    'input[name="password"]'
-                );
-                if (!passwordInput || target.name === 'password') return;
-
-                const passwordsMatch = passwordInput.value === repeatPassword;
-
-                target.classList.toggle('valid', passwordsMatch);
-                target.classList.toggle('not-valid', !passwordsMatch);
-
-                const formSubmit = parentForm.querySelector(
-                    'input[type="submit"]'
-                );
-                formSubmit && (formSubmit.disabled = !passwordsMatch);
-            }
-        };
-
-        formInputs &&
-            formInputs.forEach((input) => {
-                input.addEventListener('change', (e) => {
-                    checkAllInputs(e.target);
-                    checkPasswordMatch(e.target);
-                });
-            });
-    }
-
-    restorePasswordFormFetch() {
-        const forgotPasswordForm = document.querySelector(
-            '.js-forgot-password-form'
-        );
-
-        if (!forgotPasswordForm) return;
-
-        forgotPasswordForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const res = await this.fetchToAction(
-                forgotPasswordForm,
-                'forgot_password'
-            );
-
-            if (!res.success) {
-                this.setDataToRespContainer(res, forgotPasswordForm);
-            } else {
-                this.popupInstance.openOnePopup('#forgot-password-popup');
-            }
-        });
-    }
-
-    getAccessFormFetch() {
-        const getAccessForm = document.querySelector('.js-get-access-form');
-
-        if (!getAccessForm) return;
-
-        // Get access to programm: registering user and buying programm
-        getAccessForm &&
-            getAccessForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // Set user data for regitering
-                const res = await this.fetchToAction(
-                    getAccessForm,
-                    'register_login_user'
-                );
-                this.setOrderCookieInfo(e.target);
-                if (res.success) {
-                    const payRes = await this.fetchToActionPayload({
-                        product_id: e.target['post-id'].value,
-                        variation_id: 0,
-                        amount: e.target.amount.value,
-                        quantity: '1',
-                    });
-                    if (payRes) {
-                        // If success return to pay page
-                        window.location.href = payRes;
-                    } else {
-                        this.setDataToRespContainer(payRes, getAccessForm);
-                    }
-                } else {
-                    this.setDataToRespContainer(res, getAccessForm);
-                }
-            });
-    }
-
-    async fetchToAction(form, actionName) {
-        const formData = new FormData(form);
-        const resJSON = await fetch(
-            // eslint-disable-next-line no-undef
-            `${var_from_php.ajax_url}?action=${actionName}`,
-            {
-                method: 'POST',
-                body: formData,
-            }
-        );
-
-        const res = await resJSON.json();
-        return res;
-    }
-
-    async fetchToActionPayload(productData) {
-        const bodyString = `action=mrkv_monopay_product&product=${encodeURIComponent(
-            JSON.stringify(productData)
-        )}`;
-
-        const resJSON = await fetch(
-            // eslint-disable-next-line no-undef
-            `${var_from_php.ajax_url}`,
-            {
-                headers: {
-                    Accept: '/',
-                    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-                    'Cache-Control': 'no-cache',
-                    'Content-Type':
-                        'application/x-www-form-urlencoded; charset=UTF-8',
-                },
-                // referrer: window.location.href,
-                // referrerPolicy: 'strict-origin-when-cross-origin',
-                body: bodyString,
-                method: 'POST', // Метод запроса (POST)
-                mode: 'cors', // Режим CORS для запросов к другим доменам
-                credentials: 'include',
-            }
-        );
-        const res = await resJSON.text();
-        return res;
-    }
-
-    setNewPasswordFormFetch() {
-        const newPasswordForm = document.querySelector(
-            '.js-set-new-password-form'
-        );
-
-        if (!newPasswordForm) return;
-
-        newPasswordForm &&
-            newPasswordForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const res = await this.fetchToAction(
-                    newPasswordForm,
-                    'set_new_password'
-                );
-
-                this.setDataToRespContainer(res, newPasswordForm);
-            });
-    }
-
-    buyProgrammFormFetch() {
-        const buyProgrammForm = document.querySelectorAll(
-            '.js-buy-programm-form'
-        );
-
-        if (!buyProgrammForm) return;
-
-        buyProgrammForm &&
-            buyProgrammForm.forEach((form) => {
-                // Buy programm by registered user
-                form &&
-                    form.addEventListener('submit', async (e) => {
-                        e.preventDefault();
-
-                        const submitBtnWrapper =
-                            e.target.querySelector('.bottom-wrapper');
-                        submitBtnWrapper &&
-                            submitBtnWrapper.classList.add('loading');
-
-                        const enteredPromocode = e.target?.promocode?.value;
-
-                        // FETCH TO MONO PAY SYSTEM ( Create pay account)
-                        let periodAmount = [];
-                        let amount = null;
-                        if (
-                            e.target?.['period-amount']?.value &&
-                            !e.target?.amount?.value
-                        ) {
-                            periodAmount = e.target?.['period-amount']?.value
-                                ? e.target['period-amount'].value.split('|')
-                                : [];
-                        }
-
-                        if (periodAmount) {
-                            // eslint-disable-next-line prefer-destructuring
-                            amount = periodAmount[1];
-                        } else {
-                            amount = e.target?.amount?.value;
-                        }
-
-                        const payRes = await this.fetchToActionPayload({
-                            product_id: e.target['post-id'].value,
-                            variation_id: 0,
-                            amount,
-                            forcePrice: amount,
-                            discount: enteredPromocode,
-                            quantity: '1',
-                        });
-                        if (payRes) {
-                            this.setOrderCookieInfo(form);
-                            // If success return to pay page
-                            window.location.href = payRes;
-                        } else {
-                            this.setDataToRespContainer(payRes, form);
-                        }
-
-                        submitBtnWrapper &&
-                            submitBtnWrapper.classList.remove('loading');
-                    });
-            });
-    }
-
-    setDataToRespContainer(res, parentForm) {
-        if (!parentForm || !res) return;
-
-        const respContainer = parentForm.querySelector(
-            '.js-response-container'
-        );
-        if (!respContainer) return;
-
-        const additionalClass = res.success ? 'success' : 'error';
-        const paragrahp = document.createElement('p');
-        paragrahp.classList.add(additionalClass);
-        paragrahp.innerText = res.data;
-        respContainer.innerHTML = '';
-        respContainer.appendChild(paragrahp);
-    }
-
-    setOrderCookieInfo(form) {
-        const formData = new FormData(form);
-        let data = {
-            userEmail: formData.get('email'),
-            userPhone: formData.get('phone'),
-            userFullName: formData.get('user_full_name'),
-            redirectPage: formData.get('redirect-page'),
-            userRegistration: formData.get('registration'),
-            continuePeriod: formData.get('continue-period'),
-        };
-
-        const periodAmount = formData.get('period-amount');
-        if (periodAmount) {
-            data = {
-                ...data,
-                continuePeriod: periodAmount.split('|')[0],
-            };
-        }
-        setCookie(`creating_order`, JSON.stringify(data), 3);
-    }
-}
-
-;// CONCATENATED MODULE: ./src/js/parts/navi-tabs.js
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /**
  * Tabs Navigation functionality
  *
@@ -1839,9 +1878,23 @@ const tabsNavigation = (
         });
 };
 
-/* harmony default export */ var navi_tabs = (tabsNavigation);
+/* harmony default export */ __webpack_exports__["default"] = (tabsNavigation);
 
-;// CONCATENATED MODULE: ./src/js/parts/popup-window.js
+
+/***/ }),
+
+/***/ "./src/js/parts/popup-window.js":
+/*!**************************************!*\
+  !*** ./src/js/parts/popup-window.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Popup; }
+/* harmony export */ });
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers */ "./src/js/parts/helpers.js");
 
 
 class Popup {
@@ -1885,7 +1938,7 @@ class Popup {
                 });
             }
 
-            fadeOut(item);
+            (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.fadeOut)(item);
             const MAIL_SENT_OK_BOX = item.querySelector('.wpcf7-mail-sent-ok');
             if (MAIL_SENT_OK_BOX) {
                 MAIL_SENT_OK_BOX.style.display = 'none';
@@ -1908,7 +1961,7 @@ class Popup {
         setTimeout(() => {
             this.body.classList.add('popup-opened');
             this.html.classList.add('popup-opened');
-            fadeIn(popupSelector);
+            (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(popupSelector);
         }, timeOut);
     }
 
@@ -1931,7 +1984,7 @@ class Popup {
 
             this.body.classList.add('popup-opened');
             // this.html.classList.add('popup-opened');
-            fadeIn(elHref);
+            (0,_helpers__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(elHref);
             return true;
         });
     }
@@ -1971,7 +2024,93 @@ class Popup {
     }
 }
 
-;// CONCATENATED MODULE: ./src/js/frontend.ts
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
+/*!****************************!*\
+  !*** ./src/js/frontend.ts ***!
+  \****************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_frontend_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/frontend.scss */ "./src/scss/frontend.scss");
+/* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/accordion */ "./src/js/components/accordion.ts");
+/* harmony import */ var _components_menuActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/menuActions */ "./src/js/components/menuActions.ts");
+/* harmony import */ var _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/profileFunctionality */ "./src/js/components/profileFunctionality.ts");
+/* harmony import */ var _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parts/formsActionsClass */ "./src/js/parts/formsActionsClass.js");
+/* harmony import */ var _parts_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parts/helpers */ "./src/js/parts/helpers.js");
+/* harmony import */ var _parts_navi_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parts/navi-tabs */ "./src/js/parts/navi-tabs.js");
+/* harmony import */ var _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parts/popup-window */ "./src/js/parts/popup-window.js");
 
 
 
@@ -1983,9 +2122,9 @@ class Popup {
 function ready() {
   var blocks = document.querySelectorAll('.js-anim-activate');
   var siteHeader = document.querySelector('.js-site-header');
-  var popupInstance = new Popup();
-  var profileFunctionality = new ProfileFunctionality();
-  var formsActionClass = new FormsActionsClass(popupInstance, validateField);
+  var popupInstance = new _parts_popup_window__WEBPACK_IMPORTED_MODULE_7__["default"]();
+  var profileFunctionality = new _components_profileFunctionality__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  var formsActionClass = new _parts_formsActionsClass__WEBPACK_IMPORTED_MODULE_4__["default"](popupInstance, _parts_helpers__WEBPACK_IMPORTED_MODULE_5__.validateField);
   popupInstance.init();
   profileFunctionality.init();
   formsActionClass.init();
@@ -2006,7 +2145,7 @@ function ready() {
       }
     }
   }
-  anchorLinkScroll('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', function (event) {
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.anchorLinkScroll)('a[href^="#"]:not(.js-open-popup-activator):not(.js-tab-link)', function (event) {
     var _a;
     var currentUrl = window.location.href;
     var cleanUrl = currentUrl.split('#')[0];
@@ -2020,11 +2159,11 @@ function ready() {
       window.location.href = "".concat(siteUrl).concat(linkUrl);
     }
   }, -70);
-  menuActions();
-  accordion();
-  initInnerAccordion();
-  navi_tabs('.js-tab-link', '.js-tab-panel');
-  loadFileName();
+  (0,_components_menuActions__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_components_accordion__WEBPACK_IMPORTED_MODULE_1__.initInnerAccordion)();
+  (0,_parts_navi_tabs__WEBPACK_IMPORTED_MODULE_6__["default"])('.js-tab-link', '.js-tab-panel');
+  (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.loadFileName)();
   if (window.scrollY > 100) {
     siteHeader && siteHeader.classList.add('scrolled');
   } else {
@@ -2032,7 +2171,7 @@ function ready() {
   }
   blocks && blocks.forEach(function (el) {
     var block = el;
-    isInViewport(block) && block.classList.add('viewed');
+    (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.isInViewport)(block) && block.classList.add('viewed');
   });
   window.document.addEventListener('scroll', function () {
     if (window.scrollY > 100) {
@@ -2042,7 +2181,7 @@ function ready() {
     }
     blocks && blocks.forEach(function (el) {
       var block = el;
-      isInViewport(block) && block.classList.add('viewed');
+      (0,_parts_helpers__WEBPACK_IMPORTED_MODULE_5__.isInViewport)(block) && block.classList.add('viewed');
     });
   });
   document.body.addEventListener('click', function (e) {
@@ -2080,3 +2219,4 @@ window.document.addEventListener('DOMContentLoaded', ready);
 }();
 /******/ })()
 ;
+//# sourceMappingURL=frontend.js.map

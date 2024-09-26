@@ -7,7 +7,7 @@
  * @since   4.4.0
  */
 global $global_options;
-global $monobank;
+// global $monobank;
 global $profile_functionality;
 
 $class_name = isset($args['className']) ? ' ' . $args['className'] : '';

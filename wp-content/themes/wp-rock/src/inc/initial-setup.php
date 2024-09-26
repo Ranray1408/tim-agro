@@ -53,7 +53,7 @@ function get_field_value($data_arr, $key) {
 }
 
 // Monobank payment
-global $monobank;
+// global $monobank;
 global $global_options;
 global $client;
 global $woocommerce_actions;
@@ -64,7 +64,7 @@ global $woocommerce_actions;
 
 
 global $profile_functionality;
-$profile_functionality = new Profile_Functionality($monobank, $global_options, $client);
+$profile_functionality = new Profile_Functionality($global_options, $client);
 $profile_functionality->init();
 
 $woocommerce_actions = new Woocommerce_actions();

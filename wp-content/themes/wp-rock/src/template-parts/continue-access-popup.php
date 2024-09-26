@@ -9,6 +9,10 @@ if(empty($post_id)) return;
 $post_fields = get_fields($post_id);
 $continue_checkboxes = get_field_value($post_fields, 'continue_checkboxes');
 
+echo '<div style="display: none;" class="continue-checkboxes-cehck">';
+var_dump($continue_checkboxes);
+echo '</div>';
+
 $continue_access_title = __('Продовжити курс', 'wp-rock');
 $continue_access_description = __('Виберіть термін продовження', 'wp-rock');
 

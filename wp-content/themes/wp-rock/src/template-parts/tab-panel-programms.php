@@ -1,7 +1,7 @@
 <?php
 
 global $global_options;
-global $monobank;
+// global $monobank;
 
 $fields = get_fields();
 

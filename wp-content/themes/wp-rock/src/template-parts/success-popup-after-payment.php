@@ -71,10 +71,10 @@ echo do_shortcode(
 
 ?>
 <script>
-    /*( () =>{
+    ( () =>{
         const date = new Date();
         date.setTime(date.getTime() + 60 * 60 * 1000);
         const expires = `expires=${date.toUTCString()}`;
         document.cookie = `creating_order='';${expires};path=/`;
-	})()*/
+	})()
 </script>

@@ -6,13 +6,13 @@
  * Handles various user profile functionalities.
  */
 class Profile_Functionality {
-    private $monobank;
+    // private $monobank;
     private $global_options;
     private $client;
 
-    public function __construct($monobank, $global_options, $client) {
+    public function __construct($global_options, $client) {
         $this->global_options = $global_options;
-        $this->monobank = $monobank;
+        //$this->monobank = $monobank;
         $this->client = $client;
     }
     /**

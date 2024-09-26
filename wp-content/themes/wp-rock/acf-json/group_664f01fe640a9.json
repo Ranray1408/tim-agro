@@ -203,7 +203,7 @@
                 {
                     "key": "field_669564d04829b",
                     "label": "Period",
-                    "name": "§",
+                    "name": "period",
                     "aria-label": "",
                     "type": "number",
                     "instructions": "",
@@ -405,5 +405,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1726129496
+    "modified": 1727374089
 }
