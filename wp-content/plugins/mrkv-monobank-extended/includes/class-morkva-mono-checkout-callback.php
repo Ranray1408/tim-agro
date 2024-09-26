@@ -71,6 +71,7 @@ if (!class_exists('MrkvMonoCheckoutCallback'))
 					if(isset($mrkv_mono_callback['status']) && $mrkv_mono_callback['status'] == 'success'){
 						# Set payment complete
 						$order_main->payment_complete($mrkv_mono_callback['paymentInfo']['tranId']);
+						$order_main->update_status('completed');
 					}
 
 					# Save order data

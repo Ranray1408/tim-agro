@@ -210,11 +210,11 @@ if (!class_exists('MorkvaMonopayWidget'))
 	    			$product_result[] = array(
 	    				'name' => $product_main->get_title(),
 	    				'qty' => (int)$product->quantity,
-	    				'sum' => (int)$final_price,
+	    				'sum' => (int)$final_price*100,
 						'code' => $product->product_id,
 	    			);
 
-	    			$amount = $product->quantity * ($final_price);
+	    			$amount = $product->quantity * ((int)$final_price*100);
 	    			$product_for_order = $product_main;
 	    		}
 

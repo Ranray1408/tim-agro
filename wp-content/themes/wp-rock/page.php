@@ -23,7 +23,7 @@ endif;
 
 do_action( 'wp_rock_after_page_content' );
 
-global $profile_functionality;
+//global $profile_functionality;
 
 $order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_NUMBER_INT);
 

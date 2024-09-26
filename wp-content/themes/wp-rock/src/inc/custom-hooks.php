@@ -173,11 +173,21 @@ function display_custom_order_fields($order) {
 }
 
 
-function force_redirect_to_user_profile_after_success_payment ($order_id){
-    wp_redirect(home_url('/profile-page?order='.$order_id));
-	exit;
+
+add_action('template_redirect', 'custom_redirect_after_thankyou');
+
+function custom_redirect_after_thankyou() {
+	// Check that this is the "Order Received" order page
+	if (is_wc_endpoint_url('order-received')) {
+		// Get the order ID from the URL
+		$order_id = isset($_GET['key']) ? wc_get_order_id_by_order_key($_GET['key']) : 0;
+
+		if ($order_id) {
+			wp_redirect(home_url('/profile-page?order='.$order_id));
+			exit;
+		}
+	}
 }
-add_action('woocommerce_thankyou', 'force_redirect_to_user_profile_after_success_payment', 99 );
 
 
 function order_statuses_for_payment_complete($statuses) {

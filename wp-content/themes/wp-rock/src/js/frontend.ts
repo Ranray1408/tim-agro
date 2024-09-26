@@ -28,10 +28,28 @@ function ready() {
 
     if (paySuccessResponse) {
         popupInstance.openOnePopup('#pay-success-response');
+
         if (paySuccessResponse.classList.contains('profile-page')) {
             setTimeout(() => {
                 window.location.reload();
             }, 3000);
+        }
+
+        {
+            // Getting current URL
+            const currentUrl = new URL(window.location.href);
+
+            // Getting current page slug
+            const pageSlug = currentUrl.pathname.split('/').filter(Boolean).pop();
+
+            // Check that this is a "profile-page" page and that there is an "order" parameter
+            if (pageSlug === 'profile-page' && currentUrl.searchParams.has('order')) {
+                // removing parameter "order"
+                currentUrl.searchParams.delete('order');
+
+                // Change URL without reloading the page
+                window.history.replaceState({}, document.title, currentUrl.pathname);
+            }
         }
     }
 

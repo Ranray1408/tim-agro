@@ -113,6 +113,13 @@ function access_status($expire_access_date, $alert_count_days = 10) {
     }
 }
 
+$order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_NUMBER_INT);
+
+if ( isset($order) && is_numeric($order) && $order > 0 ) {
+	echo get_template_part('src/template-parts/success-popup-after-payment', null, array(
+		'order_id' => $order
+	));
+}
 
 ?>
 
