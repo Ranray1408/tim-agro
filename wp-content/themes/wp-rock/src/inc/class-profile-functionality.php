@@ -287,14 +287,19 @@ class Profile_Functionality {
         wp_send_json_error(__('Щось пішло не так.', 'wp-rock'));
     }
 
-    public function add_update_user_programm($programm_id, $user_id, $days_period, $just_get_information = false) {
+
+
+    public function add_update_user_programm($programm_id, $order_id, $days_period, $just_get_information = false) {
 
 		$programm_id = trim($programm_id);
-		$user_id = trim($user_id);
-		$days_period = 90;
+		$order_id = trim($order_id);
+		//$days_period = 90;
+
+		$order = wc_get_order( $order_id ); // Получаем объект заказа по ID
+		$user_id = $order ? $order->get_user_id() : 0; // Получаем ID пользователя, если заказ найден
 
 
-        if ( empty($programm_id) || empty($user_id) || empty($days_period) ) {
+		if ( empty($programm_id) || !$user_id || empty($days_period) ) {
             wp_send_json_error(__('Not all data were sent: $days_period ='.$days_period, 'wp-rock'));
         }
 
@@ -342,8 +347,7 @@ class Profile_Functionality {
         }
 
 		if ( !$just_get_information ) {
-			$current_user_id = get_current_user_id();
-			$user = get_user_by('id', $current_user_id);
+			$user = get_user_by('id', $user_id);
 
 			if (!is_wp_error($user)) {
 				$this->send_mail_to_admin($user, $programm_id, date('d.m.Y'));

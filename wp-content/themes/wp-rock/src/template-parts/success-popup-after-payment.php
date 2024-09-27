@@ -36,10 +36,10 @@ foreach ($order->get_items() as $item_id => $item) {
 	}
 }
 
-if (!$result['success']) {
+/*if (!$result['success']) {
 	error_log('Помилка додавання програми для користувача: ' . $result['text']);
 	return;
-}
+}*/
 
 if ($user_just_registered) {
 	$result['text'] = __('На вашу пошту були надіслані доступи до особистого кабінету.', 'wp-rock');

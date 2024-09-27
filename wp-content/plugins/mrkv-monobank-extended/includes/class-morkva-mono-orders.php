@@ -572,6 +572,12 @@ if (!class_exists('MorkvaMonopayOrders'))
 	            			<?php
 	            		}
 
+                        /*if ( $mrkv_mopay_checkout_status === 'success' ) {
+							$order->update_status('completed');
+							# Save order data
+							$order->save();
+						}*/
+
 	            		# Get Payparts status
 	            		$_order_mono_ref = $order->get_meta('_order_mono_ref');	
 

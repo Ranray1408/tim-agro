@@ -65,7 +65,11 @@ if (!class_exists('MrkvMonoCheckoutCallback'))
 					{
 						$order_main->update_meta_data( 'mrkv_mopay_checkout_status', $mrkv_mono_callback['status']);
 		                update_post_meta( $order_main->get_id(), 'mrkv_mopay_checkout_status', $mrkv_mono_callback['status'] );
-		                $order_main->save();
+
+						if ( $mrkv_mono_callback['status'] === 'success' ) {
+							$order_main->update_status('completed');
+						}
+						$order_main->save();
 					}
 
 					if(isset($mrkv_mono_callback['status']) && $mrkv_mono_callback['status'] == 'success'){

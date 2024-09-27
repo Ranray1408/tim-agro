@@ -116,7 +116,7 @@ function add_program_on_order_complete($order_id) {
 		$programm_id = get_field_value($product_fields, 'attached_post');
 
 		if ($programm_id) {
-			$profile_functionality->add_update_user_programm($programm_id, $user_id, $access_period);
+			$profile_functionality->add_update_user_programm($programm_id, $order_id, $access_period);
 			break;
 		}
 	}
