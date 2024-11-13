@@ -39,13 +39,13 @@ global $wpdb;
                     foreach ($user_programm as $user_programm_item) :
                         if (empty($user_programm_item['post_id'])) continue;
 
-						$product_id = $wpdb->get_var( $wpdb->prepare(
-							"SELECT post_id
-                                 FROM {$wpdb->postmeta}
-                                 WHERE meta_key = 'attached_post' 
-                                 AND meta_value = %d",
-							$user_programm_item['post_id'])
-						);
+						// $product_id = $wpdb->get_var( $wpdb->prepare(
+						// 	"SELECT post_id
+                        //          FROM {$wpdb->postmeta}
+                        //          WHERE meta_key = 'attached_post'
+                        //          AND meta_value = %d",
+						// 	$user_programm_item['post_id'])
+						// );
 
 
                         echo get_template_part('src/template-parts/programm', 'accordion', array(
@@ -57,11 +57,6 @@ global $wpdb;
                         echo get_template_part('src/template-parts/pay-success-response', null, array(
                             'post_id' => $user_programm_item['post_id'],
                             'additional_class' => 'profile-page',
-                        ));
-
-                        echo get_template_part('src/template-parts/continue-access-popup', null, array(
-                            'post_id' => $user_programm_item['post_id'],
-                            'product_id' => $product_id,
                         ));
                     endforeach;
                     ?>

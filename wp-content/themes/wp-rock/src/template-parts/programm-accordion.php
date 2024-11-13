@@ -118,11 +118,12 @@ if (!empty($programm_data->blocks)) {
                     access_date_block($access_status, $expire_access_date, $text_access_date);
                     if ($access_status === 'access-expired') {
                         echo '<div class="programm__continue-access-wrapper">';
-                        echo '<a href="#continue-access-popup" class="continue-access-btn green-transparent from-left js-open-popup-activator">
+                        echo '<a href="#continue-access-popup-'.$post_id.'" class="continue-access-btn green-transparent from-left js-open-popup-activator">
                                 ' . esc_html($text_continue_access) . '
                             </a>';
                         echo '</div>';
-                    } ?>
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -132,6 +133,22 @@ if (!empty($programm_data->blocks)) {
             <path fill-rule="evenodd" clip-rule="evenodd" d="M43.9998 35.3334L38.0032 40.7314L32.0052 35.3334L30.6665 36.82L38.0032 43.422L45.3385 36.82L43.9998 35.3334Z" fill="white" />
         </svg>
     </button>
+    <?php
+        $product_id = $wpdb->get_var( $wpdb->prepare(
+            "SELECT post_id
+                 FROM {$wpdb->postmeta}
+                 WHERE meta_key = 'attached_post'
+                 AND meta_value = %d",
+            $post_id)
+        );
+
+        echo get_template_part('src/template-parts/continue-access-popup', null, array(
+            'post_id' => $post_id,
+            'product_id' => $product_id,
+            'id_modificator' => '-'. $post_id
+        ));
+        ?>
+
     <!-- ***************** Blocks accrodiont ***************** -->
     <?php
     echo esc_html(

@@ -176,7 +176,7 @@
             "taxonomy": "",
             "return_format": "id",
             "multiple": 0,
-            "allow_null": 1,
+            "allow_null": 0,
             "ui": 1
         }
     ],
@@ -198,5 +198,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1731401621
+    "modified": 1731509980
 }

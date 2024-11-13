@@ -1,3 +1,4 @@
+.continue-access-popup-wrapper,
 #continue-access-popup,
 #pay-success-response,
 #buy-programm-popup,
@@ -385,7 +386,7 @@
     }
 }
 
-#continue-access-popup {
+.continue-access-popup-wrapper {
     .continue-access-popup {
         &__title {
             color: var(--color-type-dark-1);

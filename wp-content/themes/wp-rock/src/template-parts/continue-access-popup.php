@@ -3,6 +3,7 @@ global $global_options;
 
 $post_id = !empty($args['post_id']) ? $args['post_id'] : 0;
 $product_id = !empty($args['product_id']) ? $args['product_id'] : null;
+$id_modificator = !empty($args['id_modificator']) ? $args['id_modificator'] : '';
 
 if(empty($post_id)) return;
 
@@ -58,4 +59,4 @@ $html .= '<input type="submit" class="continue-access-popup__submit green-transp
 
 $html .= '</form>';
 
-echo do_shortcode('[popup_box box_id="continue-access-popup"]' . $html . '[/popup_box]');
+echo do_shortcode('[popup_box box_class="continue-access-popup-wrapper" box_id="continue-access-popup'.$id_modificator.'"]' . $html . '[/popup_box]');
