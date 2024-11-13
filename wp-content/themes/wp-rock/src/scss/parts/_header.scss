@@ -233,6 +233,8 @@
                     position: absolute;
                     background-color: var(--color-type-primary-white-2);
                     width: 815px;
+                    height: 500px;
+                    overflow: auto;
                     padding: 20px 18px;
                     display: none;
                     grid-template-columns: 1fr 1fr;

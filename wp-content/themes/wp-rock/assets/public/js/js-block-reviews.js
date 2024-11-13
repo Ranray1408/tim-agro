@@ -12882,8 +12882,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
 /*!********************************************!*\
   !*** ./src/js/acf-blocks/block-reviews.ts ***!
   \********************************************/
@@ -12916,7 +12914,6 @@ var initBlockReviews = function initBlockReviews() {
   });
 };
 document.addEventListener('DOMContentLoaded', initBlockReviews, false);
-}();
 /******/ })()
 ;
 //# sourceMappingURL=js-block-reviews.js.map

@@ -43,34 +43,6 @@
             "ui_off_text": ""
         },
         {
-            "key": "field_6655b676a7aa0",
-            "label": "Price",
-            "name": "price",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_6655b635a7a9f",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_6655b690a7aa1",
             "label": "Phone",
             "name": "phone",
@@ -204,7 +176,7 @@
             "taxonomy": "",
             "return_format": "id",
             "multiple": 0,
-            "allow_null": 0,
+            "allow_null": 1,
             "ui": 1
         }
     ],
@@ -226,5 +198,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1726557800
+    "modified": 1731401621
 }
