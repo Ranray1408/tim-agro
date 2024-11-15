@@ -31,22 +31,19 @@ if (!empty($client_id) && !empty($client_secret) && !empty($client_token)) {
 
             try {
                 $response = $client->request('/me', [], 'GET');
-                echo "Запрос выполнен успешно: " . print_r($response, true);
+                echo "Request completed successfully: " . print_r($response, true);
             } catch (VimeoRequestException $e) {
-                // Обработка ошибки запроса
-                error_log('Ошибка запроса к Vimeo API: ' . $e->getMessage());
-                echo 'Ошибка запроса. Пожалуйста, попробуйте позже.';
+                error_log('Vimeo API request error: ' . $e->getMessage());
+                echo 'Request error. Please try again later.';
             }
 
         } catch (Exception $e) {
-            // Обработка ошибки создания клиента
-            error_log('Ошибка при создании клиента Vimeo: ' . $e->getMessage());
-            echo 'Ошибка при создании клиента. Пожалуйста, попробуйте позже.';
+            error_log('Error creating Vimeo client: ' . $e->getMessage());
+            echo 'Error creating client. Please try again later.';
         }
     } else {
-        // Обработка случая, когда хост недоступен
-        echo 'Сеть недоступна. Пожалуйста, проверьте ваше соединение.';
+        echo 'Network is unavailable. Please check your connection.';
     }
 } else {
-    echo 'Некоторые параметры для подключения пусты.';
+    echo 'Some connection parameters are empty.';
 }

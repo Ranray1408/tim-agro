@@ -88,12 +88,6 @@ function wp_rock_color_panel(): void {
 add_action('wp_head', 'wp_rock_color_panel');
 
 
-
-
-
-
-
-
 // Hande chage order status
 add_action('woocommerce_order_status_completed', 'add_program_on_order_complete', 10, 1);
 
@@ -106,17 +100,19 @@ function add_program_on_order_complete($order_id) {
 		return;
 	}
 
-	$user_id = $order->get_user_id();
 	$access_period = get_post_meta($order->get_id(), 'access_period', true);
+    $user_just_registered = get_post_meta($order->get_id(), 'user_just_registered', true);
 
-	foreach ($order->get_items() as $item_id => $item) {
+    $user_just_registered = $user_just_registered === 'Yes' ? true : false;
+
+	foreach ($order->get_items() as $item) {
 		$product_id = $item['product_id'];
 
 		$product_fields = get_fields($product_id);
 		$programm_id = get_field_value($product_fields, 'attached_post');
 
 		if ($programm_id) {
-			$profile_functionality->add_update_user_programm($programm_id, $order_id, $access_period);
+			$profile_functionality->add_update_user_programm($programm_id, $order_id, $access_period, $user_just_registered);
 			break;
 		}
 	}

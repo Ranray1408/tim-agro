@@ -31,3 +31,5 @@ vendor/
 /wp-content/litespeed/
 /wp-content/backups-dup-pro/
 /.htaccess.bk
+/php-errors.log
+/wp-content/webp-express/

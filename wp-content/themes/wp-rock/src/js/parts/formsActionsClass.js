@@ -245,8 +245,8 @@ export default class FormsActionsClass {
                 // referrer: window.location.href,
                 // referrerPolicy: 'strict-origin-when-cross-origin',
                 body: bodyString,
-                method: 'POST', // Метод запроса (POST)
-                mode: 'cors', // Режим CORS для запросов к другим доменам
+                method: 'POST',
+                mode: 'cors',
                 credentials: 'include',
             }
         );

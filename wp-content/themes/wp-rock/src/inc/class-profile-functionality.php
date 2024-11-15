@@ -250,6 +250,7 @@ class Profile_Functionality {
         $user_email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $user_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
         $user_phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
+        $post_type = filter_input(INPUT_POST, 'post-type', FILTER_SANITIZE_SPECIAL_CHARS);
         $forgot_password_page = filter_input(INPUT_POST, 'forgot-password-page', FILTER_SANITIZE_SPECIAL_CHARS);
         $profile_page = filter_input(INPUT_POST, 'profile-page', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -265,7 +266,12 @@ class Profile_Functionality {
                 wp_send_json_error(__('Помилка реєстрації користувача.', 'wp-rock'));
             }
 
-            $result = $this->generate_promocode(180);
+
+            $result = [];
+            //Reset promo if it's lectures post type
+            if($post_type !== 'lectures') {
+                $result = $this->generate_promocode(180);
+            }
 
             // After registering user send to email generated password
             $send_email = $this->send_registered_info($user_data['user'], $forgot_password_page, $user_data['user_pass'], $result, $profile_page);
@@ -291,16 +297,16 @@ class Profile_Functionality {
 
     public function add_update_user_programm($programm_id, $order_id, $days_period, $just_get_information = false) {
 
-		$programm_id = trim($programm_id);
+        $programm_id = trim($programm_id);
 		$order_id = trim($order_id);
-		//$days_period = 90;
 
-		$order = wc_get_order( $order_id ); // Получаем объект заказа по ID
-		$user_id = $order ? $order->get_user_id() : 0; // Получаем ID пользователя, если заказ найден
+		$order = wc_get_order( $order_id );
+		$user_id = $order ? $order->get_user_id() : 0;
 
+		if ( empty($programm_id) || $user_id === 0 || empty($days_period) ) {
+            error_log('Not all data were sent:
+            '.$days_period . '/'.$programm_id.'/'.$user_id .'/'.$order_id);
 
-		if ( empty($programm_id) || !$user_id || empty($days_period) ) {
-            wp_send_json_error(__('Not all data were sent: $days_period ='.$days_period, 'wp-rock'));
         }
 
         $start_date = new DateTime();

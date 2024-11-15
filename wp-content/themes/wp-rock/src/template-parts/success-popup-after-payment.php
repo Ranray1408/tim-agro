@@ -8,7 +8,7 @@ $result = array(
 	'text' => ''
 );
 
-$order_id = $order_id ?? $args['order_id'];
+$order_id = $args['order_id'] ?? 0;
 
 $order = wc_get_order($order_id);
 
@@ -16,30 +16,7 @@ if (!$order) {
 	return;
 }
 
-$user_id = $order->get_user_id();
-
 $user_just_registered = get_post_meta($order->get_id(), 'user_just_registered', true);
-$access_period = get_post_meta($order->get_id(), 'access_period', true);
-$redirect_page = get_post_meta($order->get_id(), 'redirect_page', true);
-
-foreach ($order->get_items() as $item_id => $item) {
-	$product_id = $item['product_id'];
-
-	$product_fields = get_fields($product_id);
-	$programm_id = get_field_value($product_fields, 'attached_post');
-
-	if ($programm_id) {
-
-		$result = $profile_functionality->add_update_user_programm($programm_id, $user_id, $access_period, true);
-
-		break;
-	}
-}
-
-/*if (!$result['success']) {
-	error_log('Помилка додавання програми для користувача: ' . $result['text']);
-	return;
-}*/
 
 if ($user_just_registered) {
 	$result['text'] = __('На вашу пошту були надіслані доступи до особистого кабінету.', 'wp-rock');

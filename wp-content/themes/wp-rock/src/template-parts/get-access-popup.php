@@ -7,6 +7,7 @@ $forgot_password_page_id = get_field_value($global_options, 'forgot_password_pag
 $product_id = !empty($args['product_id']) ? $args['product_id'] : 0;
 $price = !empty($args['price']) ? $args['price'] : '??';
 $redirect_page = !empty($args['redirect_page']) ? $args['redirect_page'] : get_site_url();
+$post_type = !empty($args['post_type']) ? $args['post_type'] : '';
 
 
 $get_access_form = '
@@ -42,6 +43,7 @@ $get_access_form = '
             <input type="hidden" name="registration" value="1">
             <input type="hidden" name="amount" value="1">
             <input type="hidden" name="post-id" value="' . $product_id . '">
+            <input type="hidden" name="post-type" value="' . $post_type . '">
             <input type="hidden" name="forgot-password-page" value="' . get_permalink($forgot_password_page_id) . '">
             <input type="submit" class="green-filled" value="Оплатити">
         </div>

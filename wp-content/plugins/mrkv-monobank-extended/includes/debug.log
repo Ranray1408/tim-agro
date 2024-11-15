@@ -1,0 +1,5478 @@
+Get data: 
+Get data: Array
+(
+    [invoiceId] => 240925DuiYf6Nmqd1ti6
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T14:43:18Z
+    [modifiedDate] => 2024-09-25T14:43:18Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925FBE3v9HqoK8AGa
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T14:45:04Z
+    [modifiedDate] => 2024-09-25T14:45:04Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409258jbaBJoXRMCxjW
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T14:45:52Z
+    [modifiedDate] => 2024-09-25T14:45:52Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925C2uDsDakFrU9V3
+    [status] => created
+    [amount] => 6000
+    [ccy] => 980
+    [createdDate] => 2024-09-25T17:55:11Z
+    [modifiedDate] => 2024-09-25T17:55:11Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925CU7XtR7SiCDWd6
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-25T17:55:21Z
+    [modifiedDate] => 2024-09-25T17:55:21Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EZamnsKFPXFXpp
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:36:48Z
+    [modifiedDate] => 2024-09-25T18:36:48Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925E7UzqZnR5o4in5
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:37:04Z
+    [modifiedDate] => 2024-09-25T18:37:04Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925M8Z5QwD6x2WUS
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:37:28Z
+    [modifiedDate] => 2024-09-25T18:37:28Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925DPDZjA2Jaz1ZiP
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:38:00Z
+    [modifiedDate] => 2024-09-25T18:38:00Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925AAskZ2ugu6qwhk
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:39:46Z
+    [modifiedDate] => 2024-09-25T18:39:46Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925BaevLMLU5RMAaa
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:42:47Z
+    [modifiedDate] => 2024-09-25T18:42:47Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bjp4AsjWmcedmW
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:44:28Z
+    [modifiedDate] => 2024-09-25T18:44:28Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bjp4AsjWmcedmW
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T18:44:28Z
+    [modifiedDate] => 2024-09-25T18:52:43Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bjp4AsjWmcedmW
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T18:44:28Z
+    [modifiedDate] => 2024-09-25T18:52:45Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021523642019
+            [approvalCode] => 251150
+            [tranId] => 14935298611
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409254XYtXyLBMfKwoi
+    [status] => created
+    [amount] => 6000
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:58:02Z
+    [modifiedDate] => 2024-09-25T18:58:02Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409259V3pNNybpEExrb
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-25T18:58:52Z
+    [modifiedDate] => 2024-09-25T18:58:52Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bu2xSiQjGYbRrp
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T19:01:26Z
+    [modifiedDate] => 2024-09-25T19:01:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bu2xSiQjGYbRrp
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:01:26Z
+    [modifiedDate] => 2024-09-25T19:02:35Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bu2xSiQjGYbRrp
+    [status] => failure
+    [failureReason] => 3-D Secure перевірку не пройдено
+    [errCode] => 84
+    [payMethod] => pan
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:01:26Z
+    [modifiedDate] => 2024-09-25T19:02:59Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021529552045
+            [tranId] => 14935396546
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => pan
+            [maskedPan] => 47311856******85
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bu2xSiQjGYbRrp
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:01:26Z
+    [modifiedDate] => 2024-09-25T19:04:31Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925Bu2xSiQjGYbRrp
+    [status] => failure
+    [failureReason] => 3-D Secure перевірку не пройдено
+    [errCode] => 84
+    [payMethod] => pan
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:01:26Z
+    [modifiedDate] => 2024-09-25T19:04:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021530721003
+            [tranId] => 14935413964
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => pan
+            [maskedPan] => 47311856******85
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925DvpAKP3jtfUbDm
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T19:41:02Z
+    [modifiedDate] => 2024-09-25T19:41:02Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925DvpAKP3jtfUbDm
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:41:02Z
+    [modifiedDate] => 2024-09-25T19:41:18Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925DvpAKP3jtfUbDm
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:41:02Z
+    [modifiedDate] => 2024-09-25T19:41:19Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021552782061
+            [approvalCode] => 769151
+            [tranId] => 14935704611
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925DvpAKP3jtfUbDm
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:41:02Z
+    [modifiedDate] => 2024-09-25T19:41:19Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021552782061
+            [approvalCode] => 769151
+            [tranId] => 14935704611
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EW3oc1MS2TDZ9v
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T19:47:32Z
+    [modifiedDate] => 2024-09-25T19:47:32Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EW3oc1MS2TDZ9v
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:47:32Z
+    [modifiedDate] => 2024-09-25T19:47:45Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EW3oc1MS2TDZ9v
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:47:32Z
+    [modifiedDate] => 2024-09-25T19:47:46Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021556661035
+            [approvalCode] => 074152
+            [tranId] => 14935749554
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EW3oc1MS2TDZ9v
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:47:32Z
+    [modifiedDate] => 2024-09-25T19:47:46Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021556661035
+            [approvalCode] => 074152
+            [tranId] => 14935749554
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EhB5ffjutt8jx7
+    [status] => created
+    [amount] => 5
+    [ccy] => 980
+    [createdDate] => 2024-09-25T19:50:41Z
+    [modifiedDate] => 2024-09-25T19:50:41Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EhB5ffjutt8jx7
+    [status] => processing
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-25T19:50:41Z
+    [modifiedDate] => 2024-09-25T19:50:50Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EhB5ffjutt8jx7
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:50:41Z
+    [modifiedDate] => 2024-09-25T19:50:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021558511005
+            [approvalCode] => 214153
+            [tranId] => 14935771143
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240925EhB5ffjutt8jx7
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 5
+    [ccy] => 980
+    [finalAmount] => 5
+    [createdDate] => 2024-09-25T19:50:41Z
+    [modifiedDate] => 2024-09-25T19:50:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 021558511005
+            [approvalCode] => 214153
+            [tranId] => 14935771143
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 0
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926im3ZG7jzuYCwW
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T08:35:03Z
+    [modifiedDate] => 2024-09-26T08:35:03Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926im3ZG7jzuYCwW
+    [status] => processing
+    [amount] => 5500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T08:35:03Z
+    [modifiedDate] => 2024-09-26T08:36:01Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926im3ZG7jzuYCwW
+    [status] => success
+    [payMethod] => pan
+    [amount] => 5500
+    [ccy] => 980
+    [finalAmount] => 5500
+    [createdDate] => 2024-09-26T08:35:03Z
+    [modifiedDate] => 2024-09-26T08:36:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022017621059
+            [approvalCode] => 377216
+            [tranId] => 14939470400
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 72
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926im3ZG7jzuYCwW
+    [status] => success
+    [payMethod] => pan
+    [amount] => 5500
+    [ccy] => 980
+    [finalAmount] => 5500
+    [createdDate] => 2024-09-26T08:35:03Z
+    [modifiedDate] => 2024-09-26T08:36:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022017621059
+            [approvalCode] => 377216
+            [tranId] => 14939470400
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 72
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409263K8KdSxwDRCEhj
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T08:39:42Z
+    [modifiedDate] => 2024-09-26T08:39:42Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926DTa3PBXqkuh7Au
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:05:57Z
+    [modifiedDate] => 2024-09-26T09:05:57Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092627k2MPse25X9Ln
+    [status] => created
+    [amount] => 5300
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:10:06Z
+    [modifiedDate] => 2024-09-26T09:10:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926ENhd26KVxaUX4y
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:19:24Z
+    [modifiedDate] => 2024-09-26T09:19:24Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268WFmNWWjiqS5PR
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:24:14Z
+    [modifiedDate] => 2024-09-26T09:24:14Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926DJxD5ub97yTuSR
+    [status] => created
+    [amount] => 5500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:25:28Z
+    [modifiedDate] => 2024-09-26T09:25:28Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926AtuMKahLJJku3M
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:31:56Z
+    [modifiedDate] => 2024-09-26T09:31:56Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926BYUwAnPg3WKMz1
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:36:19Z
+    [modifiedDate] => 2024-09-26T09:36:19Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409265KcnnMWkDnoETL
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:36:40Z
+    [modifiedDate] => 2024-09-26T09:36:40Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926BUqcEc2JTxSRPZ
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:38:07Z
+    [modifiedDate] => 2024-09-26T09:38:07Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926BUqcEc2JTxSRPZ
+    [status] => processing
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T09:38:07Z
+    [modifiedDate] => 2024-09-26T09:38:59Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926BUqcEc2JTxSRPZ
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-26T09:38:07Z
+    [modifiedDate] => 2024-09-26T09:39:14Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022055402157
+            [approvalCode] => 564035
+            [tranId] => 14940381917
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 54570822******03
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926BUqcEc2JTxSRPZ
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-26T09:38:07Z
+    [modifiedDate] => 2024-09-26T09:39:14Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022055402157
+            [approvalCode] => 564035
+            [tranId] => 14940381917
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 54570822******03
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092625T3t8sJTWn5Um
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T09:47:30Z
+    [modifiedDate] => 2024-09-26T09:47:30Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092625T3t8sJTWn5Um
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T09:47:30Z
+    [modifiedDate] => 2024-09-26T09:47:45Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092625T3t8sJTWn5Um
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T09:47:30Z
+    [modifiedDate] => 2024-09-26T09:47:46Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022060652087
+            [approvalCode] => 832467
+            [tranId] => 14940509371
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092625T3t8sJTWn5Um
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T09:47:30Z
+    [modifiedDate] => 2024-09-26T09:47:46Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022060652087
+            [approvalCode] => 832467
+            [tranId] => 14940509371
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926D8CiLbnzikKRS1
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T16:00:06Z
+    [modifiedDate] => 2024-09-26T16:00:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926D8CiLbnzikKRS1
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T16:00:06Z
+    [modifiedDate] => 2024-09-26T16:01:23Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926D8CiLbnzikKRS1
+    [status] => success
+    [payMethod] => pan
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:00:06Z
+    [modifiedDate] => 2024-09-26T16:01:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022284831103
+            [approvalCode] => 643053
+            [tranId] => 14946199473
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => pan
+            [maskedPan] => 47311856******85
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926D8CiLbnzikKRS1
+    [status] => success
+    [payMethod] => pan
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:00:06Z
+    [modifiedDate] => 2024-09-26T16:01:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022284831103
+            [approvalCode] => 643053
+            [tranId] => 14946199473
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => pan
+            [maskedPan] => 47311856******85
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267vnahnFPkjEWLz
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T16:15:02Z
+    [modifiedDate] => 2024-09-26T16:15:02Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267vnahnFPkjEWLz
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T16:15:02Z
+    [modifiedDate] => 2024-09-26T16:16:15Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267vnahnFPkjEWLz
+    [status] => success
+    [payMethod] => pan
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:15:02Z
+    [modifiedDate] => 2024-09-26T16:17:01Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022293761099
+            [approvalCode] => 241980
+            [tranId] => 14946457759
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267vnahnFPkjEWLz
+    [status] => success
+    [payMethod] => pan
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:15:02Z
+    [modifiedDate] => 2024-09-26T16:17:01Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022293761099
+            [approvalCode] => 241980
+            [tranId] => 14946457759
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267vnahnFPkjEWLz
+    [status] => success
+    [payMethod] => pan
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:15:02Z
+    [modifiedDate] => 2024-09-26T16:17:01Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022293761099
+            [approvalCode] => 241980
+            [tranId] => 14946457759
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409262qqew8jBDYPM8M
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-26T16:51:37Z
+    [modifiedDate] => 2024-09-26T16:51:37Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409262qqew8jBDYPM8M
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T16:51:37Z
+    [modifiedDate] => 2024-09-26T16:51:53Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409262qqew8jBDYPM8M
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:51:37Z
+    [modifiedDate] => 2024-09-26T16:51:55Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022315141025
+            [approvalCode] => 432468
+            [tranId] => 14947021588
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409262qqew8jBDYPM8M
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:51:37Z
+    [modifiedDate] => 2024-09-26T16:51:55Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022315141025
+            [approvalCode] => 432468
+            [tranId] => 14947021588
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:54:17Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => processing
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:55:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:55:12Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022317061091
+            [approvalCode] => 704220
+            [tranId] => 14947072224
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:54:17Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:55:12Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022317061091
+            [approvalCode] => 704220
+            [tranId] => 14947072224
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409262qqew8jBDYPM8M
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-26T16:51:37Z
+    [modifiedDate] => 2024-09-26T16:51:55Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022315141025
+            [approvalCode] => 432468
+            [tranId] => 14947021588
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267pviMm4DqSRWH5
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T17:05:06Z
+    [modifiedDate] => 2024-09-26T17:05:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926123PyzQdvDt684
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-26T16:54:17Z
+    [modifiedDate] => 2024-09-26T16:55:12Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022317061091
+            [approvalCode] => 704220
+            [tranId] => 14947072224
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267pviMm4DqSRWH5
+    [status] => processing
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T17:05:06Z
+    [modifiedDate] => 2024-09-26T17:07:21Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267pviMm4DqSRWH5
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-26T17:05:06Z
+    [modifiedDate] => 2024-09-26T17:07:42Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022324412085
+            [approvalCode] => 255027
+            [tranId] => 14947260177
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 51687451******36
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267pviMm4DqSRWH5
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-26T17:05:06Z
+    [modifiedDate] => 2024-09-26T17:07:42Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022324412085
+            [approvalCode] => 255027
+            [tranId] => 14947260177
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 51687451******36
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409267pviMm4DqSRWH5
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-26T17:05:06Z
+    [modifiedDate] => 2024-09-26T17:07:42Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022324412085
+            [approvalCode] => 255027
+            [tranId] => 14947260177
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 51687451******36
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926A7zrH37PNWdKWs
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T17:56:36Z
+    [modifiedDate] => 2024-09-26T17:56:36Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409264rxm42GLoZGyqk
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:09:47Z
+    [modifiedDate] => 2024-09-26T18:09:47Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409266h8B6gypJyY9Jg
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:30:55Z
+    [modifiedDate] => 2024-09-26T18:30:55Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409265GDtHMb2BCo1Ru
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:37:12Z
+    [modifiedDate] => 2024-09-26T18:37:12Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240926AUKBiNQsHukwZ6
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:38:28Z
+    [modifiedDate] => 2024-09-26T18:38:28Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409266k5WGihafJ6CN9
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:42:25Z
+    [modifiedDate] => 2024-09-26T18:42:25Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409269A4DCL4mnXZQ8a
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:47:43Z
+    [modifiedDate] => 2024-09-26T18:47:43Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409265Xuty72yoq4zN6
+    [status] => created
+    [amount] => 270000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:47:55Z
+    [modifiedDate] => 2024-09-26T18:47:55Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409269HZyp2vHZJigs4
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T18:49:41Z
+    [modifiedDate] => 2024-09-26T18:49:41Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268Ndq3M9Ptyxy4h
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-09-26T19:53:36Z
+    [modifiedDate] => 2024-09-26T19:53:36Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268Ndq3M9Ptyxy4h
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-26T19:53:36Z
+    [modifiedDate] => 2024-09-26T19:53:58Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268Ndq3M9Ptyxy4h
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-09-26T19:53:36Z
+    [modifiedDate] => 2024-09-26T19:53:59Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022424391033
+            [approvalCode] => 337277
+            [tranId] => 14949034693
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => monobank
+            [maskedPan] => 44411144******81
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268Ndq3M9Ptyxy4h
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-09-26T19:53:36Z
+    [modifiedDate] => 2024-09-26T19:53:59Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022424391033
+            [approvalCode] => 337277
+            [tranId] => 14949034693
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => monobank
+            [maskedPan] => 44411144******81
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409268Ndq3M9Ptyxy4h
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-09-26T19:53:36Z
+    [modifiedDate] => 2024-09-26T19:53:59Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022424391033
+            [approvalCode] => 337277
+            [tranId] => 14949034693
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => monobank
+            [maskedPan] => 44411144******81
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409273ZDkAWxYF8YHZE
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T10:47:26Z
+    [modifiedDate] => 2024-09-27T10:47:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DEc5m3mG9jouiA
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T10:50:18Z
+    [modifiedDate] => 2024-09-27T10:50:18Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DEc5m3mG9jouiA
+    [status] => processing
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T10:50:18Z
+    [modifiedDate] => 2024-09-27T10:50:53Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DEc5m3mG9jouiA
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-27T10:50:18Z
+    [modifiedDate] => 2024-09-27T10:50:58Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022962532061
+            [approvalCode] => 587227
+            [tranId] => 14954991247
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DEc5m3mG9jouiA
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-27T10:50:18Z
+    [modifiedDate] => 2024-09-27T10:50:58Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022962532061
+            [approvalCode] => 587227
+            [tranId] => 14954991247
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DEc5m3mG9jouiA
+    [status] => success
+    [payMethod] => pan
+    [amount] => 50000
+    [ccy] => 980
+    [finalAmount] => 50000
+    [createdDate] => 2024-09-27T10:50:18Z
+    [modifiedDate] => 2024-09-27T10:50:58Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 022962532061
+            [approvalCode] => 587227
+            [tranId] => 14954991247
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 650
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******50
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409277TYDVh2tkUBdrg
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:17:37Z
+    [modifiedDate] => 2024-09-27T12:17:37Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275b9V2L7zZcgcJa
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:20:38Z
+    [modifiedDate] => 2024-09-27T12:20:38Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275b9V2L7zZcgcJa
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T12:20:38Z
+    [modifiedDate] => 2024-09-27T12:21:00Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275b9V2L7zZcgcJa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:20:38Z
+    [modifiedDate] => 2024-09-27T12:21:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023016612071
+            [approvalCode] => 219471
+            [tranId] => 14956446195
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275b9V2L7zZcgcJa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:20:38Z
+    [modifiedDate] => 2024-09-27T12:21:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023016612071
+            [approvalCode] => 219471
+            [tranId] => 14956446195
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276yzbVo8QYsC8sL
+    [status] => created
+    [amount] => 270000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:25:11Z
+    [modifiedDate] => 2024-09-27T12:25:11Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275b9V2L7zZcgcJa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:20:38Z
+    [modifiedDate] => 2024-09-27T12:21:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023016612071
+            [approvalCode] => 219471
+            [tranId] => 14956446195
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409272s7vcMYBFsBVE2
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:36:47Z
+    [modifiedDate] => 2024-09-27T12:36:47Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409272s7vcMYBFsBVE2
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T12:36:47Z
+    [modifiedDate] => 2024-09-27T12:37:01Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409272s7vcMYBFsBVE2
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:36:47Z
+    [modifiedDate] => 2024-09-27T12:37:03Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023026221151
+            [approvalCode] => 315472
+            [tranId] => 14956701155
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409278zadBZPNX8Nyn
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:37:49Z
+    [modifiedDate] => 2024-09-27T12:37:49Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409272s7vcMYBFsBVE2
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:36:47Z
+    [modifiedDate] => 2024-09-27T12:37:03Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023026221151
+            [approvalCode] => 315472
+            [tranId] => 14956701155
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927582xaxE2B2LBwR
+    [status] => created
+    [amount] => 200
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:42:06Z
+    [modifiedDate] => 2024-09-27T12:42:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ASvS8rqrKMcMGa
+    [status] => created
+    [amount] => 200
+    [ccy] => 980
+    [createdDate] => 2024-09-27T12:42:34Z
+    [modifiedDate] => 2024-09-27T12:42:34Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ASvS8rqrKMcMGa
+    [status] => processing
+    [amount] => 200
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T12:42:34Z
+    [modifiedDate] => 2024-09-27T12:42:43Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ASvS8rqrKMcMGa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 200
+    [ccy] => 980
+    [finalAmount] => 200
+    [createdDate] => 2024-09-27T12:42:34Z
+    [modifiedDate] => 2024-09-27T12:42:44Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023029631129
+            [approvalCode] => 885473
+            [tranId] => 14956792689
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 3
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ASvS8rqrKMcMGa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 200
+    [ccy] => 980
+    [finalAmount] => 200
+    [createdDate] => 2024-09-27T12:42:34Z
+    [modifiedDate] => 2024-09-27T12:42:44Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023029631129
+            [approvalCode] => 885473
+            [tranId] => 14956792689
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 3
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409272s7vcMYBFsBVE2
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T12:36:47Z
+    [modifiedDate] => 2024-09-27T12:37:03Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023026221151
+            [approvalCode] => 315472
+            [tranId] => 14956701155
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ASvS8rqrKMcMGa
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 200
+    [ccy] => 980
+    [finalAmount] => 200
+    [createdDate] => 2024-09-27T12:42:34Z
+    [modifiedDate] => 2024-09-27T12:42:44Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023029631129
+            [approvalCode] => 885473
+            [tranId] => 14956792689
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 3
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276cwqVf6Qf8d9US
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T16:44:17Z
+    [modifiedDate] => 2024-09-27T16:44:17Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092744NFnqqgLHig4R
+    [status] => created
+    [amount] => 120000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T16:46:32Z
+    [modifiedDate] => 2024-09-27T16:46:32Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927Bx5EQ39EA6YvHR
+    [status] => created
+    [amount] => 270000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T16:47:02Z
+    [modifiedDate] => 2024-09-27T16:47:02Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ux47PRZUpRTTe
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-27T16:47:59Z
+    [modifiedDate] => 2024-09-27T16:47:59Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ux47PRZUpRTTe
+    [status] => processing
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T16:47:59Z
+    [modifiedDate] => 2024-09-27T16:48:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ux47PRZUpRTTe
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T16:47:59Z
+    [modifiedDate] => 2024-09-27T16:48:28Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023177072041
+            [approvalCode] => 405154
+            [tranId] => 14960865556
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ux47PRZUpRTTe
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T16:47:59Z
+    [modifiedDate] => 2024-09-27T16:48:28Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023177072041
+            [approvalCode] => 405154
+            [tranId] => 14960865556
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927ux47PRZUpRTTe
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T16:47:59Z
+    [modifiedDate] => 2024-09-27T16:48:28Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023177072041
+            [approvalCode] => 405154
+            [tranId] => 14960865556
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AmqBRceHmHbRCQ
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:11:10Z
+    [modifiedDate] => 2024-09-27T17:11:10Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276ftSVpdN45uLeZ
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:12:45Z
+    [modifiedDate] => 2024-09-27T17:12:45Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DSDecC6J95LNVN
+    [status] => created
+    [amount] => 270000
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:13:22Z
+    [modifiedDate] => 2024-09-27T17:13:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:13:59Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => processing
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:14:13Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:14:14Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023192532103
+            [approvalCode] => 533155
+            [tranId] => 14961277600
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:13:59Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:14:14Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023192532103
+            [approvalCode] => 533155
+            [tranId] => 14961277600
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UZj371s9oiJGJ
+    [status] => created
+    [amount] => 600
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:18:36Z
+    [modifiedDate] => 2024-09-27T17:18:36Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UZj371s9oiJGJ
+    [status] => processing
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:18:36Z
+    [modifiedDate] => 2024-09-27T17:19:35Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UZj371s9oiJGJ
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:18:36Z
+    [modifiedDate] => 2024-09-27T17:19:48Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023195751099
+            [approvalCode] => 810985
+            [tranId] => 14961362482
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UZj371s9oiJGJ
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:18:36Z
+    [modifiedDate] => 2024-09-27T17:19:48Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023195751099
+            [approvalCode] => 810985
+            [tranId] => 14961362482
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409276Mcb8qNVxTNwDo
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:13:59Z
+    [modifiedDate] => 2024-09-27T17:14:14Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023192532103
+            [approvalCode] => 533155
+            [tranId] => 14961277600
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AxNzaTeGBT5svx
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:29:57Z
+    [modifiedDate] => 2024-09-27T17:29:57Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AxNzaTeGBT5svx
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:29:57Z
+    [modifiedDate] => 2024-09-27T17:30:15Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AxNzaTeGBT5svx
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:29:57Z
+    [modifiedDate] => 2024-09-27T17:30:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023202162019
+            [approvalCode] => 155156
+            [tranId] => 14961519074
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UZj371s9oiJGJ
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600
+    [ccy] => 980
+    [finalAmount] => 600
+    [createdDate] => 2024-09-27T17:18:36Z
+    [modifiedDate] => 2024-09-27T17:19:48Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023195751099
+            [approvalCode] => 810985
+            [tranId] => 14961362482
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 8
+            [paymentMethod] => pan
+            [maskedPan] => 46270551******97
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AxNzaTeGBT5svx
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:29:57Z
+    [modifiedDate] => 2024-09-27T17:30:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023202162019
+            [approvalCode] => 155156
+            [tranId] => 14961519074
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092789hFM6LquJxKUy
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:51:10Z
+    [modifiedDate] => 2024-09-27T17:51:10Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092789hFM6LquJxKUy
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:51:10Z
+    [modifiedDate] => 2024-09-27T17:51:19Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092789hFM6LquJxKUy
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:51:10Z
+    [modifiedDate] => 2024-09-27T17:51:20Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023214791141
+            [approvalCode] => 221157
+            [tranId] => 14961818684
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24092789hFM6LquJxKUy
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:51:10Z
+    [modifiedDate] => 2024-09-27T17:51:20Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023214791141
+            [approvalCode] => 221157
+            [tranId] => 14961818684
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DHfdfsuEyWHDgN
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:52:42Z
+    [modifiedDate] => 2024-09-27T17:52:42Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DHfdfsuEyWHDgN
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:52:42Z
+    [modifiedDate] => 2024-09-27T17:52:53Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DHfdfsuEyWHDgN
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:52:42Z
+    [modifiedDate] => 2024-09-27T17:52:55Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023215742091
+            [approvalCode] => 867475
+            [tranId] => 14961840225
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927DHfdfsuEyWHDgN
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:52:42Z
+    [modifiedDate] => 2024-09-27T17:52:55Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023215742091
+            [approvalCode] => 867475
+            [tranId] => 14961840225
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UCco5SXhfmebP
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T17:56:51Z
+    [modifiedDate] => 2024-09-27T17:56:51Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UCco5SXhfmebP
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T17:56:51Z
+    [modifiedDate] => 2024-09-27T17:57:03Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UCco5SXhfmebP
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:56:51Z
+    [modifiedDate] => 2024-09-27T17:57:04Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023218231085
+            [approvalCode] => 257158
+            [tranId] => 14961896358
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409275UCco5SXhfmebP
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:56:51Z
+    [modifiedDate] => 2024-09-27T17:57:04Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023218231085
+            [approvalCode] => 257158
+            [tranId] => 14961896358
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409279Aeu1EHgDxuKoL
+    [status] => created
+    [amount] => 500
+    [ccy] => 980
+    [createdDate] => 2024-09-27T18:07:15Z
+    [modifiedDate] => 2024-09-27T18:07:15Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409279Aeu1EHgDxuKoL
+    [status] => processing
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-09-27T18:07:15Z
+    [modifiedDate] => 2024-09-27T18:07:24Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409279Aeu1EHgDxuKoL
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T18:07:15Z
+    [modifiedDate] => 2024-09-27T18:07:25Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023224452041
+            [approvalCode] => 471476
+            [tranId] => 14962030096
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2409279Aeu1EHgDxuKoL
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T18:07:15Z
+    [modifiedDate] => 2024-09-27T18:07:25Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023224452041
+            [approvalCode] => 471476
+            [tranId] => 14962030096
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 240927AxNzaTeGBT5svx
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 500
+    [ccy] => 980
+    [finalAmount] => 500
+    [createdDate] => 2024-09-27T17:29:57Z
+    [modifiedDate] => 2024-09-27T17:30:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 023202162019
+            [approvalCode] => 155156
+            [tranId] => 14961519074
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7
+            [paymentMethod] => monobank
+            [maskedPan] => 53754114******68
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410036ZcS3LJHYuoka4
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-03T11:30:05Z
+    [modifiedDate] => 2024-10-03T11:30:05Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241003EGXv7ddp3pqsxW
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-03T12:00:22Z
+    [modifiedDate] => 2024-10-03T12:00:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241003EGXv7ddp3pqsxW
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-03T12:00:22Z
+    [modifiedDate] => 2024-10-03T12:00:30Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241003EGXv7ddp3pqsxW
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-03T12:00:22Z
+    [modifiedDate] => 2024-10-03T12:00:31Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 028188301107
+            [approvalCode] => 018818
+            [tranId] => 15039930391
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******05
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241003EGXv7ddp3pqsxW
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-03T12:00:22Z
+    [modifiedDate] => 2024-10-03T12:00:31Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 028188301107
+            [approvalCode] => 018818
+            [tranId] => 15039930391
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******05
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410086eQAYUJnwkiC6M
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-08T11:15:22Z
+    [modifiedDate] => 2024-10-08T11:15:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410081244diSrLZLdmp
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-08T12:35:43Z
+    [modifiedDate] => 2024-10-08T12:35:43Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410081244diSrLZLdmp
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-08T12:35:43Z
+    [modifiedDate] => 2024-10-08T12:37:05Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410081244diSrLZLdmp
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-08T12:35:43Z
+    [modifiedDate] => 2024-10-08T12:37:24Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 032530261021
+            [approvalCode] => 675078
+            [tranId] => 15106825641
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******42
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410081244diSrLZLdmp
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-08T12:35:43Z
+    [modifiedDate] => 2024-10-08T12:37:24Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 032530261021
+            [approvalCode] => 675078
+            [tranId] => 15106825641
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******42
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009ARd9EUgfqd59Q3
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T06:31:44Z
+    [modifiedDate] => 2024-10-09T06:31:44Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009ARd9EUgfqd59Q3
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T06:31:44Z
+    [modifiedDate] => 2024-10-09T06:32:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009ARd9EUgfqd59Q3
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-09T06:31:44Z
+    [modifiedDate] => 2024-10-09T06:32:48Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 033175272119
+            [approvalCode] => 505497
+            [tranId] => 15115415747
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 45478836******23
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009ARd9EUgfqd59Q3
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-09T06:31:44Z
+    [modifiedDate] => 2024-10-09T06:32:48Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 033175272119
+            [approvalCode] => 505497
+            [tranId] => 15115415747
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 45478836******23
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BHQ8pdRxpRaWZo
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:01:21Z
+    [modifiedDate] => 2024-10-09T13:01:21Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BL3nLFzD36GAqM
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:02:52Z
+    [modifiedDate] => 2024-10-09T13:02:52Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410092is1DDyfo8zVDA
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:10:21Z
+    [modifiedDate] => 2024-10-09T13:10:21Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410092NYa43EGogRmAe
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:14:40Z
+    [modifiedDate] => 2024-10-09T13:14:40Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410098xRTGdEr66p5fx
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:16:12Z
+    [modifiedDate] => 2024-10-09T13:16:12Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410098xRTGdEr66p5fx
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T13:16:12Z
+    [modifiedDate] => 2024-10-09T13:17:11Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410097QCDUPPVRssT5Z
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:20:07Z
+    [modifiedDate] => 2024-10-09T13:20:07Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410096t3E2gw6tRY4KL
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:20:18Z
+    [modifiedDate] => 2024-10-09T13:20:18Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410096t3E2gw6tRY4KL
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T13:20:18Z
+    [modifiedDate] => 2024-10-09T13:21:27Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410098xRTGdEr66p5fx
+    [status] => failure
+    [failureReason] => 3-D Secure перервана по тайм-ауту
+    [errCode] => 1045
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T13:16:12Z
+    [modifiedDate] => 2024-10-09T13:33:09Z
+    [paymentInfo] => Array
+        (
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 41494999******56
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BtSTUBpLo2y5NY
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-09T13:37:11Z
+    [modifiedDate] => 2024-10-09T13:37:11Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410096t3E2gw6tRY4KL
+    [status] => failure
+    [failureReason] => 3-D Secure перервана по тайм-ауту
+    [errCode] => 1045
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T13:20:18Z
+    [modifiedDate] => 2024-10-09T13:37:14Z
+    [paymentInfo] => Array
+        (
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 41494999******56
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BtSTUBpLo2y5NY
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-09T13:37:11Z
+    [modifiedDate] => 2024-10-09T13:38:33Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BtSTUBpLo2y5NY
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-09T13:37:11Z
+    [modifiedDate] => 2024-10-09T13:39:54Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 033431131145
+            [approvalCode] => E62D81
+            [tranId] => 15121760579
+            [terminal] => MI018448
+            [bank] => А-Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51691551******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241009BtSTUBpLo2y5NY
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-09T13:37:11Z
+    [modifiedDate] => 2024-10-09T13:39:54Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 033431131145
+            [approvalCode] => E62D81
+            [tranId] => 15121760579
+            [terminal] => MI018448
+            [bank] => А-Банк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51691551******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010B4G5e5DCVqroGC
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-10T08:30:15Z
+    [modifiedDate] => 2024-10-10T08:30:15Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010B4G5e5DCVqroGC
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-10T08:30:15Z
+    [modifiedDate] => 2024-10-10T08:35:55Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010B4G5e5DCVqroGC
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-10T08:30:15Z
+    [modifiedDate] => 2024-10-10T08:36:12Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 034113551119
+            [approvalCode] => 853903
+            [tranId] => 15130894389
+            [terminal] => MI018448
+            [bank] => Райффайзен Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 41495001******44
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010B4G5e5DCVqroGC
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-10T08:30:15Z
+    [modifiedDate] => 2024-10-10T08:36:12Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 034113551119
+            [approvalCode] => 853903
+            [tranId] => 15130894389
+            [terminal] => MI018448
+            [bank] => Райффайзен Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 41495001******44
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010D2kjLA46iBaTAA
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-10T18:06:15Z
+    [modifiedDate] => 2024-10-10T18:06:15Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010D2kjLA46iBaTAA
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-10T18:06:15Z
+    [modifiedDate] => 2024-10-10T18:06:41Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010D2kjLA46iBaTAA
+    [status] => failure
+    [failureReason] => Виникла непередбачена помилка
+    [errCode] => 63
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-10T18:06:15Z
+    [modifiedDate] => 2024-10-10T18:06:43Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 034456011167
+            [tranId] => 15140100881
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 46276116******94
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010F7s9rAykTJcN12
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-10T19:01:22Z
+    [modifiedDate] => 2024-10-10T19:01:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010F7s9rAykTJcN12
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-10T19:01:22Z
+    [modifiedDate] => 2024-10-10T19:01:36Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010F7s9rAykTJcN12
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-10T19:01:22Z
+    [modifiedDate] => 2024-10-10T19:01:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 034488971039
+            [approvalCode] => 719424
+            [tranId] => 15140714104
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 46276116******94
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241010F7s9rAykTJcN12
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-10T19:01:22Z
+    [modifiedDate] => 2024-10-10T19:01:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 034488971039
+            [approvalCode] => 719424
+            [tranId] => 15140714104
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 46276116******94
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24101134AbXnZNT6Mh8g
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-11T18:06:40Z
+    [modifiedDate] => 2024-10-11T18:06:40Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410127dcgoe5xa7zvQi
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-12T07:35:38Z
+    [modifiedDate] => 2024-10-12T07:35:38Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410127dcgoe5xa7zvQi
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-12T07:35:38Z
+    [modifiedDate] => 2024-10-12T07:38:38Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410125JC3va9y1NC4ut
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-12T07:40:43Z
+    [modifiedDate] => 2024-10-12T07:40:43Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410125JC3va9y1NC4ut
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-12T07:40:43Z
+    [modifiedDate] => 2024-10-12T07:41:13Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410125JC3va9y1NC4ut
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-12T07:40:43Z
+    [modifiedDate] => 2024-10-12T07:42:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 035808732111
+            [approvalCode] => 722584
+            [tranId] => 15158152530
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 41496293******58
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410125JC3va9y1NC4ut
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-12T07:40:43Z
+    [modifiedDate] => 2024-10-12T07:42:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 035808732111
+            [approvalCode] => 722584
+            [tranId] => 15158152530
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 41496293******58
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410127dcgoe5xa7zvQi
+    [status] => failure
+    [failureReason] => 3-D Secure перервана по тайм-ауту
+    [errCode] => 1045
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-12T07:35:38Z
+    [modifiedDate] => 2024-10-12T07:54:26Z
+    [paymentInfo] => Array
+        (
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 47312196******58
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014AcSvDKcY5zFfec
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-14T06:11:52Z
+    [modifiedDate] => 2024-10-14T06:11:52Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014AcSvDKcY5zFfec
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-14T06:11:52Z
+    [modifiedDate] => 2024-10-14T06:12:34Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014AcSvDKcY5zFfec
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-14T06:11:52Z
+    [modifiedDate] => 2024-10-14T06:13:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 037483552009
+            [approvalCode] => 118206
+            [tranId] => 15182048379
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 53635420******06
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014AcSvDKcY5zFfec
+    [status] => success
+    [payMethod] => google
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-14T06:11:52Z
+    [modifiedDate] => 2024-10-14T06:13:02Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 037483552009
+            [approvalCode] => 118206
+            [tranId] => 15182048379
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => google
+            [maskedPan] => 53635420******06
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014DLMs4FBb8rpDcA
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-14T15:56:04Z
+    [modifiedDate] => 2024-10-14T15:56:04Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014DLMs4FBb8rpDcA
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-14T15:56:04Z
+    [modifiedDate] => 2024-10-14T15:56:38Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014DLMs4FBb8rpDcA
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-14T15:56:04Z
+    [modifiedDate] => 2024-10-14T15:59:00Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 037833991057
+            [approvalCode] => 784103
+            [tranId] => 15190597890
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241014DLMs4FBb8rpDcA
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-14T15:56:04Z
+    [modifiedDate] => 2024-10-14T15:59:00Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 037833991057
+            [approvalCode] => 784103
+            [tranId] => 15190597890
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241023DBYbskCcW982iu
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-23T12:55:50Z
+    [modifiedDate] => 2024-10-23T12:55:50Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241023DBYbskCcW982iu
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-23T12:55:50Z
+    [modifiedDate] => 2024-10-23T12:59:48Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241023DBYbskCcW982iu
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-23T12:55:50Z
+    [modifiedDate] => 2024-10-23T13:00:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 045503892017
+            [approvalCode] => 455550
+            [tranId] => 15308947714
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => pan
+            [maskedPan] => 47907299******94
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241023DBYbskCcW982iu
+    [status] => success
+    [payMethod] => pan
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-23T12:55:50Z
+    [modifiedDate] => 2024-10-23T13:00:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 045503892017
+            [approvalCode] => 455550
+            [tranId] => 15308947714
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => pan
+            [maskedPan] => 47907299******94
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:30:30Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:30:50Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => failure
+    [failureReason] => Виникла непередбачена помилка
+    [errCode] => 63
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:30:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 047970502115
+            [tranId] => 15347251309
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 45494313******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:31:41Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:31:43Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 047971012133
+            [approvalCode] => 438078
+            [tranId] => 15347264292
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 45494313******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241026TJzGaxTwVnT4H
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-10-26T09:30:30Z
+    [modifiedDate] => 2024-10-26T09:31:43Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 047971012133
+            [approvalCode] => 438078
+            [tranId] => 15347264292
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 45494313******53
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410288FYidVRPrtRZfe
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-10-28T19:07:27Z
+    [modifiedDate] => 2024-10-28T19:07:27Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410288FYidVRPrtRZfe
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-28T19:07:27Z
+    [modifiedDate] => 2024-10-28T19:14:33Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410288FYidVRPrtRZfe
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-28T19:07:27Z
+    [modifiedDate] => 2024-10-28T19:15:34Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 050048741013
+            [approvalCode] => 103443
+            [tranId] => 15381225377
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 51687456******37
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410288FYidVRPrtRZfe
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-10-28T19:07:27Z
+    [modifiedDate] => 2024-10-28T19:15:34Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 050048741013
+            [approvalCode] => 103443
+            [tranId] => 15381225377
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 51687456******37
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241029BN1oVMdq7b1Qwd
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-29T14:27:33Z
+    [modifiedDate] => 2024-10-29T14:27:33Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241029BN1oVMdq7b1Qwd
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-29T14:27:33Z
+    [modifiedDate] => 2024-10-29T14:30:42Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241029BN1oVMdq7b1Qwd
+    [status] => failure
+    [failureReason] => 3-D Secure перервана по тайм-ауту
+    [errCode] => 1045
+    [payMethod] => pan
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-10-29T14:27:33Z
+    [modifiedDate] => 2024-10-29T14:46:24Z
+    [paymentInfo] => Array
+        (
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => pan
+            [maskedPan] => 47312196******87
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2410302U2WsfDn9FffWH
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-10-30T19:32:34Z
+    [modifiedDate] => 2024-10-30T19:32:34Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411025XXAtiXPGevAXJ
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-02T12:56:23Z
+    [modifiedDate] => 2024-11-02T12:56:23Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411025XXAtiXPGevAXJ
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-02T12:56:23Z
+    [modifiedDate] => 2024-11-02T12:56:57Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411025XXAtiXPGevAXJ
+    [status] => failure
+    [failureReason] => Виникла непередбачена помилка
+    [errCode] => 63
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-02T12:56:23Z
+    [modifiedDate] => 2024-11-02T12:56:59Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 054142181009
+            [tranId] => 15446871864
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T12:57:50Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T12:58:54Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => failure
+    [failureReason] => Виникла непередбачена помилка
+    [errCode] => 63
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T12:58:56Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 054143341109
+            [tranId] => 15446903170
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T13:01:08Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => success
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T13:01:11Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 054144692079
+            [approvalCode] => 456185
+            [tranId] => 15446938630
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241102BkCATYqiCu7jBC
+    [status] => success
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-02T12:57:50Z
+    [modifiedDate] => 2024-11-02T13:01:11Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 054144692079
+            [approvalCode] => 456185
+            [tranId] => 15446938630
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 45494224******49
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411037cBd8w6eo2bK7M
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-03T12:23:20Z
+    [modifiedDate] => 2024-11-03T12:23:20Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411036V1nfTqdVo78MN
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-03T14:01:39Z
+    [modifiedDate] => 2024-11-03T14:01:39Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241106CGPkkTvcG3yxz4
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-06T11:40:08Z
+    [modifiedDate] => 2024-11-06T11:40:08Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411076SSoxgx1E5A5X5
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-07T05:47:21Z
+    [modifiedDate] => 2024-11-07T05:47:21Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24110736p978S9eR6Ha2
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-07T05:52:26Z
+    [modifiedDate] => 2024-11-07T05:52:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24110736p978S9eR6Ha2
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-07T05:52:26Z
+    [modifiedDate] => 2024-11-07T05:53:17Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 24110736p978S9eR6Ha2
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-07T05:52:26Z
+    [modifiedDate] => 2024-11-07T05:54:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 058207971057
+            [approvalCode] => 479453
+            [tranId] => 15507095095
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51678032******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 24110736p978S9eR6Ha2
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-07T05:52:26Z
+    [modifiedDate] => 2024-11-07T05:54:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 058207971057
+            [approvalCode] => 479453
+            [tranId] => 15507095095
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51678032******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411078X4qvw4cp3zfWa
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-07T10:56:26Z
+    [modifiedDate] => 2024-11-07T10:56:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411078X4qvw4cp3zfWa
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-07T10:56:26Z
+    [modifiedDate] => 2024-11-07T10:56:40Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411078X4qvw4cp3zfWa
+    [status] => success
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-07T10:56:26Z
+    [modifiedDate] => 2024-11-07T10:56:42Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 058390011023
+            [approvalCode] => 736368
+            [tranId] => 15510849865
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 49212518******30
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411078X4qvw4cp3zfWa
+    [status] => success
+    [payMethod] => apple
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-07T10:56:26Z
+    [modifiedDate] => 2024-11-07T10:56:42Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 058390011023
+            [approvalCode] => 736368
+            [tranId] => 15510849865
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => apple
+            [maskedPan] => 49212518******30
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241108Don11CiMW6ofEx
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-08T06:08:06Z
+    [modifiedDate] => 2024-11-08T06:08:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241108Don11CiMW6ofEx
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-08T06:08:06Z
+    [modifiedDate] => 2024-11-08T06:08:35Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241108Don11CiMW6ofEx
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-08T06:08:06Z
+    [modifiedDate] => 2024-11-08T06:09:13Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 059081152031
+            [approvalCode] => 479457
+            [tranId] => 15521461360
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51678032******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241108Don11CiMW6ofEx
+    [status] => success
+    [payMethod] => pan
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-08T06:08:06Z
+    [modifiedDate] => 2024-11-08T06:09:13Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 059081152031
+            [approvalCode] => 479457
+            [tranId] => 15521461360
+            [terminal] => MI018448
+            [bank] => Ощадбанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => pan
+            [maskedPan] => 51678032******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241109CRdBobtzLxjdwH
+    [status] => created
+    [amount] => 600000
+    [ccy] => 980
+    [createdDate] => 2024-11-09T09:16:48Z
+    [modifiedDate] => 2024-11-09T09:16:48Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241109CRdBobtzLxjdwH
+    [status] => processing
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-09T09:16:48Z
+    [modifiedDate] => 2024-11-09T09:18:55Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241109CRdBobtzLxjdwH
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-11-09T09:16:48Z
+    [modifiedDate] => 2024-11-09T09:18:57Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 060059352125
+            [approvalCode] => 153431
+            [tranId] => 15537928900
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 51677936******66
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241109CRdBobtzLxjdwH
+    [status] => success
+    [payMethod] => apple
+    [amount] => 600000
+    [ccy] => 980
+    [finalAmount] => 600000
+    [createdDate] => 2024-11-09T09:16:48Z
+    [modifiedDate] => 2024-11-09T09:18:57Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 060059352125
+            [approvalCode] => 153431
+            [tranId] => 15537928900
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7800
+            [paymentMethod] => apple
+            [maskedPan] => 51677936******66
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241110xMuG2GQ8JKSAc
+    [status] => created
+    [amount] => 570000
+    [ccy] => 980
+    [createdDate] => 2024-11-10T18:04:36Z
+    [modifiedDate] => 2024-11-10T18:04:36Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241110xMuG2GQ8JKSAc
+    [status] => processing
+    [amount] => 570000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-10T18:04:36Z
+    [modifiedDate] => 2024-11-10T18:05:23Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241110xMuG2GQ8JKSAc
+    [status] => success
+    [payMethod] => apple
+    [amount] => 570000
+    [ccy] => 980
+    [finalAmount] => 570000
+    [createdDate] => 2024-11-10T18:04:36Z
+    [modifiedDate] => 2024-11-10T18:05:24Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 061239232081
+            [approvalCode] => 453432
+            [tranId] => 15558580632
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7410
+            [paymentMethod] => apple
+            [maskedPan] => 51677936******66
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241110xMuG2GQ8JKSAc
+    [status] => success
+    [payMethod] => apple
+    [amount] => 570000
+    [ccy] => 980
+    [finalAmount] => 570000
+    [createdDate] => 2024-11-10T18:04:36Z
+    [modifiedDate] => 2024-11-10T18:05:24Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 061239232081
+            [approvalCode] => 453432
+            [tranId] => 15558580632
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 7410
+            [paymentMethod] => apple
+            [maskedPan] => 51677936******66
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411115EDJQGS1bgNnuk
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-11T09:50:35Z
+    [modifiedDate] => 2024-11-11T09:50:35Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241111B6rZ5YFgJsuByp
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-11T09:51:07Z
+    [modifiedDate] => 2024-11-11T09:51:07Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241111B6rZ5YFgJsuByp
+    [status] => processing
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-11T09:51:07Z
+    [modifiedDate] => 2024-11-11T09:51:24Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241111B6rZ5YFgJsuByp
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-11T09:51:07Z
+    [modifiedDate] => 2024-11-11T09:51:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 061806841121
+            [approvalCode] => 565911
+            [tranId] => 15564219874
+            [terminal] => MI018448
+            [bank] => Райффайзен Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 44913557******57
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241111B6rZ5YFgJsuByp
+    [status] => success
+    [payMethod] => google
+    [amount] => 550000
+    [ccy] => 980
+    [finalAmount] => 550000
+    [createdDate] => 2024-11-11T09:51:07Z
+    [modifiedDate] => 2024-11-11T09:51:38Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 061806841121
+            [approvalCode] => 565911
+            [tranId] => 15564219874
+            [terminal] => MI018448
+            [bank] => Райффайзен Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 7150
+            [paymentMethod] => google
+            [maskedPan] => 44913557******57
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411116XTgmGTjetR56i
+    [status] => created
+    [amount] => 550000
+    [ccy] => 980
+    [createdDate] => 2024-11-11T15:53:01Z
+    [modifiedDate] => 2024-11-11T15:53:01Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411133xnK3J4urauUn6
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T09:27:01Z
+    [modifiedDate] => 2024-11-13T09:27:01Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113DdKU8zx4qupGoT
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T12:52:04Z
+    [modifiedDate] => 2024-11-13T12:52:04Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113DdKU8zx4qupGoT
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-13T12:52:04Z
+    [modifiedDate] => 2024-11-13T12:52:51Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113DdKU8zx4qupGoT
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T12:52:04Z
+    [modifiedDate] => 2024-11-13T12:52:04Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113DdKU8zx4qupGoT
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T12:52:04Z
+    [modifiedDate] => 2024-11-13T12:53:20Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063643722019
+            [approvalCode] => 998122
+            [tranId] => 15596592502
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 51687456******32
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113DdKU8zx4qupGoT
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T12:52:04Z
+    [modifiedDate] => 2024-11-13T12:53:20Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063643722019
+            [approvalCode] => 998122
+            [tranId] => 15596592502
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 51687456******32
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411134b5YiCdWLPHtqG
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T16:03:29Z
+    [modifiedDate] => 2024-11-13T16:03:29Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411134b5YiCdWLPHtqG
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-13T16:03:29Z
+    [modifiedDate] => 2024-11-13T16:03:42Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411134b5YiCdWLPHtqG
+    [status] => success
+    [payMethod] => apple
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T16:03:29Z
+    [modifiedDate] => 2024-11-13T16:03:45Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063758231019
+            [approvalCode] => 632634
+            [tranId] => 15599954359
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => apple
+            [maskedPan] => 54920341******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411134b5YiCdWLPHtqG
+    [status] => success
+    [payMethod] => apple
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T16:03:29Z
+    [modifiedDate] => 2024-11-13T16:03:45Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063758231019
+            [approvalCode] => 632634
+            [tranId] => 15599954359
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => apple
+            [maskedPan] => 54920341******38
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411137BJK6qC9eTTufA
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T19:42:31Z
+    [modifiedDate] => 2024-11-13T19:42:31Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411137BJK6qC9eTTufA
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-13T19:42:31Z
+    [modifiedDate] => 2024-11-13T19:48:25Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411137BJK6qC9eTTufA
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T19:42:31Z
+    [modifiedDate] => 2024-11-13T19:49:07Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063893061055
+            [approvalCode] => 259226
+            [tranId] => 15603445335
+            [terminal] => MI018448
+            [bank] => Південний
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 53530500******45
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411137BJK6qC9eTTufA
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T19:42:31Z
+    [modifiedDate] => 2024-11-13T19:49:07Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063893061055
+            [approvalCode] => 259226
+            [tranId] => 15603445335
+            [terminal] => MI018448
+            [bank] => Південний
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 53530500******45
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113CEw3WE3a5DhaHq
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-13T20:51:12Z
+    [modifiedDate] => 2024-11-13T20:51:12Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113CEw3WE3a5DhaHq
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-13T20:51:12Z
+    [modifiedDate] => 2024-11-13T20:51:30Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113CEw3WE3a5DhaHq
+    [status] => success
+    [payMethod] => apple
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T20:51:12Z
+    [modifiedDate] => 2024-11-13T20:51:32Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063930911055
+            [approvalCode] => 642347
+            [tranId] => 15604024371
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => apple
+            [maskedPan] => 44302540******12
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241113CEw3WE3a5DhaHq
+    [status] => success
+    [payMethod] => apple
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-13T20:51:12Z
+    [modifiedDate] => 2024-11-13T20:51:32Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 063930911055
+            [approvalCode] => 642347
+            [tranId] => 15604024371
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => apple
+            [maskedPan] => 44302540******12
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114B8J7CNUqEg2VV9
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T06:30:51Z
+    [modifiedDate] => 2024-11-14T06:30:51Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114B8J7CNUqEg2VV9
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T06:30:51Z
+    [modifiedDate] => 2024-11-14T06:31:35Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114B8J7CNUqEg2VV9
+    [status] => success
+    [payMethod] => google
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T06:30:51Z
+    [modifiedDate] => 2024-11-14T06:31:35Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064278961023
+            [approvalCode] => 419212
+            [tranId] => 15605818892
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => google
+            [maskedPan] => 43260979******52
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114B8J7CNUqEg2VV9
+    [status] => success
+    [payMethod] => google
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T06:30:51Z
+    [modifiedDate] => 2024-11-14T06:31:35Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064278961023
+            [approvalCode] => 419212
+            [tranId] => 15605818892
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => google
+            [maskedPan] => 43260979******52
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411142uFcDWTyySrbav
+    [status] => created
+    [amount] => 1700
+    [ccy] => 980
+    [createdDate] => 2024-11-14T08:05:07Z
+    [modifiedDate] => 2024-11-14T08:05:07Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411142uFcDWTyySrbav
+    [status] => processing
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T08:05:07Z
+    [modifiedDate] => 2024-11-14T08:05:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411142uFcDWTyySrbav
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 1700
+    [createdDate] => 2024-11-14T08:05:07Z
+    [modifiedDate] => 2024-11-14T08:05:22Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064335231005
+            [approvalCode] => 923595
+            [tranId] => 15606864382
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 22
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******35
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411142uFcDWTyySrbav
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 1700
+    [createdDate] => 2024-11-14T08:05:07Z
+    [modifiedDate] => 2024-11-14T08:05:22Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064335231005
+            [approvalCode] => 923595
+            [tranId] => 15606864382
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 22
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******35
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ukHmxAsQGDTNm
+    [status] => created
+    [amount] => 1700
+    [ccy] => 980
+    [createdDate] => 2024-11-14T08:16:34Z
+    [modifiedDate] => 2024-11-14T08:16:34Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ukHmxAsQGDTNm
+    [status] => processing
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T08:16:34Z
+    [modifiedDate] => 2024-11-14T08:16:45Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ukHmxAsQGDTNm
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 1700
+    [createdDate] => 2024-11-14T08:16:34Z
+    [modifiedDate] => 2024-11-14T08:16:45Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064342052121
+            [approvalCode] => 428596
+            [tranId] => 15607013273
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 22
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******35
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ukHmxAsQGDTNm
+    [status] => created
+    [amount] => 1700
+    [ccy] => 980
+    [createdDate] => 2024-11-14T08:16:34Z
+    [modifiedDate] => 2024-11-14T08:16:34Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ukHmxAsQGDTNm
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 1700
+    [ccy] => 980
+    [finalAmount] => 1700
+    [createdDate] => 2024-11-14T08:16:34Z
+    [modifiedDate] => 2024-11-14T08:16:45Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064342052121
+            [approvalCode] => 428596
+            [tranId] => 15607013273
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 22
+            [paymentMethod] => monobank
+            [maskedPan] => 44411111******35
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411145BxxHWmPALG23
+    [status] => created
+    [amount] => 50000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T13:08:06Z
+    [modifiedDate] => 2024-11-14T13:08:06Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411147KCU4JK5fotdi6
+    [status] => created
+    [amount] => 25000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T13:17:01Z
+    [modifiedDate] => 2024-11-14T13:17:01Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114EmCT5N9vhRd3rL
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T16:41:24Z
+    [modifiedDate] => 2024-11-14T16:41:24Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114EmCT5N9vhRd3rL
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T16:41:24Z
+    [modifiedDate] => 2024-11-14T16:41:52Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114EmCT5N9vhRd3rL
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T16:41:24Z
+    [modifiedDate] => 2024-11-14T16:41:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064645121141
+            [approvalCode] => 418621
+            [tranId] => 15615338756
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => monobank
+            [maskedPan] => 44411110******87
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114EmCT5N9vhRd3rL
+    [status] => success
+    [payMethod] => monobank
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T16:41:24Z
+    [modifiedDate] => 2024-11-14T16:41:52Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064645121141
+            [approvalCode] => 418621
+            [tranId] => 15615338756
+            [terminal] => MI018448
+            [bank] => Універсал Банк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => monobank
+            [maskedPan] => 44411110******87
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411146pfigtks8BZkT6
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T16:56:02Z
+    [modifiedDate] => 2024-11-14T16:56:02Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411148CMpCKmfcmwFbS
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T17:03:23Z
+    [modifiedDate] => 2024-11-14T17:03:23Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411148CMpCKmfcmwFbS
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T17:03:23Z
+    [modifiedDate] => 2024-11-14T17:03:47Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411148CMpCKmfcmwFbS
+    [status] => success
+    [payMethod] => google
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T17:03:23Z
+    [modifiedDate] => 2024-11-14T17:03:47Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064658282059
+            [approvalCode] => 903179
+            [tranId] => 15615735522
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => google
+            [maskedPan] => 53635420******11
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411148CMpCKmfcmwFbS
+    [status] => success
+    [payMethod] => google
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T17:03:23Z
+    [modifiedDate] => 2024-11-14T17:03:47Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064658282059
+            [approvalCode] => 903179
+            [tranId] => 15615735522
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => google
+            [maskedPan] => 53635420******11
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411149JW1ukJZfQEFKt
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T17:09:26Z
+    [modifiedDate] => 2024-11-14T17:09:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411149JW1ukJZfQEFKt
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T17:09:26Z
+    [modifiedDate] => 2024-11-14T17:12:22Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411149JW1ukJZfQEFKt
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T17:09:26Z
+    [modifiedDate] => 2024-11-14T17:12:22Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064663422081
+            [approvalCode] => 388051
+            [tranId] => 15615889289
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******44
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 2411149JW1ukJZfQEFKt
+    [status] => success
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 170000
+    [createdDate] => 2024-11-14T17:09:26Z
+    [modifiedDate] => 2024-11-14T17:12:22Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064663422081
+            [approvalCode] => 388051
+            [tranId] => 15615889289
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => mastercard
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 54570825******44
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114D1yVdS7qQtc1fT
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T18:19:26Z
+    [modifiedDate] => 2024-11-14T18:19:26Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ELRrdrAXqSmrX2
+    [status] => created
+    [amount] => 170000
+    [ccy] => 980
+    [createdDate] => 2024-11-14T18:52:14Z
+    [modifiedDate] => 2024-11-14T18:52:14Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ELRrdrAXqSmrX2
+    [status] => processing
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T18:52:14Z
+    [modifiedDate] => 2024-11-14T18:57:16Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114ELRrdrAXqSmrX2
+    [status] => failure
+    [failureReason] => Термін дії картки закінчився
+    [errCode] => 51
+    [payMethod] => pan
+    [amount] => 170000
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T18:52:14Z
+    [modifiedDate] => 2024-11-14T18:57:16Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064726372029
+            [tranId] => 15617478416
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 2210
+            [paymentMethod] => pan
+            [maskedPan] => 41496090******70
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114F7KjKLPNdsmE5r
+    [status] => created
+    [amount] => 100
+    [ccy] => 980
+    [createdDate] => 2024-11-14T20:00:49Z
+    [modifiedDate] => 2024-11-14T20:00:49Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114F7KjKLPNdsmE5r
+    [status] => processing
+    [amount] => 100
+    [ccy] => 980
+    [finalAmount] => 0
+    [createdDate] => 2024-11-14T20:00:49Z
+    [modifiedDate] => 2024-11-14T20:01:17Z
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114F7KjKLPNdsmE5r
+    [status] => success
+    [payMethod] => pan
+    [amount] => 100
+    [ccy] => 980
+    [finalAmount] => 100
+    [createdDate] => 2024-11-14T20:00:49Z
+    [modifiedDate] => 2024-11-14T20:01:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064764772107
+            [approvalCode] => 082397
+            [tranId] => 15618197439
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 1
+            [paymentMethod] => pan
+            [maskedPan] => 41496090******98
+        )
+
+)
+
+Get data: Array
+(
+    [invoiceId] => 241114F7KjKLPNdsmE5r
+    [status] => success
+    [payMethod] => pan
+    [amount] => 100
+    [ccy] => 980
+    [finalAmount] => 100
+    [createdDate] => 2024-11-14T20:00:49Z
+    [modifiedDate] => 2024-11-14T20:01:17Z
+    [paymentInfo] => Array
+        (
+            [rrn] => 064764772107
+            [approvalCode] => 082397
+            [tranId] => 15618197439
+            [terminal] => MI018448
+            [bank] => ПриватБанк
+            [paymentSystem] => visa
+            [country] => 804
+            [fee] => 1
+            [paymentMethod] => pan
+            [maskedPan] => 41496090******98
+        )
+
+)
+

@@ -107,6 +107,7 @@ $regular_price = $product->get_regular_price();
                                 <input type="hidden" name="phone" value="' . $user_phone . '">
                                 <input type="hidden" name="user_full_name" value="' . $user_full_name . '">
                                 <input type="hidden" name="post-id" value="' . $product_id . '">
+                                <input type="hidden" name="post-type" value="' . get_post_type($attached_post) . '">
                                 <input type="hidden" name="amount" value="' . $regular_price . '">
                                 <input type="submit" value="' . esc_html($cta_button) . '"
                                 class="price-cta__cta-button green-transparent from-left">
@@ -139,13 +140,9 @@ $regular_price = $product->get_regular_price();
 echo get_template_part('src/template-parts/get-access-popup', null, array(
     'redirect_page' => get_the_permalink(),
     'price' => $regular_price,
-    'product_id' => $product_id
+    'product_id' => $product_id,
+    'post_type' => get_post_type($attached_post)
 ));
-
-// echo get_template_part('src/template-parts/pay-success-response', null, array(
-//     'payment' => $payment,
-//     'post_id' => $post_id
-// ));
 
 echo get_template_part('src/template-parts/continue-access-popup', null, array(
     'post_id' => get_the_ID(),
