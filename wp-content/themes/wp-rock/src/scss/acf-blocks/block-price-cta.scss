@@ -38,6 +38,7 @@
     }
 
     &__price {
+        position: relative;
         color: var(--color-type-primary-white);
         text-align: center;
         font-size: 40px;
@@ -47,6 +48,14 @@
 
         @media screen and (max-width: 768px) {
             font-size: 30px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse;
+            color: #888;
         }
     }
 

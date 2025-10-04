@@ -26,6 +26,8 @@ $cta_button = get_field_value($fields, 'cta_button');
 $product_id = get_field_value($fields, 'post_id');
 $product = wc_get_product($product_id);
 $price     = $product->get_regular_price();
+$sale_price = $product->get_sale_price();
+
 $popup_id = is_user_logged_in() ? '#' : '#login-popup';
 
 $link_class = $show_link ? 'shown-link' : '';
@@ -43,7 +45,7 @@ $user_email = is_user_logged_in() ? wp_get_current_user()->user_email : null;
 $is_programm_access_expire = $profile_functionality->is_programm_access_expire(get_current_user_id(), $attached_post);
 
 $product = wc_get_product($product_id);
-$regular_price = $product->get_regular_price();
+
 ?>
 <div class="price-cta js-anim-activate <?php echo $link_class; ?>">
     <div class="container d-flex flex-column">
@@ -65,6 +67,11 @@ $regular_price = $product->get_regular_price();
                 echo '<a href="tel:' . esc_html($clear_phone) . '" class="price-cta__phone from-right">
                             ' . esc_html($phone) . '
                         </a>';
+            } else if(!empty($sale_price) && !$show_link) {
+                echo '<p class="price-cta__price">
+                        <span class="old-price">'.$price.' '.get_woocommerce_currency().'</span>
+                        <span>' . esc_html($sale_price) . ' '.get_woocommerce_currency().'</span>
+                        </p>';
             } elseif (!empty($price) && !$show_link) {
                 echo '<p class="price-cta__price">' . esc_html($price) . ' '.get_woocommerce_currency().'</p>';
             }
@@ -139,7 +146,7 @@ $regular_price = $product->get_regular_price();
 <?php
 echo get_template_part('src/template-parts/get-access-popup', null, array(
     'redirect_page' => get_the_permalink(),
-    'price' => $regular_price,
+    'price' => !empty($sale_price) ? $sale_price : $price,
     'product_id' => $product_id,
     'post_type' => get_post_type($attached_post)
 ));
@@ -153,7 +160,7 @@ echo get_template_part('src/template-parts/have-access-popup', null, array());
 
 echo get_template_part('src/template-parts/buy-programm-popup', null, array(
     'post_id' => $product_id,
-    'price' => $regular_price,
+    'price' => !empty($sale_price) ? $sale_price : $price,
     'user_email' => $user_email
 ));
 ?>

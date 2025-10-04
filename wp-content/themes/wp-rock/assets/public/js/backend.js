@@ -54,12 +54,15 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
 /*!***************************!*\
   !*** ./src/js/backend.ts ***!
   \***************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_backend_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/backend.scss */ "./src/scss/backend.scss");
 
+}();
 /******/ })()
 ;
 //# sourceMappingURL=backend.js.map
